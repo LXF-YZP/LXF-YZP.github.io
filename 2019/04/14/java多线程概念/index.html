@@ -3,19 +3,20 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Hello World | 观鱼入知命</title>
+  <title>java多线程概念 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过C">
+<meta name="keywords" content="java多线程实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/09/19/hello-world/index.html">
+<meta property="og:title" content="java多线程概念">
+<meta property="og:url" content="http://yoursite.com/2019/04/14/java多线程概念/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过C">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T09:30:36.886Z">
+<meta property="og:updated_time" content="2019-04-15T11:57:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="java多线程概念">
+<meta name="twitter:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过C">
   
   
     <link rel="icon" href="/favicon.png">
@@ -163,11 +164,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-java多线程概念" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/09/19/hello-world/" class="article-date">
-  	<time datetime="2019-09-19T09:30:36.885Z" itemprop="datePublished">2019-09-19</time>
+      <a href="/2019/04/14/java多线程概念/" class="article-date">
+  	<time datetime="2019-04-14T03:39:16.000Z" itemprop="datePublished">2019-04-14</time>
 </a>
     </div>
   
@@ -180,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      java多线程概念
     </h1>
   
 
@@ -188,7 +189,15 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java多线程实现/">java多线程实现</a></li></ul>
+	</div>
+
         
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/java多线程/">java多线程</a>
+	</div>
+
 
         <div class="clearfix"></div>
       </div>
@@ -199,19 +208,12 @@
 	  
 		
 		
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>线程和进程的概念：<br>线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；<br>线程是程序中顺序控制流，只能使用分配给程序的资源和环境；<br>进程：执行中的程序，一个进程至少包含一个线程；<br>单线程：程序中只存在一个线程，实际上主方法就是一个主线程；<br>多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；<br>并发与并行的概念：<br>并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；<br>并发：通过CPU的调度算法，让用户看上去同时执行，实际上从CPU操作层面不是真正的同时，<br>并发往往在场景中有公共的资源，那么针对这个公用的资源往往产生瓶颈，我们会用TPS或者QPS来反映系统的处理能力；<br>线程安全：经常用来描绘一段代码。指在并发的情况之下，该代码经过多线程使用，线程的调度顺序不影响任何结果。这个时候使用多线程，我们只需要关注系统的内存，cpu 是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终结果。<br>同步：Java中同步指的是通过人为的控制和调度，保证共享资源的多线程访问成为线程安全，来保证结果的正确。例如在代码中简单的加入synchronize关键字，在保证结果正确的同时，提高了性能，线程安全优先级高于性能。</p>
+<p>即使是单核处理器也支持多线程执行代码，CPU通过给每个线程分配CPU时间片来实现这个机制。时间片是CPU分配给各个线程的时间，因为时间片非常短，所以CPU通过不停的切换线程执行，让我们感觉多个线程是同时执行的，时间片一般是几十毫秒（ms）。CPU通过时间片分配算法来循环执行任务，当前任务执行一个时间片后会切换到下个任务，但是在切换前会保存上一个任务的状态，以便下次切换回这个任务时，可以再加载这个任务的状态。所以任务的保存到再加载的过程就是一次上下文切换。</p>
+<p>Java程序是操作系统的一个进程，而线程是进程中创建的贡献进程的资源。多线程主要是利用多处理器实现并发功能的。<br>并发原理：<br>多个线程“同时”运行只是我们感官上的一种表现。事实上线程是并发运行的（时间片轮转进程调度算法），单个CPU的情况下任何一个时间内有且仅有一个进程占有CPU，如果有多个CPU，情况就不同了，如果进程数小于CPU数，则不同的进程可以分配给不同的CPU来运行，这样，各个进程就是真正同时运行的，这便是并行。但如果进程数大于CPU数，则仍然需要使用并发技术。OS将时间划分为很多时间片段（时间片），尽可能的均匀分配给每一个线程，获取时间片段的线程被CPU运行，而其他线程全部等，只要每个时间片段足够小，用户根本感觉不出来CPU是在轮流为多个进程服务，就好象所有的进程都在不间断地运行一样。所有并发技术不是绝对意义上的“同时发生”。</p>
+<p>单核CPU(单处理器)上，只可能存在并发而不可能存在并行。并行在多处理器系统中存在，而并发可以在单处理器和多处理器系统中都存在，并发能够在单处理器系统中存在是因为并发是并行的假象，并行要求程序能够同时执行多个操作，而并发只是要求程序假装同时执行多个操作，每个小时间片执行一个操作，多个操作快速切换执行.</p>
+<p>注意：Java中的多线程是一种抢占机制而不是分时机制。<br>抢占机制指的是有多个线程处于可运行状态，但是只允许一个线程在运行，他们通过竞争的方式抢占CPU。注意：重写(override)run()方法在该线程的start()方法被调用后，JVM会自动调用run方法来执行任务；但是重载（overload）run()方法，该方法和普通的成员方法一样，并不会因调用该线程的start()方法而被JVM自动运行。</p>
+<p>Java中线程也是用一个对象(java.lang.Thread)来表示的。<br>每个进程至少有一个线程，作为程序的入口，通常情况下这个线程我们称之为主线程。<br>在Java中，程序的入口是main方法，因此main方法实际上就是运行在主线程中的。</p>
 
       
     </div>
@@ -221,9 +223,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2019/04/15/java集合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          java集合
+        
+      </div>
+    </a>
   
-    <a href="/2019/05/14/数据结构-Trie树/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-Trie树</div>
+  
+    <a href="/2019/04/13/hdfs原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hdfs原理</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
