@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 ob">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-26T11:59:00.000Z">
+<meta property="og:updated_time" content="2019-09-20T03:34:00.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Synchronized关键字总结">
 <meta name="twitter:description" content="当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 ob">
@@ -214,6 +214,7 @@
 		
 		
         <p>当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。</p>
+<a id="more"></a>
 <p>1.synchronized用在类中的非静态方法中，synchronized锁住的是对象this，只有调用同一个对象的方法才需要获取锁，并且同一个对象中所有加了synchronized关键字的非静态方法只能一次调用一个。</p>
 <p>2.两个线程用同一个对象分别访问该对象的两个同步方法，会产生互斥。因为synchronized锁针对的是对象，当对象调用一个 synchronized 方法时，其他同步方法需要等待其执行结束并释放锁后才能执行。</p>
 <p>3.不同对象在两个线程中调用同一个同步方法，不会产生互斥。因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是 new 一个对象，那么就会出现两个空间，两把钥匙；</p>
