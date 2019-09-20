@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>java多线程概念 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；">
+  <meta name="description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源； 并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过">
 <meta name="keywords" content="java多线程实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java多线程概念">
 <meta property="og:url" content="http://yoursite.com/2019/04/14/java多线程概念/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；">
+<meta property="og:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源； 并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-20T03:33:36.066Z">
+<meta property="og:updated_time" content="2019-09-20T07:54:01.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java多线程概念">
-<meta name="twitter:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；">
+<meta name="twitter:description" content="线程和进程的概念：线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；线程是程序中顺序控制流，只能使用分配给程序的资源和环境；进程：执行中的程序，一个进程至少包含一个线程；单线程：程序中只存在一个线程，实际上主方法就是一个主线程；多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源； 并发与并行的概念：并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；并发：通过">
   
   
     <link rel="icon" href="/favicon.png">
@@ -173,7 +173,6 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>线程和进程的概念：<br>线程：进程中负责程序执行的执行单元，线程本身依靠程序进行运行；<br>线程是程序中顺序控制流，只能使用分配给程序的资源和环境；<br>进程：执行中的程序，一个进程至少包含一个线程；<br>单线程：程序中只存在一个线程，实际上主方法就是一个主线程；<br>多线程：在一个程序中运行多个任务，目的是更好的使用CPU资源；</p>
-<a id="more"></a>
 <p>并发与并行的概念：<br>并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时；<br>并发：通过CPU的调度算法，让用户看上去同时执行，实际上从CPU操作层面不是真正的同时，<br>并发往往在场景中有公共的资源，那么针对这个公用的资源往往产生瓶颈，我们会用TPS或者QPS来反映系统的处理能力；<br>线程安全：经常用来描绘一段代码。指在并发的情况之下，该代码经过多线程使用，线程的调度顺序不影响任何结果。这个时候使用多线程，我们只需要关注系统的内存，cpu 是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终结果。<br>同步：Java中同步指的是通过人为的控制和调度，保证共享资源的多线程访问成为线程安全，来保证结果的正确。例如在代码中简单的加入synchronize关键字，在保证结果正确的同时，提高了性能，线程安全优先级高于性能。</p>
 <p>即使是单核处理器也支持多线程执行代码，CPU通过给每个线程分配CPU时间片来实现这个机制。时间片是CPU分配给各个线程的时间，因为时间片非常短，所以CPU通过不停的切换线程执行，让我们感觉多个线程是同时执行的，时间片一般是几十毫秒（ms）。CPU通过时间片分配算法来循环执行任务，当前任务执行一个时间片后会切换到下个任务，但是在切换前会保存上一个任务的状态，以便下次切换回这个任务时，可以再加载这个任务的状态。所以任务的保存到再加载的过程就是一次上下文切换。</p>
 <p>Java程序是操作系统的一个进程，而线程是进程中创建的贡献进程的资源。多线程主要是利用多处理器实现并发功能的。<br>并发原理：<br>多个线程“同时”运行只是我们感官上的一种表现。事实上线程是并发运行的（时间片轮转进程调度算法），单个CPU的情况下任何一个时间内有且仅有一个进程占有CPU，如果有多个CPU，情况就不同了，如果进程数小于CPU数，则不同的进程可以分配给不同的CPU来运行，这样，各个进程就是真正同时运行的，这便是并行。但如果进程数大于CPU数，则仍然需要使用并发技术。OS将时间划分为很多时间片段（时间片），尽可能的均匀分配给每一个线程，获取时间片段的线程被CPU运行，而其他线程全部等，只要每个时间片段足够小，用户根本感觉不出来CPU是在轮流为多个进程服务，就好象所有的进程都在不间断地运行一样。所有并发技术不是绝对意义上的“同时发生”。</p>
@@ -428,6 +427,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
@@ -440,15 +443,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">多线程volatile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">多线程volatile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,7 +455,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,7 +463,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,11 +475,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
