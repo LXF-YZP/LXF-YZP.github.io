@@ -16,7 +16,7 @@
 <meta property="og:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.  对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。 对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/.com//aaa.png">
-<meta property="og:updated_time" content="2019-09-20T10:24:03.888Z">
+<meta property="og:updated_time" content="2019-09-20T10:26:00.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile">
 <meta name="twitter:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.  对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。 对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
@@ -215,8 +215,8 @@
 <nav id="article-nav">
   
   
-    <a href="../../../05/14/数据结构-二叉树/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-二叉树</div>
+    <a href="../../../05/14/数据结构-Trie树/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构-Trie树</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -338,15 +338,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -354,7 +350,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -362,11 +358,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -374,11 +370,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -386,7 +382,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -394,15 +394,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
             
             <div class="clearfix"></div>
