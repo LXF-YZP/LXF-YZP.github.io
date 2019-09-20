@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.  对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。 对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/.com//aaa.png">
-<meta property="og:updated_time" content="2019-09-20T11:12:25.589Z">
+<meta property="og:image" content="https://uploadfiles.nowcoder.com/images/20180713/3807435_1531452406842_12E1F2929DB1B27B02E4730D07717AB7">
+<meta property="og:updated_time" content="2019-09-20T11:22:39.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile">
 <meta name="twitter:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.  对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。 对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
-<meta name="twitter:image" content="http://yoursite.com/.com//aaa.png">
+<meta name="twitter:image" content="https://uploadfiles.nowcoder.com/images/20180713/3807435_1531452406842_12E1F2929DB1B27B02E4730D07717AB7">
   
   
     <link rel="icon" href="/favicon.png">
@@ -178,7 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.<br><img src="/.com//aaa.png" alt="aaa"></p>
+        <p>在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.<br><img src="https://uploadfiles.nowcoder.com/images/20180713/3807435_1531452406842_12E1F2929DB1B27B02E4730D07717AB7" alt="aaa"></p>
 <ol>
 <li>对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。</li>
 <li>对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM 也会把工作内存中对应的数据刷新到主内存中，这种情况下，其他线程就可以读取变量的最新值。</li>
