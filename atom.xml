@@ -93,25 +93,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-散列表</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-散列表/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:32:12.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-散列表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-栈</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-栈/</id>
@@ -127,6 +108,25 @@
     
     
       <category term="数据结构-栈" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-散列表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-散列表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:32:12.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-散列表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
     
   </entry>
   
@@ -150,25 +150,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-链表</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-链表/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:29:12.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-链表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-队列</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-队列/</id>
@@ -184,6 +165,25 @@
     
     
       <category term="数据结构-队列" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-链表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-链表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:29:12.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-链表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -258,14 +258,13 @@
     <link href="http://yoursite.com/2019/04/22/%E4%B8%BA%E4%BD%95%E9%9D%9E%E8%A6%81%E5%AD%A6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/"/>
     <id>http://yoursite.com/2019/04/22/为何非要学数据结构和算法/</id>
     <published>2019-04-22T11:36:34.000Z</published>
-    <updated>2019-09-20T03:30:19.061Z</updated>
+    <updated>2019-09-20T03:32:07.601Z</updated>
     
-    <content type="html"><![CDATA[<p>计算机专业里数据结构这门课在大学是必修课，很多程序员在毕业之后都忘得差不多了。总觉得数据结构与算法、操作系统、计算机网络是脱离实际工作的知识。在实际工作中即使你不懂数据结构和算法，照样也可以把代码敲得飞起。那么既然不懂这些也可以，为什么还要学数据结构和算法呢，大概是不想做一个CRUD boy吧!</p><p>只要对编程还有追求，就应该学一下数据结构，这样你就不在是只会写能用的代码了，而是高性能的代码。掌握了数据结构与算法，你看待问题的深度，解决问题的角度就会完全不一样。在我看来数据结构和算法应该算得上是程序员的核心竞争力了，而且学习数据结构和算法可以改变你的思维方式。我大学老师曾经和我们说过程序员有两个是必须要会的，一是数据结构与算法，二是英语。你会其中一个，只能说你走的比较快而已，只有两个都会，你才能飞起来。当初不以为然，工作时间越长，发现老师说的非常对。接下来的一段时间我会持续更新数据结构与算法。</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<p>计算机专业里数据结构这门课在大学是必修课，很多程序员在毕业之后都忘得差不多了。总觉得数据结构与算法、操作系统、计算机网络是脱离实际工作的知识。在实际工作中即使你不懂数据结构和算法，照样也可以把代码敲得飞起。那么既然不懂这些也可以，为什么还要学数据结构和算法呢，大概是不想做一个CRUD boy吧!</p><a id="more"></a><p>只要对编程还有追求，就应该学一下数据结构，这样你就不在是只会写能用的代码了，而是高性能的代码。掌握了数据结构与算法，你看待问题的深度，解决问题的角度就会完全不一样。在我看来数据结构和算法应该算得上是程序员的核心竞争力了，而且学习数据结构和算法可以改变你的思维方式。我大学老师曾经和我们说过程序员有两个是必须要会的，一是数据结构与算法，二是英语。你会其中一个，只能说你走的比较快而已，只有两个都会，你才能飞起来。当初不以为然，工作时间越长，发现老师说的非常对。接下来的一段时间我会持续更新数据结构与算法。</p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;计算机专业里数据结构这门课在大学是必修课，很多程序员在毕业之后都忘得差不多了。总觉得数据结构与算法、操作系统、计算机网络是脱离实际工作的知识。在实际工作中即使你不懂数据结构和算法，照样也可以把代码敲得飞起。那么既然不懂这些也可以，为什么还要学数据结构和算法呢，大概是不想做一个CRUD boy吧!&lt;/p&gt;
-&lt;p&gt;只要对编程还有追求，就应该学一下数据结构，这样你就不在是只会写能用的代码了，而是高性能的代码。掌握了数据结构与算法，你看待问题的深度，解决问题的角度就会完全不一样。在我看来数据结构和算法应该算得上是程序员的核心竞争力了，而且学习数据结构和算法可以改变你的思维方式。我大学老师曾经和我们说过程序员有两个是必须要会的，一是数据结构与算法，二是英语。你会其中一个，只能说你走的比较快而已，只有两个都会，你才能飞起来。当初不以为然，工作时间越长，发现老师说的非常对。接下来的一段时间我会持续更新数据结构与算法。&lt;/p&gt;
     
     </summary>
     
