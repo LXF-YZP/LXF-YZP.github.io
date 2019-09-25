@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Synchronized关键字总结 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 ob">
+  <meta name="description" content="Synchronized关键字特点 当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是">
 <meta name="keywords" content="多线程Synchronized">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Synchronized关键字总结">
 <meta property="og:url" content="http://yoursite.com/2019/04/15/Synchronized关键字总结/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 ob">
+<meta property="og:description" content="Synchronized关键字特点 当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-25T03:24:56.661Z">
+<meta property="og:updated_time" content="2019-09-25T06:35:30.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Synchronized关键字总结">
-<meta name="twitter:description" content="当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 ob">
+<meta name="twitter:description" content="Synchronized关键字特点 当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是">
   
   
     <link rel="icon" href="/favicon.png">
@@ -177,14 +177,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。</p>
-<p>1.synchronized用在类中的非静态方法中，synchronized锁住的是对象this，只有调用同一个对象的方法才需要获取锁，并且同一个对象中所有加了synchronized关键字的非静态方法只能一次调用一个。</p>
-<p>2.两个线程用同一个对象分别访问该对象的两个同步方法，会产生互斥。因为synchronized锁针对的是对象，当对象调用一个 synchronized 方法时，其他同步方法需要等待其执行结束并释放锁后才能执行。</p>
-<p>3.不同对象在两个线程中调用同一个同步方法，不会产生互斥。因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是 new 一个对象，那么就会出现两个空间，两把钥匙；</p>
-<p>1.synchronized用在类中的静态方法中，synchronized锁住的是（类.class），改类中所有加了synchronized的静态方法，一次只能被调用一个。</p>
-<p>2.用类直接在两个线程中调用两个不同的同步方法，会产生互斥。因为对静态对象加锁实际上对类（.class）加锁，类对象只有一个，可以理解为任何时候都只有一个空间，里面有 N 个房间，一把锁，因此房间（同步方法）之间一定是互斥的。<br>注：上述情况和用单例模式声明一个对象来调用非静态方法的情况是一样的，因为永远就只有这一个对象。所以访问同步方法之间一定是互斥的。</p>
-<p>3.用一个类的静态对象在两个线程中调用静态方法或非静态方法，会产生互斥。<br>解释：因为是一个对象调用，同上。</p>
-<p>4.一个对象在两个线程中分别调用一个静态同步方法和一个非静态同步方法，不会产生互斥。</p>
+        <h1 id="Synchronized关键字特点"><a href="#Synchronized关键字特点" class="headerlink" title="Synchronized关键字特点"></a>Synchronized关键字特点</h1><ol>
+<li><p>当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。</p>
+<a id="more"></a></li>
+<li><p>synchronized用在类中的非静态方法中，synchronized锁住的是对象this，只有调用同一个对象的方法才需要获取锁，并且同一个对象中所有加了synchronized关键字的非静态方法只能一次调用一个。</p>
+</li>
+<li><p>两个线程用同一个对象分别访问该对象的两个同步方法，会产生互斥。因为synchronized锁针对的是对象，当对象调用一个 synchronized 方法时，其他同步方法需要等待其执行结束并释放锁后才能执行。</p>
+</li>
+<li><p>不同对象在两个线程中调用同一个同步方法，不会产生互斥。因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是 new 一个对象，那么就会出现两个空间，两把钥匙；</p>
+</li>
+<li><p>synchronized用在类中的静态方法中，synchronized锁住的是（类.class），改类中所有加了synchronized的静态方法，一次只能被调用一个。</p>
+</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li><p>用类直接在两个线程中调用两个不同的同步方法，会产生互斥。因为对静态对象加锁实际上对类（.class）加锁，类对象只有一个，可以理解为任何时候都只有一个空间，里面有 N 个房间，一把锁，因此房间（同步方法）之间一定是互斥的。<br>注：上述情况和用单例模式声明一个对象来调用非静态方法的情况是一样的，因为永远就只有这一个对象。所以访问同步方法之间一定是互斥的。</p>
+</li>
+<li><p>用一个类的静态对象在两个线程中调用静态方法或非静态方法，会产生互斥。<br>解释：因为是一个对象调用，同上。</p>
+</li>
+<li><p>一个对象在两个线程中分别调用一个静态同步方法和一个非静态同步方法，不会产生互斥。</p>
+</li>
+</ol>
+<p>[参考链接] <a href="https://blog.csdn.net/Amen_Wu/article/details/80799840" target="_blank" rel="noopener">https://blog.csdn.net/Amen_Wu/article/details/80799840</a></p>
 
       
 
@@ -383,15 +396,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -399,7 +412,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -411,15 +424,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -427,19 +432,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,7 +448,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
