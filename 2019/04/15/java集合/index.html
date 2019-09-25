@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="Java 集合大致可以分为 Set、List、Queue 和 Map 四种体系，其中 Set 代表无序、不可重复的集合；List 代表有序、重复的集合；而 Map 则代表具有映射关系的集合；Java 5 又增加了 Queue 体系集合，代表一种队列集合实现。Java 集合就像一种容器，可以把多个对象（实际上是对象的引用，但习惯上都称对象）“丢进” 该容器中。从 Java 5 增加了泛型以后，Jav">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-20T07:53:57.242Z">
+<meta property="og:updated_time" content="2019-09-25T06:55:11.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java集合">
 <meta name="twitter:description" content="Java 集合大致可以分为 Set、List、Queue 和 Map 四种体系，其中 Set 代表无序、不可重复的集合；List 代表有序、重复的集合；而 Map 则代表具有映射关系的集合；Java 5 又增加了 Queue 体系集合，代表一种队列集合实现。Java 集合就像一种容器，可以把多个对象（实际上是对象的引用，但习惯上都称对象）“丢进” 该容器中。从 Java 5 增加了泛型以后，Jav">
@@ -178,6 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Java 集合大致可以分为 Set、List、Queue 和 Map 四种体系，<br>其中 Set 代表无序、不可重复的集合；<br>List 代表有序、重复的集合；<br>而 Map 则代表具有映射关系的集合；<br>Java 5 又增加了 Queue 体系集合，代表一种队列集合实现。<br>Java 集合就像一种容器，可以把多个对象（实际上是对象的引用，但习惯上都称对象）“丢进” 该容器中。<br>从 Java 5 增加了泛型以后，Java 集合可以记住容器中对象的数据类型，使得编码更加简洁、健壮。<br>Java 集合和数组的区别：</p>
+<a id="more"></a>
 <ol>
 <li><p>数组长度在初始化时指定，意味着只能保存定长的数据。而集合可以保存数量不确定的数据。<br>同时可以保存具有映射关系的数据（即关联数组，键值对 key-value）。</p>
 </li>
@@ -185,47 +186,19 @@
 </li>
 </ol>
 <p>Java 集合类之间的继承关系:<br>Java 的集合类主要由两个接口派生而出：Collection 和 Map,<br>Collection 和 Map 是 Java 集合框架的根接口。</p>
-<ul>
-<li>Collection<pre><code>-Set
-    --SortedSet
-       ---TreeSet
-    --HashSet
-       ---LinkedHashSet
-    --EnumSet
- -Queue
-    --PriorityQueue
-    --Deque
-       ---ArraryDeque
-       ---LinkedList
- -List
-    --ArrayList
-       ---AttributeList
-    --Vector
-       ---Stack
-    ---LinkedList</code></pre></li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- Collection</span><br><span class="line">  	-Set</span><br><span class="line">      	--SortedSet</span><br><span class="line">         	---TreeSet</span><br><span class="line">      	--HashSet</span><br><span class="line">         	---LinkedHashSet</span><br><span class="line">      	--EnumSet</span><br><span class="line">   	-Queue</span><br><span class="line">      	--PriorityQueue</span><br><span class="line">      	--Deque</span><br><span class="line">         	---ArraryDeque</span><br><span class="line">         	---LinkedList</span><br><span class="line">   	-List</span><br><span class="line">      	--ArrayList</span><br><span class="line">         	---AttributeList</span><br><span class="line">      	--Vector</span><br><span class="line">         	---Stack</span><br><span class="line">      	---LinkedList</span><br></pre></td></tr></table></figure>
+
 <p>图中，ArrayList,HashSet,LinkedList,TreeSet 是我们经常会有用到的已实现的集合类。<br>list是有序(插入顺序和输出顺序)有重，set无序无重；<br>1.list–&gt;ArrayList,linkedList,Vector介绍：<br>元素都是通过索引的方式访问的，元素都是object子对象；<br>底层实现<br>linkedList是链表，其他两个都是数组；<br>使用场景<br>ArrayList：查询频率高，线程不安全<br>LinkedList：增加删除频率高，线程不安全<br>vector：线程安全</p>
 <p>2.set–&gt;HashSet,TreeSet,LinkedHashSet<br>HashSet是无序的，TreeSet有序遍历成员，LinkedHashSet按照插入顺序遍历，都不允许重复元素；<br>底层实现<br>HashSet是hash表<br>TreeSet是二叉树(红黑树)<br>LinkedHashSet是链表、散列表<br>使用场景<br>HashSet查询最快<br>TreeSet升序排序<br>LinkedHashSet按照插入顺序排序</p>
-<ul>
-<li>Map<pre><code> -SortedMap
-    --TreeMap
- -HashMap
-    --LinkedHashMap
--HashTable
-    --Properties</code></pre></li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- Map</span><br><span class="line">   	-SortedMap</span><br><span class="line">      	--TreeMap</span><br><span class="line">   	-HashMap</span><br><span class="line">      	--LinkedHashMap</span><br><span class="line">  	-HashTable</span><br><span class="line">      	--Properties</span><br></pre></td></tr></table></figure>
+
 <p>Map 实现类用于保存具有映射关系的数据。Map 保存的每项数据都是 key-value 对，<br>也就是由 key 和 value 两个值组成。Map 里的 key 是不可重复的，key 用户标识集合里的每项数据.<br>1.Map–&gt;HashMap、TreeMap<br>HashMap底层是hash表，无序，频繁的插入、删除、查询元素<br>TreeMap底层是二叉树(红黑树)，有序，按照键升序遍历输出</p>
 <p>阻塞队列<br>阻塞队列（BlockingQueue）是一个支持两个附加操作的队列。这两个附加的操作是：在队列为空时，获取元素的线程会等待队列变为非空。当队列满时，存储元素的线程会等待队列可用。阻塞队列常用于生产者和消费者的场景，生产者是往队列里添加元素的线程，消费者是从队列里拿元素的线程。阻塞队列就是生产者存放元素的容器，而消费者也只从容器里拿元素。</p>
 <p>JDK7提供的阻塞队列：<br>ArrayBlockingQueue ：一个由数组结构组成的有界阻塞队列。<br>LinkedBlockingQueue ：一个由链表结构组成的有界阻塞队列。<br>PriorityBlockingQueue ：一个支持优先级排序的无界阻塞队列。<br>DelayQueue：一个使用优先级队列实现的无界阻塞队列。<br>SynchronousQueue：一个不存储元素的阻塞队列。<br>LinkedTransferQueue：一个由链表结构组成的无界阻塞队列。<br>LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列。</p>
 <p>ArrayBlockingQueue 是一个用数组实现的有界阻塞队列。此队列按照先进先出（FIFO）的原则对元素进行排序。默认情况下不保证访问者公平的访问队列，所谓公平访问队列是指阻塞的所有生产者线程或消费者线程，当队列可用时，可以按照阻塞的先后顺序访问队列，即先阻塞的生产者线程，可以先往队列里插入元素，先阻塞的消费者线程，可以先从队列里获取元素。通常情况下为了保证公平性会降低吞吐量。我们可以使用以下代码创建一个公平的阻塞队列：<br>ArrayBlockingQueue fairQueue = new  ArrayBlockingQueue(1000,true);<br>访问者的公平性是使用可重入锁实现的，代码如下：</p>
-<pre><code>public ArrayBlockingQueue(int capacity, boolean fair) {
-    if (capacity &lt;= 0)
-        throw new IllegalArgumentException();
-    this.items = new Object[capacity];
-    lock = new ReentrantLock(fair);
-    notEmpty = lock.newCondition();
-    notFull =  lock.newCondition();
-}</code></pre><p>LinkedBlockingQueue 是一个用链表实现的有界阻塞队列。此队列的默认和最大长度为 Integer.MAX_VALUE。此队列按照先进先出的原则对元素进行排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public ArrayBlockingQueue(int capacity, boolean fair) &#123;</span><br><span class="line">    if (capacity &lt;= 0)</span><br><span class="line">        throw new IllegalArgumentException();</span><br><span class="line">    this.items = new Object[capacity];</span><br><span class="line">    lock = new ReentrantLock(fair);</span><br><span class="line">    notEmpty = lock.newCondition();</span><br><span class="line">    notFull =  lock.newCondition();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LinkedBlockingQueue 是一个用链表实现的有界阻塞队列。此队列的默认和最大长度为 Integer.MAX_VALUE。此队列按照先进先出的原则对元素进行排序。</p>
 <p>详情请看阻塞队列</p>
 
       
@@ -425,14 +398,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
@@ -445,11 +410,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,11 +434,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
