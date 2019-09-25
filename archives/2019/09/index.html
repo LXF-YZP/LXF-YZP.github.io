@@ -6,21 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>volatile关键字 | 观鱼入知命</title>
+  <title>Archives: 2019/9 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.1）对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。2）对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
-<meta property="og:type" content="article">
-<meta property="og:title" content="volatile关键字">
-<meta property="og:url" content="http://yoursite.com/2019/05/20/volatile/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="观鱼入知命">
+<meta property="og:url" content="http://yoursite.com/archives/2019/09/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.1）对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。2）对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/05/20/volatile/aaa.png">
-<meta property="og:updated_time" content="2019-09-25T03:32:02.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="volatile关键字">
-<meta name="twitter:description" content="在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.1）对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。2）对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/20/volatile/aaa.png">
+<meta name="twitter:title" content="观鱼入知命">
   
   
     <link rel="icon" href="/favicon.png">
@@ -59,11 +53,11 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="../../../../index.html">主页</a></li>
+				<li><a href="../../../index.html">主页</a></li>
 	        
-				<li><a href="../../../../categories">分类</a></li>
+				<li><a href="../../../categories">分类</a></li>
 	        
-				<li><a href="../../../../archives/index.html">归档</a></li>
+				<li><a href="../../../archives/index.html">归档</a></li>
 	        
 			</ul>
 		</nav>
@@ -139,11 +133,11 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="../../../../index.html">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../../index.html">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="../../../../categories">分类</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../../categories">分类</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="../../../../archives/index.html">归档</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../../archives/index.html">归档</a></li>
 		        
 				</ul>
 			</nav>
@@ -158,179 +152,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-volatile" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      volatile关键字
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href=".." class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="../../../2019/09/20/volatile/" class="archive-article-date">
+  	<time datetime="2019-09-20T09:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="../../../2019/09/20/volatile/">volatile关键字</a>
     </h1>
   
 
-        
-        <a href="" class="archive-article-date">
-  	<time datetime="2019-05-20T09:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在 JVM 中，有主内存和工作内存的概念，每个线程对应一个工作内存，并共享主内存数据.<br><img src="/2019/05/20/volatile/aaa.png" alt><br>1）对于普通变量：读操作会优先读取工作内存的数据，如果工作内存不存在，则从主内存中拷贝一份数据到工作内存，写操作只会修改工作内存中的副本数据，这种情况下，其他线程就无法读取变脸的最新值。<br>2）对于 volatile 变量：读操作时 JVM 会把工作内存中对应的值设置为无效，要求线程从主内存中读取数据，写操作 JVM 也会把工作内存中对应的数据刷新到主内存中，这种情况下，其他线程就可以读取变量的最新值。</p>
-<a id="more"></a>
+        <div class="article-info info-on-right">
+          
+          
 
-
-<h1 id="volatile通过禁止指令重排保证有序性"><a href="#volatile通过禁止指令重排保证有序性" class="headerlink" title="volatile通过禁止指令重排保证有序性"></a>volatile通过禁止指令重排保证有序性</h1><p>在多线程模式下，指令重排的时候会出现问题，所以在多线程的情况下为了保证线程安全，需要禁止掉指令重排。<br>volatile在禁止指令重排方面的应用：</p>
-<ol>
-<li>通过一个变量来进行初始化判断。如下</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private boolean isInit = false;</span><br><span class="line">private Manager mManger;</span><br><span class="line">public Manager getManager()&#123;</span><br><span class="line">  if(!isInit)&#123;</span><br><span class="line">    mManger = initManager();</span><br><span class="line">    isInit = true;</span><br><span class="line">  &#125;</span><br><span class="line">  return mManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个例子在单线程下没有任何问题，但是在多线程情况下如果进行了指令重排，那么代码是有问题的。比如指令重排之后，把 isInit = true 放在了 mManager = initManager() 之上，很可能在多线程的情况下出现 mManager 为空的情况，从而出现空指针异常。线程 1 执行 getManager 方法，由于指令重排，isInit = true 先执行，然后去真正初始化 mManager, 最后返回 mManager 实例，不会有任何问题。但是当线程 1 执行完 isInit = true 之后，线程 2 开始执行 getManager 方法，发现 isInit 为 true，就直接返回了 mManager，而此时 mManager 还没有初始化，所以线程 2 中会出现空指针异常。</p>
-<ol start="2">
-<li>在 Java 领域一个经典的案例就是利用双重检查创建单例对象，例如下面的代码：在获取实例 getInstance () 的方法中，我们首先判断 instance 是否为空，如果为空，则锁定 Singleton.class 并再次检查 instance 是否为空，如果还为空则创建 Singleton 的一个实例。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">  private static Singleton instance;</span><br><span class="line">  public static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>假设有两个线程 A、B 同时调用 getInstance () 方法，他们会同时发现 instance == null ，于是同时对 Singleton.class 加锁，此时 JVM 保证只有一个线程能够加锁成功（假设是线程 A），另外一个线程则会处于等待状态（假设是线程 B）；线程 A 会创建一个 Singleton 实例，之后释放锁，锁释放后，线程 B 被唤醒，线程 B 再次尝试加锁，此时是可以加锁成功的，加锁成功后，线程 B 检查 instance == null 时会发现，已经创建过 Singleton 实例了，所以线程 B 不会再创建一个 Singleton 实例。</p>
-<p>这看上去一切都很完美，无懈可击，但实际上这个 getInstance () 方法并不完美。问题出在哪里呢？出在 new 操作上，我们以为的 new 操作应该是：</p>
-<pre><code>1⃣️分配一块内存 M；
-2⃣️在内存 M 上初始化 Singleton 对象；
-3⃣️然后 M 的地址赋值给 instance 变量。</code></pre><p>换成代码如下：</p>
-<pre><code>1⃣️memory = allocate () // 分配内存；
-2⃣️ctorInstanc (memory) // 初始化对象；
-3⃣️instance = memory // 设置 instance 指向刚分配的地址</code></pre><p>但是实际上优化后的执行路径却是这样的：</p>
-<pre><code>1⃣️分配一块内存 M；
-2⃣️将 M 的地址赋值给 instance 变量；
-3⃣️最后在内存 M 上初始化 Singleton 对象。</code></pre><p>优化后会导致什么问题呢？我们假设线程 A 先执行 getInstance () 方法，当执行完指令 2 时恰好发生了线程切换，切换到了线程 B 上；如果此时线程 B 也执行 getInstance () 方法，那么线程 B 在执行第一个判断时会发现 instance != null ，所以直接返回 instance，而此时的 instance 是没有初始化过的，如果我们这个时候访问 instance 的成员变量就可能触发空指针异常。<br>正确写法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">  private volatile static Singleton instance;</span><br><span class="line">  public static Singleton getInstance()&#123;</span><br><span class="line">    if (instance == null) &#123;</span><br><span class="line">      synchronized(Singleton.class) &#123;</span><br><span class="line">        if (instance == null)</span><br><span class="line">          instance = new Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>volatile 关键字禁止指令重排序有两层意思：</p>
-<p>1）当程序执行到 volatile 变量的读操作或者写操作时，在其前面的操作的更改肯定全部已经进行，且结果已经对后面的操作可见；在其后面的操作肯定还没有进行；</p>
-<p>2）在进行指令优化时，不能将在对 volatile 变量访问的语句放在其后面执行，也不能把 volatile 变量后面的语句放到其前面执行。</p>
-<p>举个简单的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//x、y为非volatile变量</span><br><span class="line">//flag为volatile变量</span><br><span class="line"></span><br><span class="line">x = 2;        //语句1</span><br><span class="line">y = 0;        //语句2</span><br><span class="line">flag = true;  //语句3</span><br><span class="line">x = 4;        //语句4</span><br><span class="line">y = -1;       //语句5</span><br></pre></td></tr></table></figure>
-
-<p>由于 flag 变量为 volatile 变量，那么在进行指令重排序的过程的时候，不会将语句 3 放到语句 1、语句 2 前面，也不会讲语句 3 放到语句 4、语句 5 后面。但是要注意语句 1 和语句 2 的顺序、语句 4 和语句 5 的顺序是不作任何保证的。</p>
-<p>并且 volatile 关键字能保证，执行到语句 3 时，语句 1 和语句 2 必定是执行完毕了的，且语句 1 和语句 2 的执行结果对语句 3、语句 4、语句 5 是可见的。</p>
-<h1 id="volatile不保证原子性"><a href="#volatile不保证原子性" class="headerlink" title="volatile不保证原子性"></a>volatile不保证原子性</h1><ol>
-<li>从上面知道 volatile 关键字保证了操作的可见性，但是 volatile 不能保证对变量的操作是原子性的，可以参考Java并发编程实战第三章。<br>下面看一个带有自增操作的例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public volatile int inc = 0;</span><br><span class="line">     </span><br><span class="line">    public void increase() &#123;</span><br><span class="line">        inc++;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>上面例子输出的结果是小于10000的数，可能有的朋友就会有疑问，上面是对变量 inc 进行自增操作，由于 volatile 保证了可见性，那么在每个线程中对 inc 自增完之后，在其他线程中都能看到修改后的值啊，所以有 10 个线程分别进行了 1000 次操作，那么最终 inc 的值应该是 1000*10=10000。</p>
-<p>这里面就有一个误区了，volatile 关键字能保证可见性没有错，但是上面的程序错在没能保证原子性。可见性只能保证每次读取的是最新的值，但是 volatile 没办法保证对变量的操作的原子性。</p>
-<p>由于自增操作是不具备原子性的，它包括读取变量的原始值、进行加 1 操作、写入工作内存。那么就是说自增操作的三个子操作可能会分割开执行，就有可能导致下面这种情况出现：</p>
-<p>假如某个时刻变量 inc 的值为 10，线程 1 对变量进行自增操作，线程 1 先读取了变量 inc 的原始值，然后线程 1 被阻塞了；<br>然后线程 2 对变量进行自增操作，线程 2 也去读取变量 inc 的原始值，由于线程 1 只是对变量 inc 进行读取操作，而没有对变量进行修改操作，所以不会导致线程 2 的工作内存中缓存变量 inc 的缓存行无效，线程 2 会直接去主存读取 inc 的值，发现 inc 的值是10，然后进行加 1 操作，并把 11 写入工作内存，最后写入主存。</p>
-<p>然后线程 1 接着进行加 1 操作，由于已经读取了 inc 的值，注意此时在线程 1 的工作内存中 inc 的值仍然为 10，所以线程 1 对 inc 进行加 1 操作后 inc 的值为 11，然后将 11 写入工作内存，最后写入主存。</p>
-<p>那么两个线程分别进行了一次自增操作后，inc 只增加了 1。</p>
-<p>解释到这里，可能有朋友会有疑问，不对啊，前面不是保证一个变量在修改 volatile 变量时，会让缓存行无效吗？然后其他线程去读就会读到新的值，对，这个没错。这个就是上面的 happens-before 规则中的 volatile 变量规则，但是要注意，线程 1 对变量进行读取操作之后，被阻塞了的话，并没有对 inc 值进行修改。然后虽然 volatile 能保证线程 2 对变量 inc 的值读取是从内存中读取的，但是线程 1 没有进行修改，所以线程 2 根本就不会看到修改的值。</p>
-<p>根源就在这里，自增操作不是原子性操作，而且 volatile 也无法保证对变量的任何操作都是原子性的。</p>
-<h2 id="对于不保证原子性的解释"><a href="#对于不保证原子性的解释" class="headerlink" title="对于不保证原子性的解释"></a>对于不保证原子性的解释</h2><p>对于上面解释原子性的操作，大家估计会有这种疑问，即当线程 1 将变量 a 读入到了自己的工作内存，还没有修改，被阻塞；线程 2 将主存中的 a 读入工作内存修改，写入主存；线程 1 苏醒是继续运行还是会检测工作内存的变量 a 是否需要刷新呢？</p>
-<p>对于上面问题的解释，网上大致是有两种不同的解释：<br>观点1. 当线程一读取10之后被阻塞了。然后线程二得到了执行机会，并且在执行inc自增操作的时候没有被阻塞，那么线程二执行完自增操作之后更新工作内存，然后刷新到主存中，这时线程一又有了执行机会，那么线程一继续使用之前读取的值10进行自增操作（而不是从主存中读取值11进行自增操作）。<br>观点一就是说线程二修改了主存之后，线程一再次获得执行权后并没有马上去读取主存的值进行自增操作，而是使用原来的10进行自增操作。也就是认为线程二更新主存之后，没有马上去更新线程一的工作内存，导致线程一还是之前的值。</p>
-<p>观点2. 1⃣️线程一读取 inc 的值后，还没有操作就被阻塞了。<br>2⃣️线程二被唤醒，从主存读取 inc 的值，加 1，然后被阻塞。（此时还没来得及把新的值重新赋值给 inc，当然也还没同步到主存）。<br>3⃣️线程一被唤醒，inc 值加 1，然后同步到主存（线程一结束）。<br>4⃣️线程二被唤醒，把最新的值赋值给 inc，同步到主存（此时线程二，inc 的值在第 2 步时已经被处理过了，仅仅只是把新的值赋值给 inc 而已。这个时候是不会再去读取 inc 的缓存行的，虽然 inc 的缓存行此时已经无效了）<br>观点二可以理解为，自增操作的三步：1.复制到工作内存 2.自增 3.写入主存，其中只有 1,2 步在执行之前会检查缓存行，第 3 步是不检查的。把计算后的值赋值给变量，是不需要去检查缓存行的。</p>
-<p>我更倾向于观点二也就是说线程二更新主存之后，会马上使得线程一得工作内存失效，在线程一再去读取Inc的值时会去读取主存中的值。</p>
-<p>把上面的代码改成以下任何一种都可以达到效果：<br>1⃣️采用 synchronized：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public  int inc = 0;</span><br><span class="line">    </span><br><span class="line">    public synchronized void increase() &#123;</span><br><span class="line">        inc++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2⃣️采用 Lock：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public  int inc = 0;</span><br><span class="line">    Lock lock = new ReentrantLock();</span><br><span class="line">    </span><br><span class="line">    public  void increase() &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        try &#123;</span><br><span class="line">            inc++;</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3⃣️采用 AtomicInteger：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public  AtomicInteger inc = new AtomicInteger();</span><br><span class="line">     </span><br><span class="line">    public  void increase() &#123;</span><br><span class="line">        inc.getAndIncrement();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>volatile 只保证了可见性和防止了指令重排序，并没有保证原子性。</li>
-<li>volatile 修饰的变量只是保证了每次读取时都从主存中读，每次修改时，都将修改后的值重新写入了主存。volatile 会使得变量 “立即” 刷新到内存中的！而不会在写入内存之前被阻塞！</li>
-<li>在 synchronized 修饰的方法体或者常量（final）不需要使用 volatile。</li>
-<li>由于使用了 volatile 屏蔽掉了 JVM 中必要的代码优化，所以在效率上比较低，因此一定在必要的时候才能使用该关键字。</li>
-</ol>
-<p>[参考文章]<a href="https://www.cnblogs.com/dolphin0520/p/3920373.html" target="_blank" rel="noopener">https://www.cnblogs.com/dolphin0520/p/3920373.html</a></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/WechatIMG24.jpeg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
   
   
-    <a href="../../14/数据结构-Trie树/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-Trie树</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -353,8 +217,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -439,11 +303,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
