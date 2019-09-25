@@ -55,25 +55,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-图</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:35:38.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-二叉树</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
@@ -89,6 +70,25 @@
     
     
       <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-图</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:35:38.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
     
   </entry>
   
@@ -112,25 +112,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-跳表</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-跳表/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:34:48.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-跳表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-散列表</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-散列表/</id>
@@ -150,25 +131,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-链表</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-链表/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:29:12.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-链表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-栈</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-栈/</id>
@@ -184,6 +146,44 @@
     
     
       <category term="数据结构-栈" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-跳表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-跳表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:34:48.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-跳表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-链表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-链表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:29:12.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-链表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -284,13 +284,13 @@
     <link href="http://yoursite.com/2019/04/15/Synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2019/04/15/Synchronized关键字总结/</id>
     <published>2019-04-15T12:04:48.000Z</published>
-    <updated>2019-09-25T06:35:30.855Z</updated>
+    <updated>2019-09-25T06:37:15.654Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Synchronized关键字特点"><a href="#Synchronized关键字特点" class="headerlink" title="Synchronized关键字特点"></a>Synchronized关键字特点</h1><ol><li><p>当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。</p><a id="more"></a></li><li><p>synchronized用在类中的非静态方法中，synchronized锁住的是对象this，只有调用同一个对象的方法才需要获取锁，并且同一个对象中所有加了synchronized关键字的非静态方法只能一次调用一个。</p></li><li><p>两个线程用同一个对象分别访问该对象的两个同步方法，会产生互斥。因为synchronized锁针对的是对象，当对象调用一个 synchronized 方法时，其他同步方法需要等待其执行结束并释放锁后才能执行。</p></li><li><p>不同对象在两个线程中调用同一个同步方法，不会产生互斥。因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是 new 一个对象，那么就会出现两个空间，两把钥匙；</p></li><li><p>synchronized用在类中的静态方法中，synchronized锁住的是（类.class），改类中所有加了synchronized的静态方法，一次只能被调用一个。</p></li></ol><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol><li><p>用类直接在两个线程中调用两个不同的同步方法，会产生互斥。因为对静态对象加锁实际上对类（.class）加锁，类对象只有一个，可以理解为任何时候都只有一个空间，里面有 N 个房间，一把锁，因此房间（同步方法）之间一定是互斥的。<br>注：上述情况和用单例模式声明一个对象来调用非静态方法的情况是一样的，因为永远就只有这一个对象。所以访问同步方法之间一定是互斥的。</p></li><li><p>用一个类的静态对象在两个线程中调用静态方法或非静态方法，会产生互斥。<br>解释：因为是一个对象调用，同上。</p></li><li><p>一个对象在两个线程中分别调用一个静态同步方法和一个非静态同步方法，不会产生互斥。</p></li></ol><p>[参考链接] <a href="https://blog.csdn.net/Amen_Wu/article/details/80799840" target="_blank" rel="noopener">https://blog.csdn.net/Amen_Wu/article/details/80799840</a></p>]]></content>
+    <content type="html"><![CDATA[<ol><li><p>当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。</p><a id="more"></a></li><li><p>synchronized用在类中的非静态方法中，synchronized锁住的是对象this，只有调用同一个对象的方法才需要获取锁，并且同一个对象中所有加了synchronized关键字的非静态方法只能一次调用一个。</p></li><li><p>两个线程用同一个对象分别访问该对象的两个同步方法，会产生互斥。因为synchronized锁针对的是对象，当对象调用一个 synchronized 方法时，其他同步方法需要等待其执行结束并释放锁后才能执行。</p></li><li><p>不同对象在两个线程中调用同一个同步方法，不会产生互斥。因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是 new 一个对象，那么就会出现两个空间，两把钥匙；</p></li><li><p>synchronized用在类中的静态方法中，synchronized锁住的是（类.class），改类中所有加了synchronized的静态方法，一次只能被调用一个。</p></li></ol><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol><li><p>用类直接在两个线程中调用两个不同的同步方法，会产生互斥。因为对静态对象加锁实际上对类（.class）加锁，类对象只有一个，可以理解为任何时候都只有一个空间，里面有 N 个房间，一把锁，因此房间（同步方法）之间一定是互斥的。<br>注：上述情况和用单例模式声明一个对象来调用非静态方法的情况是一样的，因为永远就只有这一个对象。所以访问同步方法之间一定是互斥的。</p></li><li><p>用一个类的静态对象在两个线程中调用静态方法或非静态方法，会产生互斥。<br>解释：因为是一个对象调用，同上。</p></li><li><p>一个对象在两个线程中分别调用一个静态同步方法和一个非静态同步方法，不会产生互斥。</p></li></ol><p>[参考链接] <a href="https://blog.csdn.net/Amen_Wu/article/details/80799840" target="_blank" rel="noopener">https://blog.csdn.net/Amen_Wu/article/details/80799840</a></p>]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Synchronized关键字特点&quot;&gt;&lt;a href=&quot;#Synchronized关键字特点&quot; class=&quot;headerlink&quot; title=&quot;Synchronized关键字特点&quot;&gt;&lt;/a&gt;Synchronized关键字特点&lt;/h1&gt;&lt;ol&gt;
+      &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;当一个线程正在访问一个对象的 synchronized 实例方法，那么其他线程不能访问该对象的其他 synchronized 方法，毕竟一个对象只有一把锁，当一个线程获取了该对象的锁之后，其他线程无法获取该对象的锁，所以无法访问该对象的其他 synchronized 实例方法，但是其他线程还是可以访问该实例对象的其他非 synchronized 方法，当然如果是一个线程 A 需要访问实例对象 obj1 的 synchronized 方法 f1 (当前对象锁是 obj1)，另一个线程 B 需要访问实例对象 obj2 的 synchronized 方法 f2 (当前对象锁是 obj2)，这样是允许的，因为两个实例对象锁并不同相同，此时如果两个线程操作数据并非共享的，线程安全是有保障的，遗憾的是如果两个线程操作的是共享数据，那么线程安全就有可能无法保证了。&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;
     
     </summary>
