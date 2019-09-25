@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据结构-Trie树 | 观鱼入知命</title>
+  <title>为什么重写equals还要重写hashcode方法 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="数据结构-Trie树">
+  <meta name="description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
+<meta name="keywords" content="java、equals、hashcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构-Trie树">
-<meta property="og:url" content="http://yoursite.com/2019/05/14/数据结构-Trie树/index.html">
+<meta property="og:title" content="为什么重写equals还要重写hashcode方法">
+<meta property="og:url" content="http://yoursite.com/2019/05/14/为什么重写equals还要重写hashcode方法/index.html">
 <meta property="og:site_name" content="观鱼入知命">
+<meta property="og:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-14T06:36:38.000Z">
+<meta property="og:updated_time" content="2019-09-25T11:38:35.378Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构-Trie树">
+<meta name="twitter:title" content="为什么重写equals还要重写hashcode方法">
+<meta name="twitter:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
   
   
     <link rel="icon" href="/favicon.png">
@@ -154,27 +157,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据结构-Trie树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-为什么重写equals还要重写hashcode方法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构-Trie树
+      为什么重写equals还要重写hashcode方法
     </h1>
   
 
         
         <a href="" class="archive-article-date">
-  	<time datetime="2019-05-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+  	<time datetime="2019-05-14T10:39:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：<br>在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。<br>equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，否则返回 false。<br>hashcode () 方法返回一个 int 数，在 Object 类中的默认实现是 “将该对象的内部地址转换成一个整数返回”。<br>接下来有两个关于这两个方法的重要规范：</p>
+<h2 id="规范-1"><a href="#规范-1" class="headerlink" title="规范 1"></a>规范 1</h2><p>若重写 equals (Object obj) 方法，有必要重写 hashcode () 方法，确保通过 equals (Object obj) 方法判断结果为 true 的两个对象具备相等的 hashcode () 返回值。说得简单点就是：“如果两个对象相同，那么他们的 hashcode 应该 相等”。不过请注意：这个只是规范，如果你非要写一个类让 equals (Object obj) 返回 true 而 hashcode () 返回两个不相等的值，编译和运行都是不会报错的。不过这样违反了 Java 规范，程序也就埋下了 BUG。</p>
+<h2 id="规范-2"><a href="#规范-2" class="headerlink" title="规范 2"></a>规范 2</h2><p>如果 equals (Object obj) 返回 false，即两个对象 “不相同”，并不要求对这两个对象调用 hashcode () 方法得到两个不相同的数。说的简单点就是：“如果两个对象不相同，他们的 hashcode 可能相同”。</p>
+<ul>
+<li>根据这两个规范，可以得到如下推论：<br>1、如果两个对象 equals，Java 运行时环境会认为他们的 hashcode 一定相等。<br>2、如果两个对象不 equals，他们的 hashcode 有可能相等。<br>3、如果两个对象 hashcode 相等，他们不一定 equals。<br>4、如果两个对象 hashcode 不相等，他们一定不 equals。</li>
+</ul>
+
       
 
       
@@ -213,7 +222,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据结构-Trie树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">java、equals、hashcode</a>
         		</li>
       		
 		</ul>
@@ -225,7 +234,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构//" class="article-tag-list-link color5">数据结构</a>
+        			<a href="/categories/java基础//" class="article-tag-list-link color2">java基础</a>
         		</li>
       		
 		</ul>
@@ -243,18 +252,18 @@
   
 <nav id="article-nav">
   
-    <a href="../../../09/20/volatile/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../数据结构-队列/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          volatile关键字
+          数据结构-队列
         
       </div>
     </a>
   
   
-    <a href="../数据结构-二叉树/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-二叉树</div>
+    <a href="../../12/数据结构-数组/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构-数组</div>
       <i class="icon-circle-right"></i>
     </a>
   
