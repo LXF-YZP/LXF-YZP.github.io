@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-25T11:38:35.378Z">
+<meta property="og:updated_time" content="2019-09-25T11:52:50.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么重写equals还要重写hashcode方法">
 <meta name="twitter:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
@@ -177,11 +177,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：<br>在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。<br>equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，否则返回 false。<br>hashcode () 方法返回一个 int 数，在 Object 类中的默认实现是 “将该对象的内部地址转换成一个整数返回”。<br>接下来有两个关于这两个方法的重要规范：</p>
+        <p>在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：<br>在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。<br>equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，否则返回 false。<br>hashcode () 方法返回一个 int 数，在 Object 类中的默认实现是 “将该对象的内部地址转换成一个整数返回”。</p>
+<a id="more"></a>
+<p>接下来有两个关于这两个方法的重要规范：</p>
 <h2 id="规范-1"><a href="#规范-1" class="headerlink" title="规范 1"></a>规范 1</h2><p>若重写 equals (Object obj) 方法，有必要重写 hashcode () 方法，确保通过 equals (Object obj) 方法判断结果为 true 的两个对象具备相等的 hashcode () 返回值。说得简单点就是：“如果两个对象相同，那么他们的 hashcode 应该 相等”。不过请注意：这个只是规范，如果你非要写一个类让 equals (Object obj) 返回 true 而 hashcode () 返回两个不相等的值，编译和运行都是不会报错的。不过这样违反了 Java 规范，程序也就埋下了 BUG。</p>
 <h2 id="规范-2"><a href="#规范-2" class="headerlink" title="规范 2"></a>规范 2</h2><p>如果 equals (Object obj) 返回 false，即两个对象 “不相同”，并不要求对这两个对象调用 hashcode () 方法得到两个不相同的数。说的简单点就是：“如果两个对象不相同，他们的 hashcode 可能相同”。</p>
 <ul>
 <li>根据这两个规范，可以得到如下推论：<br>1、如果两个对象 equals，Java 运行时环境会认为他们的 hashcode 一定相等。<br>2、如果两个对象不 equals，他们的 hashcode 有可能相等。<br>3、如果两个对象 hashcode 相等，他们不一定 equals。<br>4、如果两个对象 hashcode 不相等，他们一定不 equals。</li>
+</ul>
+<ul>
+<li>Object 的 hashcode 方法是本地方法，也就是用 c 或 c++ 实现的，该方法直接返回对象的内存地址。如果没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等（而 hashmap 想让部分值的 hashCode 值一样，所以就要重写）</li>
+</ul>
+<ul>
+<li>为什么重写 equals 还要重写 hashcode<br>如果没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等。HashMap 中的比较 key 是这样的，先求出 key 的 hashcode (), 比较其值是否相等，若相等再比较 equals (), 若相等则认为他们是相等的。若 equals () 不相等则认为他们不相等。<br>如果只重写 equals 没有重写 hashCode ()，就会导致相同的 key 值也被 hashcode 认为是不同的 key 值（因为没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等），就会在 hashmap 中存储相同的 key 值（map 中 key 值不能相同），这就不符合条件了。</li>
 </ul>
 
       
@@ -252,11 +260,11 @@
   
 <nav id="article-nav">
   
-    <a href="../数据结构-队列/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../数据结构-栈/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          数据结构-队列
+          数据结构-栈
         
       </div>
     </a>
@@ -381,15 +389,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -397,11 +397,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -413,11 +413,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -426,6 +430,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -441,10 +449,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
@@ -454,6 +458,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
             
             <div class="clearfix"></div>
