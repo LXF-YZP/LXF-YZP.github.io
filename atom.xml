@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-27T08:53:07.603Z</updated>
+  <updated>2019-09-27T09:41:03.512Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java多线程之各种锁概念</title>
+    <link href="http://yoursite.com/2019/09/25/MarkDown%E8%AF%AD%E6%B3%95/"/>
+    <id>http://yoursite.com/2019/09/25/MarkDown语法/</id>
+    <published>2019-09-25T10:28:24.000Z</published>
+    <updated>2019-09-27T09:41:03.512Z</updated>
+    
+    <content type="html"><![CDATA[<p>写这篇主要是有的语法还用的不是很熟练，用到的时候还得从网上搜一下，太不方便了，所以写一篇博客，然后不会的就可以直接看自己的博客了；</p><a id="more"></a><p>Markdown 是一种纯文本格式的标记语言。通过简单的标记语法，它可以使普通文本内容具有一定的格式。</p><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1、因为是纯文本，所以只要支持 Markdown 的地方都能获得一样的编辑效果，可以让作者摆脱排版的困扰，专心写作。<br>2、操作简单。</p><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1、需要记一些语法（当然，是很简单。五分钟学会）。<br>2、有些平台不支持 Markdown 编辑模式。</p><h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><p>在想要设置为标题的文字前面加 #来表示<br>一个 #是一级标题，二个 #是二级标题，以此类推。支持六级标题。<br>注：标准语法一般在 #后跟个空格再写文字,vscode就是要在#之后空一格。<br>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这是一级标题</span><br><span class="line">## 这是二级标题</span><br><span class="line">### 这是三级标题</span><br><span class="line">#### 这是四级标题</span><br><span class="line">##### 这是五级标题</span><br><span class="line">###### 这是六级标题</span><br></pre></td></tr></table></figure><h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><ul><li>加粗<br>要加粗的文字左右分别用两个 * 号包起来</li><li>斜体<br>要倾斜的文字左右分别用一个 * 号包起来</li><li>斜体加粗<br>要倾斜和加粗的文字左右分别用三个 * 号包起来</li><li>删除线<br>要加删除线的文字左右分别用两个～～号包起来<br>示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure></li></ul><h1 id="三、引用"><a href="#三、引用" class="headerlink" title="三、引用"></a>三、引用</h1><p>在引用的文字前加 &gt; 即可。引用也可以嵌套，如加两个 &gt;&gt; 三个 &gt;&gt;&gt;</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;这是引用的内容</span><br><span class="line">&gt;&gt;这是引用的内容</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;这是引用的内容</span><br></pre></td></tr></table></figure><h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><p>三个或者三个以上的 - 或者 * 都可以。</p><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">----</span><br><span class="line">***</span><br><span class="line">*****</span><br></pre></td></tr></table></figure><h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><p>语法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">![图片alt](图片地址 &apos;&apos;图片title&apos;&apos;)</span><br><span class="line"></span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](https://upload-images.jianshu.io/upload_images/6860761-fd2f51090a890873.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/550)</span><br></pre></td></tr></table></figure><p><img src="https://upload-images.jianshu.io/upload_images/6860761-fd2f51090a890873.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/550" alt></p><h1 id="六、超链接"><a href="#六、超链接" class="headerlink" title="六、超链接"></a>六、超链接</h1><p>语法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加</span><br></pre></td></tr></table></figure><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[简书](http://jianshu.com)</span><br><span class="line">[百度](http://baidu.com)</span><br></pre></td></tr></table></figure><p><a href="http://jianshu.com" target="_blank" rel="noopener">简书</a><br><a href="http://baidu.com" target="_blank" rel="noopener">百度</a></p><h1 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h1><ul><li>无序列表<br>语法：<br>无序列表用 - + * 任何一种都可以<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure></li></ul><p>注意：- + * 跟内容之间都要有一个空格</p><ul><li>有序列表<br>语法：<br>数字加点<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br></pre></td></tr></table></figure></li></ul><p>注意：序号跟内容之间要有空格</p><ul><li>列表嵌套</li></ul><p>上一级和下一级之间敲三个空格即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ 一级无序列表内容</span><br><span class="line">       + 二级无序列表内容</span><br><span class="line">       + 二级无序列表内容</span><br><span class="line">       + 二级无序列表内容</span><br></pre></td></tr></table></figure><h1 id="八、表格"><a href="#八、表格" class="headerlink" title="八、表格"></a>八、表格</h1><p>语法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure><p>示例：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">姓名|技能|排行</span><br><span class="line">--|:--:|--:</span><br><span class="line">刘备|哭|大哥</span><br><span class="line">关羽|打|二哥</span><br><span class="line">张飞|骂|三弟</span><br></pre></td></tr></table></figure><table><thead><tr><th>姓名</th><th align="center">技能</th><th align="right">排行</th></tr></thead><tbody><tr><td>刘备</td><td align="center">哭</td><td align="right">大哥</td></tr><tr><td>关羽</td><td align="center">打</td><td align="right">二哥</td></tr><tr><td>张飞</td><td align="center">骂</td><td align="right">三弟</td></tr></tbody></table><h1 id="九、代码"><a href="#九、代码" class="headerlink" title="九、代码"></a>九、代码</h1><p>语法：<br>单行代码：代码之间分别用一个反引号包起来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`代码内容`</span><br></pre></td></tr></table></figure><p><code>代码内容</code></p><p>代码块：代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(```)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(```)</span><br></pre></td></tr></table></figure><blockquote><p>注：为了防止转译，前后三个反引号处加了小括号，实际是没有的。这里只是用来演示，实际中去掉两边小括号即可。</p></blockquote><p>示例：<br>单行代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`create database hero;`</span><br></pre></td></tr></table></figure><p><code>create database hero;</code></p><p>代码块</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(```)</span><br><span class="line">    function fun()&#123;</span><br><span class="line">         echo &quot;这是一句非常牛逼的代码&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    fun();</span><br><span class="line">(```)</span><br></pre></td></tr></table></figure><p>(<code>)    function fun(){         echo &quot;这是一句非常牛逼的代码&quot;;    }    fun();(</code>)</p><h1 id="十、流程图"><a href="#十、流程图" class="headerlink" title="十、流程图"></a>十、流程图</h1><pre><code class="flow">st=&gt;start: 开始op=&gt;operation: My Operationcond=&gt;condition: Yes or No?e=&gt;endst-&gt;op-&gt;condcond(yes)-&gt;econd(no)-&gt;op</code></pre><p>流程图的技巧可以参考这个<a href="https://segmentfault.com/a/1190000006247465" target="_blank" rel="noopener">流程图</a></p><p>[参考链接] <a href="https://www.jianshu.com/p/191d1e21f7ed" target="_blank" rel="noopener">https://www.jianshu.com/p/191d1e21f7ed</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;写这篇主要是有的语法还用的不是很熟练，用到的时候还得从网上搜一下，太不方便了，所以写一篇博客，然后不会的就可以直接看自己的博客了；&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="博客随笔" scheme="http://yoursite.com/categories/%E5%8D%9A%E5%AE%A2%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="博客随笔" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>Java多线程之各种锁概念</title>
@@ -67,7 +90,7 @@
     <link href="http://yoursite.com/2019/09/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
     <id>http://yoursite.com/2019/09/13/计算机组成原理之基本概念/</id>
     <published>2019-09-13T11:10:22.000Z</published>
-    <updated>2019-09-27T08:25:59.726Z</updated>
+    <updated>2019-09-27T09:30:52.576Z</updated>
     
     <content type="html"><![CDATA[<p>最近在看计算机组成原理，估计会写5-10篇左右博客，主要还是根据冯.诺依曼体系结构来分篇的。学计算机组成原理之前先过一遍C语言，大学学的C语言都还回去了，现在要再借过来。还得会一点汇编知识，基本的汇编命令能看懂就可以了。<br>不要问看懂看不懂，现在就是看不懂也要看啊，越到后面越需要基础的东西，早点学会基础的东西，早点享受基础知识带来的红利；<br>学计算机基础就是要苟，不知道苟啥意思是吧，我给你详细解释一下；<br><img src="/2019/09/13/计算机组成原理之基本概念/68258.jpg" alt></p>]]></content>
     
@@ -89,25 +112,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-二叉树</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:33:28.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-Trie树</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-Trie树/</id>
@@ -123,6 +127,25 @@
     
     
       <category term="数据结构-Trie树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-二叉树</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:33:28.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
   </entry>
   
@@ -430,25 +453,6 @@
     
     
       <category term="java多线程实现" scheme="http://yoursite.com/tags/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hdfs原理</title>
-    <link href="http://yoursite.com/2019/04/13/hdfs%E5%8E%9F%E7%90%86/"/>
-    <id>http://yoursite.com/2019/04/13/hdfs原理/</id>
-    <published>2019-04-13T11:36:47.000Z</published>
-    <updated>2019-04-13T11:37:40.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="大数据技术" scheme="http://yoursite.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="hadoop原理" scheme="http://yoursite.com/tags/hadoop%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   
