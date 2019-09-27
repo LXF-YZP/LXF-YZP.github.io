@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>为什么重写equals还要重写hashcode方法 | 观鱼入知命</title>
+  <title>Java多线程之各种锁概念 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
-<meta name="keywords" content="java、equals、hashcode">
+  <meta name="description" content="本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就就行，详细的讲解请见博客其他文章。 公平锁和非公平锁 公平锁：指的是线程按照申请锁的顺序来获取锁（这里的公平和鹅城张麻子说的公平，公平，还是公平不一样，没看过的建议看一下《让子弹飞》，具体讲的什么我就不说了，再说就扯远了）； 非公平锁：指的是多个线程获取锁的顺序并不是按照申请锁的顺序来的，有可能会出现后申请锁的线程比先">
+<meta name="keywords" content="Java多线程-锁概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么重写equals还要重写hashcode方法">
-<meta property="og:url" content="http://yoursite.com/2019/05/14/为什么重写equals还要重写hashcode方法/index.html">
+<meta property="og:title" content="Java多线程之各种锁概念">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/Java多线程之各种锁概念/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
+<meta property="og:description" content="本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就就行，详细的讲解请见博客其他文章。 公平锁和非公平锁 公平锁：指的是线程按照申请锁的顺序来获取锁（这里的公平和鹅城张麻子说的公平，公平，还是公平不一样，没看过的建议看一下《让子弹飞》，具体讲的什么我就不说了，再说就扯远了）； 非公平锁：指的是多个线程获取锁的顺序并不是按照申请锁的顺序来的，有可能会出现后申请锁的线程比先">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-25T12:09:45.571Z">
+<meta property="og:updated_time" content="2019-09-27T08:33:06.735Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么重写equals还要重写hashcode方法">
-<meta name="twitter:description" content="在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，">
+<meta name="twitter:title" content="Java多线程之各种锁概念">
+<meta name="twitter:description" content="本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就就行，详细的讲解请见博客其他文章。 公平锁和非公平锁 公平锁：指的是线程按照申请锁的顺序来获取锁（这里的公平和鹅城张麻子说的公平，公平，还是公平不一样，没看过的建议看一下《让子弹飞》，具体讲的什么我就不说了，再说就扯远了）； 非公平锁：指的是多个线程获取锁的顺序并不是按照申请锁的顺序来的，有可能会出现后申请锁的线程比先">
   
   
     <link rel="icon" href="/favicon.png">
@@ -157,41 +157,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为什么重写equals还要重写hashcode方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java多线程之各种锁概念" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      为什么重写equals还要重写hashcode方法
+      Java多线程之各种锁概念
     </h1>
   
 
         
         <a href="" class="archive-article-date">
-  	<time datetime="2019-05-14T10:39:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+  	<time datetime="2019-09-20T10:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在解释标题之前，首先说明一下 JDK 对 equals (Object obj) 和 hashCode () 这两个方法的定义和规范：<br>在 Java 中任何一个对象都具备 equals (Object obj) 和 hashcode () 这两个方法，因为他们是在 Object 类中定义的。<br>equals (Object obj) 方法用来判断两个对象是否 “相同”，如果 “相同” 则返回 true，否则返回 false。<br>hashcode () 方法返回一个 int 数，在 Object 类中的默认实现是 “将该对象的内部地址转换成一个整数返回”。</p>
-<a id="more"></a>
-<p>接下来有两个关于这两个方法的重要规范：</p>
-<h2 id="规范-1"><a href="#规范-1" class="headerlink" title="规范 1"></a>规范 1</h2><p>若重写 equals (Object obj) 方法，有必要重写 hashcode () 方法，确保通过 equals (Object obj) 方法判断结果为 true 的两个对象具备相等的 hashcode () 返回值。说得简单点就是：“如果两个对象相同，那么他们的 hashcode 应该 相等”。不过请注意：这个只是规范，如果你非要写一个类让 equals (Object obj) 返回 true 而 hashcode () 返回两个不相等的值，编译和运行都是不会报错的。不过这样违反了 Java 规范，程序也就埋下了 BUG。</p>
-<h2 id="规范-2"><a href="#规范-2" class="headerlink" title="规范 2"></a>规范 2</h2><p>如果 equals (Object obj) 返回 false，即两个对象 “不相同”，并不要求对这两个对象调用 hashcode () 方法得到两个不相同的数。说的简单点就是：“如果两个对象不相同，他们的 hashcode 可能相同”。</p>
+        <p>本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就就行，详细的讲解请见博客其他文章。</p>
+<h3 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h3><ul>
+<li>公平锁：指的是线程按照申请锁的顺序来获取锁（这里的公平和鹅城张麻子说的公平，公平，还是公平不一样，没看过的建议看一下《让子弹飞》，具体讲的什么我就不说了，再说就扯远了）；</li>
+<li>非公平锁：指的是多个线程获取锁的顺序并不是按照申请锁的顺序来的，有可能会出现后申请锁的线程比先申请锁的线程先获得锁；<br>非公平锁一上来就尝试占用锁，如果尝试占用失败，就采用公平锁的方式到末尾排队。在高并发的情况下，有可能造成优先级反转或饥饿现象。非公平锁的优点在于吞吐量比公平锁大。</li>
+</ul>
 <ul>
-<li>根据这两个规范，可以得到如下推论：<br>1、如果两个对象 equals，Java 运行时环境会认为他们的 hashcode 一定相等。<br>2、如果两个对象不 equals，他们的 hashcode 有可能相等。<br>3、如果两个对象 hashcode 相等，他们不一定 equals。<br>4、如果两个对象 hashcode 不相等，他们一定不 equals。</li>
+<li>ReentrantLock：可以指定构造方法的 boolean 类型来指定是公平锁还是非公平锁，默认是非公平锁</li>
+<li>Synchronized：是一种非公平锁</li>
 </ul>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
-<li><p>Object 的 hashcode 方法是本地方法，也就是用 c 或 c++ 实现的，该方法直接返回对象的内存地址。如果没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等（而 hashmap 想让部分值的 hashCode 值一样，所以就要重写）</p>
+<h3 id="独占锁和共享锁"><a href="#独占锁和共享锁" class="headerlink" title="独占锁和共享锁"></a>独占锁和共享锁</h3><ul>
+<li>独占锁：是指该锁一次只能被一个线程所持有。ReentrantLock 和 synchronized 都是独占锁；</li>
+<li>共享锁：是指该锁可以被多个线程所持有，ReentrantReadWriteLock：其读锁是共享锁，其写锁是独占锁，读锁的共享锁可保证并发读是非常高效的，读写、写读、写写的过程是互斥的；</li>
+</ul>
+<h3 id="可重入锁和不可重入锁"><a href="#可重入锁和不可重入锁" class="headerlink" title="可重入锁和不可重入锁"></a>可重入锁和不可重入锁</h3><ul>
+<li>可重入锁：指的是同一线程外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。即获取锁的粒度是线程而不是调用。<br>可重入锁最大的作用是避免死锁。ReentrantLock 和 synchronized 都是可重入锁。</li>
+</ul>
+<h3 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h3><ul>
+<li><p>乐观锁与悲观锁不是指具体的什么类型的锁，而是指看待并发同步的角度。</p>
 </li>
-<li><p>为什么重写 equals 还要重写 hashcode<br>如果没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等。HashMap 中的比较 key 是这样的，先求出 key 的 hashcode (), 比较其值是否相等，若相等再比较 equals (), 若相等则认为他们是相等的。若 equals () 不相等则认为他们不相等。<br>如果只重写 equals 没有重写 hashCode ()，就会导致相同的 key 值也被 hashcode 认为是不同的 key 值（因为没有重写 hashCode ()，则任何对象的 hashCode（）值都不相等），就会在 hashmap 中存储相同的 key 值（map 中 key 值不能相同），这就不符合条件了。</p>
+<li><p>悲观锁：总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁。比如 Java 里面的同步原语 synchronized 关键字的实现就是悲观锁。</p>
+</li>
+<li><p>乐观锁：顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量，在 Java 中 java.util.concurrent.atomic 包下面的原子变量类就是使用了乐观锁的一种实现方式 CAS (Compare and Swap 比较并交换) 实现的。</p>
 </li>
 </ul>
-<p>[参考文章] <a href="https://www.jianshu.com/p/6546b1f2574f" target="_blank" rel="noopener">https://www.jianshu.com/p/6546b1f2574f</a><br>[参考文章]<a href="https://www.jianshu.com/p/3cd627ecfcff" target="_blank" rel="noopener">https://www.jianshu.com/p/3cd627ecfcff</a></p>
 
       
 
@@ -231,7 +240,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">java、equals、hashcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java多线程-锁概念</a>
         		</li>
       		
 		</ul>
@@ -243,7 +252,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/java基础//" class="article-tag-list-link color2">java基础</a>
+        			<a href="/categories/Java多线程//" class="article-tag-list-link color3">Java多线程</a>
         		</li>
       		
 		</ul>
@@ -261,18 +270,9 @@
   
 <nav id="article-nav">
   
-    <a href="../数据结构-队列/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          数据结构-队列
-        
-      </div>
-    </a>
   
-  
-    <a href="../../12/数据结构-数组/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-数组</div>
+    <a href="../volatile/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">volatile关键字</div>
       <i class="icon-circle-right"></i>
     </a>
   

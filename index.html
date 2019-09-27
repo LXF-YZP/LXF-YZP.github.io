@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 23
+			总文章数 24
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -154,6 +154,114 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java多线程之各种锁概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2019/09/20/Java多线程之各种锁概念/">Java多线程之各种锁概念</a>
+    </h1>
+  
+
+        
+        <a href="2019/09/20/Java多线程之各种锁概念/" class="archive-article-date">
+  	<time datetime="2019-09-20T10:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就就行，详细的讲解请见博客其他文章。</p>
+<h3 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h3><ul>
+<li>公平锁：指的是线程按照申请锁的顺序来获取锁（这里的公平和鹅城张麻子说的公平，公平，还是公平不一样，没看过的建议看一下《让子弹飞》，具体讲的什么我就不说了，再说就扯远了）；</li>
+<li>非公平锁：指的是多个线程获取锁的顺序并不是按照申请锁的顺序来的，有可能会出现后申请锁的线程比先申请锁的线程先获得锁；<br>非公平锁一上来就尝试占用锁，如果尝试占用失败，就采用公平锁的方式到末尾排队。在高并发的情况下，有可能造成优先级反转或饥饿现象。非公平锁的优点在于吞吐量比公平锁大。</li>
+</ul>
+<ul>
+<li>ReentrantLock：可以指定构造方法的 boolean 类型来指定是公平锁还是非公平锁，默认是非公平锁</li>
+<li>Synchronized：是一种非公平锁</li>
+</ul>
+<h3 id="独占锁和共享锁"><a href="#独占锁和共享锁" class="headerlink" title="独占锁和共享锁"></a>独占锁和共享锁</h3><ul>
+<li>独占锁：是指该锁一次只能被一个线程所持有。ReentrantLock 和 synchronized 都是独占锁；</li>
+<li>共享锁：是指该锁可以被多个线程所持有，ReentrantReadWriteLock：其读锁是共享锁，其写锁是独占锁，读锁的共享锁可保证并发读是非常高效的，读写、写读、写写的过程是互斥的；</li>
+</ul>
+<h3 id="可重入锁和不可重入锁"><a href="#可重入锁和不可重入锁" class="headerlink" title="可重入锁和不可重入锁"></a>可重入锁和不可重入锁</h3><ul>
+<li>可重入锁：指的是同一线程外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。即获取锁的粒度是线程而不是调用。<br>可重入锁最大的作用是避免死锁。ReentrantLock 和 synchronized 都是可重入锁。</li>
+</ul>
+<h3 id="乐观锁和悲观锁"><a href="#乐观锁和悲观锁" class="headerlink" title="乐观锁和悲观锁"></a>乐观锁和悲观锁</h3><ul>
+<li><p>乐观锁与悲观锁不是指具体的什么类型的锁，而是指看待并发同步的角度。</p>
+</li>
+<li><p>悲观锁：总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻塞直到它拿到锁。比如 Java 里面的同步原语 synchronized 关键字的实现就是悲观锁。</p>
+</li>
+<li><p>乐观锁：顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。乐观锁适用于多读的应用类型，这样可以提高吞吐量，在 Java 中 java.util.concurrent.atomic 包下面的原子变量类就是使用了乐观锁的一种实现方式 CAS (Compare and Swap 比较并交换) 实现的。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java多线程-锁概念</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java多线程//" class="article-tag-list-link color3">Java多线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2019/09/20/Java多线程之各种锁概念/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-volatile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,7 +293,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java多线程-volatile关键字</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java多线程//" class="article-tag-list-link color3">Java多线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
@@ -239,7 +369,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近在看计算机组成原理，估计会写5-10篇左右博客，主要还是根据冯.诺依曼体系结构来分篇的。<br>不要问看懂看不懂，现在就是看不懂也要看啊，越到后面越需要基础的东西，早点学会基础的东西，早点享受基础知识带来的红利；<br>学计算机基础就是要苟，不知道苟啥意思是吧，我给你详细解释一下；<br><img src="/2019/09/13/计算机组成原理之基本概念/68258.jpg" alt></p>
+        <p>最近在看计算机组成原理，估计会写5-10篇左右博客，主要还是根据冯.诺依曼体系结构来分篇的。学计算机组成原理之前先过一遍C语言，大学学的C语言都还回去了，现在要再借过来。还得会一点汇编知识，基本的汇编命令能看懂就可以了。<br>不要问看懂看不懂，现在就是看不懂也要看啊，越到后面越需要基础的东西，早点学会基础的东西，早点享受基础知识带来的红利；<br>学计算机基础就是要苟，不知道苟啥意思是吧，我给你详细解释一下；<br><img src="/2019/09/13/计算机组成原理之基本概念/68258.jpg" alt></p>
 
       
 
@@ -253,7 +383,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数据结构-栈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机组成原理-概念</a>
         		</li>
       		
 		</ul>
@@ -265,7 +395,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构//" class="article-tag-list-link color5">数据结构</a>
+        			<a href="/categories/计算机组成原理//" class="article-tag-list-link color3">计算机组成原理</a>
         		</li>
       		
 		</ul>
@@ -275,90 +405,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="2019/09/13/计算机组成原理之基本概念/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构-Trie树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2019/05/14/数据结构-Trie树/">数据结构-Trie树</a>
-    </h1>
-  
-
-        
-        <a href="2019/05/14/数据结构-Trie树/" class="archive-article-date">
-  	<time datetime="2019-05-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据结构-Trie树</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构//" class="article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2019/05/14/数据结构-Trie树/">展开全文 >></a>
         </p>
       
 
@@ -556,6 +602,90 @@
 
 
   
+    <article id="post-数据结构-Trie树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2019/05/14/数据结构-Trie树/">数据结构-Trie树</a>
+    </h1>
+  
+
+        
+        <a href="2019/05/14/数据结构-Trie树/" class="archive-article-date">
+  	<time datetime="2019-05-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据结构-Trie树</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/数据结构//" class="article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2019/05/14/数据结构-Trie树/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据结构-堆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -724,93 +854,6 @@
 
 
   
-    <article id="post-数据结构-栈" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2019/05/14/数据结构-栈/">数据结构-栈</a>
-    </h1>
-  
-
-        
-        <a href="2019/05/14/数据结构-栈/" class="archive-article-date">
-  	<time datetime="2019-05-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不动手写一下怎么知道自己那么水呢<br>内存中的堆栈和数据结构堆栈不是一回事，内存中的堆栈是真实存在的物理区，数据结构中的堆栈是抽象的数据存储结构。</p>
-        
-          <a class="article-more-a" href="2019/05/14/数据结构-栈/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数据结构-栈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构//" class="article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2019/05/14/数据结构-栈/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-数据结构-跳表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -895,19 +938,19 @@
 
 
   
-    <article id="post-数据结构-队列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-数据结构-栈" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2019/05/14/数据结构-队列/">数据结构-队列</a>
+      <a class="article-title" href="2019/05/14/数据结构-栈/">数据结构-栈</a>
     </h1>
   
 
         
-        <a href="2019/05/14/数据结构-队列/" class="archive-article-date">
+        <a href="2019/05/14/数据结构-栈/" class="archive-article-date">
   	<time datetime="2019-05-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
 </a>
         
@@ -915,9 +958,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>不努力试一下怎么知道自己那么水呢<br>动手实现一下基础的东西，有个整体的影响。主要还是队列在实际应用中用的还挺多的；</p>
+        <p>不动手写一下怎么知道自己那么水呢<br>内存中的堆栈和数据结构堆栈不是一回事，内存中的堆栈是真实存在的物理区，数据结构中的堆栈是抽象的数据存储结构。</p>
         
-          <a class="article-more-a" href="2019/05/14/数据结构-队列/#more">more >></a>
+          <a class="article-more-a" href="2019/05/14/数据结构-栈/#more">more >></a>
         
       
 
@@ -931,7 +974,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构-队列</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数据结构-栈</a>
         		</li>
       		
 		</ul>
@@ -952,7 +995,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2019/05/14/数据结构-队列/">展开全文 >></a>
+          <a class="article-more-a" href="2019/05/14/数据结构-栈/">展开全文 >></a>
         </p>
       
 
@@ -1071,11 +1114,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1087,6 +1126,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
@@ -1095,11 +1142,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,7 +1154,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1119,6 +1166,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
@@ -1127,7 +1178,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,7 +1186,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1143,7 +1198,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
             
             <div class="clearfix"></div>
