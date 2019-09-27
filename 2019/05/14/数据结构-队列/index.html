@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>数据结构-队列 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用数组实现一个顺序队列用链表实现一个链式队列实现一个循环队列">
+  <meta name="description" content="不努力试一下怎么知道自己那么水呢动手实现一下基础的东西，有个整体的影响。主要还是队列在实际应用中用的还挺多的；">
 <meta name="keywords" content="数据结构-队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构-队列">
 <meta property="og:url" content="http://yoursite.com/2019/05/14/数据结构-队列/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="用数组实现一个顺序队列用链表实现一个链式队列实现一个循环队列">
+<meta property="og:description" content="不努力试一下怎么知道自己那么水呢动手实现一下基础的东西，有个整体的影响。主要还是队列在实际应用中用的还挺多的；">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-26T09:07:44.316Z">
+<meta property="og:updated_time" content="2019-09-27T03:46:39.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-队列">
-<meta name="twitter:description" content="用数组实现一个顺序队列用链表实现一个链式队列实现一个循环队列">
+<meta name="twitter:description" content="不努力试一下怎么知道自己那么水呢动手实现一下基础的东西，有个整体的影响。主要还是队列在实际应用中用的还挺多的；">
   
   
     <link rel="icon" href="/favicon.png">
@@ -177,7 +177,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="用数组实现一个顺序队列"><a href="#用数组实现一个顺序队列" class="headerlink" title="用数组实现一个顺序队列"></a>用数组实现一个顺序队列</h2><h2 id="用链表实现一个链式队列"><a href="#用链表实现一个链式队列" class="headerlink" title="用链表实现一个链式队列"></a>用链表实现一个链式队列</h2><h2 id="实现一个循环队列"><a href="#实现一个循环队列" class="headerlink" title="实现一个循环队列"></a>实现一个循环队列</h2>
+        <p>不努力试一下怎么知道自己那么水呢<br>动手实现一下基础的东西，有个整体的影响。主要还是队列在实际应用中用的还挺多的；</p>
+<a id="more"></a>
+
+<h2 id="用数组实现一个顺序队列"><a href="#用数组实现一个顺序队列" class="headerlink" title="用数组实现一个顺序队列"></a>用数组实现一个顺序队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package data.structure.algorithm.queue;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 用数组实现的队列</span><br><span class="line"> * @Author yuezp</span><br><span class="line"> * @Version v1.0</span><br><span class="line"> */</span><br><span class="line">public class ArrayQueue &#123;</span><br><span class="line">    // 数组：items，数组大小：n</span><br><span class="line">    private String[] items;</span><br><span class="line">    private int n = 0;</span><br><span class="line">    // head 表示队头下标，tail 表示队尾下标</span><br><span class="line">    private int head = 0;</span><br><span class="line">    private int tail = 0;</span><br><span class="line"></span><br><span class="line">    // 申请一个大小为 capacity 的数组</span><br><span class="line">    public ArrayQueue(int capacity) &#123;</span><br><span class="line">        items = new String[capacity];</span><br><span class="line">        n = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 入队</span><br><span class="line">    public boolean enqueue(String item) &#123;</span><br><span class="line">        // 如果 tail == n 表示队列已经满了</span><br><span class="line">        if (tail == n) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        items[tail] = item;</span><br><span class="line">        ++tail;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 出队</span><br><span class="line">    public String dequeue() &#123;</span><br><span class="line">        // 如果 head == tail 表示队列为空</span><br><span class="line">        if (head == tail) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        String ret = items[head];</span><br><span class="line">        ++head;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void printAll() &#123;</span><br><span class="line">        for (int i = head; i &lt; tail; ++i) &#123;</span><br><span class="line">            System.out.print(items[i] + &quot; &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用链表实现一个链式队列"><a href="#用链表实现一个链式队列" class="headerlink" title="用链表实现一个链式队列"></a>用链表实现一个链式队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">package data.structure.algorithm.queue;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 基于链表实现队列</span><br><span class="line"> * @Author yuezp</span><br><span class="line"> * @Version v1.0</span><br><span class="line"> */</span><br><span class="line">public class QueueBasedOnLinkedList &#123;</span><br><span class="line"></span><br><span class="line">    // 队列的队首和队尾</span><br><span class="line">    private Node head = null;</span><br><span class="line">    private Node tail = null;</span><br><span class="line"></span><br><span class="line">    // 入队</span><br><span class="line">    public void enqueue(String value) &#123;</span><br><span class="line">        if (tail == null) &#123;</span><br><span class="line">            Node newNode = new Node(value, null);</span><br><span class="line">            head = newNode;</span><br><span class="line">            tail = newNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            tail.next = new Node(value, null);</span><br><span class="line">            tail = tail.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 出队</span><br><span class="line">    public String dequeue() &#123;</span><br><span class="line">        if (head == null) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        String value = head.data;</span><br><span class="line">        head = head.next;</span><br><span class="line">        if (head == null) &#123;</span><br><span class="line">            tail = null;</span><br><span class="line">        &#125;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void printAll() &#123;</span><br><span class="line">        Node p = head;</span><br><span class="line">        while (p != null) &#123;</span><br><span class="line">            System.out.print(p.data + &quot; &quot;);</span><br><span class="line">            p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static class Node &#123;</span><br><span class="line">        private String data;</span><br><span class="line">        private Node next;</span><br><span class="line"></span><br><span class="line">        public Node(String data, Node next) &#123;</span><br><span class="line">            this.data = data;</span><br><span class="line">            this.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String getData() &#123;</span><br><span class="line">            return data;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现一个循环队列"><a href="#实现一个循环队列" class="headerlink" title="实现一个循环队列"></a>实现一个循环队列</h2><p>循环队列满的条件需要自己动手画个图试试看，但是思想就是取余；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package data.structure.algorithm.queue;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @Author yuezp</span><br><span class="line"> * @Version v1.0</span><br><span class="line"> */</span><br><span class="line">public class CircularQueue &#123;</span><br><span class="line">    // 数组：items，数组大小：n</span><br><span class="line">    private String[] items;</span><br><span class="line">    private int n = 0;</span><br><span class="line">    // head 表示队头下标，tail 表示队尾下标</span><br><span class="line">    private int head = 0;</span><br><span class="line">    private int tail = 0;</span><br><span class="line"></span><br><span class="line">    // 申请一个大小为 capacity 的数组</span><br><span class="line">    public CircularQueue(int capacity) &#123;</span><br><span class="line">        items = new String[capacity];</span><br><span class="line">        n = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 入队</span><br><span class="line">    public boolean enqueue(String item) &#123;</span><br><span class="line">        // 队列满了</span><br><span class="line">        if ((tail + 1) % n == head) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        items[tail] = item;</span><br><span class="line">        tail = (tail + 1) % n;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 出队</span><br><span class="line">    public String dequeue() &#123;</span><br><span class="line">        // 如果 head == tail 表示队列为空</span><br><span class="line">        if (head == tail) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        String ret = items[head];</span><br><span class="line">        head = (head + 1) % n;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void printAll() &#123;</span><br><span class="line">        if (0 == n) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = head; i % n != tail; i = (i + 1) % n) &#123;</span><br><span class="line">            System.out.print(items[i] + &quot; &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接] <a href="https://github.com/wangzheng0822/algo/tree/master/java/09_queue" target="_blank" rel="noopener">https://github.com/wangzheng0822/algo/tree/master/java/09_queue</a></p>
+
       
 
       
@@ -246,18 +257,18 @@
   
 <nav id="article-nav">
   
-    <a href="../数据结构-栈/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../数据结构-链表/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          数据结构-栈
+          数据结构-链表
         
       </div>
     </a>
   
   
-    <a href="../数据结构-链表/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构-链表</div>
+    <a href="../为什么重写equals还要重写hashcode方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为什么重写equals还要重写hashcode方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -375,6 +386,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
@@ -383,23 +406,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -427,10 +442,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
@@ -439,7 +450,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,7 +458,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
             
             <div class="clearfix"></div>
