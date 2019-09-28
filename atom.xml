@@ -120,9 +120,13 @@
     <link href="http://yoursite.com/2019/09/24/git%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2019/09/24/git使用整理/</id>
     <published>2019-09-24T10:28:24.000Z</published>
-    <updated>2019-09-27T11:33:18.138Z</updated>
+    <updated>2019-09-28T02:45:08.401Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文不做过多概念解释，详细概念请参照官网。本文只是针对平时使用的命令做一个记录；</p><a id="more"></a><ul><li>配置用户信息</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;yuezp&quot;</span><br><span class="line">$ git config --global user.email &quot;yuezp@bonc.com.cn&quot;</span><br></pre></td></tr></table></figure><blockquote><p>注:如果使⽤–global选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， Git 都会使用那些信息。 当你想针对特定项⽬使⽤不同的用户名称与邮件地址时，可以在那个项目目录下运行没有–global选项的命令来配置。</p></blockquote><h3 id="配置用户信息"><a href="#配置用户信息" class="headerlink" title="配置用户信息"></a>配置用户信息</h3><ul><li>查看配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git config —list</span><br><span class="line"></span><br><span class="line">core.excludesfile=~/.gitignore</span><br><span class="line">core.legacyheaders=false</span><br><span class="line">core.quotepath=false</span><br><span class="line">core.pager=less</span><br><span class="line">mergetool.keepbackup=true</span><br><span class="line">push.default=simple</span><br><span class="line">color.ui=auto</span><br><span class="line">color.interactive=auto</span><br><span class="line">repack.usedeltabaseoffset=true</span><br><span class="line">alias.s=status</span><br><span class="line">......</span><br></pre></td></tr></table></figure></li></ul><h3 id="配置秘钥"><a href="#配置秘钥" class="headerlink" title="配置秘钥"></a>配置秘钥</h3><p><strong><em>如果你本地已经生成过秘钥</em></strong></p><ul><li>查看本地库终端秘钥<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$cat ~/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line">ssh-rsa</span><br><span class="line">AAAAB3NzaC1yc2EAAAADAQABAAABAQC4LHzWicHvC3rj7xHIolwADsBXxQFx19nOmltOP+vV1mI</span><br><span class="line">gLrbOdw3nu32d6SgjLKEptBAmuuBMM11tOixd2WD680leugdfhIk8j4EoKB1iuQOytEhGCIqxsQ</span><br><span class="line">kGc/PSCSlNnpvj1Pdhm5WjEUctv8KU3mqi9DwxeVe9h/8bMPoisuAAAGTRyLH6HwL/PwV+y2wRd</span><br><span class="line">lbGIgYtD9/PNhmZWanihcYWIWLrBfyTTHtFHhOASHCoOtn8sf6d4YX9Mr//2T+/QhAfti8fuPec</span><br><span class="line">AfffdTAGwR7FfjyPw2WfReFaFwI27M9G7j6ZzB8sCq8psRfUXDi3MeGmDIM6cj0TUTObmCVf</span><br><span class="line">yuezp@bonc.com.cn</span><br></pre></td></tr></table></figure></li></ul><p><strong><em>如果你本地没有生成过秘钥</em></strong></p><ul><li>生成秘钥</li></ul><p>如果本地库终端不存在 ~/.ssh 目录或不存在 ~/.ssh/id_rsa.pub 文件，则⽣生成密钥</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C “xxx@bonc.com.cn&quot;</span><br></pre></td></tr></table></figure><p>复制本地库密钥(即~/.ssh/id_rsa.pub 文件)到远程库个人配置中（就是你的gitlab或者GitHub中）</p><h3 id="创建Repository"><a href="#创建Repository" class="headerlink" title="创建Repository"></a>创建Repository</h3><p>有两种创建 Git 项目仓库的方法:在现有目录中初始化 Repository，或克隆一个既有的 Git仓库。</p><ul><li>在现有目录中初始化Repository</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure><p>该命令将创建一个名为 .git 的⼦目录，这个⼦目录含有你初始化的 Git 仓库中所有的必须文件，这<br>些文件是 Git 仓库的骨干。</p><ul><li>从服务器克隆一个现有的Git仓库</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone [Remote URL] [Repository Name]</span><br></pre></td></tr></table></figure><p>如果不需要自定义本地仓库名称，可以不指定 Repository Name，本地仓库名称将与远程库相同;</p><h3 id="Git常用操作"><a href="#Git常用操作" class="headerlink" title="Git常用操作"></a>Git常用操作</h3><p>git add<br>将文件内容添加到索引(将修改添加到暂存区)。也就是将要提交的文件的信息添加到索引库中。</p>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;本文不做过多概念解释，详细概念请参照官网。本文只是针对平时使用的命令做一个记录；&lt;/p&gt;
     
     </summary>
     
@@ -302,25 +306,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-图</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:35:38.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-堆</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-堆/</id>
@@ -336,6 +321,25 @@
     
     
       <category term="数据结构-堆" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-图</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:35:38.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
     
   </entry>
   
