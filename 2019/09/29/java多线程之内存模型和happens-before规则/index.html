@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java多线程之内存模型和happens-before规则 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。 12345678910111213141516171819202122/** *《Java并发编程实战》27页程序清单3-1 */public clas">
+  <meta name="description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。">
 <meta name="keywords" content="Java多线程-内存模型、happens-before规则">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多线程之内存模型和happens-before规则">
 <meta property="og:url" content="http://yoursite.com/2019/09/29/java多线程之内存模型和happens-before规则/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。 12345678910111213141516171819202122/** *《Java并发编程实战》27页程序清单3-1 */public clas">
+<meta property="og:description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-30T02:24:11.887Z">
+<meta property="og:updated_time" content="2019-09-30T04:10:48.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之内存模型和happens-before规则">
-<meta name="twitter:description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。 12345678910111213141516171819202122/** *《Java并发编程实战》27页程序清单3-1 */public clas">
+<meta name="twitter:description" content="多线程可见性可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 34
+			总文章数 35
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -178,9 +178,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="多线程可见性"><a href="#多线程可见性" class="headerlink" title="多线程可见性"></a>多线程可见性</h3><p>可见性是指当一个线程修改了共享变量的值，其它线程能够适时得知这个修改。在单线程环境中，如果在程序前面修改了某个变量的值，后面的程序一定会读取到那个变量的新值。这看起来很自然，然而当变量的写操作和读操作在不同的线程中时，情况却并非如此。</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *《Java并发编程实战》27页程序清单3-1</span><br><span class="line"> */</span><br><span class="line">public class NoVisibility &#123;</span><br><span class="line">    private static boolean ready; </span><br><span class="line">    private static int number;</span><br><span class="line">    </span><br><span class="line">    private static class ReaderThread extends Thread &#123;</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            while(!ready) &#123;</span><br><span class="line">                Thread.yield();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(number);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new ReaderThread().start(); //启动一个线程</span><br><span class="line">        number = 42;</span><br><span class="line">        ready = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上面的代码中，主线程和读线程都访问共享变量 ready 和 number。程序看起来会输出 42，但事实上很可能会输出 0，或者根本无法终止。这是因为上面的程序缺少线程间变量可见性的保证，所以在主线程中写入的变量值，可能无法被读线程感知到。</p>
+<p>上面的代码中，主线程和读线程都访问共享变量 ready 和 number。程序看起来会输出 42（输出42是正常思维，就是number和ready被复制之后没一会就将值更新到了主内存，更新到主内存之后，等其他线程到主内存中读取值的时候就可以看到修改后的值），但事实上很可能会输出 0，或者根本无法终止。这是因为上面的程序缺少线程间变量可见性的保证，所以在主线程中写入的变量值，可能无法被读线程感知到。</p>
 <h3 id="程序顺序规则"><a href="#程序顺序规则" class="headerlink" title="程序顺序规则"></a>程序顺序规则</h3><p>在一个线程内部，按照程序代码的书写顺序，书写在前面的代码操作 Happens-Before 书写在后面的代码操作。这时因为 Java 语言规范要求 JVM 在单个线程内部要维护类似严格串行的语义，如果多个操作之间有<strong><em>先后依赖关系</em></strong>，则不允许对这些操作进行重排序。</p>
 <h3 id="锁定规则"><a href="#锁定规则" class="headerlink" title="锁定规则"></a>锁定规则</h3><p>对锁 M 解锁之前的所有操作 Happens-Before 对锁 M 加锁之后的所有操作。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class HappensBeforeLock &#123;</span><br><span class="line">    private int value = 0;</span><br><span class="line">    </span><br><span class="line">    public synchronized void setValue(int value) &#123;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public synchronized int getValue() &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -196,6 +197,7 @@
 <h3 id="线程启动规则"><a href="#线程启动规则" class="headerlink" title="线程启动规则"></a>线程启动规则</h3><p>Thread 对象的 start 方法及书写在 start 方法前面的代码操作 Happens-Before 此线程的每一个动作。<br>start 方法和新线程中的动作一定是在两个不同的线程中执行。线程启动规则可以这样去理解：调用 start 方法时，会将 start 方法之前所有操作的结果同步到主内存中，新线程创建好后，需要从主内存获取数据。这样在 start 方法调用之前的所有操作结果对于新创建的线程都是可见的。</p>
 <h3 id="线程终止规则"><a href="#线程终止规则" class="headerlink" title="线程终止规则"></a>线程终止规则</h3><p>线程中的任何操作都 Happens-Before 其它线程检测到该线程已经结束。这个说法有些抽象，下面举例子对其进行说明。<br>假设两个线程 s、t。在线程 s 中调用 t.join () 方法。则线程 s 会被挂起，等待 t 线程运行结束才能恢复执行。当 t.join () 成功返回时，s 线程就知道 t 线程已经结束了。所以根据本条原则，在 t 线程中对共享变量的修改，对 s 线程都是可见的。类似的还有 Thread.isAlive 方法也可以检测到一个线程是否结束。<br>可以猜测，当一个线程结束时，会把自己所有操作的结果都同步到主内存。而任何其它线程当发现这个线程已经执行结束了，就会从主内存中重新刷新最新的变量值。所以结束的线程 A 对共享变量的修改，对于其它检测了 A 线程是否结束的线程是可见的。</p>
 <h3 id="中断规则"><a href="#中断规则" class="headerlink" title="中断规则"></a>中断规则</h3><p>一个线程在另一个线程上调用 interrupt,Happens-Before 被中断线程检测到 interrupt 被调用。<br>假设两个线程 A 和 B，A 先做了一些操作 operationA，然后调用 B 线程的 interrupt 方法。当 B 线程感知到自己的中断标识被设置时 (通过抛出 InterruptedException，或调用 interrupted 和 isInterrupted),operationA 中的操作结果对 B 都是可见的。</p>
+<p>[参考链接]<a href="https://segmentfault.com/a/1190000011458941" target="_blank" rel="noopener">https://segmentfault.com/a/1190000011458941</a><br>参考书籍《Java并发编程艺术》第三章，《Java并发编程实战》第三章，第十六章</p>
 
       
 
@@ -394,15 +396,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -414,15 +416,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -430,15 +424,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">RPC框架、远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,11 +452,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,7 +460,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -478,23 +488,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,7 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,11 +520,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
             
             <div class="clearfix"></div>
