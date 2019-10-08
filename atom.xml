@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-30T08:14:01.276Z</updated>
+  <updated>2019-10-08T01:57:43.394Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2019/09/30/Java%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
     <id>http://yoursite.com/2019/09/30/Java并发之多线程间通信/</id>
     <published>2019-09-30T10:28:24.000Z</published>
-    <updated>2019-09-30T08:14:01.276Z</updated>
+    <updated>2019-10-08T01:57:43.394Z</updated>
     
     <summary type="html">
     
@@ -63,7 +63,7 @@
     <link href="http://yoursite.com/2019/09/28/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BCAS/"/>
     <id>http://yoursite.com/2019/09/28/java多线程之CAS/</id>
     <published>2019-09-28T10:28:24.000Z</published>
-    <updated>2019-09-27T11:12:33.779Z</updated>
+    <updated>2019-10-08T01:57:40.958Z</updated>
     
     <summary type="html">
     
@@ -101,9 +101,16 @@
     <link href="http://yoursite.com/2019/09/26/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8Block/"/>
     <id>http://yoursite.com/2019/09/26/Java多线程之lock/</id>
     <published>2019-09-26T10:28:24.000Z</published>
-    <updated>2019-09-27T11:08:27.774Z</updated>
+    <updated>2019-10-08T02:32:39.433Z</updated>
+    
+    <content type="html"><![CDATA[<p>Lock 锁，可以得到和 synchronized 一样的效果，即实现原子性、有序性和可见性。相较于 synchronized，Lock 锁可手动获取锁和释放锁、可中断的获取锁、超时获取锁。Lock 是一个接口，两个直接实现类：ReentrantLock（重入锁）, ReentrantReadWriteLock（读写锁）。</p><h3 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h3><p>Lock 锁的基本用法， l.lock () 方法进行上锁， l.unlock () 方法进行解锁，如下所示。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lock l = new ReentrantLock();</span><br><span class="line">l.lock(); // 上锁</span><br><span class="line">try &#123;</span><br><span class="line">  // access the resource protected by this lock</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  l.unlock(); // 解锁</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Lock-锁常用方法"><a href="#Lock-锁常用方法" class="headerlink" title="Lock 锁常用方法"></a>Lock 锁常用方法</h3><table><thead><tr><th>修饰符和类型</th><th align="center">方法</th><th align="right">描述</th></tr></thead><tbody><tr><td>void</td><td align="center">lock（）</td><td align="right">获得锁。</td></tr><tr><td>void</td><td align="center">lockInterruptibly​()</td><td align="right">获得锁，可中断。举个例子，当两个线程同时通过 lock.lockInterruptibly () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 只有在等待，那么对线程 B 调用 threadB.interrupt () 方法能够中断线程 B 的等待过程。</td></tr><tr><td>boolean</td><td align="center">tryLock​()</td><td align="right">锁在空闲的才能获取锁（未获得锁不会等待）。举个例子：当两个线程同时通过 lock.trylock () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 不会等待，直接放弃获取锁。</td></tr><tr><td>boolean</td><td align="center">tryLock​(long time, TimeUnit unit)</td><td align="right">如果锁定可用，则此方法立即返回值 true。如果锁不可用，则当前线程将被禁用以进行线程调度，并且在发生以下三种情况之一之前处于休眠状态：</td></tr><tr><td>当前线程获取锁。</td><td align="center"></td><td align="right"></td></tr><tr><td>其他一些线程中断当前线程。</td><td align="center"></td><td align="right"></td></tr><tr><td>等待时间过去了，返回 false</td><td align="center"></td><td align="right"></td></tr><tr><td>void</td><td align="center">unlock​()</td><td align="right">释放锁。</td></tr></tbody></table>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;Lock 锁，可以得到和 synchronized 一样的效果，即实现原子性、有序性和可见性。相较于 synchronized，Lock 锁可手动获取锁和释放锁、可中断的获取锁、超时获取锁。Lock 是一个接口，两个直接实现类：ReentrantLock（重入锁）, Ree
+      
     
     </summary>
     
@@ -335,11 +342,11 @@
   </entry>
   
   <entry>
-    <title>数据结构-二叉树</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
+    <title>数据结构-Trie树</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-Trie树/</id>
     <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:33:28.000Z</updated>
+    <updated>2019-05-14T06:36:38.000Z</updated>
     
     <summary type="html">
     
@@ -349,7 +356,7 @@
       <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
     
-      <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+      <category term="数据结构-Trie树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
     
   </entry>
   
@@ -373,11 +380,11 @@
   </entry>
   
   <entry>
-    <title>数据结构-Trie树</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-Trie树/</id>
+    <title>数据结构-二叉树</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
     <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:36:38.000Z</updated>
+    <updated>2019-05-14T06:33:28.000Z</updated>
     
     <summary type="html">
     
@@ -387,7 +394,7 @@
       <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
     
-      <category term="数据结构-Trie树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
+      <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
   </entry>
   
