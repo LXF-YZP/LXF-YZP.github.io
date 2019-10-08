@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="Java 从 Java SE 5 之后在并发包中提供 Lock 接口。在 java.util.concurrent.locks 包中有很多 Lock 的实现类，常用的有 ReentrantLock、ReadWriteLock（实现类 ReentrantReadWriteLock），其实现都依赖 java.util.concurrent.AbstractQueuedSynchronizer 类，实现">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-08T06:38:16.049Z">
+<meta property="og:updated_time" content="2019-10-08T07:08:33.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之lock">
 <meta name="twitter:description" content="Java 从 Java SE 5 之后在并发包中提供 Lock 接口。在 java.util.concurrent.locks 包中有很多 Lock 的实现类，常用的有 ReentrantLock、ReadWriteLock（实现类 ReentrantReadWriteLock），其实现都依赖 java.util.concurrent.AbstractQueuedSynchronizer 类，实现">
@@ -178,6 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Java 从 Java SE 5 之后在并发包中提供 Lock 接口。在 java.util.concurrent.locks 包中有很多 Lock 的实现类，常用的有 ReentrantLock、ReadWriteLock（实现类 ReentrantReadWriteLock），其实现都依赖 java.util.concurrent.AbstractQueuedSynchronizer 类，实现思路都大同小异，因此我们以 ReentrantLock 作为讲解切入点。Lock 锁，可以得到和 synchronized 一样的效果，即实现原子性、有序性和可见性。相较于 synchronized，Lock 锁可手动获取锁和释放锁、可中断的获取锁、超时获取锁。Lock 是一个接口，两个直接实现类：ReentrantLock（重入锁）, ReentrantReadWriteLock（读写锁）。</p>
+<a id="more"></a>
 <h3 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h3><p>Lock 锁的基本用法， l.lock () 方法进行上锁， l.unlock () 方法进行解锁，如下所示。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lock l = new ReentrantLock();</span><br><span class="line">l.lock(); // 上锁</span><br><span class="line">try &#123;</span><br><span class="line">  // access the resource protected by this lock</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  l.unlock(); // 解锁</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -233,7 +234,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private Lock lock = new ReentrantLock(); //创建锁</span><br><span class="line"></span><br><span class="line">public void getLock() &#123;</span><br><span class="line">    lock.lock(); //获得锁</span><br><span class="line">    try &#123;</span><br><span class="line">        System.out.print(&quot;业务处理&quot;); //任务处理</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        lock.unlock(); //释放锁</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>tryLock()<br>特点：带有 boolean 型返回值；无论是否成功获取锁会立即返回不进行等待；</li>
+<li>tryLock()<br>特点：带有 boolean 型返回值；无论是否成功获取锁会立即返回不进行等待；也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private Lock lock = new ReentrantLock(); //创建锁</span><br><span class="line"></span><br><span class="line">public void getLock() &#123;</span><br><span class="line"></span><br><span class="line">    if(lock.tryLock()) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            System.out.print(&quot;业务处理&quot;); //任务处理</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            lock.unlock(); //释放锁</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">           System.out.print(&quot;获取锁失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -248,13 +249,33 @@
 <p>　　由于 lockInterruptibly () 的声明中抛出了异常，所以 lock.lockInterruptibly () 必须放在 try 块中或者在调用 lockInterruptibly () 的方法外声明抛出 InterruptedException，但推荐使用后者，原因稍后阐述。因此，lockInterruptibly () 一般的使用形式如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void method() throws InterruptedException &#123;</span><br><span class="line">    lock.lockInterruptibly();</span><br><span class="line">    try &#123;  </span><br><span class="line">     //.....</span><br><span class="line">    &#125;</span><br><span class="line">    finally &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<ol start="5">
+<li>ReentrantReadWriteLock</li>
+</ol>
+<p>ReentrantReadWriteLock 里面提供了很多丰富的方法，不过最主要的有两个方法：readLock () 和 writeLock () 用来获取读锁和写锁。<br>假如有多个线程要同时进行读操作的话，先看一下 synchronized 达到的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args)  &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">         </span><br><span class="line">        new Thread()&#123;</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                test.get(Thread.currentThread());</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">         </span><br><span class="line">        new Thread()&#123;</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                test.get(Thread.currentThread());</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">         </span><br><span class="line">    &#125;  </span><br><span class="line">     </span><br><span class="line">    public synchronized void get(Thread thread) &#123;</span><br><span class="line">        long start = System.currentTimeMillis();</span><br><span class="line">        while(System.currentTimeMillis() - start &lt;= 1) &#123;</span><br><span class="line">            System.out.println(thread.getName()+&quot;正在进行读操作&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(thread.getName()+&quot;读操作完毕&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段程序的输出结果会是，直到 thread1 执行完读操作之后，才会打印 thread2 执行读操作的信息。</p>
+<p>而改成用读写锁的话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args)  &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">         </span><br><span class="line">        new Thread()&#123;</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                test.get(Thread.currentThread());</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">         </span><br><span class="line">        new Thread()&#123;</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                test.get(Thread.currentThread());</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;.start();</span><br><span class="line">         </span><br><span class="line">    &#125;  </span><br><span class="line">     </span><br><span class="line">    public void get(Thread thread) &#123;</span><br><span class="line">        rwl.readLock().lock();</span><br><span class="line">        try &#123;</span><br><span class="line">            long start = System.currentTimeMillis();</span><br><span class="line">             </span><br><span class="line">            while(System.currentTimeMillis() - start &lt;= 1) &#123;</span><br><span class="line">                System.out.println(thread.getName()+&quot;正在进行读操作&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(thread.getName()+&quot;读操作完毕&quot;);</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            rwl.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>thread1 和 thread2 在同时进行读操作。这样就大大提升了读操作的效率。不过要注意的是，如果有一个线程已经占用了读锁，则此时其他线程如果要申请写锁，则申请写锁的线程会一直等待释放读锁。如果有一个线程已经占用了写锁，则此时其他线程如果申请写锁或者读锁，则申请的线程会一直等待释放写锁。</p>
 <blockquote>
 <p>注意<br>当一个线程获取了锁之后，是不会被 interrupt () 方法中断的。因为 interrupt () 方法只能中断阻塞过程中的线程而不能中断正在运行过程中的线程。因此，当通过 lockInterruptibly () 方法获取某个锁时，如果不能获取到，那么只有进行等待的情况下，才可以响应中断的。与 synchronized 相比，当一个线程处于等待某个锁的状态，是无法被中断的，只有一直等待下去。</p>
 </blockquote>
 <blockquote>
 <p>可中断锁<br>顾名思义，可中断锁就是可以响应中断的锁。在 Java 中，synchronized 就不是可中断锁，而 Lock 是可中断锁。<br>如果某一线程 A 正在执行锁中的代码，另一线程 B 正在等待获取该锁，可能由于等待时间过长，线程 B 不想等待了，想先处理其他事情，我们可以让它中断自己或者在别的线程中中断它，这种就是可中断锁。在前面演示 tryLock (long time, TimeUnit unit) 和 lockInterruptibly () 的用法时已经体现了 Lock 的可中断性。</p>
 </blockquote>
-<p>[参考链接]<a href="https://blog.csdn.net/qq_38737992/article/details/89607758" target="_blank" rel="noopener">https://blog.csdn.net/qq_38737992/article/details/89607758</a><br>[参考链接]<a href="https://blog.csdn.net/qq_25160969/article/details/71335362" target="_blank" rel="noopener">https://blog.csdn.net/qq_25160969/article/details/71335362</a></p>
+<blockquote>
+<p>Lock 和 synchronized 有以下几点不同：</p>
+</blockquote>
+<p>　　1）Lock 是一个接口，而 synchronized 是 Java 中的关键字，synchronized 是内置的语言实现，synchronized 是在 JVM 层面上实现的，不但可以通过一些监控工具监控 synchronized 的锁定，而且在代码执行时出现异常，JVM 会自动释放锁定，但是使用 Lock 则不行，lock 是通过代码实现的，要保证锁定一定会被释放，就必须将 unLock () 放到 finally {} 中；</p>
+<p>　　2）synchronized 在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而 Lock 在发生异常时，如果没有主动通过 unLock () 去释放锁，则很可能造成死锁现象，因此使用 Lock 时需要在 finally 块中释放锁；</p>
+<p>　　3）Lock 可以让等待锁的线程响应中断，线程可以中断去干别的事务，而 synchronized 却不行，使用 synchronized 时，等待的线程会一直等待下去，不能够响应中断；</p>
+<p>　　4）通过 Lock 可以知道有没有成功获取锁，而 synchronized 却无法办到。</p>
+<p>　　5）Lock 可以提高多个线程进行读操作的效率。</p>
+<p>　　在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时 Lock 的性能要远远优于 synchronized。所以说，在具体使用时要根据适当情况选择。</p>
+<p>[参考链接]<a href="https://blog.csdn.net/qq_38737992/article/details/89607758" target="_blank" rel="noopener">https://blog.csdn.net/qq_38737992/article/details/89607758</a><br>[参考链接]<a href="https://blog.csdn.net/qq_25160969/article/details/71335362" target="_blank" rel="noopener">https://blog.csdn.net/qq_25160969/article/details/71335362</a><br>[参考链接]<a href="https://www.cnblogs.com/dolphin0520/p/3923167.html#!comments" target="_blank" rel="noopener">https://www.cnblogs.com/dolphin0520/p/3923167.html#!comments</a></p>
 
       
 
@@ -453,23 +474,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,11 +482,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,7 +502,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,15 +522,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +546,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,11 +562,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,7 +574,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,7 +582,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,11 +590,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,10 +603,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
