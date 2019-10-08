@@ -377,25 +377,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-图</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:35:38.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-堆</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-堆/</id>
@@ -415,17 +396,13 @@
   </entry>
   
   <entry>
-    <title>数据结构-栈</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-栈/</id>
+    <title>数据结构-图</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-图/</id>
     <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-09-27T03:57:32.303Z</updated>
-    
-    <content type="html"><![CDATA[<p>不动手写一下怎么知道自己那么水呢<br>内存中的堆栈和数据结构堆栈不是一回事，内存中的堆栈是真实存在的物理区，数据结构中的堆栈是抽象的数据存储结构。</p><a id="more"></a><h2 id="用数组实现一个顺序栈"><a href="#用数组实现一个顺序栈" class="headerlink" title="用数组实现一个顺序栈"></a>用数组实现一个顺序栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package data.structure.algorithm.stack;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 数组实现栈</span><br><span class="line"> * @Author yuezp</span><br><span class="line"> * @Version v1.0</span><br><span class="line"> */</span><br><span class="line">public class ArrayStack &#123;</span><br><span class="line"></span><br><span class="line">    private String [] items; //数组</span><br><span class="line">    private int count;  //栈中元素个数</span><br><span class="line">    private int n;      //栈的大小</span><br><span class="line"></span><br><span class="line">    //初始化数组</span><br><span class="line">    public ArrayStack(int n) &#123;</span><br><span class="line">        this.items = new String[n];</span><br><span class="line">        this.n = n;</span><br><span class="line">        this.count = 0;</span><br><span class="line">    &#125;</span><br><span class="line">    //入栈操作</span><br><span class="line">    public boolean Push (String item) &#123;</span><br><span class="line">        //将item放到下标为count的位置</span><br><span class="line">        if (count == n) &#123;  </span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        //将item放到下标为count的位置</span><br><span class="line">        items[count] = item;</span><br><span class="line">        count++;            </span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    //出栈操作</span><br><span class="line">    public String Pop () &#123;</span><br><span class="line">        //如果为零，则栈中无数据</span><br><span class="line">        if (count == 0) &#123;  </span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        //返回数组中下标为count—1的值</span><br><span class="line">        String temp = items[count-1]; </span><br><span class="line">        count--;                      </span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="用链表实现一个链式栈"><a href="#用链表实现一个链式栈" class="headerlink" title="用链表实现一个链式栈"></a>用链表实现一个链式栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">package data.structure.algorithm.stack;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 链表实现栈</span><br><span class="line"> * @Author yuezp</span><br><span class="line"> * @Version v1.0</span><br><span class="line"> */</span><br><span class="line">public class StackBasedOnLinkedList &#123;</span><br><span class="line">    private Node top = null;</span><br><span class="line"></span><br><span class="line">    public void push(int value) &#123;</span><br><span class="line">        Node newNode = new Node(value, null);</span><br><span class="line">        // 判断是否栈空</span><br><span class="line">        if (top == null) &#123;</span><br><span class="line">            top = newNode;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            newNode.next = top;</span><br><span class="line">            top = newNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 我用 - 1 表示栈中没有数据。</span><br><span class="line">     */</span><br><span class="line">    public int pop() &#123;</span><br><span class="line">        if (top == null) return -1;</span><br><span class="line">        int value = top.data;</span><br><span class="line">        top = top.next;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void printAll() &#123;</span><br><span class="line">        Node p = top;</span><br><span class="line">        while (p != null) &#123;</span><br><span class="line">            System.out.print(p.data + &quot; &quot;);</span><br><span class="line">            p = p.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static class Node &#123;</span><br><span class="line">        private int data;</span><br><span class="line">        private Node next;</span><br><span class="line"></span><br><span class="line">        public Node(int data, Node next) &#123;</span><br><span class="line">            this.data = data;</span><br><span class="line">            this.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int getData() &#123;</span><br><span class="line">            return data;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <updated>2019-05-14T06:35:38.000Z</updated>
     
     <summary type="html">
-    
-      &lt;p&gt;不动手写一下怎么知道自己那么水呢&lt;br&gt;内存中的堆栈和数据结构堆栈不是一回事，内存中的堆栈是真实存在的物理区，数据结构中的堆栈是抽象的数据存储结构。&lt;/p&gt;
     
     </summary>
     
@@ -433,7 +410,26 @@
       <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
     
-      <category term="数据结构-栈" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
+      <category term="数据结构-图" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%9B%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-跳表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-跳表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:34:48.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-跳表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
     
   </entry>
   
