@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="Lock 锁，可以得到和 synchronized 一样的效果，即实现原子性、有序性和可见性。相较于 synchronized，Lock 锁可手动获取锁和释放锁、可中断的获取锁、超时获取锁。Lock 是一个接口，两个直接实现类：ReentrantLock（重入锁）, ReentrantReadWriteLock（读写锁）。 概括Lock 锁的基本用法， l.lock () 方法进行上锁， l.un">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-08T02:43:56.259Z">
+<meta property="og:updated_time" content="2019-10-08T02:45:23.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之lock">
 <meta name="twitter:description" content="Lock 锁，可以得到和 synchronized 一样的效果，即实现原子性、有序性和可见性。相较于 synchronized，Lock 锁可手动获取锁和释放锁、可中断的获取锁、超时获取锁。Lock 是一个接口，两个直接实现类：ReentrantLock（重入锁）, ReentrantReadWriteLock（读写锁）。 概括Lock 锁的基本用法， l.lock () 方法进行上锁， l.un">
@@ -184,35 +184,35 @@
 <h3 id="Lock-锁常用方法"><a href="#Lock-锁常用方法" class="headerlink" title="Lock 锁常用方法"></a>Lock 锁常用方法</h3><table>
 <thead>
 <tr>
-<th>修饰符和类型</th>
+<th align="center">修饰符和类型</th>
 <th align="center">方法</th>
-<th align="right">-描述-</th>
+<th align="center">描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>void</td>
+<td align="center">void</td>
 <td align="center">lock（）</td>
-<td align="right">获得锁。</td>
+<td align="center">获得锁。</td>
 </tr>
 <tr>
-<td>void</td>
+<td align="center">void</td>
 <td align="center">lockInterruptibly​()</td>
-<td align="right">获得锁，可中断。举个例子，当两个线程同时通过 lock.lockInterruptibly () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 只有在等待，那么对线程 B 调用 threadB.interrupt () 方法能够中断线程 B 的等待过程。</td>
+<td align="center">获得锁，可中断。举个例子，当两个线程同时通过 lock.lockInterruptibly () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 只有在等待，那么对线程 B 调用 threadB.interrupt () 方法能够中断线程 B 的等待过程。</td>
 </tr>
 <tr>
-<td>boolean</td>
+<td align="center">boolean</td>
 <td align="center">tryLock​()</td>
-<td align="right">锁在空闲的才能获取锁（未获得锁不会等待）。举个例子：当两个线程同时通过 lock.trylock () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 不会等待，直接放弃获取锁。</td>
+<td align="center">锁在空闲的才能获取锁（未获得锁不会等待）。举个例子：当两个线程同时通过 lock.trylock () 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 不会等待，直接放弃获取锁。</td>
 </tr>
 <tr>
-<td>boolean</td>
+<td align="center">boolean</td>
 <td align="center">tryLock​(long time, TimeUnit unit)</td>
-<td align="right">如果锁定可用，则此方法立即返回值 true。如果锁不可用，则当前线程将被禁用以进行线程调度，并且在发生以下三种情况之一之前处于休眠状态：①当前线程获取锁。②其他一些线程中断当前线程。③等待时间过去了，返回 false</td>
+<td align="center">如果锁定可用，则此方法立即返回值 true。如果锁不可用，则当前线程将被禁用以进行线程调度，并且在发生以下三种情况之一之前处于休眠状态：①当前线程获取锁。②其他一些线程中断当前线程。③等待时间过去了，返回 false</td>
 </tr>
 <tr>
-<td>void</td>
+<td align="center">void</td>
 <td align="center">unlock​()</td>
-<td align="right">释放锁。</td>
+<td align="center">释放锁。</td>
 </tr>
 </tbody></table>
 
@@ -413,10 +413,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
@@ -425,19 +421,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -445,7 +429,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,7 +449,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,7 +469,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -474,10 +478,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -497,11 +497,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,11 +541,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
             
             <div class="clearfix"></div>
