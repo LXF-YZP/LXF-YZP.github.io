@@ -8,21 +8,23 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java多线程之AQS | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。 AQS 结构先来看看 AQS (即AbstractQueuedSynchronizer )有哪些属性，搞清楚这些基本就知道">
+  <meta name="description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。">
 <meta name="keywords" content="Java多线程-AQS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多线程之AQS">
 <meta property="og:url" content="http://yoursite.com/2019/09/27/Java多线程之AQS/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。 AQS 结构先来看看 AQS (即AbstractQueuedSynchronizer )有哪些属性，搞清楚这些基本就知道">
+<meta property="og:description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-1.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-2.png">
-<meta property="og:updated_time" content="2019-10-09T08:25:33.103Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-4.png">
+<meta property="og:updated_time" content="2019-10-09T08:38:15.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之AQS">
-<meta name="twitter:description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。 AQS 结构先来看看 AQS (即AbstractQueuedSynchronizer )有哪些属性，搞清楚这些基本就知道">
+<meta name="twitter:description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs.png">
   
   
@@ -182,6 +184,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="AQS概念"><a href="#AQS概念" class="headerlink" title="AQS概念"></a>AQS概念</h3><p>AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。</p>
+<a id="more"></a>
 <h3 id="AQS-结构"><a href="#AQS-结构" class="headerlink" title="AQS 结构"></a>AQS 结构</h3><p>先来看看 AQS (即AbstractQueuedSynchronizer )有哪些属性，搞清楚这些基本就知道 AQS 是什么套路了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 头结点，你直接把它当做 当前持有锁的线程 可能是最好理解的</span><br><span class="line">private transient volatile Node head;</span><br><span class="line"></span><br><span class="line">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span><br><span class="line">private transient volatile Node tail;</span><br><span class="line"></span><br><span class="line">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span><br><span class="line">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span><br><span class="line">private volatile int state;</span><br><span class="line"></span><br><span class="line">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span><br><span class="line">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span><br><span class="line">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span><br><span class="line">private transient Thread exclusiveOwnerThread; //继承自AbstractOwnableSynchronizer</span><br></pre></td></tr></table></figure>
 
@@ -216,7 +219,7 @@
 <p>线程 2 会初始化 head【new Node ()】，同时线程 2 也会插入到阻塞队列并挂起 (注意看这里是一个 for 循环，而且设置 head 和 tail 的部分是不 return 的，只有入队成功才会跳出循环)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private Node enq(final Node node) &#123;</span><br><span class="line">    for (;;) &#123;</span><br><span class="line">        Node t = tail;</span><br><span class="line">        if (t == null) &#123; // Must initialize</span><br><span class="line">            if (compareAndSetHead(new Node()))</span><br><span class="line">                tail = head;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            node.prev = t;</span><br><span class="line">            if (compareAndSetTail(t, node)) &#123;</span><br><span class="line">                t.next = node;</span><br><span class="line">                return t;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>首先，是线程 2 初始化 head 节点，此时 head==tail, waitStatus==0<br><img src="/2019/09/27/Java多线程之AQS/aqs-2.png" alt></p>
+<p>首先，是线程 2 初始化 head 节点，此时 head==tail, waitStatus==0<br><img src="/2019/09/27/Java多线程之AQS/aqs-2.png" alt><br>然后线程 2 入队：<br><img src="/2019/09/27/Java多线程之AQS/aqs-3.png" alt><br>同时我们也要看此时节点的 waitStatus，我们知道 head 节点是线程 2 初始化的，此时的 waitStatus 没有设置， java 默认会设置为 0，但是到 shouldParkAfterFailedAcquire 这个方法的时候，线程 2 会把前驱节点，也就是 head 的 waitStatus 设置为 -1。<br>那线程 2 节点此时的 waitStatus 是多少呢，由于没有设置，所以是 0；<br>如果线程 3 此时再进来，直接插到线程 2 的后面就可以了，此时线程 3 的 waitStatus 是 0，到 shouldParkAfterFailedAcquire 方法的时候把前驱节点线程 2 的 waitStatus 设置为 -1。<br><img src="/2019/09/27/Java多线程之AQS/aqs-4.png" alt><br>这里可以简单说下 waitStatus 中 SIGNAL (-1) 状态的意思，Doug Lea 注释的是：代表后继节点需要被唤醒。也就是说这个 waitStatus 其实代表的不是自己的状态，而是后继节点的状态，我们知道，每个 node 在入队的时候，都会把前驱节点的状态改为 SIGNAL，然后阻塞，等待被前驱唤醒。这里涉及的是两个问题：有线程取消了排队、唤醒操作。其实本质是一样的，读者也可以顺着 “waitStatus 代表后继节点的状态” 这种思路去看一遍源码。</p>
 <h3 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h3><p>ReentrantLock 默认采用非公平锁，除非你在构造方法中传入参数 true 。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public ReentrantLock() &#123;</span><br><span class="line">    sync = new NonfairSync();</span><br><span class="line">&#125;</span><br><span class="line">public ReentrantLock(boolean fair) &#123;</span><br><span class="line">    sync = fair ? new FairSync() : new NonfairSync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -230,7 +233,7 @@
 <p>总结：公平锁和非公平锁只有两处不同：</p>
 </blockquote>
 <p>1.非公平锁在调用 lock 后，首先就会调用 CAS 进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。<br>2.非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态，如果有则不去抢锁，乖乖排到后面。<br>公平锁和非公平锁就这两点区别，如果这两次 CAS 都不成功，那么后面非公平锁和公平锁是一样的，都要进入到阻塞队列等待唤醒。<br>相对来说，非公平锁会有更好的性能，因为它的吞吐量比较大。当然，非公平锁让获取锁的时间变得更加不确定，可能会导致在阻塞队列中的线程长期处于饥饿状态。</p>
-<p>[参考链接]<a href="https://www.cnblogs.com/xll1025/p/11335107.html" target="_blank" rel="noopener">https://www.cnblogs.com/xll1025/p/11335107.html</a><br>[参考链接-模板模式]<a href="https://www.jianshu.com/p/f44c6380f52b" target="_blank" rel="noopener">https://www.jianshu.com/p/f44c6380f52b</a><br>[参考链接-模板模式]<a href="https://www.cnblogs.com/qq-361807535/p/6854191.html" target="_blank" rel="noopener">https://www.cnblogs.com/qq-361807535/p/6854191.html</a></p>
+<p>[主要参考&lt;说句不要脸的话就是我抄人家的，不过人家写的是真好&gt;]<a href="https://www.javadoop.com/post/AbstractQueuedSynchronizer" target="_blank" rel="noopener">https://www.javadoop.com/post/AbstractQueuedSynchronizer</a><br>[参考链接]<a href="https://www.cnblogs.com/xll1025/p/11335107.html" target="_blank" rel="noopener">https://www.cnblogs.com/xll1025/p/11335107.html</a><br>[参考链接-模板模式]<a href="https://www.jianshu.com/p/f44c6380f52b" target="_blank" rel="noopener">https://www.jianshu.com/p/f44c6380f52b</a><br>[参考链接-模板模式]<a href="https://www.cnblogs.com/qq-361807535/p/6854191.html" target="_blank" rel="noopener">https://www.cnblogs.com/qq-361807535/p/6854191.html</a></p>
 
       
 
@@ -437,19 +440,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,7 +452,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,11 +468,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,11 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,7 +500,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,7 +516,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,19 +524,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,23 +544,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,7 +552,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
             
             <div class="clearfix"></div>
