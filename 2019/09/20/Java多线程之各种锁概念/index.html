@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就行，详细的讲解请见博客其他文章。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-27T10:59:40.284Z">
+<meta property="og:updated_time" content="2019-10-09T08:57:33.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之各种锁概念">
 <meta name="twitter:description" content="本文讲的所有锁，不会在这里详细讲解，只是给个概念，之后碰到了这种叫法知道是什么就行，详细的讲解请见博客其他文章。">
@@ -261,8 +261,10 @@
 </tr>
 </tbody></table>
 <h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><blockquote>
-<p>是指当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待（不会睡眠），然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。<br>自旋锁是非阻塞锁，一直占用 CPU，他在未获得锁的情况下，一直尝试得到锁也就是自旋，所以占用着 CPU，如果不能在很短的时间内获得锁，会使 CPU 效率降低。</p>
+<p>是指当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待（不会睡眠），然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环。<br>自旋锁是非阻塞锁，一直占用 CPU，他在未获得锁的情况下，一直尝试得到锁也就是自旋，所以占用着 CPU，如果不能在很短的时间内获得锁，会使 CPU 效率降低。<br>一个简单的自旋锁代码实现：</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.atomic.AtomicReference;</span><br><span class="line"></span><br><span class="line">public class SpinLock &#123;</span><br><span class="line">   private AtomicReference&lt;Thread&gt; owner = new AtomicReference&lt;Thread&gt;();</span><br><span class="line"></span><br><span class="line">   public void lock() &#123;</span><br><span class="line">       Thread currentThread = Thread.currentThread();</span><br><span class="line"></span><br><span class="line">       // 如果锁未被占用，则设置当前线程为锁的拥有者</span><br><span class="line">       while (!owner.compareAndSet(null, currentThread)) &#123;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public void unlock() &#123;</span><br><span class="line">       Thread currentThread = Thread.currentThread();</span><br><span class="line"></span><br><span class="line">       // 只有锁的拥有者才能释放锁</span><br><span class="line">       owner.compareAndSet(currentThread, null);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h3><p>分段锁其实是一种锁的设计，并不是具体的一种锁，对于 ConcurrentHashMap 而言，其并发的实现就是通过分段锁的形式来实现高效的并发操作，ConcurrentHashMap 中的分段锁称为 Segment，它即类似于 HashMap（JDK7 与 JDK8 中 HashMap 的实现）的结构，即内部拥有一个 Entry 数组，数组中的每个元素又是一个链表；同时又是一个 ReentrantLock（Segment 继承了 ReentrantLock)。当需要 put 元素的时候，并不是对整个 HashMap 进行加锁，而是先通过 hashcode 来知道他要放在那一个分段中，然后对这个分段进行加锁，所以当多线程 put 的时候，只要不是放在一个分段中，就实现了真正的并行的插入。但是，在统计 size 的时候，可就是获取 HashMap 全局信息的时候，就需要获取所有的分段锁才能统计。<br>分段锁的设计目的是细化锁的粒度，当操作不需要更新整个数组的时候，就仅仅针对数组中的一项进行加锁操作。</p>
 <p>[参考链接] <a href="https://blog.csdn.net/li3781695/article/details/99715169" target="_blank" rel="noopener">https://blog.csdn.net/li3781695/article/details/99715169</a><br>[参考链接] <a href="https://blog.csdn.net/tyyj90/article/details/78236053" target="_blank" rel="noopener">https://blog.csdn.net/tyyj90/article/details/78236053</a><br>[参考链接] <a href="https://blog.csdn.net/qq_41282026/article/details/98304960" target="_blank" rel="noopener">https://blog.csdn.net/qq_41282026/article/details/98304960</a></p>
 
@@ -471,15 +473,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -499,15 +501,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,6 +521,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
@@ -531,15 +533,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,7 +549,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,10 +566,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,19 +581,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">

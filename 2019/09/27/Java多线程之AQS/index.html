@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-2.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-3.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/27/Java多线程之AQS/aqs-4.png">
-<meta property="og:updated_time" content="2019-10-09T08:38:15.450Z">
+<meta property="og:updated_time" content="2019-10-09T09:05:50.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程之AQS">
 <meta name="twitter:description" content="AQS概念AQS是构建锁或者其他同步组件的基础框架（如 ReentrantLock、ReentrantReadWriteLock、Semaphore 等），JUC 并发包的作者（Doug Lea）期望它能够成为实现大部分同步需求的基础。它是 JUC 并发包中的核心基础组件。">
@@ -233,7 +233,7 @@
 <p>总结：公平锁和非公平锁只有两处不同：</p>
 </blockquote>
 <p>1.非公平锁在调用 lock 后，首先就会调用 CAS 进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。<br>2.非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态，如果有则不去抢锁，乖乖排到后面。<br>公平锁和非公平锁就这两点区别，如果这两次 CAS 都不成功，那么后面非公平锁和公平锁是一样的，都要进入到阻塞队列等待唤醒。<br>相对来说，非公平锁会有更好的性能，因为它的吞吐量比较大。当然，非公平锁让获取锁的时间变得更加不确定，可能会导致在阻塞队列中的线程长期处于饥饿状态。</p>
-<p>[主要参考&lt;说句不要脸的话就是我抄人家的，不过人家写的是真好&gt;]<a href="https://www.javadoop.com/post/AbstractQueuedSynchronizer" target="_blank" rel="noopener">https://www.javadoop.com/post/AbstractQueuedSynchronizer</a><br>[参考链接]<a href="https://www.cnblogs.com/xll1025/p/11335107.html" target="_blank" rel="noopener">https://www.cnblogs.com/xll1025/p/11335107.html</a><br>[参考链接-模板模式]<a href="https://www.jianshu.com/p/f44c6380f52b" target="_blank" rel="noopener">https://www.jianshu.com/p/f44c6380f52b</a><br>[参考链接-模板模式]<a href="https://www.cnblogs.com/qq-361807535/p/6854191.html" target="_blank" rel="noopener">https://www.cnblogs.com/qq-361807535/p/6854191.html</a></p>
+<p>[主要参考&lt;说句不要脸的话就是我抄人家的，不过人家写的是真好，其他博客也值得一看&gt;]<a href="https://www.javadoop.com/post/AbstractQueuedSynchronizer" target="_blank" rel="noopener">https://www.javadoop.com/post/AbstractQueuedSynchronizer</a><br>[参考链接]<a href="https://www.cnblogs.com/xll1025/p/11335107.html" target="_blank" rel="noopener">https://www.cnblogs.com/xll1025/p/11335107.html</a><br>[参考链接-模板模式]<a href="https://www.jianshu.com/p/f44c6380f52b" target="_blank" rel="noopener">https://www.jianshu.com/p/f44c6380f52b</a><br>[参考链接-模板模式]<a href="https://www.cnblogs.com/qq-361807535/p/6854191.html" target="_blank" rel="noopener">https://www.cnblogs.com/qq-361807535/p/6854191.html</a><br>[写这个链接主要是因为写的还不错]<a href="https://www.codercto.com/a/41447.html" target="_blank" rel="noopener">https://www.codercto.com/a/41447.html</a></p>
 
       
 
@@ -440,15 +440,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,15 +468,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,6 +488,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
@@ -500,15 +500,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,7 +516,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,10 +533,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,19 +548,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
