@@ -63,9 +63,9 @@
     <link href="http://yoursite.com/2019/09/28/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8BCAS/"/>
     <id>http://yoursite.com/2019/09/28/java多线程之CAS/</id>
     <published>2019-09-28T10:28:24.000Z</published>
-    <updated>2019-10-09T02:27:09.253Z</updated>
+    <updated>2019-10-09T02:33:17.156Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="CAS概念"><a href="#CAS概念" class="headerlink" title="CAS概念"></a>CAS概念</h3><p>CAS 是英文单词 CompareAndSwap 的缩写，中文意思是：比较并替换。CAS 需要有 3 个操作数：内存地址 V，旧的预期值 A，即将要更新的目标值 B。<br>CAS 指令执行时，当且仅当内存地址 V 的值与预期值 A 相等时，将内存地址 V 的值修改为 B，否则就什么都不做。整个比较并替换的操作是一个原子操作。<br>CAS 有效地说明了 “我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”<br><strong>在多线程的情况下，当多个线程同时使用 CAS 操作一个变量时，只有一个会成功并更新值，其余线程均会失败，但失败的线程不会被挂起，而是不断的再次循环重试。正是基于这样的原理，CAS 即时没有使用锁，也能发现其他线程对当前线程的干扰，从而进行及时的处理。可见 CAS 其实是一个乐观锁。</strong></p><h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>学过synchronized关键字之后，我们可以保证i++操作是原子操作；</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void increase()&#123;</span><br><span class="line">    race++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但是这种自增操作每次都会加锁，性能可能会稍微差点。<br>比较好一点的方案是使用Java并发包原子操作类（Atomic开头），代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static AtomicInteger race = new AtomicInteger(0);</span><br><span class="line">public static void increase()&#123;</span><br><span class="line">    //race++; 非原子操作，取值，加1，写值</span><br><span class="line">    race.getAndIncrement()//原子操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>getAndIncrement 方法调用 getAndAddInt 方法，最后调用的是 compareAndSwapInt 方法，即本文的主角 CAS，接下来我们开始介绍 CAS（终于开始说CAS了）。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Atomically increments by one the current value.</span><br><span class="line"> *</span><br><span class="line"> * @return the previous value</span><br><span class="line"> */</span><br><span class="line">public final int getAndIncrement() &#123;</span><br><span class="line">    return unsafe.getAndAddInt(this, valueOffset, 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public final int getAndAddInt(Object var1, long var2, int var4) &#123;</span><br><span class="line">    int var5;</span><br><span class="line">    do &#123;</span><br><span class="line">        var5 = this.getIntVolatile(var1, var2);</span><br><span class="line">    &#125; while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));</span><br><span class="line"></span><br><span class="line">    return var5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>getAndAddInt 方法解析：拿到内存位置的最新值 v，使用 CAS 尝试修将内存位置的值修改为目标值 v+delta，如果修改失败，则获取该内存位置的新值 v，然后继续尝试，直至修改成功。</p><h3 id="Unsafe-类"><a href="#Unsafe-类" class="headerlink" title="Unsafe 类"></a>Unsafe 类</h3><p>简单讲一下这个类。Java 无法直接访问底层操作系统，而是通过本地（native）方法来访问。不过尽管如此，JVM 还是开了一个后门，JDK 中有一个类 Unsafe，它提供了硬件级别的原子操作。<br>这个类尽管里面的方法都是 public 的，但是并没有办法使用它们，JDK API 文档也没有提供任何关于这个类的方法的解释。总而言之，对于 Unsafe 类的使用都是受限制的，只有授信的代码才能获得该类的实例，当然 JDK 库里面的类是可以随意使用的。<br>从第一行的描述可以了解到 Unsafe 提供了硬件级别的操作，比如说获取某个属性在内存中的位置，比如说修改对象的字段值，即使它是私有的。不过 Java 本身就是为了屏蔽底层的差异，对于一般的开发而言也很少会有这样的需求。<br>比如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public native long staticFieldOffset(Field paramField);</span><br></pre></td></tr></table></figure><p>这个方法可以用来获取给定的 paramField 的内存地址偏移量，这个值对于给定的 field 是唯一的且是固定不变的。</p><h3 id="CAS-存在的问题"><a href="#CAS-存在的问题" class="headerlink" title="CAS 存在的问题"></a>CAS 存在的问题</h3><ul><li>CAS 虽然很高效的解决原子操作，但是 CAS 仍然存在三大问题：</li></ul><p>1.ABA 问题。因为 CAS 需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是 A，变成了 B，又变成了 A，那么使用 CAS 进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA 问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么 A－B－A 就会变成 1A-2B-3A。</p><p>从 Java1.5 开始 JDK 的 atomic 包里提供了一个类 AtomicStampedReference 来解决 ABA 问题。这个类的 compareAndSet 方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</p><p>2.循环时间长开销大。自旋 CAS 如果长时间不成功，会给 CPU 带来非常大的执行开销。如果 JVM 能支持处理器提供的 pause 指令那么效率会有一定的提升，pause 指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）, 使 CPU 不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起 CPU 流水线被清空（CPU pipeline flush），从而提高 CPU 的执行效率。</p><p>3.只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环 CAS 的方式来保证原子操作，但是对多个共享变量操作时，循环 CAS 就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如有两个共享变量 i＝2,j=a，合并一下 ij=2a，然后用 CAS 来操作 ij。从 Java1.5 开始 JDK 提供了 AtomicReference 类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行 CAS 操作。</p><h3 id="什么是-ABA-问题？ABA-问题怎么解决？"><a href="#什么是-ABA-问题？ABA-问题怎么解决？" class="headerlink" title="什么是 ABA 问题？ABA 问题怎么解决？"></a>什么是 ABA 问题？ABA 问题怎么解决？</h3><p>如果在这段期间它的值曾经被改成了 B，后来又被改回为 A，那 CAS 操作就会误认为它从来没有被改变过。这个漏洞称为 CAS 操作的 “ABA” 问题。Java 并发包为了解决这个问题，提供了一个带有标记的原子引用类 “AtomicStampedReference”，它可以通过控制变量值的版本来保证 CAS 的正确性。因此，在使用 CAS 前要考虑清楚 “ABA” 问题是否会影响程序并发的正确性，如果需要解决 ABA 问题，改用传统的互斥同步可能会比原子类更高效。</p><p>[参考链接]<a href="https://blog.csdn.net/weixin_37598682/article/details/81285176" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37598682/article/details/81285176</a><br>[参考链接]<a href="https://blog.csdn.net/v123411739/article/details/79561458" target="_blank" rel="noopener">https://blog.csdn.net/v123411739/article/details/79561458</a><br>[参考链接]<a href="https://blog.csdn.net/fuzhongmin05/article/details/91400317" target="_blank" rel="noopener">https://blog.csdn.net/fuzhongmin05/article/details/91400317</a><br>[参考链接]<a href="https://blog.csdn.net/zhoutaopower/article/details/86598839" target="_blank" rel="noopener">https://blog.csdn.net/zhoutaopower/article/details/86598839</a><br>[参考链接]<a href="https://www.jianshu.com/p/f0d6e7103d9b" target="_blank" rel="noopener">https://www.jianshu.com/p/f0d6e7103d9b</a></p>]]></content>
+    <content type="html"><![CDATA[<h3 id="CAS概念"><a href="#CAS概念" class="headerlink" title="CAS概念"></a>CAS概念</h3><p>CAS 是英文单词 CompareAndSwap 的缩写，中文意思是：比较并替换。CAS 需要有 3 个操作数：内存地址 V，旧的预期值 A，即将要更新的目标值 B。<br>CAS 指令执行时，当且仅当内存地址 V 的值与预期值 A 相等时，将内存地址 V 的值修改为 B，否则就什么都不做。整个比较并替换的操作是一个原子操作。<br>CAS 有效地说明了 “我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”<br><strong>在多线程的情况下，当多个线程同时使用 CAS 操作一个变量时，只有一个会成功并更新值，其余线程均会失败，但失败的线程不会被挂起，而是不断的再次循环重试。正是基于这样的原理，CAS 即时没有使用锁，也能发现其他线程对当前线程的干扰，从而进行及时的处理。可见 CAS 其实是一个乐观锁。</strong></p><h3 id="CAS算法在Java中的作用"><a href="#CAS算法在Java中的作用" class="headerlink" title="CAS算法在Java中的作用"></a>CAS算法在Java中的作用</h3><p>在 JDK 5 之前 Java 语言是靠 synchronized 关键字保证同步的，这会导致有锁。<br>锁机制存在以下问题：<br>1.在多线程竞争下，加锁、释放锁会导致比较多的上下文切换和调度延时，引起性能问题。<br>2.一个线程持有锁会导致其它所有需要此锁的线程挂起。<br>3.如果一个优先级高的线程等待一个优先级低的线程释放锁会导致优先级倒置，引起性能风险。</p><p>volatile 是不错的机制，但是 volatile 不能保证原子性。因此对于同步最终还是要回到锁机制上来。<br>独占锁是一种悲观锁，synchronized 就是一种独占锁，会导致其它所有需要锁的线程挂起，等待持有锁的线程释放锁。而另一个更加有效的锁就是乐观锁。所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。</p><h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>学过synchronized关键字之后，我们可以保证i++操作是原子操作；</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void increase()&#123;</span><br><span class="line">    race++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但是这种自增操作每次都会加锁，性能可能会稍微差点。<br>比较好一点的方案是使用Java并发包原子操作类（Atomic开头），代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static AtomicInteger race = new AtomicInteger(0);</span><br><span class="line">public static void increase()&#123;</span><br><span class="line">    //race++; 非原子操作，取值，加1，写值</span><br><span class="line">    race.getAndIncrement()//原子操作</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>getAndIncrement 方法调用 getAndAddInt 方法，最后调用的是 compareAndSwapInt 方法，即本文的主角 CAS，接下来我们开始介绍 CAS（终于开始说CAS了）。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Atomically increments by one the current value.</span><br><span class="line"> *</span><br><span class="line"> * @return the previous value</span><br><span class="line"> */</span><br><span class="line">public final int getAndIncrement() &#123;</span><br><span class="line">    return unsafe.getAndAddInt(this, valueOffset, 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public final int getAndAddInt(Object var1, long var2, int var4) &#123;</span><br><span class="line">    int var5;</span><br><span class="line">    do &#123;</span><br><span class="line">        var5 = this.getIntVolatile(var1, var2);</span><br><span class="line">    &#125; while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));</span><br><span class="line"></span><br><span class="line">    return var5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>getAndAddInt 方法解析：拿到内存位置的最新值 v，使用 CAS 尝试修将内存位置的值修改为目标值 v+delta，如果修改失败，则获取该内存位置的新值 v，然后继续尝试，直至修改成功。</p><h3 id="Unsafe-类"><a href="#Unsafe-类" class="headerlink" title="Unsafe 类"></a>Unsafe 类</h3><p>简单讲一下这个类。Java 无法直接访问底层操作系统，而是通过本地（native）方法来访问。不过尽管如此，JVM 还是开了一个后门，JDK 中有一个类 Unsafe，它提供了硬件级别的原子操作。<br>这个类尽管里面的方法都是 public 的，但是并没有办法使用它们，JDK API 文档也没有提供任何关于这个类的方法的解释。总而言之，对于 Unsafe 类的使用都是受限制的，只有授信的代码才能获得该类的实例，当然 JDK 库里面的类是可以随意使用的。<br>从第一行的描述可以了解到 Unsafe 提供了硬件级别的操作，比如说获取某个属性在内存中的位置，比如说修改对象的字段值，即使它是私有的。不过 Java 本身就是为了屏蔽底层的差异，对于一般的开发而言也很少会有这样的需求。<br>比如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public native long staticFieldOffset(Field paramField);</span><br></pre></td></tr></table></figure><p>这个方法可以用来获取给定的 paramField 的内存地址偏移量，这个值对于给定的 field 是唯一的且是固定不变的。</p><h3 id="CAS-存在的问题"><a href="#CAS-存在的问题" class="headerlink" title="CAS 存在的问题"></a>CAS 存在的问题</h3><ul><li>CAS 虽然很高效的解决原子操作，但是 CAS 仍然存在三大问题：</li></ul><p>1.ABA 问题。因为 CAS 需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是 A，变成了 B，又变成了 A，那么使用 CAS 进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA 问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么 A－B－A 就会变成 1A-2B-3A。</p><p>从 Java1.5 开始 JDK 的 atomic 包里提供了一个类 AtomicStampedReference 来解决 ABA 问题。这个类的 compareAndSet 方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</p><p>2.循环时间长开销大。自旋 CAS 如果长时间不成功，会给 CPU 带来非常大的执行开销。如果 JVM 能支持处理器提供的 pause 指令那么效率会有一定的提升，pause 指令有两个作用，第一它可以延迟流水线执行指令（de-pipeline）, 使 CPU 不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零。第二它可以避免在退出循环的时候因内存顺序冲突（memory order violation）而引起 CPU 流水线被清空（CPU pipeline flush），从而提高 CPU 的执行效率。</p><p>3.只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环 CAS 的方式来保证原子操作，但是对多个共享变量操作时，循环 CAS 就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如有两个共享变量 i＝2,j=a，合并一下 ij=2a，然后用 CAS 来操作 ij。从 Java1.5 开始 JDK 提供了 AtomicReference 类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行 CAS 操作。</p><h3 id="什么是-ABA-问题？ABA-问题怎么解决？"><a href="#什么是-ABA-问题？ABA-问题怎么解决？" class="headerlink" title="什么是 ABA 问题？ABA 问题怎么解决？"></a>什么是 ABA 问题？ABA 问题怎么解决？</h3><p>如果在这段期间它的值曾经被改成了 B，后来又被改回为 A，那 CAS 操作就会误认为它从来没有被改变过。这个漏洞称为 CAS 操作的 “ABA” 问题。Java 并发包为了解决这个问题，提供了一个带有标记的原子引用类 “AtomicStampedReference”，它可以通过控制变量值的版本来保证 CAS 的正确性。因此，在使用 CAS 前要考虑清楚 “ABA” 问题是否会影响程序并发的正确性，如果需要解决 ABA 问题，改用传统的互斥同步可能会比原子类更高效。</p><p>[参考链接]<a href="https://blog.csdn.net/weixin_37598682/article/details/81285176" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37598682/article/details/81285176</a><br>[参考链接]<a href="https://blog.csdn.net/v123411739/article/details/79561458" target="_blank" rel="noopener">https://blog.csdn.net/v123411739/article/details/79561458</a><br>[参考链接]<a href="https://blog.csdn.net/fuzhongmin05/article/details/91400317" target="_blank" rel="noopener">https://blog.csdn.net/fuzhongmin05/article/details/91400317</a><br>[参考链接]<a href="https://blog.csdn.net/zhoutaopower/article/details/86598839" target="_blank" rel="noopener">https://blog.csdn.net/zhoutaopower/article/details/86598839</a><br>[参考链接]<a href="https://www.jianshu.com/p/f0d6e7103d9b" target="_blank" rel="noopener">https://www.jianshu.com/p/f0d6e7103d9b</a></p>]]></content>
     
     <summary type="html">
     
@@ -346,25 +346,6 @@
   </entry>
   
   <entry>
-    <title>数据结构-Trie树</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-Trie树/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:36:38.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-Trie树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>数据结构-二叉树</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-二叉树/</id>
@@ -380,6 +361,25 @@
     
     
       <category term="数据结构-二叉树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构-Trie树</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-Trie树/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:36:38.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-Trie树" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Trie%E6%A0%91/"/>
     
   </entry>
   
@@ -403,6 +403,25 @@
   </entry>
   
   <entry>
+    <title>数据结构-散列表</title>
+    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
+    <id>http://yoursite.com/2019/05/14/数据结构-散列表/</id>
+    <published>2019-05-14T11:57:10.000Z</published>
+    <updated>2019-05-14T06:32:12.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="数据结构-散列表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%95%A3%E5%88%97%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>数据结构-堆</title>
     <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86/"/>
     <id>http://yoursite.com/2019/05/14/数据结构-堆/</id>
@@ -418,25 +437,6 @@
     
     
       <category term="数据结构-堆" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%A0%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构-跳表</title>
-    <link href="http://yoursite.com/2019/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
-    <id>http://yoursite.com/2019/05/14/数据结构-跳表/</id>
-    <published>2019-05-14T11:57:10.000Z</published>
-    <updated>2019-05-14T06:34:48.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="数据结构" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-    
-      <category term="数据结构-跳表" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%B7%B3%E8%A1%A8/"/>
     
   </entry>
   
