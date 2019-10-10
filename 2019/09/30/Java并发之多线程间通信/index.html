@@ -8,15 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java并发之多线程间通信 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="多线程通信">
+  <meta name="description" content="Java 中线程通信协作的最常见的两种方式：一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()">
+<meta name="keywords" content="多线程通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发之多线程间通信">
 <meta property="og:url" content="http://yoursite.com/2019/09/30/Java并发之多线程间通信/index.html">
 <meta property="og:site_name" content="观鱼入知命">
+<meta property="og:description" content="Java 中线程通信协作的最常见的两种方式：一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-09T09:05:57.186Z">
+<meta property="og:updated_time" content="2019-10-10T02:27:16.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发之多线程间通信">
+<meta name="twitter:description" content="Java 中线程通信协作的最常见的两种方式：一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()">
   
   
     <link rel="icon" href="/favicon.png">
@@ -174,7 +177,63 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>Java 中线程通信协作的最常见的两种方式：<br>一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()<br>二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()</p>
+<a id="more"></a>
+
+
+<details>
+  <summary>object类中方法说明</summary>
+  <pre><code> 
+/**
+*Wakes up a single thread that is waiting on this object's
+*monitor. If any threads are waiting on this object, one of them
+*is chosen to be awakened. The choice is arbitrary and occurs at
+*the discretion of the implementation. A thread waits on an object's
+*monitor by calling one of the wait methods
+*/
+public final native void notify();
+
+<p>   /**<br>    *Wakes up all threads that are waiting on this object’s monitor. A<br>    *thread waits on an object’s monitor by calling one of the<br>    *wait methods.<br>    */<br>   public final native void notifyAll();</p>
+<p>   /**<br>    *Causes the current thread to wait until either another thread invokes the<br>    *{@link java.lang.Object#notify()} method or the<br>    *{@link java.lang.Object#notifyAll()} method for this object, or a<br>    *specified amount of time has elapsed.<br>    *The current thread must own this object’s monitor.<br>    */<br>   public final native void wait(long timeout) throws InterruptedException;</p>
+<p>  </p></code></pre><p></p>
+</details>
+
+
+<p>从这三个方法的文字描述可以知道以下几点信息：<br>1）wait ()、notify () 和 notifyAll () 方法是本地方法，并且为 final 方法，无法被重写。<br>2）调用某个对象的 wait () 方法能让当前线程阻塞，并且当前线程必须拥有此对象的 monitor（即锁）<br>3）调用某个对象的 notify () 方法能够唤醒一个正在等待这个对象的 monitor 的线程，如果有多个线程都在等待这个对象的 monitor，则只能唤醒其中一个线程；<br>4）调用 notifyAll () 方法能够唤醒所有正在等待这个对象的 monitor 的线程；<br>为何这三个不是 Thread 类声明中的方法，而是 Object 类中声明的方法（当然由于 Thread 类继承了 Object 类，所以 Thread 也可以调用者三个方法）？其实这个问题很简单，由于每个对象都拥有 monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。<br>上面已经提到，如果调用某个对象的 wait () 方法，当前线程必须拥有这个对象的 monitor（即锁），因此调用 wait () 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。如果当前线程没有这个对象的锁就调用 wait（）方法，则会抛出 IllegalMonitorStateException.<br>调用某个对象的 wait () 方法，相当于让当前线程交出（释放）此对象的 monitor，然后进入等待状态，等待后续再次获得此对象的锁（Thread 类中的 sleep 方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）；　　<br>notify () 方法能够唤醒一个正在等待该对象的 monitor 的线程，当有多个线程都在等待该对象的 monitor 的话，则只能唤醒其中一个线程，具体唤醒哪个线程则不得而知。 同样地，调用某个对象的 notify () 方法，当前线程也必须拥有这个对象的 monitor，因此调用 notify () 方法必须在同步块或者同步方法中进行（synchronized 块或者 synchronized 方法）。</p>
+<p>nofityAll () 方法能够唤醒所有正在等待该对象的 monitor 的线程，这一点与 notify () 方法是不同的。</p>
+<p>这里要注意一点：notify () 和 notifyAll () 方法只是唤醒等待该对象的 monitor 的线程，并不决定哪个线程能够获取到 monitor。</p>
+<p>举个简单的例子：假如有三个线程 Thread1、Thread2 和 Thread3 都在等待对象 objectA 的 monitor，此时 Thread4 拥有对象 objectA 的 monitor，当在 Thread4 中调用 objectA.notify () 方法之后，Thread1、Thread2 和 Thread3 只有一个能被唤醒。注意，被唤醒不等于立刻就获取了 objectA 的 monitor。假若在 Thread4 中调用 objectA.notifyAll () 方法，则 Thread1、Thread2 和 Thread3 三个线程都会被唤醒，至于哪个线程接下来能够获取到 objectA 的 monitor 就具体依赖于操作系统的调度了。</p>
+<p>上面尤其要注意一点，一个线程被唤醒不代表立即获取了对象的 monitor，只有等调用完 notify () 或者 notifyAll () 并退出 synchronized 块，释放对象锁后，其余线程才可获得锁执行。</p>
+<h3 id="线程之间的协作"><a href="#线程之间的协作" class="headerlink" title="线程之间的协作"></a>线程之间的协作</h3><ul>
+<li>wait/notify/notifyAll</li>
+</ul>
+<p>这一组是 Object 类的方法<br>需要注意的是：这三个方法都必须在同步的范围内调用​</p>
+<p>wait<br>阻塞当前线程，直到 notify 或者 notifyAll 来唤醒​​​​</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">wait有三种方式的调用</span><br><span class="line">wait()</span><br><span class="line">必要要由 notify 或者 notifyAll 来唤醒​​​​</span><br><span class="line">wait(long timeout)</span><br><span class="line">在指定时间内，如果没有notify或notifAll方法的唤醒，也会自动唤醒。</span><br><span class="line">wait(long timeout,long nanos)</span><br><span class="line">本质上还是调用一个参数的方法</span><br><span class="line">public final void wait(long timeout, int nanos) throws InterruptedException &#123;</span><br><span class="line">    if (timeout &lt; 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;timeout value is negative&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (nanos &lt; 0 || nanos &gt; 999999) &#123;</span><br><span class="line">        throw new IllegalArgumentException(</span><br><span class="line">            &quot;nanosecond timeout value out of range&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (nanos &gt; 0) &#123;</span><br><span class="line">        timeout++;</span><br><span class="line">    &#125;</span><br><span class="line">           wait(timeout);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>notify<br>只能唤醒一个处于 wait 的线程<br>notifyAll<br>唤醒全部处于 wait 的线程<br>     ​</p>
+<ul>
+<li>sleep/yield/join</li>
+</ul>
+<p>这一组是 Thread 类的方法<br>sleep<br>让当前线程暂停指定时间，只是让出 CPU 的使用权，并不释放锁<br>yield<br>暂停当前线程的执行，也就是当前 CPU 的使用权，让其他线程有机会执行，不能指定时间。会让当前线程从运行状态转变为就绪状态，此方法在生产环境中很少会使用到，​​​官方在其注释中也有相关的说明</p>
+<pre><code>/**
+* A hint to the scheduler that the current thread is willing to yield
+* its current use of a processor. The scheduler is free to ignore this
+* hint.
+*
+* &lt;p&gt; Yield is a heuristic attempt to improve relative progression
+* between threads that would otherwise over-utilise a CPU. Its use
+* should be combined with detailed profiling and benchmarking to
+* ensure that it actually has the desired effect.
+*
+* &lt;p&gt; It is rarely appropriate to use this method. It may be useful
+* for debugging or testing purposes, where it may help to reproduce
+* bugs due to race conditions. It may also be useful when designing
+* concurrency control constructs such as the ones in the
+* {@link java.util.concurrent.locks} package.
+*/​​
+        ​​​​</code></pre><p>join<br>等待调用 join 方法的线程执行结束，才执行后面的代码<br>其调用一定要在 start 方法之后（看源码可知）​<br>使用场景：当父线程需要等待子线程执行结束才执行后面内容或者需要某个子线程的执行结果会用到 join 方法​</p>
+
       
 
       
@@ -372,11 +431,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -384,7 +439,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -392,15 +451,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,15 +463,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -428,7 +491,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -436,15 +499,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,23 +511,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,7 +531,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,15 +559,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
