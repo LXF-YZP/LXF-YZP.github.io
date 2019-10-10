@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="Java 中线程通信协作的最常见的两种方式：一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-10T03:23:33.598Z">
+<meta property="og:updated_time" content="2019-10-10T10:56:54.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发之多线程间通信">
 <meta name="twitter:description" content="Java 中线程通信协作的最常见的两种方式：一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()">
@@ -182,16 +182,16 @@
 
 
 <details>
-  <summary>object类中方法说明</summary>
+  <summary>△object类中方法说明△<此处需要点击></此处需要点击></summary>
   <pre><code> 
-/**
-*Wakes up a single thread that is waiting on this object's
-*monitor. If any threads are waiting on this object, one of them
-*is chosen to be awakened. The choice is arbitrary and occurs at
-*the discretion of the implementation. A thread waits on an object's
-*monitor by calling one of the wait methods
-*/
-public final native void notify();
+   /**
+    *Wakes up a single thread that is waiting on this object's
+    *monitor. If any threads are waiting on this object, one of them
+    *is chosen to be awakened. The choice is arbitrary and occurs at
+    *the discretion of the implementation. A thread waits on an object's
+    *monitor by calling one of the wait methods
+    */
+   public final native void notify();
 
 <p>   /**<br>    *Wakes up all threads that are waiting on this object’s monitor. A<br>    *thread waits on an object’s monitor by calling one of the<br>    *wait methods.<br>    */<br>   public final native void notifyAll();</p>
 <p>   /**<br>    *Causes the current thread to wait until either another thread invokes the<br>    *{@link java.lang.Object#notify()} method or the<br>    *{@link java.lang.Object#notifyAll()} method for this object, or a<br>    *specified amount of time has elapsed.<br>    *The current thread must own this object’s monitor.<br>    */<br>   public final native void wait(long timeout) throws InterruptedException;</p>
@@ -232,7 +232,12 @@ public final native void notify();
 * concurrency control constructs such as the ones in the
 * {@link java.util.concurrent.locks} package.
 */​​
-        ​​​​</code></pre><p>join<br>等待调用 join 方法的线程执行结束，才执行后面的代码<br>其调用一定要在 start 方法之后（看源码可知）​<br>使用场景：当父线程需要等待子线程执行结束才执行后面内容或者需要某个子线程的执行结果会用到 join 方法​</p>
+        ​​​​</code></pre><ul>
+<li><p>join<br>等待调用 join 方法的线程执行结束，才执行后面的代码<br>其调用一定要在 start 方法之后（看源码可知）​<br>使用场景：当父线程需要等待子线程执行结束才执行后面内容或者需要某个子线程的执行结果会用到 join 方法​</p>
+</li>
+<li><p>Yield 方法<br>Thread.yield () 方法的作用：暂停当前正在执行的线程，并执行其他线程。（可能没有效果）<br>yield () 让当前正在运行的线程回到可运行状态，以允许具有相同优先级的其他线程获得运行的机会。因此，使用 yield () 的目的是让具有相同优先级的线程之间能够适当的轮换执行。但是，实际中无法保证 yield () 达到让步的目的，因为，让步的线程可能被线程调度程序再次选中。<br>结论：大多数情况下，yield () 将导致线程从运行状态转到可运行状态，但有可能没有效果。</p>
+</li>
+</ul>
 <blockquote>
 <p>注意：<br>wait()会立刻释放synchronized（obj）中的obj锁，以便其他线程可以执行obj.notify(),但是notify()不会立刻立刻释放sycronized（obj）中的obj锁，必须要等notify()所在线程执行完synchronized（obj）块中的所有代码才会释放这把锁。</p>
 </blockquote>
@@ -244,11 +249,15 @@ public final native void notify();
 <li>wait 只能在同步方法和同步块中使用，而 sleep 任何地方都可以.</li>
 <li>wait () 无参数需要唤醒，线程状态 WAITING；wait (1000L); 到时间自己醒过来或者到时间之前被其他线程唤醒，状态和 sleep 都是 TIME_WAITING</li>
 <li>wait 是 object 顶级父类的方法，sleep 则是 Thread 的方法</li>
+<li>调用 wait 方法需要先获得锁，而调用 sleep 方法是不需要的。</li>
+<li>调用 wait （没有指定wait时间）方法的线程需要用 notify 来唤醒，而 sleep 必须设置超时值。v</li>
 </ol>
 <ul>
 <li><strong><em>两者相同点：都会抛出异常，都会让渡 CPU 执行时间，等待再次调度！</em></strong></li>
 </ul>
+<p>wait方法有三个重载方法，并且都会调用wait(long timeout)这个方法，wait()等价于wait(0)，0代表永不超时；<br>Object的wait(long timeout)方法会导致当前线程进入阻塞，直到有其他线程调用了notify或者notifyall方法才能将其唤醒，或者是阻塞时间到达了timeout而自动唤醒；</p>
 <p>wait () 方法与 sleep () 方法的不同之处在于，wait () 方法会释放对象的 “锁标志”。当调用某一对象的 wait () 方法后，会使当前线程暂停执行，并将当前线程放入对象等待池中，直到调用了 notify () 方法后，将从对象等待池中移出任意一个线程并放入锁标志等待池中，只有锁标志等待池中的线程可以获取锁标志，它们随时准备争夺锁的拥有权。当调用了某个对象的 notifyAll () 方法，会将对象等待池中的所有线程都移动到该对象的锁标志等待池。<br>sleep () 方法需要指定等待的时间，它可以让当前正在执行的线程在指定的时间内暂停执行，进入阻塞状态，该方法既可以让其他同优先级或者高优先级的线程得到执行的机会，也可以让低优先级的线程得到执行机会。但是 sleep () 方法不会释放 “锁标志”，也就是说如果有 synchronized 同步块，其他线程仍然不能访问共享数据。</p>
+<p>[参考链接]<a href="https://www.cnblogs.com/tiancai/p/9371655.html" target="_blank" rel="noopener">https://www.cnblogs.com/tiancai/p/9371655.html</a><br>[参考链接]<a href="https://www.artima.com/insidejvm/ed2/threadsynch.html" target="_blank" rel="noopener">https://www.artima.com/insidejvm/ed2/threadsynch.html</a></p>
 
       
 
@@ -459,7 +468,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,23 +476,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,19 +504,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,15 +524,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,11 +532,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,15 +552,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,15 +568,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,7 +576,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
             
             <div class="clearfix"></div>
