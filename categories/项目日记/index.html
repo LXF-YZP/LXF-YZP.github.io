@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>观鱼入知命</title>
+  <title>Category: 项目日记 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="观鱼入知命">
-<meta property="og:url" content="http://yoursite.com/2019/11/18/bdmg部署/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/项目日记/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-04T03:14:03.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="观鱼入知命">
-<meta name="twitter:description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
   
   
     <link rel="icon" href="/favicon.png">
@@ -57,11 +53,11 @@
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="../../../../index.html">主页</a></li>
+				<li><a href="../../index.html">主页</a></li>
 	        
-				<li><a href="../../../../categories">分类</a></li>
+				<li><a href="../../categories">分类</a></li>
 	        
-				<li><a href="../../../../archives/index.html">归档</a></li>
+				<li><a href="../../archives/index.html">归档</a></li>
 	        
 			</ul>
 		</nav>
@@ -137,11 +133,11 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="../../../../index.html">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../index.html">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="../../../../categories">分类</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../categories">分类</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="../../../../archives/index.html">归档</a></li>
+					<li style="width: 33.333333333333336%"><a href="../../archives/index.html">归档</a></li>
 		        
 				</ul>
 			</nav>
@@ -156,134 +152,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-bdmg部署" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <ul>
-<li><p>从git上下载bdmg代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下载下来注释掉App.java中部分代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">//		if(isAuthorized())&#123;</span><br><span class="line">			SpringApplication.run(App.class, args);</span><br><span class="line">//		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在application-bdmg.yml中添加EPM的配置以及修改bdds的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">epm:</span><br><span class="line">    path: /epm/**</span><br><span class="line">    stripPrefix: 1</span><br><span class="line">    uri: http://172.16.13.148:8800  // epm部署所在节点</span><br><span class="line"></span><br><span class="line">bdds:</span><br><span class="line">    path: /bdds/**</span><br><span class="line">    stripPrefix: 1</span><br><span class="line">    uri: http://172.16.13.147:19910  //bdds部署所在节点</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在BdmgProperties.java文件中添加如下代码</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//epm配置</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.path&#125;&quot;)</span><br><span class="line">private String epmGateWayPath;</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.stripPrefix&#125;&quot;)</span><br><span class="line">private String epmGateWayStripPrefix;</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.uri&#125;&quot;)</span><br><span class="line">private String epmGateWayStripUri;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在GatewayRouteConfiguration.java文件中添加如下代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> .route(&quot;epm_route&quot;, r -&gt; r.path(bdmgProperties.getEpmGateWayPath())</span><br><span class="line">                        .filters(f -&gt; &#123;</span><br><span class="line">                            f.stripPrefix(Integer.valueOf(bdmgProperties.getEpmGateWayStripPrefix()));</span><br><span class="line">                            return f;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .uri(bdmgProperties.getEpmGateWayStripUri()))</span><br><span class="line"></span><br><span class="line">.route(&quot;bdds_route&quot;, r -&gt; r.path(bdmgProperties.getBddsGateWayPath())</span><br><span class="line">                        .filters(f -&gt; &#123;</span><br><span class="line">//                            f.filter(new GatewayPreFilter(bdmgProperties));</span><br><span class="line">                            f.stripPrefix(Integer.valueOf(bdmgProperties.getBddsGateWayStripPrefix()));</span><br><span class="line">                            return f;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .uri(bdmgProperties.getBddsGateWayStripUri()))</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>打包命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动命令</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /home/bdc/beh-director/share/jdk/jdk1.8.0_131/bin/java -jar bdmg-1.3.0.jar &gt;bdmg.log &amp;</span><br></pre></td></tr></table></figure>
-
-<p>Access-Control-Allow-Credentials: true<br>Access-Control-Allow-Headers: x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client<br>Access-Control-Allow-Methods: GET,PATCH,POST,DELETE,HEAD,PUT,OPTIONS<br>Access-Control-Allow-Origin: *<br>Access-Control-Expose-Headers: x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client<br>Access-Control-Max-Age: 18000L<br>content-length: 0</p>
-<p>Access-Control-Allow-Credentials: true<br>Access-Control-Allow-Headers: x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client,x-client-token<br>Access-Control-Allow-Methods: GET,PATCH,POST,DELETE,HEAD,PUT<br>Access-Control-Allow-Origin: *<br>Access-Control-Expose-Headers: x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client,x-client-token<br>Access-Control-Max-Age: 18000L<br>content-length: 0</p>
-
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/WechatIMG24.jpeg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="../../archives/2019" class="archive-year">2019</a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="../../2019/12/02/bdmg部署/" class="archive-article-date">
+  	<time datetime="2019-12-02T09:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="../../2019/12/02/bdmg部署/">bdmg部署</a>
+    </h1>
+  
 
-      
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
-      <div class="clearfix"></div>
-    </div>
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/项目日记//" class="article-tag-list-link color5">项目日记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="../../../12/09/supervisor学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Supervisor学习
-        
-      </div>
-    </a>
   
   
-    <a href="../../03/总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -306,10 +239,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
@@ -368,7 +301,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -376,7 +309,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -396,6 +329,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
@@ -404,7 +341,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -416,10 +357,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
@@ -428,7 +365,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,15 +381,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,15 +401,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,23 +421,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,6 +442,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
