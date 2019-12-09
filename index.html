@@ -161,7 +161,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2019/12/09/supervisor学习/">supervisor学习</a>
+      <a class="article-title" href="2019/12/09/supervisor学习/">Supervisor学习</a>
     </h1>
   
 
@@ -179,33 +179,9 @@
 
 </li>
 </ul>
-<p><img src="/2019/12/09/supervisor学习/aaa.jpg" alt></p>
-<ul>
-<li>生成配置文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo_supervisord_conf &gt; /opt/supervisor-3.1.3/supervisord.conf</span><br><span class="line">###为了不将所有新增配置信息全写在一个配置文件里，这里新建一个文件夹，每个程序(需要使用supervisor管理的程序)设置一个配置文件，相互隔离</span><br><span class="line">mkdir /opt/supervisor-3.1.3/supervisord.d/</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><img src="/2019/12/09/supervisor学习/bbb.jpg" alt><br><img src="/2019/12/09/supervisor学习/ccc.jpg" alt></p>
-<ul>
-<li><p>修改配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">### 修改配置文件</span><br><span class="line">vim supervisord.conf</span><br><span class="line"></span><br><span class="line">### 加入以下配置信息</span><br><span class="line">[include]</span><br><span class="line">files = /opt/supervisor-3.1.3/supervisord.d/*.conf</span><br><span class="line"></span><br><span class="line">### 在supervisord.conf中设置通过web可以查看管理的进程，加入以下代码（默认即有，取消注释即可）    </span><br><span class="line">[inet_http_server] </span><br><span class="line">port=9001</span><br><span class="line">username=user      </span><br><span class="line">password=123</span><br><span class="line"></span><br><span class="line">[inet_http_server]         ; inet (TCP) server disabled by default</span><br><span class="line">port=127.0.0.1:9001        ; (ip_address:port specifier, *:port for all iface)</span><br><span class="line">[supervisord]</span><br><span class="line">logfile=/opt/beh/supervisor/log/supervisord.log  ; (main log file;default $CWD/supervisord.log)</span><br><span class="line">logfile_maxbytes=50MB       ; (max main logfile bytes b4 rotation;default 50MB)</span><br><span class="line">logfile_backups=10          ; (num of main logfile rotation backups;default 10)</span><br><span class="line">loglevel=info               ; (log level;default info; others: debug,warn,trace)</span><br><span class="line">pidfile=supervisord.pid ; (supervisord pidfile;default supervisord.pid)</span><br><span class="line">nodaemon=false              ; (start in foreground if true;default false)</span><br><span class="line">minfds=1024                 ; (min. avail startup file descriptors;default 1024)</span><br><span class="line">minprocs=200                ; (min. avail process descriptors;default 200)</span><br><span class="line">;supervisor启动用户设置</span><br><span class="line">user=chrism                 ; (default is current user, required if root)</span><br><span class="line">[rpcinterface:supervisor]</span><br><span class="line">supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line"></span><br><span class="line">[supervisorctl]</span><br><span class="line">;serverurl=unix://./supervisor.sock ; use a unix:// URL  for a unix socket</span><br><span class="line">serverurl=http://127.0.0.1:9001 ; use an http:// url to specify an inet socket</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>移动配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /usr/bin/supervisorctl  /opt/supervisor-3.1.3</span><br><span class="line">mv /usr/bin/supervisord  /opt/supervisor-3.1.3</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><img src="/2019/12/09/supervisor学习/ddd.jpg" alt></p>
-<ul>
-<li>启动服务端<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">supervisord -c /opt/supervisor-3.1.3/supervisord.conf</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>[参考文章]<a href="https://www.cnblogs.com/mhq-martin/p/8649621.html" target="_blank" rel="noopener">https://www.cnblogs.com/mhq-martin/p/8649621.html</a></p>
-<p>[参考文章]<a href="https://www.jianshu.com/p/f8735b039c67" target="_blank" rel="noopener">https://www.jianshu.com/p/f8735b039c67</a></p>
-<p>[参考文章]<a href="https://www.jianshu.com/p/bf2b3f4dec73" target="_blank" rel="noopener">https://www.jianshu.com/p/bf2b3f4dec73</a></p>
-<p>[参考文章]<a href="https://juejin.im/post/5d80da83e51d45620c1c5471" target="_blank" rel="noopener">https://juejin.im/post/5d80da83e51d45620c1c5471</a></p>
-
+        
+          <a class="article-more-a" href="2019/12/09/supervisor学习/#more">more >></a>
+        
       
 
       
@@ -1242,19 +1218,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1262,15 +1226,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1278,11 +1246,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,15 +1270,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1314,11 +1286,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1330,19 +1302,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1350,7 +1314,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1358,11 +1334,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1370,11 +1346,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
