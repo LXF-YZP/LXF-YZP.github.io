@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>bdmg部署 | 观鱼入知命</title>
+  <title>动态规划 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
-<meta name="keywords" content="项目笔记">
+  <meta name="description" content="动态规划的三大步骤 动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。下面我们先来讲下做动态规划题很重要的三个步骤，">
+<meta name="keywords" content="数据结构、算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bdmg部署">
-<meta property="og:url" content="http://yoursite.com/2019/12/02/bdmg部署/index.html">
+<meta property="og:title" content="动态规划">
+<meta property="og:url" content="http://yoursite.com/2019/12/13/动态规划/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
+<meta property="og:description" content="动态规划的三大步骤 动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。下面我们先来讲下做动态规划题很重要的三个步骤，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-09T08:20:02.273Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/13/动态规划/aaa.png">
+<meta property="og:updated_time" content="2019-12-13T07:47:26.597Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bdmg部署">
-<meta name="twitter:description" content="从git上下载bdmg代码 1git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git  下载下来注释掉App.java中部分代码 12345public static void main(String[] args) &amp;#123;//		if(isAuthorized())&amp;#123;			SpringApplication.run(App">
+<meta name="twitter:title" content="动态规划">
+<meta name="twitter:description" content="动态规划的三大步骤 动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。下面我们先来讲下做动态规划题很重要的三个步骤，">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/13/动态规划/aaa.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -157,59 +159,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-bdmg部署" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-动态规划" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      bdmg部署
+      动态规划
     </h1>
   
 
         
         <a href="" class="archive-article-date">
-  	<time datetime="2019-12-02T09:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
+  	<time datetime="2019-12-13T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>从git上下载bdmg代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下载下来注释掉App.java中部分代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">//		if(isAuthorized())&#123;</span><br><span class="line">			SpringApplication.run(App.class, args);</span><br><span class="line">//		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
+        <h2 id="动态规划的三大步骤"><a href="#动态规划的三大步骤" class="headerlink" title="动态规划的三大步骤"></a>动态规划的三大步骤</h2><blockquote>
+<p>动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。下面我们先来讲下做动态规划题很重要的三个步骤，</p>
+</blockquote>
 <a id="more"></a>
 <ul>
-<li><p>在application-bdmg.yml中添加EPM的配置以及修改bdds的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">epm:</span><br><span class="line">    path: /epm/**</span><br><span class="line">    stripPrefix: 1</span><br><span class="line">    uri: http://172.16.13.148:8800  // epm部署所在节点</span><br><span class="line"></span><br><span class="line">bdds:</span><br><span class="line">    path: /bdds/**</span><br><span class="line">    stripPrefix: 1</span><br><span class="line">    uri: http://172.16.13.147:19910  //bdds部署所在节点</span><br></pre></td></tr></table></figure>
+<li><p>第一步骤</p>
+<blockquote>
+<blockquote>
+<p>定义数组元素的含义，上面说了，我们会用一个数组，来保存历史数组，假设用一维数组 dp [] 吧。这个时候有一个非常非常重要的点，就是规定你这个数组元素的含义，例如你的 dp [i] 是代表什么意思？</p>
+</blockquote>
+</blockquote>
 </li>
-<li><p>在BdmgProperties.java文件中添加如下代码</p>
+<li><p>第二步骤</p>
+<blockquote>
+<blockquote>
+<p>找出数组元素之间的关系式，我觉得动态规划，还是有一点类似于我们高中学习时的归纳法的，当我们要计算 dp [n] 时，是可以利用 dp [n-1]，dp [n-2]…..dp [1]，来推出 dp [n] 的，也就是可以利用历史数据来推出新的元素值，所以我们要找出数组元素之间的关系式，例如 dp [n] = dp [n-1] + dp [n-2]，这个就是他们的关系式了。而这一步，也是最难的一步，后面我会讲几种类型的题来说</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>第三步骤</p>
+<blockquote>
+<blockquote>
+<p>找出初始值。学过数学归纳法的都知道，虽然我们知道了数组元素之间的关系式，例如 dp [n] = dp [n-1] + dp [n-2]，我们可以通过 dp [n-1] 和 dp [n-2] 来计算 dp [n]，但是，我们得知道初始值啊，例如一直推下去的话，会由 dp [3] = dp [2] + dp [1]。而 dp [2] 和 dp [1] 是不能再分解的了，所以我们必须要能够直接获得 dp [2] 和 dp [1] 的值，而这，就是所谓的初始值。</p>
+</blockquote>
+</blockquote>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//epm配置</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.path&#125;&quot;)</span><br><span class="line">private String epmGateWayPath;</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.stripPrefix&#125;&quot;)</span><br><span class="line">private String epmGateWayStripPrefix;</span><br><span class="line">@Value(&quot;$&#123;gateway.routes.epm.uri&#125;&quot;)</span><br><span class="line">private String epmGateWayStripUri;</span><br></pre></td></tr></table></figure>
+<p><strong>有了初始值，并且有了数组元素之间的关系式，那么我们就可以得到 dp [n] 的值了，而 dp [n] 的含义是由你来定义的，你想求什么，就定义它是什么，这样，这道题也就解出来了。</strong></p>
+<h2 id="案例详解"><a href="#案例详解" class="headerlink" title="案例详解"></a>案例详解</h2><h3 id="案例一-简单的一维-DP"><a href="#案例一-简单的一维-DP" class="headerlink" title="案例一: 简单的一维 DP"></a>案例一: 简单的一维 DP</h3><blockquote>
+<p>问题描述：一只青蛙一次可以跳上 1 级台阶，也可以跳上 2 级。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</p>
+</blockquote>
+<ul>
+<li><p>定义数组元素的含义</p>
+<blockquote>
+<blockquote>
+<p>按我上面的步骤说的，首先我们来定义 dp [i] 的含义，我们的问题是要求青蛙跳上 n 级的台阶总共由多少种跳法，那我们就定义 dp [i] 的含义为：跳上一个 i 级的台阶总共有 dp [i] 种跳法。这样，如果我们能够算出 dp [n]，不就是我们要求的答案吗？所以第一步定义完成。</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>找出数组元素间的关系式</p>
+<blockquote>
+<blockquote>
+<p>我们的目的是要求 dp [n]，动态规划的题，如你们经常听说的那样，就是把一个规模比较大的问题分成几个规模比较小的问题，然后由小的问题推导出大的问题。也就是说，dp [n] 的规模为 n，比它规模小的是 n-1, n-2, n-3…. 也就是说，dp [n] 一定会和 dp [n-1], dp [n-2]…. 存在某种关系的。我们要找出他们的关系。</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p>那么问题来了，怎么找？<br>这个怎么找，是最核心最难的一个，我们必须回到问题本身来了，来寻找他们的关系式，dp [n] 究竟会等于什么呢？<br>对于这道题，由于情况可以选择跳一级，也可以选择跳两级，所以青蛙到达第 n 级的台阶有两种方式</p>
+<p><strong><em>一种是从第 n-1 级跳上来</em></strong><br><strong><em>一种是从第 n-2 级跳上来</em></strong><br>由于我们是要算所有可能的跳法的，所以有 dp [n] = dp [n-1] + dp [n-2]。</p>
+<ul>
+<li>找出初始条件<blockquote>
+<blockquote>
+<p>当 n = 1 时，dp [1] = dp [0] + dp [-1]，而我们是数组是不允许下标为负数的，所以对于 dp [1]，我们必须要直接给出它的数值，相当于初始值，显然，dp [1] = 1。一样，dp [0] = 0.（因为 0 个台阶，那肯定是 0 种跳法了）。于是得出初始值：</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p>dp [0] = 0. dp [1] = 1. 即 n &lt;= 1 时，dp [n] = n.</p>
+<p>三个步骤都做出来了，那么我们就来写代码吧，代码会详细注释滴。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int f( int n )&#123;</span><br><span class="line">    if(n &lt;= 1)&#123;</span><br><span class="line">        return n;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 先创建一个数组来保存历史数据</span><br><span class="line">    int[] dp = new int[n+1];</span><br><span class="line">    // 给出初始值</span><br><span class="line">    dp[0] = 0;</span><br><span class="line">    dp[1] = 1;</span><br><span class="line">    // 通过关系式来计算出 dp[n]</span><br><span class="line">    for(int i = 2; i &lt;= n; i++)&#123;</span><br><span class="line">        dp[i] = dp[i-1] + dp[i-2];</span><br><span class="line">    &#125;</span><br><span class="line">    // 把最终结果返回</span><br><span class="line">    return dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>在GatewayRouteConfiguration.java文件中添加如下代码</li>
+<li>再说初始化</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> .route(&quot;epm_route&quot;, r -&gt; r.path(bdmgProperties.getEpmGateWayPath())</span><br><span class="line">                        .filters(f -&gt; &#123;</span><br><span class="line">                            f.stripPrefix(Integer.valueOf(bdmgProperties.getEpmGateWayStripPrefix()));</span><br><span class="line">                            return f;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .uri(bdmgProperties.getEpmGateWayStripUri()))</span><br><span class="line"></span><br><span class="line">.route(&quot;bdds_route&quot;, r -&gt; r.path(bdmgProperties.getBddsGateWayPath())</span><br><span class="line">                        .filters(f -&gt; &#123;</span><br><span class="line">//                            f.filter(new GatewayPreFilter(bdmgProperties));</span><br><span class="line">                            f.stripPrefix(Integer.valueOf(bdmgProperties.getBddsGateWayStripPrefix()));</span><br><span class="line">                            return f;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .uri(bdmgProperties.getBddsGateWayStripUri()))</span><br></pre></td></tr></table></figure>
-
+<p>大家先想以下，你觉得，上面的代码有没有问题？<br>答是有问题的，还是错的，错在对初始值的寻找不够严谨，这也是我故意这样弄的，意在告诉你们，关于初始值的严谨性。例如对于上面的题，当 n = 2 时，dp [2] = dp [1] + dp [0] = 1。这显然是错误的，你可以模拟一下，应该是 dp [2] = 2。</p>
+<p><strong><em>也就是说，在寻找初始值的时候，一定要注意不要找漏了，dp [2] 也算是一个初始值，不能通过公式计算得出。有人可能会说，我想不到怎么办？这个很好办，多做几道题就可以了。</em></strong></p>
+<h3 id="案例二-二维数组的-DP"><a href="#案例二-二维数组的-DP" class="headerlink" title="案例二: 二维数组的 DP"></a>案例二: 二维数组的 DP</h3><p><strong><em>我做了几十道 DP 的算法题，可以说，80% 的题，都是要用二维数组的，所以下面的题主要以二维数组为主，当然有人可能会说，要用一维还是二维，我怎么知道？这个问题不大，接着往下看。</em></strong>这里的我指的是别人，不是指的本我</p>
+<blockquote>
+<p>问题描述：一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish”）。问总共有多少条不同的路径？<br><img src="/2019/12/13/动态规划/aaa.png" alt></p>
+</blockquote>
 <ul>
-<li><p>打包命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动命令</p>
-</li>
+<li>步骤一、定义数组元素的含义</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /home/bdc/beh-director/share/jdk/jdk1.8.0_131/bin/java -jar bdmg-1.3.0.jar &gt;bdmg.log &amp;</span><br></pre></td></tr></table></figure>
+<p>由于我们的目的是从左上角到右下角一共有多少种路径，那我们就定义 dp [i] [j] 的含义为：当机器人从左上角走到 (i, j) 这个位置时，一共有 dp [i] [j] 种路径。那么，dp [m-1] [n-1] 就是我们要的答案了。</p>
+<blockquote>
+<blockquote>
+<p>注意，这个网格相当于一个二维数组，数组是从下标为 0 开始算起的，所以 右下角的位置是 (m-1, n - 1)，所以 dp [m-1] [n-1] 就是我们要找的答案。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>步骤二：找出关系数组元素间的关系式</li>
+</ul>
+<p>想象以下，机器人要怎么样才能到达 (i, j) 这个位置？由于机器人可以向下走或者向右走，所以有两种方式到达</p>
+<blockquote>
+<blockquote>
+<p>一种是从 (i-1, j) 这个位置走一步到达<br>一种是从 (i, j - 1) 这个位置走一步到达</p>
+</blockquote>
+</blockquote>
+<p>因为是计算所有可能的步骤，所以是把所有可能走的路径都加起来，所以关系式是 dp [i] [j] = dp [i-1] [j] + dp [i] [j-1]。</p>
+<ul>
+<li>步骤三、找出初始值</li>
+</ul>
+<p>显然，当 dp [i] [j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp [0] [0….n-1] 和所有的 dp [0….m-1] [0]。这个还是非常容易计算的，相当于计算机图中的最上面一行和左边一列。因此初始值如下：</p>
+<blockquote>
+<blockquote>
+<p>dp [0] [0….n-1] = 1; // 相当于最上面一行，机器人只能一直往左走<br>dp [0…m-1] [0] = 1; // 相当于最左面一列，机器人只能一直往下走</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static int uniquePaths(int m, int n) &#123;</span><br><span class="line">    if (m &lt;= 0 || n &lt;= 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int[][] dp = new int[m][n]; // </span><br><span class="line">    // 初始化</span><br><span class="line">    for(int i = 0; i &lt; m; i++)&#123;</span><br><span class="line">      dp[i][0] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">      dp[0][i] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    // 推导出 dp[m-1][n-1]</span><br><span class="line">    for (int i = 1; i &lt; m; i++) &#123;</span><br><span class="line">        for (int j = 1; j &lt; n; j++) &#123;</span><br><span class="line">            dp[i][j] = dp[i-1][j] + dp[i][j-1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[m-1][n-1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="案例三、二维数组-DP"><a href="#案例三、二维数组-DP" class="headerlink" title="案例三、二维数组 DP"></a>案例三、二维数组 DP</h3><blockquote>
+<p>问题描述：给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。说明：每次只能向下或者向右移动一步。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">举例：</span><br><span class="line">输入:</span><br><span class="line">arr = [</span><br><span class="line">  [1,3,1],</span><br><span class="line">  [1,5,1],</span><br><span class="line">  [4,2,1]</span><br><span class="line">]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 因为路径 1→3→1→1→1 的总和最小。</span><br></pre></td></tr></table></figure>
+
+<p>我还是要按照步骤来写，让那些不大懂的加深理解。有人可能觉得，这些题太简单了吧，别慌，小白先入门，这些属于 medium 级别的，后面在给几道 hard 级别的。</p>
+<ul>
+<li>步骤一、定义数组元素的含义</li>
+</ul>
+<p>由于我们的目的是从左上角到右下角，最小路径和是多少，那我们就定义 dp [i] [j] 的含义为：当机器人从左上角走到 (i, j) 这个位置时，最下的路径和是 dp [i] [j]。那么，dp [m-1] [n-1] 就是我们要的答案了。</p>
+<p>注意，这个网格相当于一个二维数组，数组是从下标为 0 开始算起的，所以 右下角的位置是 (m-1, n - 1)，所以 dp [m-1] [n-1] 就是我们要走的答案。</p>
+<ul>
+<li>步骤二：找出关系数组元素间的关系式</li>
+</ul>
+<p>想象以下，机器人要怎么样才能到达 (i, j) 这个位置？由于机器人可以向下走或者向右走，所以有两种方式到达</p>
+<blockquote>
+<blockquote>
+<p>一种是从 (i-1, j) 这个位置走一步到达</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>一种是从 (i, j - 1) 这个位置走一步到达</p>
+</blockquote>
+</blockquote>
+<p>不过这次不是计算所有可能路径，而是计算哪一个路径和是最小的，那么我们要从这两种方式中，选择一种，使得 dp [i] [j] 的值是最小的，显然有</p>
+<p>dp[i] [j] = min(dp[i-1][j]，dp[i][j-1]) + arr[i][j];// arr[i][j] 表示网格中的值</p>
+<ul>
+<li>步骤三、找出初始值</li>
+</ul>
+<p>显然，当 dp [i] [j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp [0] [0….n-1] 和所有的 dp [0….m-1] [0]。这个还是非常容易计算的，相当于计算机图中的最上面一行和左边一列。因此初始值如下：</p>
+<blockquote>
+<p>dp [0] [j] = arr [0] [j] + dp [0] [j-1]; // 相当于最上面一行，机器人只能一直往左走<br>dp [i] [0] = arr [i] [0] + dp [i] [0]; // 相当于最左面一列，机器人只能一直往下走案例三、二维数组 DP</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public static int uniquePaths(int[][] arr) &#123;</span><br><span class="line">    int m = arr.length;</span><br><span class="line">    int n = arr[0].length;</span><br><span class="line">    if (m &lt;= 0 || n &lt;= 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int[][] dp = new int[m][n]; // </span><br><span class="line">    // 初始化</span><br><span class="line">    dp[0][0] = arr[0][0];</span><br><span class="line">    // 初始化最左边的列</span><br><span class="line">    for(int i = 1; i &lt; m; i++)&#123;</span><br><span class="line">      dp[i][0] = dp[i-1][0] + arr[i][0];</span><br><span class="line">    &#125;</span><br><span class="line">    // 初始化最上边的行</span><br><span class="line">    for(int i = 1; i &lt; n; i++)&#123;</span><br><span class="line">      dp[0][i] = dp[0][i-1] + arr[0][i];</span><br><span class="line">    &#125;</span><br><span class="line">        // 推导出 dp[m-1][n-1]</span><br><span class="line">    for (int i = 1; i &lt; m; i++) &#123;</span><br><span class="line">        for (int j = 1; j &lt; n; j++) &#123;</span><br><span class="line">            dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + arr[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[m-1][n-1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="案例-4：编辑距离"><a href="#案例-4：编辑距离" class="headerlink" title="案例 4：编辑距离"></a>案例 4：编辑距离</h3><p>这次给的这道题比上面的难一些，在 leetcdoe 的定位是 hard 级别。</p>
+<blockquote>
+<p>问题描述:给定两个单词 word1 和 word2，计算出将 word1 转换成 word2 所使用的最少操作数 。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">你可以对一个单词进行如下三种操作：</span><br><span class="line">插入一个字符 删除一个字符 替换一个字符</span><br><span class="line">示例：</span><br><span class="line">输入: word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: </span><br><span class="line">horse -&gt; rorse (将 &apos;h&apos; 替换为 &apos;r&apos;)</span><br><span class="line">rorse -&gt; rose (删除 &apos;r&apos;)</span><br><span class="line">rose -&gt; ros (删除 &apos;e&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>按照上面三个步骤来，并且我这里可以告诉你，90% 的字符串问题都可以用动态规划解决，并且 90% 是采用二维数组。</p>
+<ul>
+<li>步骤一、定义数组元素的含义</li>
+</ul>
+<p>由于我们的目的求将 word1 转换成 word2 所使用的最少操作数 。那我们就定义 dp [i] [j] 的含义为：当字符串 word1 的长度为 i，字符串 word2 的长度为 j 时，将 word1 转化为 word2 所使用的最少操作次数为 dp [i] [j]。</p>
+<ul>
+<li>步骤二：找出关系数组元素间的关系式</li>
+</ul>
+<p>接下来我们就要找 dp [i] [j] 元素之间的关系了，比起其他题，这道题相对比较难找一点，但是，不管多难找，大部分情况下，dp [i] [j] 和 dp [i-1] [j]、dp [i] [j-1]、dp [i-1] [j-1] 肯定存在某种关系。因为我们的目标就是，从规模小的，通过一些操作，推导出规模大的。对于这道题，我们可以对 word1 进行三种操作</p>
+<blockquote>
+<blockquote>
+<p>插入一个字符 删除一个字符 替换一个字符</p>
+</blockquote>
+</blockquote>
+<p>由于我们是要让操作的次数最小，所以我们要寻找最佳操作。那么有如下关系式：</p>
+<p>一、如果我们 word1 [i] 与 word2 [j] 相等，这个时候不需要进行任何操作，显然有 dp [i] [j] = dp [i-1] [j-1]。（别忘了 dp [i] [j] 的含义哈）。</p>
+<p>二、如果我们 word1 [i] 与 word2 [j] 不相等，这个时候我们就必须进行调整，而调整的操作有 3 种，我们要选择一种。三种操作对应的关系试如下（注意字符串与字符的区别）：<br>（1）如果把字符 word1 [i] 替换成与 word2 [j] 相等，则有 dp [i] [j] = dp [i-1] [j-1] + 1;</p>
+<p>（2）如果在字符串 word1 末尾插入一个与 word2 [j] 相等的字符，则有 dp [i] [j] = dp [i] [j-1] + 1;</p>
+<p>（3）如果把字符 word1 [i] 删除，则有 dp [i] [j] = dp [i-1] [j] + 1;</p>
+<p>那么我们应该选择一种操作，使得 dp [i] [j] 的值最小，显然有</p>
+<p>dp[i] [j] = min(dp[i-1] [j-1]，dp[i] [j-1]，dp[[i-1] [j]]) + 1;</p>
+<p>于是，我们的关系式就推出来了，</p>
+<ul>
+<li>步骤三、找出初始值</li>
+</ul>
+<p>显然，当 dp [i] [j] 中，如果 i 或者 j 有一个为 0，那么还能使用关系式吗？答是不能的，因为这个时候把 i - 1 或者 j - 1，就变成负数了，数组就会出问题了，所以我们的初始值是计算出所有的 dp [0] [0….n] 和所有的 dp [0….m] [0]。这个还是非常容易计算的，因为当有一个字符串的长度为 0 时，转化为另外一个字符串，那就只能一直进行插入或者删除操作了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public int minDistance(String word1, String word2) &#123;</span><br><span class="line">    int n1 = word1.length();</span><br><span class="line">    int n2 = word2.length();</span><br><span class="line">    int[][] dp = new int[n1 + 1][n2 + 1];</span><br><span class="line">    // dp[0][0...n2]的初始值</span><br><span class="line">    for (int j = 1; j &lt;= n2; j++) </span><br><span class="line">        dp[0][j] = dp[0][j - 1] + 1;</span><br><span class="line">    // dp[0...n1][0] 的初始值</span><br><span class="line">    for (int i = 1; i &lt;= n1; i++) </span><br><span class="line">        dp[i][0] = dp[i - 1][0] + 1;</span><br><span class="line">        // 通过公式推出 dp[n1][n2]</span><br><span class="line">    for (int i = 1; i &lt;= n1; i++) &#123;</span><br><span class="line">        for (int j = 1; j &lt;= n2; j++) &#123;</span><br><span class="line">            // 如果 word1[i] 与 word2[j] 相等。第 i 个字符对应下标是 i-1</span><br><span class="line">            if (word1.charAt(i - 1) == word2.charAt(j - 1))&#123;</span><br><span class="line">                p[i][j] = dp[i - 1][j - 1];</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">               dp[i][j] = Math.min(Math.min(dp[i - 1][j - 1], dp[i][j - 1]), dp[i - 1][j]) + 1;</span><br><span class="line">            &#125;         </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return dp[n1][n2];  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/91582909" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/91582909</a></p>
 
       
 
@@ -249,7 +389,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
         		</li>
       		
 		</ul>
@@ -261,7 +401,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/项目日记//" class="article-tag-list-link color5">项目日记</a>
+        			<a href="/categories/递归、栈//" class="article-tag-list-link color5">递归、栈</a>
         		</li>
       		
 		</ul>
@@ -279,18 +419,9 @@
   
 <nav id="article-nav">
   
-    <a href="../../09/supervisor学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Supervisor学习
-        
-      </div>
-    </a>
   
-  
-    <a href="../../../11/03/总结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="../递归详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">递归详解</div>
       <i class="icon-circle-right"></i>
     </a>
   
