@@ -17,7 +17,7 @@
 <meta property="og:description" content="LeetCode239. 滑动窗口最大值 给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。   题目解析利用一个 双端队列，在队列中存储元素在数组中的位置， 并且维持队列的严格递减，，也就说维持队首元素是 最大的，当遍历到一个新元素时，如果队列里有比当前元素小的，就将其">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/12/19/滑动窗口问题/aaa.png">
-<meta property="og:updated_time" content="2019-12-19T03:20:18.840Z">
+<meta property="og:updated_time" content="2019-12-20T03:26:14.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="滑动窗口问题">
 <meta name="twitter:description" content="LeetCode239. 滑动窗口最大值 给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。   题目解析利用一个 双端队列，在队列中存储元素在数组中的位置， 并且维持队列的严格递减，，也就说维持队首元素是 最大的，当遍历到一个新元素时，如果队列里有比当前元素小的，就将其">
@@ -70,7 +70,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 54
+			总文章数 56
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -187,9 +187,24 @@
 </ul>
 <p>Deque 继承自 Queue（队列）(详情见下方参考链接)，它的直接实现有 ArrayDeque、LinkedList 等。</p>
 <p><img src="/2019/12/19/滑动窗口问题/aaa.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public int[] maxSlidingWindow(int[] nums, int k) &#123;</span><br><span class="line">        </span><br><span class="line">    //测试用例里面有nums = [], k = 0，所以只好加上这个判断</span><br><span class="line">    if (nums == null || nums.length &lt; k || k == 0) return new int[0];</span><br><span class="line">    //最大值组成的数组大小为numsnums.length-k+1;</span><br><span class="line">    int[] res = new int[nums.length - k + 1];</span><br><span class="line">    //双端队列</span><br><span class="line">    ArrayDeque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;();</span><br><span class="line">    for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        //在尾部添加元素，并保证左边元素都比尾部大</span><br><span class="line">        while (!deque.isEmpty() &amp;&amp; nums[deque.getLast()] &lt; nums[i]) &#123;</span><br><span class="line">            deque.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">        deque.addLast(i);</span><br><span class="line">        //在头部移除元素</span><br><span class="line">        if (deque.getFirst() == i - k) &#123;</span><br><span class="line">            deque.removeFirst();</span><br><span class="line">        &#125;</span><br><span class="line">        //输出结果</span><br><span class="line">        if (i &gt;= k - 1) &#123;</span><br><span class="line">            res[i - k + 1] = nums[deque.getFirst()];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public int[] maxSlidingWindow(int[] nums, int k) &#123;</span><br><span class="line">        </span><br><span class="line">    //测试用例里面有nums = [], k = 0，所以只好加上这个判断</span><br><span class="line">    if (nums == null || nums.length &lt; k || k == 0) return new int[0];</span><br><span class="line">    //最大值组成的数组大小为nums.length-k+1;</span><br><span class="line">    int[] res = new int[nums.length - k + 1];</span><br><span class="line">    //创建双端队列,双端队列中存储的是nums数组的下标；</span><br><span class="line">    ArrayDeque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;();</span><br><span class="line">    for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        //在尾部添加元素，并保证左边元素都比尾部大</span><br><span class="line">        while (!deque.isEmpty() &amp;&amp; nums[deque.getLast()] &lt; nums[i]) &#123;</span><br><span class="line">            deque.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">        deque.addLast(i);</span><br><span class="line">        //在头部移除元素</span><br><span class="line">        if (deque.getFirst() == i - k) &#123;</span><br><span class="line">            deque.removeFirst();</span><br><span class="line">        &#125;</span><br><span class="line">        //输出结果</span><br><span class="line">        if (i &gt;= k - 1) &#123;</span><br><span class="line">            res[i - k + 1] = nums[deque.getFirst()];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>[参考链接]<a href="https://blog.jrwang.me/2016/java-collections-deque-arraydeque/" target="_blank" rel="noopener">https://blog.jrwang.me/2016/java-collections-deque-arraydeque/</a><br>[参考链接]<a href="https://www.cnblogs.com/lxyit/p/9080590.html" target="_blank" rel="noopener">https://www.cnblogs.com/lxyit/p/9080590.html</a></p>
+<h4 id="LeetCode3-无重复字符的最长子串"><a href="#LeetCode3-无重复字符的最长子串" class="headerlink" title="LeetCode3. 无重复字符的最长子串"></a>LeetCode<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></h4><blockquote>
+<p>题目描述 ：给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line">输入: &quot;abcabcbb&quot;</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+
+<p>题目解析:输入只有一个字符串，要求子串里面不能够有重复的元素，这里 count 都不需要定义，直接判断哈希散列里面的元素是不是在窗口内即可，是的话得移动左指针去重。</p>
+<p>具体操作如下：</p>
+<p>建立一个 128 位大小的整型数组 freg ，用来建立字符和其出现位置之间的映射。</p>
+<p>维护一个滑动窗口，窗口内的都是没有重复的字符，去尽可能的扩大窗口的大小，窗口不停的向右滑动。<br>1）如果当前遍历到的字符从未出现过，那么直接扩大右边界；<br>2）如果当前遍历到的字符出现过，则缩小窗口（左边索引向右移动），然后继续观察当前遍历到的字符；<br>3）重复（1）（2），直到左边索引无法再移动；<br>4）维护一个结果 res，每次用出现过的窗口大小来更新结果 res，最后返回 res 获取结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">方法一:</span><br><span class="line">public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">    if (s == null || s.length() == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    int[] hash = new int[128];</span><br><span class="line"></span><br><span class="line">    int l = 0, result = 1;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r]]++;</span><br><span class="line"></span><br><span class="line">        while (hash[sArr[r]] != 1) &#123;</span><br><span class="line">            hash[sArr[l]]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result = Math.max(result, r - l + 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line">public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">    int n = s.length(), ans = 0;</span><br><span class="line">        //创建map窗口,i为左区间，j为右区间，右边界移动</span><br><span class="line">        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">        for (int j = 0, i = 0; j &lt; n; j++) &#123;</span><br><span class="line">            // 如果窗口中包含当前字符，</span><br><span class="line">            if (map.containsKey(s.charAt(j))) &#123;</span><br><span class="line">                //左边界移动到 相同字符的下一个位置和i当前位置中更靠右的位置，这样是为了防止i向左移动</span><br><span class="line">                i = Math.max(map.get(s.charAt(j)), i);</span><br><span class="line">            &#125;</span><br><span class="line">            //比对当前无重复字段长度和储存的长度，选最大值并替换</span><br><span class="line">            //j-i+1是因为此时i,j索引仍处于不重复的位置，j还没有向后移动，取的[i,j]长度</span><br><span class="line">            ans = Math.max(ans, j - i + 1);</span><br><span class="line">            // 将当前字符为key，下一个索引为value放入map中</span><br><span class="line">            // value为j+1是为了当出现重复字符时，i直接跳到上个相同字符的下一个位置，if中取值就不用+1了</span><br><span class="line">            map.put(s.charAt(j), j+1);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="LeetCode438-找到字符串中所有字母异位词"><a href="#LeetCode438-找到字符串中所有字母异位词" class="headerlink" title="LeetCode438. 找到字符串中所有字母异位词"></a>LeetCode<a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">438. 找到字符串中所有字母异位词</a></h4><p>题目描述:给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。<br>字符串只包含小写英文字母，并且字符串 s 和 p 的长度都不超过 20100 。</p>
+<p>题目解析:别看这是一道 easy 难度的题目，如果限定你在 O (n) 时间复杂度内实现呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;Integer&gt; findAnagrams(String s, String p) &#123;</span><br><span class="line">    // 输入参数有效性判断</span><br><span class="line">    if (s.length() &lt; p.length()) &#123;</span><br><span class="line">        return new ArrayList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 申请一个散列，用于记录窗口中具体元素的个数情况</span><br><span class="line">    // 这里用数组的形式呈现，也可以考虑其他数据结构</span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] pArr = p.toCharArray();</span><br><span class="line"></span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line"></span><br><span class="line">    for (int i = 0; i &lt; pArr.length; ++i) &#123;</span><br><span class="line">        hash[pArr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // l 表示左指针</span><br><span class="line">    // count 记录当前的条件，具体根据题目要求来定义</span><br><span class="line">    // result 用来存放结果</span><br><span class="line">    List&lt;Integer&gt; results = new ArrayList&lt;&gt;();</span><br><span class="line">    int l = 0, count = 0, pLength = p.length();</span><br><span class="line"></span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        // 更新新元素在散列中的数量</span><br><span class="line">        hash[sArr[r] - &apos;a&apos;]--;</span><br><span class="line"></span><br><span class="line">        // 根据窗口的变更结果来改变条件值</span><br><span class="line">        if (hash[sArr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 如果当前条件不满足，移动左指针直至条件满足为止</span><br><span class="line">        if (r &gt; pLength - 1) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;a&apos;]++;</span><br><span class="line"></span><br><span class="line">            if (hash[sArr[l] - &apos;a&apos;] &gt; 0) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 更新结果</span><br><span class="line">        if (count == pLength) &#123;</span><br><span class="line">            results.add(l);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="https://blog.jrwang.me/2016/java-collections-deque-arraydeque/" target="_blank" rel="noopener">https://blog.jrwang.me/2016/java-collections-deque-arraydeque/</a><br>[参考链接]<a href="https://www.cnblogs.com/lxyit/p/9080590.html" target="_blank" rel="noopener">https://www.cnblogs.com/lxyit/p/9080590.html</a><br>[参考链接]<a href="https://cloud.tencent.com/developer/article/1448920" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1448920</a></p>
 
       
 
@@ -258,6 +273,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="../../22/双指针问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          双指针问题
+        
+      </div>
+    </a>
   
   
     <a href="../../18/刷LeetCode常用函数/" id="article-nav-older" class="article-nav-link-wrap">
@@ -379,15 +403,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -395,11 +419,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -411,19 +435,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -431,7 +443,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,7 +455,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,19 +483,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,15 +499,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,11 +515,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,7 +527,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,7 +535,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,23 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -556,6 +576,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
