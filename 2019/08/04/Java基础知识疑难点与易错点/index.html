@@ -17,7 +17,7 @@
 <meta property="og:description" content="1. 基础1.1. 正确使用 equals 方法Object 的 equals 方法容易抛空指针异常，应使用常量或确定有值的对象来调用 equals。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/08/04/Java基础知识疑难点与易错点/aaa.png">
-<meta property="og:updated_time" content="2019-12-20T08:00:05.696Z">
+<meta property="og:updated_time" content="2019-12-20T14:56:36.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础知识疑难点与易错点">
 <meta name="twitter:description" content="1. 基础1.1. 正确使用 equals 方法Object 的 equals 方法容易抛空指针异常，应使用常量或确定有值的对象来调用 equals。">
@@ -70,7 +70,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 66
+			总文章数 67
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -253,31 +253,24 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public E remove(int index) &#123;</span><br><span class="line">    throw new UnsupportedOperationException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-1-4-如何正确的将数组转换为ArrayList"><a href="#2-1-4-如何正确的将数组转换为ArrayList" class="headerlink" title="2.1.4. 如何正确的将数组转换为ArrayList?"></a>2.1.4. 如何正确的将数组转换为ArrayList?</h4><p>[stackoverflow：]<a href="https://dwz.cn/vcBkTiTW" target="_blank" rel="noopener">https://dwz.cn/vcBkTiTW</a></p>
-<ol>
-<li>自己动手实现（教育目的）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//JDK1.5+</span><br><span class="line">static &lt;T&gt; List&lt;T&gt; arrayToList(final T[] array) &#123;</span><br><span class="line">  final List&lt;T&gt; l = new ArrayList&lt;T&gt;(array.length);</span><br><span class="line"></span><br><span class="line">  for (final T s : array) &#123;</span><br><span class="line">    l.add(s);</span><br><span class="line">  &#125;</span><br><span class="line">  return (l);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.自己动手实现（教育目的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//JDK1.5+</span><br><span class="line">static &lt;T&gt; List&lt;T&gt; arrayToList(final T[] array) &#123;</span><br><span class="line">  final List&lt;T&gt; l = new ArrayList&lt;T&gt;(array.length);</span><br><span class="line"></span><br><span class="line">  for (final T s : array) &#123;</span><br><span class="line">    l.add(s);</span><br><span class="line">  &#125;</span><br><span class="line">  return (l);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer [] myArray = &#123; 1, 2, 3 &#125;;</span><br><span class="line">System.out.println(arrayToList(myArray).getClass());//class java.util.ArrayList</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li><p>最简便的方法 (推荐)</p>
+<p>2.最简便的方法 (推荐)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List list = new ArrayList&lt;&gt;(Arrays.asList(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用 Java8 的 Stream (推荐)</p>
+
+<p>3.使用 Java8 的 Stream (推荐)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer [] myArray = &#123; 1, 2, 3 &#125;;</span><br><span class="line">List myList = Arrays.stream(myArray).collect(Collectors.toList());</span><br><span class="line">//基本类型也可以实现转换（依赖boxed的装箱操作）</span><br><span class="line">int [] myArray2 = &#123; 1, 2, 3 &#125;;</span><br><span class="line">List myList = Arrays.stream(myArray2).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用 Guava (推荐)</p>
-</li>
-</ol>
+
+<p>4.使用 Guava (推荐)</p>
 <p>对于不可变集合，你可以使用 ImmutableList类及其 of()与 copyOf()工厂方法：（参数不能为空）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; il = ImmutableList.of(&quot;string&quot;, &quot;elements&quot;);  // from varargs</span><br><span class="line">List&lt;String&gt; il = ImmutableList.copyOf(aStringArray);      // from array</span><br><span class="line">对于可变集合，你可以使用 Lists类及其 newArrayList()工厂方法：</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; l1 = Lists.newArrayList(anotherListOrCollection);    // from collection</span><br><span class="line">List&lt;String&gt; l2 = Lists.newArrayList(aStringArray);               // from array</span><br><span class="line">List&lt;String&gt; l3 = Lists.newArrayList(&quot;or&quot;, &quot;string&quot;, &quot;elements&quot;); // from varargs</span><br></pre></td></tr></table></figure>
 
-<ol start="5">
-<li>使用 Apache Commons Collections<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">CollectionUtils.addAll(list, str);</span><br></pre></td></tr></table></figure>
+<p>5.使用 Apache Commons Collections</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">CollectionUtils.addAll(list, str);</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
 <h3 id="2-2-Collection-toArray-方法使用的坑-amp-如何反转数组"><a href="#2-2-Collection-toArray-方法使用的坑-amp-如何反转数组" class="headerlink" title="2.2. Collection.toArray()方法使用的坑&amp;如何反转数组"></a>2.2. Collection.toArray()方法使用的坑&amp;如何反转数组</h3><p>该方法是一个泛型方法：<t> T[] toArray(T[] a); 如果 toArray 方法中没有传递任何参数的话返回的是 Object 类型数组。</t></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String [] s= new String[]&#123;</span><br><span class="line">    &quot;dog&quot;, &quot;lazy&quot;, &quot;a&quot;, &quot;over&quot;, &quot;jumps&quot;, &quot;fox&quot;, &quot;brown&quot;, &quot;quick&quot;, &quot;A&quot;</span><br><span class="line">&#125;;</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(s);</span><br><span class="line">Collections.reverse(list);</span><br><span class="line">s=list.toArray(new String[0]);//没有指定类型的话会报错</span><br></pre></td></tr></table></figure>
 
@@ -489,11 +482,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,15 +502,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,11 +526,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,11 +534,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,31 +546,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,7 +558,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,11 +582,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,7 +598,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,15 +610,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,15 +618,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,7 +634,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,11 +662,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
             
             <div class="clearfix"></div>
