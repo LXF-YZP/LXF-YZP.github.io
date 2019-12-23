@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Hbase高可用集群搭建 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。 列举一下需要修改的文件：conf/hbase-env.sh conf/hbase-site.xml conf/regionservers 1.上传 hbase 安装包，并解压，解压命">
+  <meta name="description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。">
 <meta name="keywords" content="大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hbase高可用集群搭建">
 <meta property="og:url" content="http://yoursite.com/2019/08/30/Hbase高可用集群搭建/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。 列举一下需要修改的文件：conf/hbase-env.sh conf/hbase-site.xml conf/regionservers 1.上传 hbase 安装包，并解压，解压命">
+<meta property="og:description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-22T15:36:25.645Z">
+<meta property="og:updated_time" content="2019-12-22T15:38:38.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase高可用集群搭建">
-<meta name="twitter:description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。 列举一下需要修改的文件：conf/hbase-env.sh conf/hbase-site.xml conf/regionservers 1.上传 hbase 安装包，并解压，解压命">
+<meta name="twitter:description" content="搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 68
+			总文章数 71
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -178,6 +178,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>搭建 hbase 集群之前首先要搭建 zookeeper 集群，以及搭建 hadoop 集群，搭建 zookeeper 集群可以查看我之前的文章，搭建 hadoop 集群我之前也发过可是没通过，如果需要我可以单独发。</p>
+<a id="more"></a>
 <p>列举一下需要修改的文件：conf/hbase-env.sh conf/hbase-site.xml conf/regionservers</p>
 <p>1.上传 hbase 安装包，并解压，解压命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-1.2.5.tar.gz</span><br></pre></td></tr></table></figure>
@@ -289,8 +290,8 @@
     </a>
   
   
-    <a href="../../08/Collections工具类和Arrays工具类常见方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Collections工具类和Arrays工具类常见方法</div>
+    <a href="../../11/Java内存区域详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JUC中的Atomic 原子类总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -424,7 +425,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,7 +433,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,23 +449,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,11 +465,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,15 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,7 +493,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,19 +529,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,10 +542,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,15 +569,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,15 +581,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,11 +601,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
             
             <div class="clearfix"></div>
