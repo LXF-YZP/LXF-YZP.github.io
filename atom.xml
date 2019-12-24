@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-23T06:44:06.557Z</updated>
+  <updated>2019-12-23T09:08:35.452Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2019/12/31/%E4%BA%8C%E9%9B%B6%E4%B8%80%E4%B9%9D%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2019/12/31/二零一九年终总结/</id>
     <published>2019-12-31T11:57:10.000Z</published>
-    <updated>2019-12-23T06:44:06.557Z</updated>
+    <updated>2019-12-23T09:08:35.452Z</updated>
     
     <content type="html"><![CDATA[<h3 id="过去"><a href="#过去" class="headerlink" title="过去"></a>过去</h3><blockquote><p>2019年马上就要过去了，回顾这一年感觉时间过的是真快啊；这一年有收获也有遗憾，总结出来就是忙忙碌碌，碌碌无为；<br>这一年不知为何突然很怀念大学(虽然大学没怎么学习)，这感觉很莫名其妙，也许是大学学的不怎么好，现在想好好学吧；<br>年初的时候不知为何想起来重学数据结构和算法了，于是买了好几本数据结构和算法的书，但是一年下来看完的没几本，算是一个遗憾吧；但是学习了关于数据结构和算法的几个专栏，在十月份还报了一个算法班，这也算是一个收获吧；学下来感觉数据结构也没有那么难，古人总结的很到位，但手熟尔。</p></blockquote><p>这一年下来买了30多个专栏，想想自己还是很可怕的，因为从头看完的估计都不到一半；但是也不是完全没有收获，专栏中有的话是真的很有共鸣的，比如：越早的掌握底层知识，才能越早的享受知识的红利；所以今年一年主要学习的专栏还是都很基础的，比如数据结构，计算机组成原理，计算机网络；操作系统专栏还没看完(留到2020了，要学的专栏一直往后推，这个不是一个好习惯)。虽然要学的还有很多，但是这一年我自己感觉是进步最多的一年。虽然焦虑依然存在，但是消除焦虑的进步速度也在加快。</p><h3 id="未来"><a href="#未来" class="headerlink" title="未来"></a>未来</h3>]]></content>
     
@@ -36,10 +36,10 @@
     </summary>
     
     
-      <category term="年终总结" scheme="http://yoursite.com/categories/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+      <category term="随笔" scheme="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-      <category term="个人感想" scheme="http://yoursite.com/tags/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%83%B3/"/>
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -48,9 +48,17 @@
     <link href="http://yoursite.com/2019/12/24/%E5%8F%98%E5%BD%A2%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2019/12/24/变形二分查找问题/</id>
     <published>2019-12-24T11:57:10.000Z</published>
-    <updated>2019-12-20T03:43:40.746Z</updated>
+    <updated>2019-12-24T02:39:54.889Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>Binary Search 模板<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public int binarySearch(int[] arr, int key) &#123;</span><br><span class="line">int low = 0;</span><br><span class="line">int high = arr.length - 1;</span><br><span class="line">int mid = 0;</span><br><span class="line"></span><br><span class="line">if (key &lt; arr[low] || key &gt; arr[high] || low &gt; high)</span><br><span class="line">return -1;</span><br><span class="line">while (low &lt;= high)&#123;</span><br><span class="line">mid = (low + high) / 2;</span><br><span class="line">if (arr[mid] &gt; key)</span><br><span class="line">high = mid - 1;</span><br><span class="line">else if (arr[mid] &lt; key)</span><br><span class="line">low = mid + 1;</span><br><span class="line">else</span><br><span class="line">return mid;</span><br><span class="line">&#125;</span><br><span class="line">return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0; </span><br><span class="line">    int right = nums.length - 1; // 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt;= right) &#123;</span><br><span class="line">        int mid = (right + left) / 2;</span><br><span class="line">        if(nums[mid] == target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right = mid - 1; // 注意</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;Binary Search 模板&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line
+      
     
     </summary>
     
