@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="Binary Search 模板12345678910111213141516171819202122232425262728293031323334public int binarySearch(int[] arr, int key) &amp;#123;	int low = 0;	int high = arr.length - 1;	int mid = 0;	if (key &amp;lt; arr[low">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-24T02:39:54.889Z">
+<meta property="og:updated_time" content="2019-12-24T08:37:50.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="变形二分查找问题">
 <meta name="twitter:description" content="Binary Search 模板12345678910111213141516171819202122232425262728293031323334public int binarySearch(int[] arr, int key) &amp;#123;	int low = 0;	int high = arr.length - 1;	int mid = 0;	if (key &amp;lt; arr[low">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 76
+			总文章数 80
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -182,6 +182,98 @@
 
 </li>
 </ul>
+<h3 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h3><p>编写二分查找的算法代码属于玄学编程，虽然看起来很简单，就是会出错，要么会漏个等号，要么少加个 1。</p>
+<p>不要气馁，因为二分查找其实并不简单。看看 Knuth 大佬（发明 KMP 算法的那位）怎么说的：</p>
+<p><strong><em>Although the basic idea of binary search is comparatively straightforward, the details can be surprisingly tricky…</em></strong></p>
+<p>这句话可以这样理解：<strong><em>思路很简单，细节是魔鬼。</em></strong></p>
+<p>探究几个最常用的二分查找场景：寻找一个数、寻找左侧边界、寻找右侧边界。第一个场景就是本题，后两个场景可以解决这道算法题 在排序数组中查找元素的第一个和最后一个位置。</p>
+<p>要深入细节，比如不等号是否应该带等号，mid 是否应该加一等等。分析这些细节的差异以及出现这些差异的原因，保证你能灵活准确地写出正确的二分查找算法。</p>
+<h3 id="二分查找框架："><a href="#二分查找框架：" class="headerlink" title="二分查找框架："></a>二分查找框架：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0, right = ...;</span><br><span class="line"></span><br><span class="line">    while(...) &#123;</span><br><span class="line">        int mid = (right + left) / 2;</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = ...</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析二分查找的一个技巧是：不要出现 else，而是把所有情况用 else if 写清楚，这样可以清楚地展现所有细节。本文都会使用 else if，旨在讲清楚，读者理解后可自行简化。</p>
+<p>其中 … 标记的部分，就是可能出现细节问题的地方，当你见到一个二分查找的代码时，首先注意这几个地方。后文用实例分析这些地方能有什么样的变化。</p>
+<p><strong><em>另外声明一下，计算 mid 时需要技巧防止溢出，即 mid = left + (right - left) / 2。本文暂时忽略这个问题。</em></strong></p>
+<h3 id="一、寻找一个数（基本的二分搜索）"><a href="#一、寻找一个数（基本的二分搜索）" class="headerlink" title="一、寻找一个数（基本的二分搜索）"></a>一、寻找一个数（基本的二分搜索）</h3><p>这个场景是最简单的，肯能也是大家最熟悉的，即搜索一个数，如果存在，返回其索引，否则返回 −1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0; </span><br><span class="line">    int right = nums.length - 1; // 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt;= right) &#123;</span><br><span class="line">        int mid = (right + left) / 2;</span><br><span class="line">        if(nums[mid] == target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right = mid - 1; // 注意</span><br><span class="line">        &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.为什么 while 循环的条件中是 &lt;=，而不是 &lt; ？</p>
+<p>答：因为初始化 right 的赋值是 nums.length - 1，即最后一个元素的索引，而不是 nums.length。</p>
+<p>这二者可能出现在不同功能的二分查找中，区别是：前者相当于两端都闭区间 [left, right]，后者相当于左闭右开区间 [left, right)，因为索引大小为 nums.length 是越界的。</p>
+<p>我们这个算法中使用的是前者 [left, right] 两端都闭的区间。这个区间其实就是每次进行搜索的区间，我们不妨称为「搜索区间」。</p>
+<p>什么时候应该停止搜索呢？当然，找到了目标值的时候可以终止：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(nums[mid] == target)</span><br><span class="line">    return mid;</span><br></pre></td></tr></table></figure>
+
+<p>但如果没找到，就需要 while 循环终止，然后返回 −1。那 while 循环什么时候应该终止？搜索区间为空的时候应该终止，意味着你没得找了，就等于没找到嘛。</p>
+<p>while(left &lt;= right) 的终止条件是 left == right + 1，写成区间的形式就是 [right + 1, right]，或者带个具体的数字进去 [3, 2]，可见这时候搜索区间为空，因为没有数字既大于等于 3 又小于等于 2 的吧。所以这时候 while 循环终止是正确的，直接返回 −1 即可。</p>
+<p>while(left &lt; right) 的终止条件是 left == right，写成区间的形式就是 [left, right]，或者带个具体的数字进去 [2, 2]，这时候搜索区间非空，还有一个数 2，但此时 while 循环终止了。也就是说这区间 [2, 2] 被漏掉了，索引 2 没有被搜索，如果这时候直接返回 −1 就是错误的。</p>
+<p>当然，如果你非要用 while(left &lt; right) 也可以，我们已经知道了出错的原因，就打个补丁好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//...</span><br><span class="line">while(left &lt; right) &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br><span class="line">return nums[left] == target ? left : -1;</span><br></pre></td></tr></table></figure>
+
+<p>2.为什么 left = mid + 1，right = mid - 1？我看有的代码是 right = mid 或者 left = mid，没有这些加加减减，到底怎么回事，怎么判断？</p>
+<p>答：这也是二分查找的一个难点，不过只要你能理解前面的内容，就能够很容易判断。</p>
+<p>刚才明确了「搜索区间」这个概念，而且本算法的搜索区间是两端都闭的，即 [left, right]。那么当我们发现索引 mid 不是要找的 target 时，如何确定下一步的搜索区间呢？</p>
+<p>当然是 [left, mid - 1] 或者 [mid + 1, right] 对不对？因为 mid 已经搜索过，应该从搜索区间中去除。</p>
+<ol start="3">
+<li>此算法有什么缺陷？</li>
+</ol>
+<p>答：至此，你应该已经掌握了该算法的所有细节，以及这样处理的原因。但是，这个算法存在局限性。</p>
+<p>比如说给你有序数组 nums = [1,2,2,2,3]，target = 2，此算法返回的索引是 2，没错。但是如果我想得到 target 的左侧边界，即索引 1，或者我想得到 target 的右侧边界，即索引 3，这样的话此算法是无法处理的。</p>
+<p>这样的需求很常见。你也许会说，找到一个 target，然后向左或向右线性搜索不行吗？可以，但是不好，因为这样难以保证二分查找对数级的复杂度了。</p>
+<p>我们后续的算法就来讨论这两种二分查找的算法。<br>二、寻找左侧边界的二分搜索</p>
+<p>直接看代码，其中的标记是需要注意的细节：</p>
+<p>int left_bound(int[] nums, int target) {<br>    if (nums.length == 0) return -1;<br>    int left = 0;<br>    int right = nums.length; // 注意</p>
+<pre><code>while (left &lt; right) { // 注意
+    int mid = (left + right) / 2;
+    if (nums[mid] == target) {
+        right = mid;
+    } else if (nums[mid] &lt; target) {
+        left = mid + 1;
+    } else if (nums[mid] &gt; target) {
+        right = mid; // 注意
+    }
+}
+return left;</code></pre><p>}</p>
+<p>1.为什么 while(left &lt; right) 而不是 &lt;= ?</p>
+<p>答：用相同的方法分析，因为 right = nums.length 而不是 nums.length - 1。因此每次循环的「搜索区间」是 [left, right] 左闭右开。</p>
+<p>while(left &lt; right) 终止的条件是 left == right，此时搜索区间 [left, left) 为空，所以可以正确终止。</p>
+<p>2.为什么没有返回 −1-1−1 的操作？如果 nums 中不存在 target 这个值，怎么办？</p>
+<p>答：因为要一步一步来，先理解一下这个「左侧边界」有什么特殊含义：</p>
+<p>binarySearch</p>
+<p>对于这个数组，算法会返回 111。这个 111 的含义可以这样解读：nums 中小于 222 的元素有 111 个。</p>
+<p>比如对于有序数组 nums = [2,3,5,7], target = 1，算法会返回 000，含义是：nums 中小于 111 的元素有 000 个。</p>
+<p>再比如说 nums 不变，target = 8，算法会返回 444，含义是：nums 中小于 888 的元素有 444 个。</p>
+<p>综上可以看出，函数的返回值（即 left 变量的值）取值区间是闭区间 [0, nums.length]，所以我们简单添加两行代码就能在正确的时候 return -1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">while (left &lt; right) &#123;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br><span class="line">// target 比所有数都大</span><br><span class="line">if (left == nums.length) return -1;</span><br><span class="line">// 类似之前算法的处理方式</span><br><span class="line">return nums[left] == target ? left : -1;</span><br></pre></td></tr></table></figure>
+
+<p>3.为什么 left = mid + 1，right = mid？和之前的算法不一样？</p>
+<p>答：这个很好解释，因为我们的「搜索区间」是 [left, right) 左闭右开，所以当 nums[mid] 被检测之后，下一步的搜索区间应该去掉 mid 分割成两个区间，即 [left, mid) 或 [mid + 1, right)。</p>
+<p>4.为什么该算法能够搜索左侧边界？</p>
+<p>答：关键在于对于 nums[mid] == target 这种情况的处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (nums[mid] == target)</span><br><span class="line">    right = mid;</span><br></pre></td></tr></table></figure>
+
+<p>可见，找到 target 时不要立即返回，而是缩小「搜索区间」的上界 right，在区间 [left, mid) 中继续搜索，即不断向左收缩，达到锁定左侧边界的目的。</p>
+<p>5.为什么返回 left 而不是 right？</p>
+<p>答：都是一样的，因为 while 终止的条件是 left == right。<br>三、寻找右侧边界的二分查找</p>
+<p>寻找右侧边界和寻找左侧边界的代码差不多，只有两处不同，已标注：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int right_bound(int[] nums, int target) &#123;</span><br><span class="line">    if (nums.length == 0) return -1;</span><br><span class="line">    int left = 0, right = nums.length;</span><br><span class="line">    </span><br><span class="line">    while (left &lt; right) &#123;</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid + 1;</span><br><span class="line">        &#125; else if (nums[mid] &gt; target) &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return left - 1; // 注意</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>1.为什么这个算法能够找到右侧边界？</p>
+<p>答：类似地，关键点还是这里：</p>
+<p>if (nums[mid] == target) {<br>    left = mid + 1;</p>
+<p>当 nums[mid] == target 时，不要立即返回，而是增大「搜索区间」的下界 left，使得区间不断向右收缩，达到锁定右侧边界的目的。</p>
+<p>2.为什么最后返回 left - 1 而不像左侧边界的函数，返回 left？而且我觉得这里既然是搜索右侧边界，应该返回 right 才对。</p>
+<p>答：首先，while 循环的终止条件是 left == right，所以 left 和 right 是一样的，你非要体现右侧的特点，返回 right - 1 好了。</p>
+<p>至于为什么要减一，这是搜索右侧边界的一个特殊点，关键在这个条件判断：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (nums[mid] == target) &#123;</span><br><span class="line">    left = mid + 1;</span><br><span class="line">    // 这样想: mid = left - 1</span><br></pre></td></tr></table></figure>
+
+<p>binarySearch</p>
+<p>因为我们对 left 的更新必须是 left = mid + 1，就是说 while 循环结束时，nums[left] 一定不等于 target 了，而 nums[left-1] 可能是 target。</p>
+<p>至于为什么 left 的更新必须是 left = mid + 1，同左侧边界搜索，就不再赘述。更多精彩文章欢迎关注我的众公号 labuladong。</p>
+<p>3.为什么没有返回 −1-1−1 的操作？如果 nums 中不存在 target 这个值，怎么办？</p>
+<p>答：类似之前的左侧边界搜索，因为 while 的终止条件是 left == right，就是说 left 的取值范围是 [0, nums.length]，所以可以添加两行代码，正确地返回 −1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">while (left &lt; right) &#123;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br><span class="line">if (left == 0) return -1;</span><br><span class="line">return nums[left-1] == target ? (left-1) : -1;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/</a></p>
 
       
 
@@ -251,11 +343,11 @@
   
 <nav id="article-nav">
   
-    <a href="../../31/二零一九年终总结/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../25/变形二分查找问题二/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          二零一九年终总结
+          变形二分查找问题二
         
       </div>
     </a>
@@ -400,7 +492,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,15 +500,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,7 +532,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,15 +540,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,6 +560,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -476,15 +572,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,10 +593,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,11 +608,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,10 +668,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
@@ -585,6 +677,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">

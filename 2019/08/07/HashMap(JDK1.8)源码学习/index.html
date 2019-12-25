@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="HashMap 简介HashMap 主要用来存放键值对，它基于哈希表的 Map 接口实现，是常用的 Java 集合之一。 JDK1.8 之前 HashMap 由 数组 + 链表 组成的，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法” 解决冲突）.JDK1.8 以后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）时，将链表转化为红黑树（将链表转换成红">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-20T09:43:54.429Z">
+<meta property="og:updated_time" content="2019-12-24T06:59:06.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap(JDK1.8)源码学习">
 <meta name="twitter:description" content="HashMap 简介HashMap 主要用来存放键值对，它基于哈希表的 Map 接口实现，是常用的 Java 集合之一。 JDK1.8 之前 HashMap 由 数组 + 链表 组成的，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法” 解决冲突）.JDK1.8 以后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）时，将链表转化为红黑树（将链表转换成红">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 76
+			总文章数 80
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -235,7 +235,7 @@
 
 <h3 id="HashMap常用方法测试"><a href="#HashMap常用方法测试" class="headerlink" title="HashMap常用方法测试"></a>HashMap常用方法测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">package map;</span><br><span class="line"></span><br><span class="line">import java.util.Collection;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">public class HashMapDemo &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();</span><br><span class="line">        // 键不能重复，值可以重复</span><br><span class="line">        map.put(&quot;san&quot;, &quot;张三&quot;);</span><br><span class="line">        map.put(&quot;si&quot;, &quot;李四&quot;);</span><br><span class="line">        map.put(&quot;wu&quot;, &quot;王五&quot;);</span><br><span class="line">        map.put(&quot;wang&quot;, &quot;老王&quot;);</span><br><span class="line">        map.put(&quot;wang&quot;, &quot;老王2&quot;);// 老王被覆盖</span><br><span class="line">        map.put(&quot;lao&quot;, &quot;老王&quot;);</span><br><span class="line">        System.out.println(&quot;-------直接输出hashmap:-------&quot;);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        /**</span><br><span class="line">         * 遍历HashMap</span><br><span class="line">         */</span><br><span class="line">        // 1.获取Map中的所有键</span><br><span class="line">        System.out.println(&quot;-------foreach获取Map中所有的键:------&quot;);</span><br><span class="line">        Set&lt;String&gt; keys = map.keySet();</span><br><span class="line">        for (String key : keys) &#123;</span><br><span class="line">            System.out.print(key+&quot;  &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();//换行</span><br><span class="line">        // 2.获取Map中所有值</span><br><span class="line">        System.out.println(&quot;-------foreach获取Map中所有的值:------&quot;);</span><br><span class="line">        Collection&lt;String&gt; values = map.values();</span><br><span class="line">        for (String value : values) &#123;</span><br><span class="line">            System.out.print(value+&quot;  &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();//换行</span><br><span class="line">        // 3.得到key的值的同时得到key所对应的值</span><br><span class="line">        System.out.println(&quot;-------得到key的值的同时得到key所对应的值:-------&quot;);</span><br><span class="line">        Set&lt;String&gt; keys2 = map.keySet();</span><br><span class="line">        for (String key : keys2) &#123;</span><br><span class="line">            System.out.print(key + &quot;：&quot; + map.get(key)+&quot;   &quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        /**</span><br><span class="line">         * 另外一种不常用的遍历方式</span><br><span class="line">         */</span><br><span class="line">        // 当我调用put(key,value)方法的时候，首先会把key和value封装到</span><br><span class="line">        // Entry这个静态内部类对象中，把Entry对象再添加到数组中，所以我们想获取</span><br><span class="line">        // map中的所有键值对，我们只要获取数组中的所有Entry对象，接下来</span><br><span class="line">        // 调用Entry对象中的getKey()和getValue()方法就能获取键值对了</span><br><span class="line">        Set&lt;java.util.Map.Entry&lt;String, String&gt;&gt; entrys = map.entrySet();</span><br><span class="line">        for (java.util.Map.Entry&lt;String, String&gt; entry : entrys) &#123;</span><br><span class="line">            System.out.println(entry.getKey() + &quot;--&quot; + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        /**</span><br><span class="line">         * HashMap其他常用方法</span><br><span class="line">         */</span><br><span class="line">        System.out.println(&quot;after map.size()：&quot;+map.size());</span><br><span class="line">        System.out.println(&quot;after map.isEmpty()：&quot;+map.isEmpty());</span><br><span class="line">        System.out.println(map.remove(&quot;san&quot;));</span><br><span class="line">        System.out.println(&quot;after map.remove()：&quot;+map);</span><br><span class="line">        System.out.println(&quot;after map.get(si)：&quot;+map.get(&quot;si&quot;));</span><br><span class="line">        System.out.println(&quot;after map.containsKey(si)：&quot;+map.containsKey(&quot;si&quot;));</span><br><span class="line">        System.out.println(&quot;after containsValue(李四)：&quot;+map.containsValue(&quot;李四&quot;));</span><br><span class="line">        System.out.println(map.replace(&quot;si&quot;, &quot;李四2&quot;));</span><br><span class="line">        System.out.println(&quot;after map.replace(si, 李四2):&quot;+map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/21673805" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21673805</a></p>
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/21673805" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/21673805</a><br>[参考链接]<a href="https://www.toutiao.com/a6773596116869972491/" target="_blank" rel="noopener">https://www.toutiao.com/a6773596116869972491/</a><br>[参考链接]<a href="https://www.toutiao.com/a6771968826201342476/" target="_blank" rel="noopener">https://www.toutiao.com/a6771968826201342476/</a><br>[参考链接]<a href="https://www.toutiao.com/a6773460608718209547/" target="_blank" rel="noopener">https://www.toutiao.com/a6773460608718209547/</a></p>
 
       
 
@@ -454,7 +454,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,15 +462,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,7 +494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,15 +502,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +522,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -530,15 +534,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,10 +555,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,11 +570,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,10 +630,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
@@ -639,6 +639,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
