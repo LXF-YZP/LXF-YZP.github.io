@@ -6,20 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>定时任务实现 | 观鱼入知命</title>
+  <title>递归详解 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通过 Timer 来实现  自定义一个任务，继承于 TimerTask，重写 run 方法;利用 java.util.Timer 实现任务调度">
-<meta name="keywords" content="多线程">
+  <meta name="description" content="题目描述：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。">
+<meta name="keywords" content="数据结构、算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="定时任务实现">
-<meta property="og:url" content="http://yoursite.com/2019/12/12/定时任务实现/index.html">
+<meta property="og:title" content="递归详解">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/递归详解/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="通过 Timer 来实现  自定义一个任务，继承于 TimerTask，重写 run 方法;利用 java.util.Timer 实现任务调度">
+<meta property="og:description" content="题目描述：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-13T02:24:05.253Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/fff.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/aaa.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/bbb.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/ccc.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/ddd.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/递归详解/eee.jpg">
+<meta property="og:updated_time" content="2019-12-26T08:43:44.214Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="定时任务实现">
-<meta name="twitter:description" content="通过 Timer 来实现  自定义一个任务，继承于 TimerTask，重写 run 方法;利用 java.util.Timer 实现任务调度">
+<meta name="twitter:title" content="递归详解">
+<meta name="twitter:description" content="题目描述：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/12/递归详解/fff.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -157,14 +164,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-定时任务实现" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-递归详解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      定时任务实现
+      递归详解
     </h1>
   
 
@@ -177,30 +184,148 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>通过 Timer 来实现<blockquote>
+        <blockquote>
 <blockquote>
-<p>自定义一个任务，继承于 TimerTask，重写 run 方法;利用 java.util.Timer 实现任务调度</p>
+<p>题目描述：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。</p>
 </blockquote>
 </blockquote>
-</li>
-</ul>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class JobSchedule &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Timer timer = new Timer();</span><br><span class="line">        long delay = 2000;</span><br><span class="line">        long interval = 1000;</span><br><span class="line"></span><br><span class="line">        // 从现在开始 2 秒钟之后启动，每隔 1 秒钟执行一次</span><br><span class="line">        timer.schedule(new JobTask(), delay, interval);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class JobTask extends TimerTask &#123;</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;Test: &quot; + Calendar.getInstance().getTime());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Timer 的设计核心是一个 TaskList 和一个 TaskThread。Timer 将接收到的任务丢到自己的 TaskList 中，TaskList 按照 Task 的最初执行时间进行排序。TimerThread 在创建 Timer 时会启动成为一个守护线程。这个线程会轮询所有任务，找到一个最近要执行的任务，然后休眠，当到达最近要执行任务的开始时间点，TimerThread 被唤醒并执行该任务。之后 TimerThread 更新最近一个要执行的任务，继续休眠。</p>
-<p>Timer 的优点在于简单易用，但由于所有任务都是由同一个线程来调度，因此所有任务都是串行执行的，同一时间只能有一个任务在执行，前一个任务的延迟或异常都将会影响到之后的任务。<br>例如我们指定每隔 1000 毫秒执行一次任务，但是可能某个任务执行花了 5000 毫秒，因此导致后续的任务并不能按时启动执行。</p>
-<ul>
-<li>通过 ScheduledExecutorService 来实现</li>
-</ul>
 <blockquote>
 <blockquote>
-<p>鉴于 Timer 的上述缺陷，Java 5 推出了基于线程池设计的 ScheduledExecutorService。<br>其设计思想是，每一个被调度的任务都会 由线程池中一个线程去执行，因此任务是并发执行的，相互之间不会受到干扰。<br>需要注意的是，只有当任务的执行时间到来时，ScheduledExecutorService 才会真正启动一个线程，其余时间 ScheduledExecutorService 都是在轮询任务的状态。</p>
+<p>说明：所有数字（包括 target）都是正整数。解集不能包含重复的组合。 </p>
 </blockquote>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class JobSchedule &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ScheduledExecutorService service = Executors.newScheduledThreadPool(10);</span><br><span class="line">        long delay = 2;</span><br><span class="line">        long interval = 1;</span><br><span class="line"></span><br><span class="line">        // 从现在开始 2 秒钟之后启动，每隔 1 秒钟执行一次</span><br><span class="line">        service.scheduleAtFixedRate(</span><br><span class="line">                new JobTask(), delay,</span><br><span class="line">                interval, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class JobTask implements Runnable &#123;</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(&quot;Test: &quot; + Calendar.getInstance().getTime());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line">输入: candidates = [2,3,6,7], target = 7,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [7],</span><br><span class="line">  [2,2,3]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">示例 2:</span><br><span class="line">输入: candidates = [2,3,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [2,2,2,2],</span><br><span class="line">  [2,3,3],</span><br><span class="line">  [3,5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<p>[参考链接]<a href="https://www.ibm.com/developerworks/cn/java/j-lo-taskschedule/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-taskschedule/</a></p>
+<blockquote>
+<blockquote>
+<p>题目给出的算法结构为：</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>首先题目要求返回的类型为 List&lt;List<integer>&gt;，那么我们就新建一个 List&lt;List<integer>&gt; 作为全局变量，最后将其返回。</integer></integer></p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line"></span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>再看看返回的结构，List&lt;List<integer>&gt;。因此我们需要写一个包含 List<integer> 的辅助函数，加上一些判断条件，此时结构变成了：</integer></integer></p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line">        if (candidates == null || candidates.length == 0 || target &lt; 0) &#123;</span><br><span class="line">            return lists;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        process(candidates, target, list);</span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void process(int[] candidates, int target, List&lt;Integer&gt; list) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>重点就是如何进行递归。递归的第一步，当然是写递归的终止条件啦，没有终止条件的递归会进入死循环。那么有 哪些终止条件呢？由于条件中说了都是正整数。。因此，如果 target&lt;0, 当然是要终止了，如果 target==0，说明此时找到了一组数的和为 target，将其加进去。此时代码结构变成了这样。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line">        if (candidates == null || candidates.length == 0 || target &lt; 0) &#123;</span><br><span class="line">            return lists;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        process(candidates, target, list);</span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void process(int[] candidates, int target, List&lt;Integer&gt; list) &#123;</span><br><span class="line">        if (target &lt; 0) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (target == 0) &#123;</span><br><span class="line">            lists.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>我们是要求组成 target 的组合。因此需要一个循环来进行遍历。每遍历一次，将此数加入 list，然后进行下一轮递归。代码结构如下。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line">        if (candidates == null || candidates.length == 0 || target &lt; 0) &#123;</span><br><span class="line">            return lists;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        process(candidates, target, list);</span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void process(int[] candidates, int target, List&lt;Integer&gt; list) &#123;</span><br><span class="line">        if (target &lt; 0) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (target == 0) &#123;</span><br><span class="line">            lists.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            for (int i = 0; i &lt; candidates.length; i++) &#123;</span><br><span class="line">                list.add(candidates[i]);</span><br><span class="line">                //因为每个数字都可以使用无数次，所以递归还可以从当前元素开始</span><br><span class="line">                process( candidates, target - candidates[i], list);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/12/12/递归详解/fff.jpg" alt><br>似乎初具规模，测试一把结果如下：<br><img src="/2019/12/12/递归详解/aaa.jpg" alt></p>
+<blockquote>
+<blockquote>
+<p>结果差距有点大，为何会出现如此大的反差。而且发现一个规律，后面的一个组合会包含前面一个组合的所有的数字，而且这些数加起来和 target 也不相等啊。原因出在哪呢？java 中除了几个基本类型，其他的类型可以算作引用传递。这就是导致 list 数字一直变多的原因。因此，在每次递归完成，我们要进行一次回溯。把最新加的那个数删除。此时代码结构变成这样。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line">        if (candidates == null || candidates.length == 0 || target &lt; 0) &#123;</span><br><span class="line">            return lists;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        process(candidates, target, list);</span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void process(int[] candidates, int target, List&lt;Integer&gt; list) &#123;</span><br><span class="line">        if (target &lt; 0) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (target == 0) &#123;</span><br><span class="line">            lists.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            for (int i = 0; i &lt; candidates.length; i++) &#123;</span><br><span class="line">                list.add(candidates[i]);</span><br><span class="line">                //因为每个数字都可以使用无数次，所以递归还可以从当前元素开始</span><br><span class="line">                process( candidates, target - candidates[i], list);</span><br><span class="line">                list.remove(list.size() - 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再测一下，结果如下：<br><img src="/2019/12/12/递归详解/bbb.jpg" alt></p>
+<blockquote>
+<blockquote>
+<p>还是不对。这次加起来都等于 7 了，和上次结果相比算是一个很大的进步了。分析下测试结果。不难能看出，本次结果的主要问题包含了重复的组合。为什么会有重复的组合呢？因为每次递归我们都是从 0 开始，所有数字都遍历一遍。所以会出现重复的组合。改进一下，只需加一个 start 变量即可。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line"></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;</span><br><span class="line">        if (candidates == null || candidates.length == 0 || target &lt; 0) &#123;</span><br><span class="line">            return lists;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        process(0, candidates, target, list);</span><br><span class="line">        return lists;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void process(int start, int[] candidates, int target, List&lt;Integer&gt; list) &#123;</span><br><span class="line">        //递归的终止条件</span><br><span class="line">        if (target &lt; 0) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (target == 0) &#123;</span><br><span class="line">            lists.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            for (int i = start; i &lt; candidates.length; i++) &#123;</span><br><span class="line">                list.add(candidates[i]);</span><br><span class="line">                //因为每个数字都可以使用无数次，所以递归还可以从当前元素开始</span><br><span class="line">                process(i, candidates, target - candidates[i], list);</span><br><span class="line">                list.remove(list.size() - 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后再测一下。<br><img src="/2019/12/12/递归详解/ccc.jpg" alt></p>
+<blockquote>
+<blockquote>
+<p>代码通过，但是效率并不高。本题有效果更好的动态规划的解法。本文主要展示递归回溯，就不做具体介绍了。是不是有点感觉了，那么再来一题。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>题目描述:给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">示例:</span><br><span class="line">输入: n = 4, k = 2</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [2,4],</span><br><span class="line">  [3,4],</span><br><span class="line">  [2,3],</span><br><span class="line">  [1,2],</span><br><span class="line">  [1,3],</span><br><span class="line">  [1,4],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">题目给出的算法结构为</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>按照前面的套路，首先建一个 ArrayList&lt;List<integer>&gt; res 作为全局变量。顺带建一个含有 List<integer>list 的辅助函数。</integer></integer></p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">此时结构变成如下所示。</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">     private ArrayList&lt;List&lt;Integer&gt;&gt; res;</span><br><span class="line">    // 求解C(n,k), 当前已经找到的组合存储在c中, 需要从start开始搜索新的元素</span><br><span class="line">    private void generateCombinations(int n, int k, int start, List&lt;Integer&gt; list)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line"></span><br><span class="line">        res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(n&lt;=0 || k&lt;=0 || k&gt;n)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        generateCombinations(n,k,1,list);</span><br><span class="line"></span><br><span class="line">        return res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>对于辅助递归函数。第一步当然是列出终止条件，避免进入死循环。由于题目要求是所有 k 个数的组合。那么很容易知道递归的终止条件为 list.size() == k。因此，代码结构可变为如下所示。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">     private ArrayList&lt;List&lt;Integer&gt;&gt; res;</span><br><span class="line">    // 求解C(n,k), 当前已经找到的组合存储在c中, 需要从start开始搜索新的元素</span><br><span class="line">    private void generateCombinations(int n, int k, int start, List&lt;Integer&gt; list)&#123;</span><br><span class="line">        if(list.size() == k)&#123;</span><br><span class="line">            res.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line"></span><br><span class="line">        res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(n&lt;=0 || k&lt;=0 || k&gt;n)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        generateCombinations(n,k,1,list);</span><br><span class="line"></span><br><span class="line">        return res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>接下来要进入重头戏了，递归回溯的整个过程。整个递归过程不就是一直将数字加入 list 么。因此可以用一个循环。</p>
+</blockquote>
+</blockquote>
+<p>在循环中主要做三件事</p>
+<p>1.加此轮的数据加入 list。</p>
+<p>2.递归进行下一步调用。</p>
+<p>3.删除此轮加入的数据进行回溯。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">此时代码结构如下：</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">     private ArrayList&lt;List&lt;Integer&gt;&gt; res;</span><br><span class="line">    // 求解C(n,k), 当前已经找到的组合存储在c中, 需要从start开始搜索新的元素</span><br><span class="line">    private void generateCombinations(int n, int k, int start, List&lt;Integer&gt; list)&#123;</span><br><span class="line">        if(list.size() == k)&#123;</span><br><span class="line">            res.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = start; i &lt;= n ; i++) &#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">            generateCombinations(n,k,i+1,list);</span><br><span class="line">            list.remove(list.size()-1);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line"></span><br><span class="line">        res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(n&lt;=0 || k&lt;=0 || k&gt;n)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        generateCombinations(n,k,1,list);</span><br><span class="line"></span><br><span class="line">        return res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>代码大致结构以及形成，测试一下，结果如下。</p>
+</blockquote>
+</blockquote>
+<p>通过是通过了，但是真的慢啊。<br><img src="/2019/12/12/递归详解/ddd.jpg" alt></p>
+<p>分析一下原因所在。假设 n = 100, k= 90, i = 15，按照上面的代码，我们还需要继续循环 85 次。但是想一下，即使后面的循环每次都加一个数据，最后也才 85 个数据。</p>
+<p>不能形成一组解。也就是说这些循环都是在做无用功，因此引出一个很重要的知识点。 剪枝循环的终止条件不应该是 i&lt;=n, 应该是 i-1 +(k-list.size()) &lt;= n。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">因此代码如下:</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">     private ArrayList&lt;List&lt;Integer&gt;&gt; res;</span><br><span class="line">    // 求解C(n,k), 当前已经找到的组合存储在c中, 需要从start开始搜索新的元素</span><br><span class="line">    private void generateCombinations(int n, int k, int start, List&lt;Integer&gt; list)&#123;</span><br><span class="line">        if(list.size() == k)&#123;</span><br><span class="line">            res.add(new ArrayList&lt;&gt;(list));</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = start; i &lt;= n-(k-list.size())+1 ; i++) &#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">            generateCombinations(n,k,i+1,list);</span><br><span class="line">            list.remove(list.size()-1);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;</span><br><span class="line"></span><br><span class="line">        res = new ArrayList&lt;&gt;();</span><br><span class="line">        if(n&lt;=0 || k&lt;=0 || k&gt;n)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        generateCombinations(n,k,1,list);</span><br><span class="line"></span><br><span class="line">        return res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后运行结果如下。<br><img src="/2019/12/12/递归详解/eee.jpg" alt></p>
+<blockquote>
+<blockquote>
+<p>当一个问题可以被不断分解为一个个更加简单的问题的时候，并且在最终会有一个明确的终点的时候，这个时候便是考虑运用递归的时候了。举一个栗子 ： 非常经典的斐波纳契数列，又称黄金分割数列，指的是这样一个数列：1、1、2、3、5、8、13、21、…… 在数学上，斐波纳契数列以如下被以递归的方法定义：F0=0，F1=1，Fn=F (n-1)+F (n-2)（n&gt;=2，n∈N*）。</p>
+</blockquote>
+</blockquote>
+<p>//这里我们用两种递归方法来解决，一种是最初的简单递归，二是对简单递归的优化</p>
+<p>int fib(int n){//求出数列第n项的数值</p>
+<pre><code>if(n==1||n==2){
+    return 1;//回溯的条件
+}else {
+    return fib(n-1)+fib(n-2);//向下递进
+}</code></pre><p>}</p>
+<blockquote>
+<blockquote>
+<p>这里我们看 fib(5) = fib(4)+fib(3) fib(4) = fib(3)+fib(2) fib(3) = fib(2)+fib(1)<br>这里有很多的计算是重复的，所以这也是递归的缺点之一,在这里我们可以看到递归的思路，第n项为前两项的和，那么我们便可以不断地向前推进直到已知项,这里还有一种对于上述递归解法的优化方法<br>我们看前几项分别为1 1 2 3 5<br>fiber(1,1,5) = fiber(1,2,4) = fiber(2,3,3)<br>解释上述表达式 前两项分别为1 1的第五项与前两项分别为 1 2的第四项与前两项分别为 2 3 的第3项相等 所以我们运用这种思路来避免重复的计算来降低计算的复杂度;</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fiber(1,1,5) = fiber(1,2,4) = fiber(2,3,3)</span><br><span class="line"></span><br><span class="line">1, 1, 2, 3, 5</span><br><span class="line">1, 2, 3, 5</span><br><span class="line">2, 3, 5</span><br><span class="line"></span><br><span class="line">int fiber(int first,int second,int num)&#123;</span><br><span class="line">	if(n&gt;0)&#123;</span><br><span class="line">		if(num==1||num==2)</span><br><span class="line">			return 1;</span><br><span class="line">		else if(num==3)</span><br><span class="line">			return first+second;</span><br><span class="line">		else</span><br><span class="line">			return fiber(second,first+second,--num);</span><br><span class="line">	&#125;else</span><br><span class="line">		return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<p>将斐波那契数列改为非递归方式实现：</p>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int f(int n) &#123;</span><br><span class="line">    if (n == 1) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">  if (n == 2) &#123;</span><br><span class="line">    return 2;</span><br><span class="line">  &#125;</span><br><span class="line">  int ret = 0;</span><br><span class="line">  int pre = 2;</span><br><span class="line">  int prepre = 1;</span><br><span class="line">  for (int i = 3; i &lt; n; i++) &#123;</span><br><span class="line">    ret = pre + prepre;</span><br><span class="line">    prepre = pre;</span><br><span class="line">    pre = ret;</span><br><span class="line">  &#125;</span><br><span class="line">  return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/34841160" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34841160</a><br>[参考链接]<a href="https://zhuanlan.zhihu.com/p/92782083" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/92782083</a><br>[参考链接]<a href="https://zhuanlan.zhihu.com/p/88760014" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/88760014</a></p>
 
       
 
@@ -240,7 +365,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
         		</li>
       		
 		</ul>
@@ -252,7 +377,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        			<a href="/categories/递归、栈//" class="article-tag-list-link color5">递归、栈</a>
         		</li>
       		
 		</ul>
@@ -270,18 +395,18 @@
   
 <nav id="article-nav">
   
-    <a href="../Jackson中注解使用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../13/动态规划/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Jackson注解
+          动态规划
         
       </div>
     </a>
   
   
-    <a href="../../09/supervisor学习/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Supervisor学习</div>
+    <a href="../../11/Jackson中注解使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Jackson注解</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -407,11 +532,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -423,23 +548,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -451,7 +568,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -459,7 +580,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,7 +596,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,10 +612,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
@@ -495,19 +620,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,7 +632,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,11 +648,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,11 +660,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,15 +672,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,7 +680,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,15 +704,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,11 +732,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +748,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
             
             <div class="clearfix"></div>
