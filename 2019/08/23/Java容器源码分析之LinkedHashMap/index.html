@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>变形二分查找问题 | 观鱼入知命</title>
+  <title>Java容器源码分析之LinkedHashMap | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="java集合">
+  <meta name="description" content="概述同 HashMap 一样，LinkedHashMap 也是对 Map 接口的一种基于链表和哈希表的实现。实际上， LinkedHashMap 是 HashMap 的子类，其扩展了 HashMap 增加了双向链表的实现。相较于 HashMap 的迭代器中混乱的访问顺序，LinkedHashMap 可以提供可以预测的迭代访问，即按照插入序 (insertion-order) 或访问序 (acces">
+<meta name="keywords" content="java集合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="变形二分查找问题">
+<meta property="og:title" content="Java容器源码分析之LinkedHashMap">
 <meta property="og:url" content="http://yoursite.com/2019/08/23/Java容器源码分析之LinkedHashMap/index.html">
 <meta property="og:site_name" content="观鱼入知命">
+<meta property="og:description" content="概述同 HashMap 一样，LinkedHashMap 也是对 Map 接口的一种基于链表和哈希表的实现。实际上， LinkedHashMap 是 HashMap 的子类，其扩展了 HashMap 增加了双向链表的实现。相较于 HashMap 的迭代器中混乱的访问顺序，LinkedHashMap 可以提供可以预测的迭代访问，即按照插入序 (insertion-order) 或访问序 (acces">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-25T11:46:17.377Z">
+<meta property="og:updated_time" content="2019-12-26T03:26:17.515Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="变形二分查找问题">
+<meta name="twitter:title" content="Java容器源码分析之LinkedHashMap">
+<meta name="twitter:description" content="概述同 HashMap 一样，LinkedHashMap 也是对 Map 接口的一种基于链表和哈希表的实现。实际上， LinkedHashMap 是 HashMap 的子类，其扩展了 HashMap 增加了双向链表的实现。相较于 HashMap 的迭代器中混乱的访问顺序，LinkedHashMap 可以提供可以预测的迭代访问，即按照插入序 (insertion-order) 或访问序 (acces">
   
   
     <link rel="icon" href="/favicon.png">
@@ -161,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      变形二分查找问题
+      Java容器源码分析之LinkedHashMap
     </h1>
   
 
@@ -174,7 +177,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>同 HashMap 一样，LinkedHashMap 也是对 Map 接口的一种基于链表和哈希表的实现。实际上， LinkedHashMap 是 HashMap 的子类，其扩展了 HashMap 增加了双向链表的实现。相较于 HashMap 的迭代器中混乱的访问顺序，LinkedHashMap 可以提供可以预测的迭代访问，即按照插入序 (insertion-order) 或访问序 (access-order) 来对哈希表中的元素进行迭代。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedHashMap&lt;K,V&gt;</span><br><span class="line">    extends HashMap&lt;K,V&gt;</span><br><span class="line">    implements Map&lt;K,V&gt;</span><br></pre></td></tr></table></figure>
+
+<p>从类声明中可以看到，LinkedHashMap 确实是继承了 HashMap，因而 HashMap 中的一些基本操作，如哈希计算、扩容、查找等，在 LinkedHashMap 中都和父类 HashMap 是一致的。</p>
+<p>但是，和 HashMap 有所区别的是，LinkedHashMap 支持按插入序 (insertion-order) 或访问序 (access-order) 来访问其中的元素。所谓插入顺序，就是 Entry 被添加到 Map 中的顺序，更新一个 Key 关联的 Value 并不会对插入顺序造成影响；而访问顺序则是对所有 Entry 按照最近访问 (least-recently) 到最远访问 (most-recently) 进行排序，读写都会影响到访问顺序，但是对迭代器 (entrySet (), keySet (), values ()) 的访问不会影响到访问顺序。访问序的特性使得可以很容易通过 LinkedHashMap 来实现一个 LRU (least-recently-used) Cache，后面会给出一个简单的例子。</p>
+<p>之所以 LinkedHashMap 能够支持插入序或访问序的遍历，是因为 LinkedHashMap 在 HashMap 的基础上增加了双向链表的实现，下面会结合 JDK 8 的源码进行简要的分析。</p>
+<h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><p>LinkedHashMap 是 HashMap 的子类，因而 HashMap 中的成员在 LinkedHashMap 中也存在，如底层的 table 数组等，这里就不再说明了。我们重点关注一下 LinkedHashMap 中节点发生的变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * HashMap.Node subclass for normal LinkedHashMap entries.</span><br><span class="line"> */</span><br><span class="line">//LinkedHashMap.Entey 继承自 HashMap.Node， </span><br><span class="line">//而 HashMap.TreeNode 又继承了 LinkedHashMap.Entey </span><br><span class="line">static class Entry&lt;K,V&gt; extends HashMap.Node&lt;K,V&gt; &#123;</span><br><span class="line">    //在父类的基础上增加了before 和 after</span><br><span class="line">    //父类中存在 next</span><br><span class="line">    //双向链表的连接通过before 和 after，哈希表中所有的元素可看作一个双向链表</span><br><span class="line">    //桶内单向链表的连接通过 next</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    //构造方法</span><br><span class="line">    Entry(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        //父类构造方法</span><br><span class="line">        super(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static final long serialVersionUID = 3801124242820219131L;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * The head (eldest) of the doubly linked list.</span><br><span class="line"> */</span><br><span class="line">//head成员为双向链表的头</span><br><span class="line">transient LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * The tail (youngest) of the doubly linked list.</span><br><span class="line"> */</span><br><span class="line">//tail成员为双向链表的尾</span><br><span class="line">transient LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * The iteration ordering method for this linked hash map: &lt;tt&gt;true&lt;/tt&gt;</span><br><span class="line"> * for access-order, &lt;tt&gt;false&lt;/tt&gt; for insertion-order.</span><br><span class="line"> *</span><br><span class="line"> * @serial</span><br><span class="line"> */</span><br><span class="line">//迭代顺序， true 使用最近被访问的顺序， false为插入顺序</span><br><span class="line">//the order in which its entries were last accessed, from least-recently accessed to most-recently (access-order)， well-suited to building LRU caches</span><br><span class="line">final boolean accessOrder;</span><br></pre></td></tr></table></figure>
+
+<p>为了实现双向链表，LinkedHashMap 的节点在父类的基础上增加了 before/after 引用，并且使用 head 和 tail 分别保存双向链表的头和尾。同时，增加了一个标识来保存 LinkedHashMap 的迭代顺序是插入序还是访问序。</p>
+<p>由于父类 HashMap 的节点中存在 next 引用，可以将每个桶中的元素都当作一个单链表看待；LinkedHashMap 的每个桶中当然也保留了这个单链表关系，不过这个关系由父类进行管理，LinkedHashMap 中只会对双向链表的关系进行管理。LinkedHashMap 中所有的元素都被串联在一个双向链表中。</p>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p>为了简化对双向链表的操作，LinkedHashMap 中提供了 linkNodeLast 和 transferLinks 方法，分别如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// link at the end of list</span><br><span class="line">// 将新节点 p 链接到双向链表的末尾</span><br><span class="line">private void linkNodeLast(LinkedHashMap.Entry&lt;K,V&gt; p) &#123;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last = tail;</span><br><span class="line">    tail = p;</span><br><span class="line">    if (last == null)</span><br><span class="line">        //为空，则为头节点</span><br><span class="line">        head = p;</span><br><span class="line">    else &#123;</span><br><span class="line">        //修改before 和 after的指向</span><br><span class="line">        p.before = last;</span><br><span class="line">        last.after = p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// apply src&apos;s links to dst</span><br><span class="line">// 将src的链接应用到dst中，就是用dst替换src在双向链表中的位置</span><br><span class="line">private void transferLinks(LinkedHashMap.Entry&lt;K,V&gt; src,</span><br><span class="line">                           LinkedHashMap.Entry&lt;K,V&gt; dst) &#123;</span><br><span class="line">    //修改dst的前驱和后继指向</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; b = dst.before = src.before;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; a = dst.after = src.after;</span><br><span class="line">    //将双向链表中原来指向src的链接改为指向dst</span><br><span class="line">    if (b == null)</span><br><span class="line">        head = dst;</span><br><span class="line">    else</span><br><span class="line">        b.after = dst;</span><br><span class="line">    if (a == null)</span><br><span class="line">        tail = dst;</span><br><span class="line">    else</span><br><span class="line">        a.before = dst;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LinkedHashMap 重写了父类新建节点的方法，在新建节点之后调用 linkNodeLast 方法将新添加的节点链接到双向链表的末尾：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//覆盖父类方法</span><br><span class="line">Node&lt;K,V&gt; newNode(int hash, K key, V value, Node&lt;K,V&gt; e) &#123;</span><br><span class="line">    //新建节点</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">        new LinkedHashMap.Entry&lt;K,V&gt;(hash, key, value, e);</span><br><span class="line">    //将节点链接到双向链表的末尾</span><br><span class="line">    linkNodeLast(p);</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//覆盖父类方法</span><br><span class="line">//新建TreeNode</span><br><span class="line">TreeNode&lt;K,V&gt; newTreeNode(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">    TreeNode&lt;K,V&gt; p = new TreeNode&lt;K,V&gt;(hash, key, value, next);</span><br><span class="line">    //将新建的节点链接到双向链表的末尾</span><br><span class="line">    linkNodeLast(p);</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道，HashMap 中单个桶中的元素可能会在单链表和红黑树之间进行转换，LinkedHashMap 中当然也是一样，不过在转换时还要调用 transferLinks 来改变双向链表中的连接关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//覆盖父类方法</span><br><span class="line">// For conversion from TreeNodes to plain nodes</span><br><span class="line">// 将节点由 TreeNode 转换为 普通节点</span><br><span class="line">Node&lt;K,V&gt; replacementNode(Node&lt;K,V&gt; p, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; q = (LinkedHashMap.Entry&lt;K,V&gt;)p; //TreeNode</span><br><span class="line">    //根据TreeNode的信息创建新的普通节点</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; t =</span><br><span class="line">        new LinkedHashMap.Entry&lt;K,V&gt;(q.hash, q.key, q.value, next);</span><br><span class="line">    //将双向链表中的TreeNode替换为新的普通节点</span><br><span class="line">    transferLinks(q, t);</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//覆盖父类方法</span><br><span class="line">// For treeifyBin</span><br><span class="line">// 将节点由普通节点转换为TreeNode</span><br><span class="line">TreeNode&lt;K,V&gt; replacementTreeNode(Node&lt;K,V&gt; p, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; q = (LinkedHashMap.Entry&lt;K,V&gt;)p;</span><br><span class="line">    TreeNode&lt;K,V&gt; t = new TreeNode&lt;K,V&gt;(q.hash, q.key, q.value, next);</span><br><span class="line">    transferLinks(q, t);</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何维护插入序和访问序？<br>在 LinkedHashMap 中，所有的 Entry 都被串联在一个双向链表中。从上一节的代码中可以看到，每次在新建一个节点时都会将新建的节点链接到双向链表的末尾。这样从双向链表的尾部向头部遍历就可以保证插入顺序了，头部节点是最早添加的节点，而尾部节点则是最近添加的节点。那么，访问顺序要怎么实现呢？</p>
+<p>之前我们在分析 HashMap 的源码的时候，在添加及更新、查找、删除等操作中可以看到 afterNodeAccess、afterNodeInsertion、afterNodeRemoval 等几个方法的调用，不过在 HashMap 中这几个方法中没有任何操作。实际上，这几个方法就是供 LinkedHashMap 的重写的，我们不妨看一下在 HashMap 中这几个方法的声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Callbacks to allow LinkedHashMap post-actions</span><br><span class="line">void afterNodeAccess(Node&lt;K,V&gt; p) &#123; &#125;</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; &#125;</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; p) &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 LinkedHashMap 中对这几个方法进行了重写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">//移除节点的回调函数</span><br><span class="line">void afterNodeRemoval(Node&lt;K,V&gt; e) &#123; // unlink</span><br><span class="line">    //移除一个节点，双向链表中的连接关系也要调整</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">        (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">    p.before = p.after = null;</span><br><span class="line">    if (b == null)</span><br><span class="line">        head = a;</span><br><span class="line">    else</span><br><span class="line">        b.after = a;</span><br><span class="line">    if (a == null)</span><br><span class="line">        tail = b;</span><br><span class="line">    else</span><br><span class="line">        a.before = b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//插入节点的回调函数</span><br><span class="line">//构造函数中调用，evict为false</span><br><span class="line">void afterNodeInsertion(boolean evict) &#123; // possibly remove eldest</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">    //first是头元素，也是最老的元素</span><br><span class="line">    //在插入序中，就是最先插入的元素</span><br><span class="line">    //在访问序中，就是最远被访问的元素</span><br><span class="line">    //这里removeEldestEntry(first)始终返回true，即不删除最老的元素</span><br><span class="line">    //如果是一个容量固定的cache，可调整removeEldestEntry(first)的实现</span><br><span class="line">    if (evict &amp;&amp; (first = head) != null &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">        //不是构造方法中</span><br><span class="line">        //头元素不为空</span><br><span class="line">        //要删除最老的元素</span><br><span class="line">        //在LinkedHashMap的实现中，不会进入这里</span><br><span class="line">        K key = first.key;</span><br><span class="line">        removeNode(hash(key), key, null, false, true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//访问节点的回调函数</span><br><span class="line">void afterNodeAccess(Node&lt;K,V&gt; e) &#123; // move node to last</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">    //如果是访问序，且当前节点并不是尾节点</span><br><span class="line">    //将该节点置为双向链表的尾部</span><br><span class="line">    if (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">        //p 当前节点， b 前驱结点， a 后继结点</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        p.after = null; //设为尾节点，则没有后继</span><br><span class="line">        if (b == null)</span><br><span class="line">            head = a; //p是头节点，调整后其后继结点变为头节点</span><br><span class="line">        else</span><br><span class="line">            b.after = a;//p不是头节点，前驱和后继结点相连</span><br><span class="line">        if (a != null)</span><br><span class="line">            a.before = b;</span><br><span class="line">        else</span><br><span class="line">            last = b;//应该不会出现这种情况，p是尾节点</span><br><span class="line">        if (last == null)</span><br><span class="line">            head = p;</span><br><span class="line">        else &#123;</span><br><span class="line">            //将p置于尾节点之后</span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = p;//调整tail指向</span><br><span class="line">        ++modCount;//结构性改变</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在插入节点、删除节点和访问节点后会调用相应的回调函数。可以看到，在 afterNodeAccess 方法中，如果该 LinkedHashMap 是访问序，且当前访问的节点不是尾部节点，则该节点会被置为双链表的尾节点。即，在访问序下，最近访问的节点会是尾节点，头节点则是最远访问的节点。</p>
+<p>在 afterNodeInsertion 中，如果 removeEldestEntry(first) 节点返回 true，则会将头部节点删除。如果想要实现一个固定容量的 Map，可以在继承 LinkedHashMap 后重写 removeEldestEntry 方法。在 LinkedHashMap 中，该方法始终返回 false。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//返回false</span><br><span class="line">//是否移除最老的Entry</span><br><span class="line">protected boolean removeEldestEntry(Map.Entry&lt;K,V&gt; eldest) &#123;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 HashMap 中，在 putVal 和 removeNode 中都调用了相应的回调函数，而 get 则没有，因而在 LinkedHahsMap 中进行了重写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public V get(Object key) &#123;</span><br><span class="line">    Node&lt;K,V&gt; e;</span><br><span class="line">    if ((e = getNode(hash(key), key)) == null)</span><br><span class="line">        return null;</span><br><span class="line">    //访问序</span><br><span class="line">    if (accessOrder)</span><br><span class="line">        //访问后调用回调方法调整双链表</span><br><span class="line">        afterNodeAccess(e);</span><br><span class="line">    return e.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="遍历及迭代器"><a href="#遍历及迭代器" class="headerlink" title="遍历及迭代器"></a>遍历及迭代器</h4><p>因为 LinkeHashMap 的所有的节点都在一个双向链表中，因而可以通过该双向链表来遍历所有的 Entry。而在 HashMap 中，要遍历所有的 Entry，则要依次遍历所有桶中的单链表。相比较而言，从时间复杂度的角度来看，LinkedHashMap 的复杂度为 O (size ())，而 HashMap 则为 O (capacity + size ())。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">//因为所有的节点都被串联在双向链表中，迭代器在迭代时可以利用双向链表的链接关系进行</span><br><span class="line">//双向链表的顺序是按照插入序或访问序排列的</span><br><span class="line">//相比于HashMap中的迭代，LinkedHashMap更为高效，O(size())</span><br><span class="line">//HashMapde 迭代，O(capacity + size())</span><br><span class="line">abstract class LinkedHashIterator &#123;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; next;</span><br><span class="line">    LinkedHashMap.Entry&lt;K,V&gt; current;</span><br><span class="line">    int expectedModCount;</span><br><span class="line"></span><br><span class="line">    LinkedHashIterator() &#123;</span><br><span class="line">        next = head;</span><br><span class="line">        expectedModCount = modCount;</span><br><span class="line">        current = null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final boolean hasNext() &#123;</span><br><span class="line">        return next != null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final LinkedHashMap.Entry&lt;K,V&gt; nextNode() &#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; e = next;</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        if (e == null)</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        current = e;</span><br><span class="line">        next = e.after;</span><br><span class="line">        return e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final void remove() &#123;</span><br><span class="line">        Node&lt;K,V&gt; p = current;</span><br><span class="line">        if (p == null)</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        current = null;</span><br><span class="line">        K key = p.key;</span><br><span class="line">        removeNode(hash(key), key, null, false, false);</span><br><span class="line">        expectedModCount = modCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，在遍历所有节点时是通过节点的 after 引用进行的。这样，可以双链表的头部遍历到到双链表的尾部，就不用像 HahsMap 那样访问空槽了。</p>
+<p>在 containsValue 和 internalWriteEntries 中也使用了双向链表进行遍历。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public boolean containsValue(Object value) &#123;</span><br><span class="line">    //使用双向链表进行遍历</span><br><span class="line">    for (LinkedHashMap.Entry&lt;K,V&gt; e = head; e != null; e = e.after) &#123;</span><br><span class="line">        V v = e.value;</span><br><span class="line">        if (v == value || (value != null &amp;&amp; value.equals(v)))</span><br><span class="line">            return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//覆盖父类方法</span><br><span class="line">//序列化，Called only from writeObject, to ensure compatible ordering.</span><br><span class="line">void internalWriteEntries(java.io.ObjectOutputStream s) throws IOException &#123;</span><br><span class="line">    //调整元素的遍历方式，使用双链表遍历</span><br><span class="line">    for (LinkedHashMap.Entry&lt;K,V&gt; e = head; e != null; e = e.after) &#123;</span><br><span class="line">        s.writeObject(e.key);</span><br><span class="line">        s.writeObject(e.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-LinkedHashMap-实现-LRU-Cache"><a href="#使用-LinkedHashMap-实现-LRU-Cache" class="headerlink" title="使用 LinkedHashMap 实现 LRU Cache"></a>使用 LinkedHashMap 实现 LRU Cache</h4><p>LinkedHashMap 的访问序可以方便地用来实现一个 LRU Cache。在访问序模式下，尾部节点是最近一次被访问的节点 (least-recently)，而头部节点则是最远访问 (most-recently) 的节点。因而在决定失效缓存的时候，将头部节点移除即可。</p>
+<p>但是，由于链表是无界的，但缓存往往是资源受限的，如何确定何时移除最远访问的缓存呢？前面分析过，在 afterNodeInsertion 中，会调用 removeEldestEntry 来决定是否将最老的节点移除，因而我们可以使用 LinkedHashMap 的子类，并重写 removeEldestEntry 方法，当 Enrty 的数量超过缓存的容量是返回 true 即可。</p>
+<p>下面给出基于 LinkedHashMap 实现的 LRU Cache 的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class CacheImpl&lt;K,V&gt; &#123;</span><br><span class="line">    private Map&lt;K, V&gt; cache;</span><br><span class="line">    private int capacity;</span><br><span class="line"></span><br><span class="line">    public enum POLICY &#123;</span><br><span class="line">        LRU, FIFO</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public CacheImpl(int cap, POLICY policy) &#123;</span><br><span class="line">        this.capacity = cap;</span><br><span class="line">        cache = new LinkedHashMap&lt;K, V&gt;(cap, 0.75f, policy.equals(POLICY.LRU))&#123;</span><br><span class="line">            //超出容量就删除最老的值</span><br><span class="line">            @Override</span><br><span class="line">            protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123;</span><br><span class="line">                return size() &gt; capacity;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public V get(K key) &#123;</span><br><span class="line">        if (cache.containsKey(key)) &#123;</span><br><span class="line">            return cache.get(key);</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void set(K key, V val) &#123;</span><br><span class="line">        cache.put(key, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void printKV() &#123;</span><br><span class="line">        System.out.println(&quot;key value in cache&quot;);</span><br><span class="line">        for (Map.Entry&lt;K,V&gt; entry : cache.entrySet()) &#123;</span><br><span class="line">            System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        CacheImpl&lt;Integer, String&gt; cache = new CacheImpl(5, POLICY.LRU);</span><br><span class="line"></span><br><span class="line">        cache.set(1, &quot;first&quot;);</span><br><span class="line">        cache.set(2, &quot;second&quot;);</span><br><span class="line">        cache.set(3, &quot;third&quot;);</span><br><span class="line">        cache.set(4, &quot;fourth&quot;);</span><br><span class="line">        cache.set(5, &quot;fifth&quot;);</span><br><span class="line">        cache.printKV();</span><br><span class="line"></span><br><span class="line">        cache.get(1);</span><br><span class="line">        cache.get(2);</span><br><span class="line">        cache.printKV();</span><br><span class="line"></span><br><span class="line">        cache.set(6, &quot;sixth&quot;);</span><br><span class="line">        cache.printKV();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本文对 JDK 8 中的 LinkedHashMap 的源码及实现进行了简单的分析。LinkedHashMap 继承自 HashMap，并在其基本结构上增加了双向链表的实现，因而 LinkedHashMap 在内存占用上要比 HashMap 高出许多。LinkedHashMap 仍然沿用了 HashMap 中基于桶数组、桶内单链表和红黑树结构的哈希表，在哈希计算、定位、扩容等方面都和 HashMAp 是一致的。LinkedHashMap 同样支持为 null 的键和值。</p>
+<p>由于增加了双向链表将所有的 Entry 串在一起，LinkedHashMap 的一个重要的特点就是支持按照插入顺序或访问顺序来遍历所有的 Entry，这一点和 HashMap 的乱序遍历很不相同。在一些对顺序有要求的场合，就需要使用 LinkedHashMap 来替代 HashMap。</p>
+<p>由于双向链表的缘故，在遍历时可以直接在双向链表上进行，因而遍历时间复杂度和容量无关，只和当前 Entry 数量有关。这点相比于 HashMap 要更加高效一些。</p>
+
       
 
       
@@ -247,14 +300,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          变形二分查找问题
+          Java容器源码分析之LinkedList
         
       </div>
     </a>
   
   
     <a href="../../22/Java容器源码分析之TreeMap/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">变形二分查找问题</div>
+      <div class="article-nav-title">Java容器源码分析之TreeMap</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -376,7 +429,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -384,15 +437,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -400,7 +445,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,7 +453,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -420,7 +465,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -428,11 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,11 +501,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,11 +525,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,11 +545,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,15 +553,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,15 +569,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,11 +577,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,6 +597,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
@@ -556,7 +613,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,11 +629,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,10 +646,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">

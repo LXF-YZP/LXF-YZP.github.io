@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>变形二分查找问题 | 观鱼入知命</title>
+  <title>Java容器源码分析之Set | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="java集合">
+  <meta name="description" content="Set 表示由无重复对象组成的集合，也是集合框架中重要的一种集合类型，直接扩展自 Collection 接口。在一个 Set 中，不能有两个引用指向同一个对象，或两个指向 null 的引用。如果对象 a 和 b 的引用满足条件 a.equals (b)，那么这两个对象也不能同时出现在集合中。">
+<meta name="keywords" content="java集合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="变形二分查找问题">
+<meta property="og:title" content="Java容器源码分析之Set">
 <meta property="og:url" content="http://yoursite.com/2019/08/25/Java容器源码分析之Set/index.html">
 <meta property="og:site_name" content="观鱼入知命">
+<meta property="og:description" content="Set 表示由无重复对象组成的集合，也是集合框架中重要的一种集合类型，直接扩展自 Collection 接口。在一个 Set 中，不能有两个引用指向同一个对象，或两个指向 null 的引用。如果对象 a 和 b 的引用满足条件 a.equals (b)，那么这两个对象也不能同时出现在集合中。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-25T11:46:48.250Z">
+<meta property="og:updated_time" content="2019-12-26T03:32:33.328Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="变形二分查找问题">
+<meta name="twitter:title" content="Java容器源码分析之Set">
+<meta name="twitter:description" content="Set 表示由无重复对象组成的集合，也是集合框架中重要的一种集合类型，直接扩展自 Collection 接口。在一个 Set 中，不能有两个引用指向同一个对象，或两个指向 null 的引用。如果对象 a 和 b 的引用满足条件 a.equals (b)，那么这两个对象也不能同时出现在集合中。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -161,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      变形二分查找问题
+      Java容器源码分析之Set
     </h1>
   
 
@@ -174,7 +177,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>Set 表示由无重复对象组成的集合，也是集合框架中重要的一种集合类型，直接扩展自 Collection 接口。在一个 Set 中，不能有两个引用指向同一个对象，或两个指向 null 的引用。如果对象 a 和 b 的引用满足条件 a.equals (b)，那么这两个对象也不能同时出现在集合中。</p>
+<a id="more"></a>
+<p>通常 Set 是不要求元素有序的，但也有一些有序的实现，如 SortedMap 接口、LinkedHashSet 接口等。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Set 的具体实现通常都是基于 Map 的。因为 Map 中键是唯一的，因而在基于 Map 实现 Set 时，只需要关心 Map 中的键，和键关联的值不需要有意义，使用一个任意的对象 “占位” 即可。我们在前面分析 Map 中的迭代器时，KeySet () 方法得到的就是一个 Set。</p>
+<p>前面我们分析过 Map 接口的几个具体实现，通用的实现 HahsMap ，插入或访问序的 LinkedHashMap ， 按照键升序的 TreeMap。同样，在 Set 的具体实现中，也有 HashSet 、 LinkedHashSet 和 TreeSet 等，分别和 Map 一一对应，它们的特性对应着相应的 Map 实现的特性。下面基于 HashSet 的实现做一个简略的介绍。</p>
+<h4 id="HashSet-的实现"><a href="#HashSet-的实现" class="headerlink" title="HashSet 的实现"></a>HashSet 的实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class HashSet&lt;E&gt;</span><br><span class="line">    extends AbstractSet&lt;E&gt;</span><br><span class="line">    implements Set&lt;E&gt;, Cloneable, java.io.Serializable&#123;</span><br><span class="line">    static final long serialVersionUID = -5024744406713321676L;</span><br><span class="line"></span><br><span class="line">    private transient HashMap&lt;E,Object&gt; map;</span><br><span class="line"></span><br><span class="line">    // Dummy value to associate with an Object in the backing Map</span><br><span class="line">    private static final Object PRESENT = new Object();</span><br><span class="line"></span><br><span class="line">    public HashSet() &#123;</span><br><span class="line">        map = new HashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public HashSet(Collection&lt;? extends E&gt; c) &#123;</span><br><span class="line">        map = new HashMap&lt;&gt;(Math.max((int) (c.size()/.75f) + 1, 16));</span><br><span class="line">        addAll(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public HashSet(int initialCapacity, float loadFactor) &#123;</span><br><span class="line">        map = new HashMap&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public HashSet(int initialCapacity) &#123;</span><br><span class="line">        map = new HashMap&lt;&gt;(initialCapacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123;</span><br><span class="line">        map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从成员变量和构造方法可以清楚地看到，内部使用了一个 HahsMap，同时定义了一个无意义的空的静态 Object 对象 (占用 8byte) PRESENT。既然 map 中和键关联的值没有意义，为什么不干脆使用 null 呢？我们看一下 add () 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public boolean add(E e) &#123;</span><br><span class="line">    return map.put(e, PRESENT)==null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Map 的 put () 方法在添加一个新的键时会返回 null，在更新一个已经存在的键关联的值时会返回旧值。因而 Set 中的 add () 方法可以据此判断新加入的元素是否改变了集合，如果改变了就返回 true。因而 PRESENT 不可以使用 null 。</p>
+<p>其它的方法这里简单地列一下，都是基于 map 实现的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">public boolean contains(Object o) &#123;</span><br><span class="line">    return map.containsKey(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public boolean remove(Object o) &#123;</span><br><span class="line">    return map.remove(o)==PRESENT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line">    return map.keySet().iterator();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int size() &#123;</span><br><span class="line">    return map.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public boolean isEmpty() &#123;</span><br><span class="line">    return map.isEmpty();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void clear() &#123;</span><br><span class="line">    map.clear();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">public Object clone() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        HashSet&lt;E&gt; newSet = (HashSet&lt;E&gt;) super.clone();</span><br><span class="line">        newSet.map = (HashMap&lt;E, Object&gt;) map.clone();</span><br><span class="line">        return newSet;</span><br><span class="line">    &#125; catch (CloneNotSupportedException e) &#123;</span><br><span class="line">        throw new InternalError(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//序列化</span><br><span class="line">private void writeObject(java.io.ObjectOutputStream s)</span><br><span class="line">    throws java.io.IOException &#123;</span><br><span class="line">    // Write out any hidden serialization magic</span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">    // Write out HashMap capacity and load factor</span><br><span class="line">    s.writeInt(map.capacity());</span><br><span class="line">    s.writeFloat(map.loadFactor());</span><br><span class="line"></span><br><span class="line">    // Write out size</span><br><span class="line">    s.writeInt(map.size());</span><br><span class="line"></span><br><span class="line">    // Write out all elements in the proper order.</span><br><span class="line">    for (E e : map.keySet())</span><br><span class="line">        s.writeObject(e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void readObject(java.io.ObjectInputStream s)</span><br><span class="line">    throws java.io.IOException, ClassNotFoundException &#123;</span><br><span class="line">    // Read in any hidden serialization magic</span><br><span class="line">    s.defaultReadObject();</span><br><span class="line"></span><br><span class="line">    // Read capacity and verify non-negative.</span><br><span class="line">    int capacity = s.readInt();</span><br><span class="line">    if (capacity &lt; 0) &#123;</span><br><span class="line">        throw new InvalidObjectException(&quot;Illegal capacity: &quot; +</span><br><span class="line">                                         capacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Read load factor and verify positive and non NaN.</span><br><span class="line">    float loadFactor = s.readFloat();</span><br><span class="line">    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor)) &#123;</span><br><span class="line">        throw new InvalidObjectException(&quot;Illegal load factor: &quot; +</span><br><span class="line">                                         loadFactor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Read size and verify non-negative.</span><br><span class="line">    int size = s.readInt();</span><br><span class="line">    if (size &lt; 0) &#123;</span><br><span class="line">        throw new InvalidObjectException(&quot;Illegal size: &quot; +</span><br><span class="line">                                         size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Set the capacity according to the size and load factor ensuring that</span><br><span class="line">    // the HashMap is at least 25% full but clamping to maximum capacity.</span><br><span class="line">    capacity = (int) Math.min(size * Math.min(1 / loadFactor, 4.0f),</span><br><span class="line">            HashMap.MAXIMUM_CAPACITY);</span><br><span class="line"></span><br><span class="line">    // Create backing HashMap</span><br><span class="line">    map = (((HashSet&lt;?&gt;)this) instanceof LinkedHashSet ?</span><br><span class="line">           new LinkedHashMap&lt;E,Object&gt;(capacity, loadFactor) :</span><br><span class="line">           new HashMap&lt;E,Object&gt;(capacity, loadFactor));</span><br><span class="line"></span><br><span class="line">    // Read in all elements in the proper order.</span><br><span class="line">    for (int i=0; i&lt;size; i++) &#123;</span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">            E e = (E) s.readObject();</span><br><span class="line">        map.put(e, PRESENT);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>Set 的内部通常是基于 Map 来实现的，Map 中的 Key 构成了 Set，而 Value 全部使用一个无意义的 Object 。 Set 的特征与其内部的 Set 的特征是一致的。基于 HashMap 的 HashSet 是无序时的最佳通用实现，基于 LinkedHashMap 的 LinkedHashSet 保留插入或访问的顺序，基于 TreeMap 的 TreeSet 可以按照元素升序排列，要求元素实现 Comaprable 接口或自定义比较器。</p>
+<p>HashSet , LinkedHashSet, TreeSet 都不是线程安全的，在多线程环境下使用时要注意同步问题。</p>
+<p>CopyOnWriteArraySet 是一个线程安全的实现，但是并不是基于 Map 实现的，而是通过 CopyOnWriteArrayList 实现的。使用 addIfAbsent () 方法进行去重，性能比较一般。</p>
+
       
 
       
@@ -247,14 +267,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          变形二分查找问题
+          Java容器源码分析之Vector与Stack
         
       </div>
     </a>
   
   
     <a href="../../24/Java容器源码分析之LinkedList/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">变形二分查找问题</div>
+      <div class="article-nav-title">Java容器源码分析之LinkedList</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -376,7 +396,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -384,15 +404,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -400,7 +412,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,7 +420,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -420,7 +432,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -428,11 +452,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,11 +468,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,11 +492,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,11 +512,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,15 +520,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,15 +536,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,11 +544,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,6 +564,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
@@ -556,7 +580,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,11 +596,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,10 +613,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">

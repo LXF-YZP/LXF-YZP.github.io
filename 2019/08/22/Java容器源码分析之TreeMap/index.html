@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>变形二分查找问题 | 观鱼入知命</title>
+  <title>Java容器源码分析之TreeMap | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="java集合">
+  <meta name="description" content="TreeMap 是一种基于红黑树实现的 Key-Value 结构。在使用集合视图在 HashMap 中迭代时，是不能保证迭代顺序的； LinkedHashMap 使用了双向链表，保证按照插入顺序或者访问顺序进行迭代。但是有些时候，我们可能需要按照键的大小进行按序迭代，或者在使用哈希表的同时希望按键值进行排序，这个时候 TreeMap 就有其用武之地了。 TreeMap 支持按键值进行升序访问，或者">
+<meta name="keywords" content="java集合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="变形二分查找问题">
+<meta property="og:title" content="Java容器源码分析之TreeMap">
 <meta property="og:url" content="http://yoursite.com/2019/08/22/Java容器源码分析之TreeMap/index.html">
 <meta property="og:site_name" content="观鱼入知命">
+<meta property="og:description" content="TreeMap 是一种基于红黑树实现的 Key-Value 结构。在使用集合视图在 HashMap 中迭代时，是不能保证迭代顺序的； LinkedHashMap 使用了双向链表，保证按照插入顺序或者访问顺序进行迭代。但是有些时候，我们可能需要按照键的大小进行按序迭代，或者在使用哈希表的同时希望按键值进行排序，这个时候 TreeMap 就有其用武之地了。 TreeMap 支持按键值进行升序访问，或者">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-25T11:45:56.193Z">
+<meta property="og:updated_time" content="2019-12-26T03:40:59.622Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="变形二分查找问题">
+<meta name="twitter:title" content="Java容器源码分析之TreeMap">
+<meta name="twitter:description" content="TreeMap 是一种基于红黑树实现的 Key-Value 结构。在使用集合视图在 HashMap 中迭代时，是不能保证迭代顺序的； LinkedHashMap 使用了双向链表，保证按照插入顺序或者访问顺序进行迭代。但是有些时候，我们可能需要按照键的大小进行按序迭代，或者在使用哈希表的同时希望按键值进行排序，这个时候 TreeMap 就有其用武之地了。 TreeMap 支持按键值进行升序访问，或者">
   
   
     <link rel="icon" href="/favicon.png">
@@ -161,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      变形二分查找问题
+      Java容器源码分析之TreeMap
     </h1>
   
 
@@ -174,7 +177,71 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>TreeMap 是一种基于红黑树实现的 Key-Value 结构。在使用集合视图在 HashMap 中迭代时，是不能保证迭代顺序的； LinkedHashMap 使用了双向链表，保证按照插入顺序或者访问顺序进行迭代。但是有些时候，我们可能需要按照键的大小进行按序迭代，或者在使用哈希表的同时希望按键值进行排序，这个时候 TreeMap 就有其用武之地了。 TreeMap 支持按键值进行升序访问，或者由传入的比较器（Comparator）来控制。</p>
+<a id="more"></a>
+<p>下面基于 JDK 8 的源码对 TreeMap 进行一个简单的分析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class TreeMap&lt;K,V&gt;</span><br><span class="line">    extends AbstractMap&lt;K,V&gt;</span><br><span class="line">    implements NavigableMap&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+
+<p>同 HashMap 一样， TreeMap 也继承了 AbstractMap，并实现了 Cloneable， Serializable 接口。不同的是， TreeMap 还实现 NavigableMap 接口。</p>
+<h4 id="NavigableMap-接口和-SortedMap"><a href="#NavigableMap-接口和-SortedMap" class="headerlink" title="NavigableMap 接口和 SortedMap"></a>NavigableMap 接口和 SortedMap</h4><p>SortedMap 是一个扩展自 Map 的一个接口，对该接口的实现要保证所有的 Key 是完全有序的。</p>
+<p>这个顺序一般是指 Key 的自然序（实现 Comparable 接口）或在创建 SortedMap 时指定一个比较器（Comparator）。当我们使用集合的视角（Collection View，由 entrySet、keySet 与 values 方法提供）来迭代时，就可以按序访问其中的元素。</p>
+<p>插入 SortedMap 中的所有 Key 的类都必须实现 Comparable 接口（或者可以作为指定的 Comparator 的参数）。在比较两个 Key 时通过调用 k1.compareTo(k2) (or comparator.compare(k1, k2))，因而所有的 Key 都必须能够相互比较，否则会抛出 ClassCastException 的异常。</p>
+<p>SortedMap 中 Key 的顺序必须和 equals 保持一致（consistent with equals）， 即 k1.compareTo(k2) == 0 (or comparator.compare(k1, k2)) 和 k1.equals(k2) 要有相同的布尔值。（Comparable 接口的实现不强制要求这一点，但通常都会遵守。）这是因为 Map 接口的定义中，比较 Key 是通过 equals 方法，而在 SortedMap 中比较 Key 则是通过 compareTo (or compare) 方法。如果不一致的，就破坏了 Map 接口的约定。</p>
+<p>通过 SortedMap 可以获取其中的一段数据，如 subMap(K fromKey, K toKey), headMap(K toKey), tailMap(K fromKey) 等，所有的区间操作都是左闭右开的。也可以通过 firstKey() 和 lastKey() 来获取第一个和最后一个键。</p>
+<p>NavigableMap 是 JDK 1.6 之后新增的接口，扩展了 SortedMap 接口，提供了一些导航方法（navigation methods）来返回最接近搜索目标的匹配结果。</p>
+<ul>
+<li>lowerEntry(K key) (or lowerKey(K key))，小于给定 Key 的 Entry (or Key)</li>
+<li>floorEntry(K key) (or floorKey(K key))，小于等于给定 Key 的 Entry (or Key)</li>
+<li>higherEntry(K key) (or higherKey(K key))，大于给定 Key 的 Entry (or Key)</li>
+<li>ceilingEntry(K key) (or ceilingKey(K key))，大于等于给定 Key 的 Entry (or Key)<br>这些方法都有重载的版本，来控制是否包含端点。subMap(K fromKey, K toKey), headMap(K toKey), tailMap(K fromKey) 等方法也是如此。</li>
+</ul>
+<p>NavigableMap 可以按照 Key 的升序或降序进行访问和遍历。 descendingMap() 和 descendingKeySet() 则会获取和原来的顺序相反的集合，集合中的元素则是同样的引用，在该视图上的修改会影响到原始的数据。</p>
+<h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><p>TreeMap 是基于红黑树来实现的，排序时按照键的自然序（要求实现 Comparable 接口）或者提供一个 Comparator 用于排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//比较器，没有指定的话默认使用Key的自然序</span><br><span class="line">  private final Comparator&lt;? super K&gt; comparator;</span><br><span class="line"></span><br><span class="line">  //红黑树根节点</span><br><span class="line">  private transient Entry&lt;K,V&gt; root;</span><br><span class="line"></span><br><span class="line">  //树中节点的数量</span><br><span class="line">  private transient int size = 0;</span><br><span class="line"></span><br><span class="line">  //结构化修改的次数</span><br><span class="line">  private transient int modCount = 0;</span><br></pre></td></tr></table></figure>
+
+<p>TreeMap 同样不是线程安全的，基于结构化修改的次数来实现 fail-fast 机制。因而要在多线程环境下使用时，可能需要手动进行同步，或者使用 Collections.synchronizedSortedMap 进行包装。</p>
+<p>TreeMap 中的红黑树使用的是「算法导论」中的实现，除了左右链接、红黑标识以外，还有一个指向父节点的连接。红黑树的具体插入及删除细节这里不作过多的解释，更深入的细节可以参考「算法导论」一书，不过建议先看一下 Sedgewick 的讲解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">//Entry (红黑树节点的定义)</span><br><span class="line">static final class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; left;//左子节点</span><br><span class="line">    Entry&lt;K,V&gt; right;//右子节点</span><br><span class="line">    Entry&lt;K,V&gt; parent;//父节点</span><br><span class="line">    boolean color = BLACK;//颜色，指向该节点的链接的颜色</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Make a new cell with given key, value, and parent, and with</span><br><span class="line">     * &#123;@code null&#125; child links, and BLACK color.</span><br><span class="line">     */</span><br><span class="line">    Entry(K key, V value, Entry&lt;K,V&gt; parent) &#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">        this.value = value;</span><br><span class="line">        this.parent = parent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Returns the key.</span><br><span class="line">     *</span><br><span class="line">     * @return the key</span><br><span class="line">     */</span><br><span class="line">    public K getKey() &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Returns the value associated with the key.</span><br><span class="line">     *</span><br><span class="line">     * @return the value associated with the key</span><br><span class="line">     */</span><br><span class="line">    public V getValue() &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Replaces the value currently associated with the key with the given</span><br><span class="line">     * value.</span><br><span class="line">     *</span><br><span class="line">     * @return the value associated with the key before this method was</span><br><span class="line">     *         called</span><br><span class="line">     */</span><br><span class="line">    public V setValue(V value) &#123;</span><br><span class="line">        V oldValue = this.value;</span><br><span class="line">        this.value = value;</span><br><span class="line">        return oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean equals(Object o) &#123;</span><br><span class="line">        if (!(o instanceof Map.Entry))</span><br><span class="line">            return false;</span><br><span class="line">        Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;</span><br><span class="line">        //Key 和 Value都要 equals</span><br><span class="line">        return valEquals(key,e.getKey()) &amp;&amp; valEquals(value,e.getValue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //哈希值的计算，Key和Value的哈希值进行位异或</span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        int keyHash = (key==null ? 0 : key.hashCode());</span><br><span class="line">        int valueHash = (value==null ? 0 : value.hashCode());</span><br><span class="line">        return keyHash ^ valueHash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return key + &quot;=&quot; + value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加及更新操作"><a href="#添加及更新操作" class="headerlink" title="添加及更新操作"></a>添加及更新操作</h4><p>为了维持有序，添加及更新的代价较高，复杂度为 O (log (n)) 。插入节点后需要修复红黑树，使其恢复平衡状态，该操作在此不作介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    Entry&lt;K,V&gt; t = root;</span><br><span class="line">    if (t == null) &#123; //根节点为空</span><br><span class="line">        compare(key, key); // type (and possibly null) check</span><br><span class="line"></span><br><span class="line">        root = new Entry&lt;&gt;(key, value, null);</span><br><span class="line">        size = 1;</span><br><span class="line">        modCount++;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    int cmp;</span><br><span class="line">    Entry&lt;K,V&gt; parent;</span><br><span class="line">    // split comparator and comparable paths</span><br><span class="line">    Comparator&lt;? super K&gt; cpr = comparator;</span><br><span class="line">    if (cpr != null) &#123; //比较器，使用定制的排序方法</span><br><span class="line">        do &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = cpr.compare(key, t.key);</span><br><span class="line">            if (cmp &lt; 0)</span><br><span class="line">                t = t.left;</span><br><span class="line">            else if (cmp &gt; 0)</span><br><span class="line">                t = t.right;</span><br><span class="line">            else</span><br><span class="line">                return t.setValue(value); //Key 存在，更新value</span><br><span class="line">        &#125; while (t != null);</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123; //比较器为null，Key 必须实现 Comparable 接口</span><br><span class="line">        if (key == null)</span><br><span class="line">            throw new NullPointerException();</span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">            Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key;</span><br><span class="line">        do &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = k.compareTo(t.key);</span><br><span class="line">            if (cmp &lt; 0)</span><br><span class="line">                t = t.left;</span><br><span class="line">            else if (cmp &gt; 0)</span><br><span class="line">                t = t.right;</span><br><span class="line">            else</span><br><span class="line">                return t.setValue(value); //Key 存在，更新value</span><br><span class="line">        &#125; while (t != null);</span><br><span class="line">    &#125;</span><br><span class="line">    //Key 不存在，新建节点，插入二叉树</span><br><span class="line">    Entry&lt;K,V&gt; e = new Entry&lt;&gt;(key, value, parent);</span><br><span class="line">    if (cmp &lt; 0)</span><br><span class="line">        parent.left = e;</span><br><span class="line">    else</span><br><span class="line">        parent.right = e;</span><br><span class="line">    //插入后修复红黑树</span><br><span class="line">    fixAfterInsertion(e);</span><br><span class="line">    size++;//数量增加</span><br><span class="line">    modCount++;//结构改变</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>从红黑树中删除一个节点比插入更为复杂，这里不作展开。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public V remove(Object key) &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = getEntry(key); //先查找该节点</span><br><span class="line">    if (p == null)</span><br><span class="line">        return null;</span><br><span class="line"></span><br><span class="line">    V oldValue = p.value;</span><br><span class="line">    deleteEntry(p); //删除节点</span><br><span class="line">    return oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">private void deleteEntry(Entry&lt;K,V&gt; p) &#123;</span><br><span class="line">    modCount++; //删除使得结构发生变化</span><br><span class="line">    size--;</span><br><span class="line"></span><br><span class="line">    // If strictly internal, copy successor&apos;s element to p and then make p</span><br><span class="line">    // point to successor.</span><br><span class="line">    // 被删除节点的左右子树都不为空</span><br><span class="line">    if (p.left != null &amp;&amp; p.right != null) &#123;</span><br><span class="line">        //用后继节点代替当前节点</span><br><span class="line">        Entry&lt;K,V&gt; s = successor(p);</span><br><span class="line">        p.key = s.key;</span><br><span class="line">        p.value = s.value;</span><br><span class="line">        p = s;</span><br><span class="line">    &#125; // p has 2 children</span><br><span class="line"></span><br><span class="line">    // Start fixup at replacement node, if it exists.</span><br><span class="line">    // 左子节点存在，则 replacement 为左子节点，否则为右子节点</span><br><span class="line">    Entry&lt;K,V&gt; replacement = (p.left != null ? p.left : p.right);</span><br><span class="line"></span><br><span class="line">    if (replacement != null) &#123; //至少一个子节点存在</span><br><span class="line">        // Link replacement to parent</span><br><span class="line">        replacement.parent = p.parent;</span><br><span class="line">        if (p.parent == null) //p 就是根节点</span><br><span class="line">            root = replacement;</span><br><span class="line">        else if (p == p.parent.left)//p 是父节点的左子节点</span><br><span class="line">            p.parent.left  = replacement;</span><br><span class="line">        else//p 是父节点的右子节点</span><br><span class="line">            p.parent.right = replacement;</span><br><span class="line"></span><br><span class="line">        // Null out links so they are OK to use by fixAfterDeletion.</span><br><span class="line">        p.left = p.right = p.parent = null;</span><br><span class="line"></span><br><span class="line">        // Fix replacement</span><br><span class="line">        if (p.color == BLACK)</span><br><span class="line">            fixAfterDeletion(replacement);// 修复红黑树</span><br><span class="line">    &#125; else if (p.parent == null) &#123; // return if we are the only node.</span><br><span class="line">        // 没有父节点，则该节点是树中唯一的节点</span><br><span class="line">        root = null;</span><br><span class="line">    &#125; else &#123; //  No children. Use self as phantom replacement and unlink.</span><br><span class="line">        //没有子节点</span><br><span class="line">        if (p.color == BLACK)</span><br><span class="line">            fixAfterDeletion(p);// 修复红黑树</span><br><span class="line"></span><br><span class="line">        if (p.parent != null) &#123;</span><br><span class="line">            if (p == p.parent.left)</span><br><span class="line">                p.parent.left = null;</span><br><span class="line">            else if (p == p.parent.right)</span><br><span class="line">                p.parent.right = null;</span><br><span class="line">            p.parent = null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>红黑树也是排序二叉树，按照排序二叉树的查找方法进行查找。复杂度为 O (log (n)) 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public V get(Object key) &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = getEntry(key);</span><br><span class="line">    return (p==null ? null : p.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">final Entry&lt;K,V&gt; getEntry(Object key) &#123;</span><br><span class="line">    // Offload comparator-based version for sake of performance</span><br><span class="line">    if (comparator != null) //定制的比较器</span><br><span class="line">        return getEntryUsingComparator(key);</span><br><span class="line">    if (key == null)</span><br><span class="line">        throw new NullPointerException();</span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        Comparable&lt;? super K&gt; k = (Comparable&lt;? super K&gt;) key;</span><br><span class="line">    Entry&lt;K,V&gt; p = root;</span><br><span class="line">    while (p != null) &#123;</span><br><span class="line">        int cmp = k.compareTo(p.key);</span><br><span class="line">        if (cmp &lt; 0)</span><br><span class="line">            p = p.left;</span><br><span class="line">        else if (cmp &gt; 0)</span><br><span class="line">            p = p.right;</span><br><span class="line">        else</span><br><span class="line">            return p;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用比较器进行查找</span><br><span class="line">final Entry&lt;K,V&gt; getEntryUsingComparator(Object key) &#123;</span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        K k = (K) key;</span><br><span class="line">    Comparator&lt;? super K&gt; cpr = comparator;</span><br><span class="line">    if (cpr != null) &#123;</span><br><span class="line">        Entry&lt;K,V&gt; p = root;</span><br><span class="line">        while (p != null) &#123;</span><br><span class="line">            int cmp = cpr.compare(k, p.key);</span><br><span class="line">            if (cmp &lt; 0)</span><br><span class="line">                p = p.left;</span><br><span class="line">            else if (cmp &gt; 0)</span><br><span class="line">                p = p.right;</span><br><span class="line">            else</span><br><span class="line">                return p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断是否包含 key 或 value :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public boolean containsKey(Object key) &#123;</span><br><span class="line">    return getEntry(key) != null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public boolean containsValue(Object value) &#123;</span><br><span class="line">    //从第一个节点开始，不断查找后继节点</span><br><span class="line">    for (Entry&lt;K,V&gt; e = getFirstEntry(); e != null; e = successor(e))</span><br><span class="line">        if (valEquals(value, e.value))</span><br><span class="line">            return true;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="导航方法"><a href="#导航方法" class="headerlink" title="导航方法"></a>导航方法</h4><p>NaviableMap 接口支持一系列的导航方法，有 firstEntry ()、 lastEntry ()、 lowerEntry ()、 higherEntry ()、 floorEntry ()、 ceilingEntry ()、 pollFirstEntry () 、 pollLastEntry () 等，它们的实现原理都是类似的，区别在于如何在排序的二叉树中查找到对应的节点。</p>
+<p>以 lowerEntry () 和 floorEntry () 为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">//小于给定的Key</span><br><span class="line">public Map.Entry&lt;K,V&gt; lowerEntry(K key) &#123;</span><br><span class="line">    return exportEntry(getLowerEntry(key));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">final Entry&lt;K,V&gt; getLowerEntry(K key) &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = root;</span><br><span class="line">    while (p != null) &#123;</span><br><span class="line">        int cmp = compare(key, p.key);</span><br><span class="line">        //1. 如果节点 p 小于 key</span><br><span class="line">        if (cmp &gt; 0) &#123; </span><br><span class="line">            //1.1 节点 p 有右子树，则在右子树中搜索</span><br><span class="line">            if (p.right != null)</span><br><span class="line">                p = p.right;</span><br><span class="line">            //1.2 节点 p 没有右子树，找到目标</span><br><span class="line">            else</span><br><span class="line">                return p;</span><br><span class="line">        //2. 节点 p 大于等于 key</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            //2.1 节点 p 有左子树，则在左子树中继续搜索</span><br><span class="line">            if (p.left != null) &#123;</span><br><span class="line">                p = p.left;</span><br><span class="line">            //2.2 节点 p 无左子树，找出 p 的前驱节点，并返回</span><br><span class="line">            //前驱节点要么不存在，要么就是小于 key 的最大节点</span><br><span class="line">            //因为从根节点一直遍历到 p，那么之前经过的所有节点都是大于等于 key 的</span><br><span class="line">            //且 p 没有左子树，即 p 是大于等于 key 的所有节点中最小的</span><br><span class="line">            //则 p 的前驱一定是查找的目标</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                //查找前驱节点</span><br><span class="line">                Entry&lt;K,V&gt; parent = p.parent;</span><br><span class="line">                Entry&lt;K,V&gt; ch = p;</span><br><span class="line">                while (parent != null &amp;&amp; ch == parent.left) &#123;</span><br><span class="line">                    ch = parent;</span><br><span class="line">                    parent = parent.parent;</span><br><span class="line">                &#125;</span><br><span class="line">                return parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public K lowerKey(K key) &#123;</span><br><span class="line">    return keyOrNull(getLowerEntry(key));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//小于等于</span><br><span class="line">public Map.Entry&lt;K,V&gt; floorEntry(K key) &#123;</span><br><span class="line">    return exportEntry(getFloorEntry(key));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//和 getLowerEntry 类似，相等时的处理不同</span><br><span class="line">final Entry&lt;K,V&gt; getFloorEntry(K key) &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = root;</span><br><span class="line">    while (p != null) &#123;</span><br><span class="line">        int cmp = compare(key, p.key);</span><br><span class="line">        if (cmp &gt; 0) &#123;</span><br><span class="line">            if (p.right != null)</span><br><span class="line">                p = p.right;</span><br><span class="line">            else</span><br><span class="line">                return p;</span><br><span class="line">        &#125; else if (cmp &lt; 0) &#123;</span><br><span class="line">            if (p.left != null) &#123;</span><br><span class="line">                p = p.left;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                Entry&lt;K,V&gt; parent = p.parent;</span><br><span class="line">                Entry&lt;K,V&gt; ch = p;</span><br><span class="line">                while (parent != null &amp;&amp; ch == parent.left) &#123;</span><br><span class="line">                    ch = parent;</span><br><span class="line">                    parent = parent.parent;</span><br><span class="line">                &#125;</span><br><span class="line">                return parent;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else</span><br><span class="line">            return p;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查找的过程可以和前驱节点的方法进行类比。 TreeMap 并没有直接暴露 getLowerEntry () 方法，而是使用 exportEntry(getLowerEntry(key)) 进行了一次包装。看似 “多此一举”，实际上是为了防止对节点进行修改。SimpleImmutableEntry 类可以看作不可修改的 Key-Value 对，因为成员变量 key 和 value 都是 final 的。</p>
+<p>即通过暴露出来的接口 firstEntry ()、 lastEntry ()、 lowerEntry ()、 higherEntry ()、 floorEntry ()、 ceilingEntry () 是不可以修改获取的节点的，否则会抛出异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Return SimpleImmutableEntry for entry, or null if null</span><br><span class="line"> */</span><br><span class="line">static &lt;K,V&gt; Map.Entry&lt;K,V&gt; exportEntry(TreeMap.Entry&lt;K,V&gt; e) &#123;</span><br><span class="line">    return (e == null) ? null :</span><br><span class="line">        new AbstractMap.SimpleImmutableEntry&lt;&gt;(e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//AbstractMap.SimpleImmutableEntry</span><br><span class="line">public static class SimpleImmutableEntry&lt;K,V&gt;</span><br><span class="line">    implements Entry&lt;K,V&gt;, java.io.Serializable</span><br><span class="line">&#123;</span><br><span class="line">    private static final long serialVersionUID = 7138329143949025153L;</span><br><span class="line"></span><br><span class="line">    private final K key;</span><br><span class="line">    private final V value;</span><br><span class="line"></span><br><span class="line">    public SimpleImmutableEntry(Entry&lt;? extends K, ? extends V&gt; entry) &#123;</span><br><span class="line">        this.key   = entry.getKey();</span><br><span class="line">        this.value = entry.getValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public V setValue(V value) &#123;</span><br><span class="line">        throw new UnsupportedOperationException();</span><br><span class="line">    &#125;</span><br><span class="line">    //....</span><br><span class="line">    //</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>pollFirstEntry () 、 pollLastEntry () 获取第一个和最后一个节点，并将它们从红黑树中删除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public Map.Entry&lt;K,V&gt; pollFirstEntry() &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = getFirstEntry();</span><br><span class="line">    Map.Entry&lt;K,V&gt; result = exportEntry(p);</span><br><span class="line">    if (p != null)</span><br><span class="line">        deleteEntry(p);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Map.Entry&lt;K,V&gt; pollLastEntry() &#123;</span><br><span class="line">    Entry&lt;K,V&gt; p = getLastEntry();</span><br><span class="line">    Map.Entry&lt;K,V&gt; result = exportEntry(p);</span><br><span class="line">    if (p != null)</span><br><span class="line">        deleteEntry(p);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><p>可以按照键的顺序遍历对 TreeSet 进行遍历，因为底层使用了红黑树来保证有序性，迭代器的实现就是按序访问排序二叉树中的节点。</p>
+<p>先看一些内部抽象类 PrivateEntryIterator ，它是 TreeMap 中所有迭代器的基础：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">abstract class PrivateEntryIterator&lt;T&gt; implements Iterator&lt;T&gt; &#123;</span><br><span class="line">    Entry&lt;K,V&gt; next;</span><br><span class="line">    Entry&lt;K,V&gt; lastReturned;</span><br><span class="line">    int expectedModCount;</span><br><span class="line"></span><br><span class="line">    PrivateEntryIterator(Entry&lt;K,V&gt; first) &#123;</span><br><span class="line">        expectedModCount = modCount;</span><br><span class="line">        lastReturned = null;</span><br><span class="line">        next = first;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final boolean hasNext() &#123;</span><br><span class="line">        return next != null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final Entry&lt;K,V&gt; nextEntry() &#123;</span><br><span class="line">        Entry&lt;K,V&gt; e = next;</span><br><span class="line">        if (e == null)</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        next = successor(e); //后继节点</span><br><span class="line">        lastReturned = e;</span><br><span class="line">        return e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    final Entry&lt;K,V&gt; prevEntry() &#123;</span><br><span class="line">        Entry&lt;K,V&gt; e = next;</span><br><span class="line">        if (e == null)</span><br><span class="line">            throw new NoSuchElementException();</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        next = predecessor(e); //前驱节点</span><br><span class="line">        lastReturned = e;</span><br><span class="line">        return e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void remove() &#123;</span><br><span class="line">        if (lastReturned == null)</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        if (modCount != expectedModCount)</span><br><span class="line">            throw new ConcurrentModificationException();</span><br><span class="line">        // deleted entries are replaced by their successors</span><br><span class="line">        if (lastReturned.left != null &amp;&amp; lastReturned.right != null)</span><br><span class="line">            next = lastReturned;</span><br><span class="line">        deleteEntry(lastReturned);</span><br><span class="line">        expectedModCount = modCount;</span><br><span class="line">        lastReturned = null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为红黑树自身就是有序的，迭代是只要从第一个节点不断获取后继节点即可。当然，逆序时则是从最后一个节点不断获取前驱节点。通过迭代器访问时基于 modCount 实现对并发修改的检查。</p>
+<p>在排序二叉树中获取前驱和后继节点的方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">//后继节点</span><br><span class="line">static &lt;K,V&gt; TreeMap.Entry&lt;K,V&gt; successor(Entry&lt;K,V&gt; t) &#123;</span><br><span class="line">    if (t == null)</span><br><span class="line">        return null;</span><br><span class="line">    else if (t.right != null) &#123;</span><br><span class="line">        //右子树存在，则取右子树的最小节点</span><br><span class="line">        Entry&lt;K,V&gt; p = t.right;</span><br><span class="line">        while (p.left != null)</span><br><span class="line">            p = p.left;</span><br><span class="line">        return p;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        //右子树不存在</span><br><span class="line">        //若父节点为null，则该节点是最大节点（根节点，且无右子树），无后继，返回null</span><br><span class="line">        //若当前节点是父节点的左子节点，直接返回父节点</span><br><span class="line">        //若当前节点是父节点的右子节点，则当前节点是以父节点为根的子树中最大的节点</span><br><span class="line">        Entry&lt;K,V&gt; p = t.parent; //父节点</span><br><span class="line">        Entry&lt;K,V&gt; ch = t;//当前节点</span><br><span class="line">        while (p != null &amp;&amp; ch == p.right) &#123;</span><br><span class="line">            //是右子节点，向上迭代，直到是左子节点</span><br><span class="line">            ch = p;</span><br><span class="line">            p = p.parent;</span><br><span class="line">        &#125;</span><br><span class="line">        return p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//前驱节点，同后继节点处理逻辑一致，左右颠倒</span><br><span class="line">static &lt;K,V&gt; Entry&lt;K,V&gt; predecessor(Entry&lt;K,V&gt; t) &#123;</span><br><span class="line">    if (t == null)</span><br><span class="line">        return null;</span><br><span class="line">    else if (t.left != null) &#123;</span><br><span class="line">        //左子树存在，则取左子树的最小节点</span><br><span class="line">        Entry&lt;K,V&gt; p = t.left;</span><br><span class="line">        while (p.right != null)</span><br><span class="line">            p = p.right;</span><br><span class="line">        return p;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        //左子树不存在</span><br><span class="line">        Entry&lt;K,V&gt; p = t.parent;</span><br><span class="line">        Entry&lt;K,V&gt; ch = t;</span><br><span class="line">        while (p != null &amp;&amp; ch == p.left) &#123;</span><br><span class="line">            ch = p;</span><br><span class="line">            p = p.parent;</span><br><span class="line">        &#125;</span><br><span class="line">        return p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其它方法"><a href="#其它方法" class="headerlink" title="其它方法"></a>其它方法</h4><p>TreeMap 中还实现了一些其它的方法，如区间操作: headMap (), tailMap (), subMap () ； 获取逆序的 map： descendingMap() , descendingKeySet() 。只要了解了前面介绍的各种操作的原理，再来看这些方法的实现应该也不难理解。由于篇幅太长，这里就不再介绍了。</p>
+<p>小结<br>TreeMap 是基于红黑树实现的一种 Key-Value 结构，最大的特点在于可以按照 Key 的顺序进行访问，要求 Key 实现 Comparable 接口或传入 Comparator 作为比较器。因为基于红黑树实现，TreeMap 内部在实现插入和删除操作时代价较高。</p>
+<p>TreeMap 实现了 NavigableMap 接口，可以支持一系列导航方法，有 firstEntry ()、 lastEntry ()、 lowerEntry ()、 higherEntry ()、 floorEntry ()、 ceilingEntry ()、 pollFirstEntry () 、 pollLastEntry () ；还可以支持区间操作获取 map 的一部分，如 subMap (), headMap (), tailMap (K fromKey) 。除此以外， TreeMap 还支持通过 descendingMap () 获取和原来顺序相反的 map。</p>
+<p>如果 TreeMap 没有使用自定义的 Comparator，则是不支持键为 null 的，因为调用 compareTo () 可能会发生异常；如果自定义的比较器可以接受 null 作为参数，那么是可以支持将 null 作为键的。</p>
+<p>TreeMap 不是线程安全的，多线程情况下要手动进行同步或使用 SortedMap m = Collections.synchronizedSortedMap(new TreeMap(…));。</p>
+
       
 
       
@@ -247,14 +314,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          变形二分查找问题
+          Java容器源码分析之LinkedHashMap
         
       </div>
     </a>
   
   
     <a href="../../21/Java容器源码分析之Deque与ArrayDeque/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">变形二分查找问题</div>
+      <div class="article-nav-title">Java容器源码分析之Deque与ArrayDeque</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -376,7 +443,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -384,15 +451,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -400,7 +459,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -408,7 +467,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -420,7 +479,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -428,11 +499,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,11 +515,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,11 +539,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,11 +559,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -496,15 +567,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,15 +583,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,11 +591,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,6 +611,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
@@ -556,7 +627,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,11 +643,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,10 +660,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
