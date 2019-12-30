@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Linux常用命令 | 观鱼入知命</title>
+  <title>Java代理模式 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="切换成bdc用户执行pwd命令；su - bdc -c “pwd” cat /etc/profile.d/java_home.shexport JAVA_HOME=/opt/beh/core/jdkexport PATH=$JAVA_HOME/bin:$PATH /opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER/opt/beh/su">
-<meta name="keywords" content="Linux命令">
+  <meta name="description" content="1.代理模式的定义代理 (Proxy) 是一种设计模式，提供了对目标对象另外的访问方式；即通过代理对象访问目标对象。这样做的好处是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。这种类型的设计模式属于结构型模式。">
+<meta name="keywords" content="Java、设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux常用命令">
-<meta property="og:url" content="http://yoursite.com/2019/09/14/Linux常用命令/index.html">
+<meta property="og:title" content="Java代理模式">
+<meta property="og:url" content="http://yoursite.com/2019/11/05/Java代理模式/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="切换成bdc用户执行pwd命令；su - bdc -c “pwd” cat /etc/profile.d/java_home.shexport JAVA_HOME=/opt/beh/core/jdkexport PATH=$JAVA_HOME/bin:$PATH /opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER/opt/beh/su">
+<meta property="og:description" content="1.代理模式的定义代理 (Proxy) 是一种设计模式，提供了对目标对象另外的访问方式；即通过代理对象访问目标对象。这样做的好处是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。这种类型的设计模式属于结构型模式。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-20T03:37:36.290Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/05/Java代理模式/aaa.jpg">
+<meta property="og:updated_time" content="2019-12-30T09:31:46.693Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux常用命令">
-<meta name="twitter:description" content="切换成bdc用户执行pwd命令；su - bdc -c “pwd” cat /etc/profile.d/java_home.shexport JAVA_HOME=/opt/beh/core/jdkexport PATH=$JAVA_HOME/bin:$PATH /opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER/opt/beh/su">
+<meta name="twitter:title" content="Java代理模式">
+<meta name="twitter:description" content="1.代理模式的定义代理 (Proxy) 是一种设计模式，提供了对目标对象另外的访问方式；即通过代理对象访问目标对象。这样做的好处是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。这种类型的设计模式属于结构型模式。">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/05/Java代理模式/aaa.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +70,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 91
+			总文章数 93
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -157,43 +159,112 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Linux常用命令" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java代理模式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Linux常用命令
+      Java代理模式
     </h1>
   
 
         
         <a href="" class="archive-article-date">
-  	<time datetime="2019-09-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-14</time>
+  	<time datetime="2019-11-05T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>切换成bdc用户执行pwd命令；<br>su - bdc -c “pwd”</p>
-<p>cat /etc/profile.d/java_home.sh<br>export JAVA_HOME=/opt/beh/core/jdk<br>export PATH=$JAVA_HOME/bin:$PATH</p>
-<p>/opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER<br>/opt/beh/supervisor/supervisorctl stop hadoop-JOURNALNODE</p>
-<p>/opt/beh/supervisor/supervisord -c /opt/beh/supervisor/supervisord.conf<br>/opt/beh/supervisor/supervisorctl shutdown<br>/opt/beh/supervisor/supervisorctl status</p>
-<p>清空文件，不是删除文件</p>
-<blockquote>
-<p>文件名； 例如 : &gt; test.log</p>
-</blockquote>
-<p>/*<br>关注点：当字符 ‘a’ 出现，判断字符传 t 中是否存在字符 ‘a’<br>t 中字符‘a’ 之后的剩余字符串是否存在’b’<br>核心思想：剩余字符串中是否存在下一个字符；利用贪心算法的概念就是局部是否存在最优解<br>贪心策略具备无后效性，即某个状态以前的过程不会影响以后的状态，只与当前状态有关<br>*/</p>
-<p><a href="https://matthung0807.blogspot.com/2018/11/java-objectsrequirenonnull.html" target="_blank" rel="noopener">https://matthung0807.blogspot.com/2018/11/java-objectsrequirenonnull.html</a></p>
-<p>部署HDFS集群HA模式的时候启动DataNode报错：<br>Alicechen<br>17 年 3 月<br>FATAL org.apache.hadoop.hdfs.server.datanode.DataNode<br>Exception in secureMain<br>java.io.IOException: the path component: ‘/’ is world-writable. Its permissions are 0777. Please fix this or select a different socket path.<br>at org.apache.hadoop.net.unix.DomainSocket.validateSocketPathSecurity0(Native Method)<br>at org.apache.hadoop.net.unix.DomainSocket.bindAndListen(DomainSocket.java:191)<br>at org.apache.hadoop.hdfs.net.DomainPeerServer.(DomainPeerServer.java:42)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.getDomainPeerServer(DataNode.java:603)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.initDataXceiver(DataNode.java:570)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.startDataNode(DataNode.java:741)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.(DataNode.java:344)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.makeInstance(DataNode.java:1795)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.instantiateDataNode(DataNode.java:1728)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.createDataNode(DataNode.java:1751)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.secureMain(DataNode.java:1904)<br>at org.apache.hadoop.hdfs.server.datanode.DataNode.main(DataNode.java:1925)</p>
-<p>根目录权限设置太大，不能够是 777，需要改小一些<br>查看根目录权限的指令为：ls -Ald /<br>示例：修改根目录的权限指令为：chmod 755 /</p>
-<p>Arrays.toString (数组)输出数组内容</p>
-<p>Linux 创建用户的同时设置密码:<br>useradd 用户名;echo “密码” | passwd  –stdin 用户名<br>useradd 用户名;echo 密码 | passwd  –stdin 用户名</p>
-<p>useradd 用户名 -p 密码；这个命令中的密码最后在切换用户的时候实际是密码的MD5值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、*.tar 用 tar –xvf 解压</span><br><span class="line">2、*.gz 用 gzip -d 或者 gunzip 解压</span><br><span class="line">3、*.tar.gz 和 *.tgz 用 tar –xzf 解压</span><br><span class="line">4、*.bz2 用 bzip2 -d 或者用 bunzip2 解压</span><br><span class="line">5、*.tar.bz2 用 tar –xjf 解压</span><br><span class="line">6、*.Z 用 uncompress 解压</span><br><span class="line">7、*.tar.Z 用 tar –xZf 解压</span><br><span class="line">8、*.rar 用 unrar e 解压</span><br><span class="line">9、*.zip 用 unzip 解压</span><br></pre></td></tr></table></figure>
+        <h4 id="1-代理模式的定义"><a href="#1-代理模式的定义" class="headerlink" title="1.代理模式的定义"></a>1.代理模式的定义</h4><p>代理 (Proxy) 是一种设计模式，提供了对目标对象另外的访问方式；即通过代理对象访问目标对象。这样做的好处是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。这种类型的设计模式属于结构型模式。</p>
+<a id="more"></a>
+<p><img src="/2019/11/05/Java代理模式/aaa.jpg" alt></p>
+<ul>
+<li>矩形代表一个类，矩形内部的信息有：类名，属性和方法。</li>
+<li>实线 + 三角空心箭头为 is=a 的关系，表示继承，所以上图中 TestSQL 和 Performance 都实现 IDatabase 接口。</li>
+<li>实线 + 箭头为关联关系，一般在代码中以成员变量的形式体现，所以上图中 Performance 类有一个 TestSQL 的成员变量。<h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4></li>
+</ul>
+<p>假设一个场景，我们需要测试一条 sql query 执行所花费的时间。<br>如果按照普通的方式，代码逻辑应该如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">long begin = System.currentTimeMillis(); </span><br><span class="line"></span><br><span class="line">query();</span><br><span class="line"></span><br><span class="line">long end = System.currentTimeMillis();</span><br><span class="line">long step = end - begin;</span><br><span class="line">System.out.println(&quot;执行花费 ：&quot; + step);</span><br></pre></td></tr></table></figure>
 
+<p>这种会导致查询逻辑和性能测试逻辑混淆在一块，那么来看看使用代理模式是如何解决这个问题的。</p>
+<p>代理模式，代理，意味着有一方代替另一方完成一件事。这里，我们会编写两个类：TestSQL 为 query 执行逻辑，Performance 为性能测试类。这里 Performance 会代替 TestSQL 去执行 query 逻辑。</p>
+<p>要想 Performance 能够代替 TestSQL 执行 query 逻辑，那么这两个类应该是有血缘关系的，即这两个必须实现同一个接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">// 接口</span><br><span class="line">public interface IDatabase &#123;</span><br><span class="line">    void query();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class TestSQL implements IDatabase &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void query() &#123;</span><br><span class="line">        System.out.println(&quot;执行 query。。。。&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(2000);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 代理类</span><br><span class="line">public class PerformanceMonitor implements IDatabase &#123;</span><br><span class="line">    TestSQL sql;</span><br><span class="line"></span><br><span class="line">    public PerformanceMonitor(TestSQL sql) &#123;</span><br><span class="line">        this.sql = sql;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void query() &#123;</span><br><span class="line">        long begin = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        // 业务逻辑。</span><br><span class="line">        sql.query();</span><br><span class="line"></span><br><span class="line">        long end = System.currentTimeMillis();</span><br><span class="line">        long step = end - begin;</span><br><span class="line">        System.out.println(&quot;执行花费 : &quot; + step);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 测试代码</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] strings) &#123;</span><br><span class="line">        TestSQL sql = new TestSQL();</span><br><span class="line"></span><br><span class="line">        PerformanceMonitor performanceMonitor = new PerformanceMonitor(sql);</span><br><span class="line">        // 由 Performance 代替 testSQL 执行</span><br><span class="line">        performanceMonitor.query();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的示例代码可以分析出来代理模式是如何运作的，这里我们可以很明显看出代理模式的优越性，TestSQL 的逻辑很纯粹，没有混入其他无关的业务代码。</p>
+<h4 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h4><p>回顾静态代理的代码，发现代理类 Performance 必须实现 IDatabase 接口。如果有很多业务需要用到代理来实现，那么每个业务都需要定义一个代理类，这会导致类迅速膨胀，为了避免这点，Java 提供了动态代理。</p>
+<p>为何称之为动态代理，动态代理底层是使用反射实现的，是在程序运行期间动态的创建接口的实现。在静态代理中，我们需要在编码的时候编写 Performance 类实现 IDatabase 接口。而使用动态代理，我们不必编写 Performance 实现 IDatabase 接口，而是 JDK 在底层通过反射技术动态创建一个 IDatabase 接口的实现。</p>
+<p>使用动态代理需要使用到 InvocationHandler 和 Proxy 这两个类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 代理类,不再实现 IDatabase 接口，而是实现 InvocationHandler 接口</span><br><span class="line">public class Performance implements InvocationHandler &#123;</span><br><span class="line"></span><br><span class="line">    private TestSQL sql;</span><br><span class="line"></span><br><span class="line">    public Performance(TestSQL sql) &#123;</span><br><span class="line">        this.sql = sql;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">        long begin = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        // method.invoke 实际上就是调用 sql.query()</span><br><span class="line">        Object object = method.invoke(sql, args);</span><br><span class="line"></span><br><span class="line">        long end = System.currentTimeMillis();</span><br><span class="line">        long step = end - begin;</span><br><span class="line">        System.out.println(&quot;执行花费 ：&quot; + step);</span><br><span class="line">        return object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] strings) &#123;</span><br><span class="line">        TestSQL sql = new TestSQL();</span><br><span class="line">        Performance performance = new Performance(sql);</span><br><span class="line"></span><br><span class="line">        IDatabase proxy = (IDatabase) Proxy.newProxyInstance(</span><br><span class="line">                sql.getClass().getClassLoader(),</span><br><span class="line">                sql.getClass().getInterfaces(),</span><br><span class="line">                performance</span><br><span class="line">        );</span><br><span class="line">        proxy.query();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先来看看 newProxyInstance 函数，这个函数的作用就是用来动态创建一个代理对象的类，这个函数需要三个参数：</p>
+<ul>
+<li>第一个参数为类加载器。</li>
+<li>第二个参数为要代理的接口，在这个例子里面就是 IDatabase 接口。</li>
+<li>第三个参数为实现 InvocationHandler 接口的对象。<br>执行 newProxyInstance 之后，Java 会在底层自动生成一个代理类，其代码大概如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public final class $Proxy1 extends Proxy implements IDatabase&#123;</span><br><span class="line">    private InvocationHandler h;</span><br><span class="line"></span><br><span class="line">    private $Proxy1()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    public $Proxy1(InvocationHandler h)&#123;</span><br><span class="line">        this.h = h;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void query()&#123;</span><br><span class="line">        ////创建method对象</span><br><span class="line">        Method method = Subject.class.getMethod(&quot;query&quot;);</span><br><span class="line">        //调用了invoke方法</span><br><span class="line">        h.invoke(this, method, new Object[]&#123;&#125;); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>你会发现，这个类很像在静态代理中的 Performance 类，是的，动态代理其本质是 Java 自动为我们生成了一个 $Proxy1 代理类。在 mian 函数中 newProxyInstance 的返回值就是该类的一个实例。并且，$Proxy1 中的 h 属性就是 newProxyInstance 的第三个参数。所以，当我们在 main 函数中执行 proxy.query()，实际上是调用 $proxy1#query 方法，进而再调用 Performance#invoke 方法。而在 Performance#invoke 通过 Object object = method.invoke(sql, args); 调用了 TestSQL#query 方法。</p>
+<p>回顾上面的流程，理解动态代理的核心在于理解 Java 自动生成的代理类。这里还有一点要说明，JDK 的动态代理有一个不足：它只能为接口创建代理实例。这句话体现在代码上就是 newProxyInstance 的第二个参数是一个接口数组。为什么会存在这个不足？其实看 $Proxy1 代理类就知道了，这个由 JDK 生成的代理类需要继承 Proxy 类，而 Java 只支持单继承，所以就限制了 JDK 的动态代理只能为接口创建代理。<br><strong><em>优点：</em></strong>相对于静态代理，动态代理大大减少了我们的开发任务，同时减少了对业务接口的依赖，降低了耦合度。<br><strong><em>缺点：</em></strong>代理对象不需要实现接口，但是目标对象一定要实现接口，否则不能用动态代理。</p>
+<p>Java 实现动态代理主要涉及以下几个类：</p>
+<ul>
+<li>java.lang.reflect.Proxy: 这是生成代理类的主类，通过 Proxy 类生成的代理类都继承了 Proxy 类，即 DynamicProxyClass extends Proxy。</li>
+<li>java.lang.reflect.InvocationHandler: 这里称他为 “调用处理器”，他是一个接口，我们动态生成的代理类需要完成的具体内容需要自己定义一个类，而这个类必须实现 InvocationHandler 接口。</li>
+</ul>
+<p>Proxy 类主要方法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//创建代理对象  </span><br><span class="line">static Object newProxyInstance(ClassLoader loader,Class&lt;?&gt;[] interfaces,InvocationHandler h)</span><br></pre></td></tr></table></figure>
+
+<p>这个静态函数的第一个参数是类加载器对象（即哪个类加载器来加载这个代理类到 JVM 的方法区），第二个参数是接口（表明你这个代理类需要实现哪些接口），第三个参数是调用处理器类实例（指定代理类中具体要干什么）。这个函数是 JDK 为了程序员方便创建代理对象而封装的一个函数，因此你调用 newProxyInstance() 时直接创建了代理对象（略去了创建代理类的代码）。其实他主要完成了以下几个工作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">static Object newProxyInstance(ClassLoader loader,Class&lt;?&gt;[] interfaces,InvocationHandler handler)&#123;</span><br><span class="line">    //1. 根据类加载器和接口创建代理类</span><br><span class="line">    Class clazz = Proxy.getProxyClass(loader, interfaces); </span><br><span class="line">    //2. 获得代理类的带参数的构造函数</span><br><span class="line">    Constructor constructor = clazz.getConstructor(new Class[] &#123; InvocationHandler.class &#125;);</span><br><span class="line">    //3. 创建代理对象，并制定调用处理器实例为参数传入</span><br><span class="line">    Interface Proxy = (Interface)constructor.newInstance(new Object[] &#123;handler&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Proxy 类还有一些静态方法，比如：</p>
+<ul>
+<li>InvocationHandler getInvocationHandler(Object proxy): 获得代理对象对应的调用处理器对象。</li>
+<li>Class getProxyClass(ClassLoader loader, Class[] interfaces): 根据类加载器和实现的接口获得代理类。<br>Proxy 类中有一个映射表，映射关系为：(<classloader>,(<interfaces>,<proxyclass>) )，可以看出一级 key 为类加载器，根据这个一级 key 获得二级映射表，二级 key 为接口数组，因此可以看出：一个类加载器对象和一个接口数组确定了一个代理类。</proxyclass></interfaces></classloader></li>
+</ul>
+<p>我们写一个简单的例子来阐述 Java 实现动态代理的整个过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class DynamicProxyDemo01 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        RealSubject realSubject = new RealSubject();    //1.创建委托对象</span><br><span class="line">        ProxyHandler handler = new ProxyHandler(realSubject);   //2.创建调用处理器对象</span><br><span class="line">        Subject proxySubject = (Subject)Proxy.newProxyInstance(RealSubject.class.getClassLoader(),</span><br><span class="line">                                                        RealSubject.class.getInterfaces(), handler);    //3.动态生成代理对象</span><br><span class="line">        proxySubject.request(); //4.通过代理对象调用方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 接口</span><br><span class="line"> */</span><br><span class="line">interface Subject&#123;</span><br><span class="line">    void request();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 委托类</span><br><span class="line"> */</span><br><span class="line">class RealSubject implements Subject&#123;</span><br><span class="line">    public void request()&#123;</span><br><span class="line">        System.out.println(&quot;====RealSubject Request====&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/**</span><br><span class="line"> * 代理类的调用处理器</span><br><span class="line"> */</span><br><span class="line">class ProxyHandler implements InvocationHandler&#123;</span><br><span class="line">    private Subject subject;</span><br><span class="line">    public ProxyHandler(Subject subject)&#123;</span><br><span class="line">        this.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object proxy, Method method, Object[] args)</span><br><span class="line">            throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;====before====&quot;);//定义预处理的工作，当然你也可以根据 method 的不同进行不同的预处理工作</span><br><span class="line">        Object result = method.invoke(subject, args);</span><br><span class="line">        System.out.println(&quot;====after====&quot;);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>InvocationHandler 接口中有方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke(Object proxy, Method method, Object[] args)</span><br></pre></td></tr></table></figure>
+
+<p>这个函数是在代理对象调用任何一个方法时都会调用的，方法不同会导致第二个参数 method 不同，第一个参数是代理对象（表示哪个代理对象调用了 method 方法），第二个参数是 Method 对象（表示哪个方法被调用了），第三个参数是指定调用方法的参数。</p>
+<p>动态生成的代理类具有几个特点：</p>
+<ul>
+<li>继承 Proxy 类，并实现了在 Proxy.newProxyInstance() 中提供的接口数组。</li>
+<li>public final。</li>
+<li>命名方式为 $ProxyN，其中 N 会慢慢增加，一开始是 $Proxy1，接下来是 $Proxy2…</li>
+<li>有一个参数为 InvocationHandler 的构造函数。这个从 Proxy.newProxyInstance() 函数内部的 clazz.getConstructor(new Class[] { InvocationHandler.class }) 可以看出。</li>
+</ul>
+<h5 id="Java-动态代理的内部实现"><a href="#Java-动态代理的内部实现" class="headerlink" title="Java 动态代理的内部实现"></a>Java 动态代理的内部实现</h5><p>现在我们就会有一个问题： Java 是怎么保证代理对象调用的任何方法都会调用 InvocationHandler 的 invoke() 方法的？<br>这就涉及到动态代理的内部实现。假设有一个接口 Subject，且里面有 int request(int i) 方法，则生成的代理类大致如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public final class $Proxy1 extends Proxy implements Subject&#123;</span><br><span class="line">    private InvocationHandler h;</span><br><span class="line">    private $Proxy1()&#123;&#125;</span><br><span class="line">    public $Proxy1(InvocationHandler h)&#123;</span><br><span class="line">        this.h = h;</span><br><span class="line">    &#125;</span><br><span class="line">    public int request(int i)&#123;</span><br><span class="line">        Method method = Subject.class.getMethod(&quot;request&quot;, new Class[]&#123;int.class&#125;); //创建method对象</span><br><span class="line">        return (Integer)h.invoke(this, method, new Object[]&#123;new Integer(i)&#125;); //调用了invoke方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的方法就成功调用了 invoke () 方法。</p>
+<h4 id="Cglib-动态代理"><a href="#Cglib-动态代理" class="headerlink" title="Cglib 动态代理"></a>Cglib 动态代理</h4><p>上面的静态代理和动态代理模式都是要求目标对象实现一个接口或者多个接口，但是有时候目标对象只是一个单独的对象，并没有实现任何的接口，这个时候就可以使用构建目标对象子类的方式实现代理，这种方法就叫做：Cglib 代理<br>　　Cglib 代理，也叫作子类代理，它是在内存中构建一个子类对象从而实现对目标对象功能的扩展.</p>
+<ul>
+<li><p>Cglib 是一个强大的高性能的代码生成包，它可以在运行期扩展 java 类与实现 java 接口。它广泛的被许多 AOP 的框架使用，例如 Spring AOP 和 synaop, 为他们提供方法的 interception (拦截)</p>
+</li>
+<li><p>Cglib 包的底层是通过使用字节码处理框架 ASM 来转换字节码并生成新的子类.</p>
+</li>
+<li><p>代理的类不能为 final, 否则报错；目标对象的方法如果为 final/static, 那么就不会被拦截，即不会执行目标对象额外的业务方法.</p>
+</li>
+</ul>
+<p>目标对象类：UserDao.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 目标对象,没有实现任何接口</span><br><span class="line"> */</span><br><span class="line">public class UserDao &#123;</span><br><span class="line"></span><br><span class="line">    public void save() &#123;</span><br><span class="line">        System.out.println(&quot;----已经保存数据!----&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Cglib 代理工厂：ProxyFactory.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Cglib子类代理工厂</span><br><span class="line">* 对UserDao在内存中动态构建一个子类对象</span><br><span class="line">*/</span><br><span class="line">public class ProxyFactory implements MethodInterceptor&#123;</span><br><span class="line">     //维护目标对象</span><br><span class="line">    private Object target;</span><br><span class="line"></span><br><span class="line">    public ProxyFactory(Object target) &#123;</span><br><span class="line">        this.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   //给目标对象创建一个代理对象</span><br><span class="line">    public Object getProxyInstance()&#123;</span><br><span class="line">        //1.工具类</span><br><span class="line">        Enhancer en = new Enhancer();</span><br><span class="line">       //2.设置父类</span><br><span class="line">        en.setSuperclass(target.getClass());</span><br><span class="line">        //3.设置回调函数</span><br><span class="line">        en.setCallback(this);</span><br><span class="line">        //4.创建子类(代理对象)</span><br><span class="line">        return en.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;开始事务...&quot;);</span><br><span class="line">        //执行目标对象的方法</span><br><span class="line">        Object returnValue = method.invoke(target, args);</span><br><span class="line">        System.out.println(&quot;提交事务...&quot;);</span><br><span class="line">        return returnValue;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 测试类</span><br><span class="line"> */</span><br><span class="line">public class App &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        //目标对象</span><br><span class="line">        UserDao target = new UserDao();</span><br><span class="line"></span><br><span class="line">        //代理对象</span><br><span class="line">        UserDao proxy = (UserDao)new ProxyFactory(target).getProxyInstance();</span><br><span class="line"></span><br><span class="line">        //执行代理对象的方法</span><br><span class="line">        proxy.save();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 Spring 的 AOP 编程中：<br>如果加入容器的目标对象有实现接口，就使用 JDK 代理<br>如果目标对象没有实现接口，就使用 Cglib 代理。</p>
+<p>[参考链接]<a href="https://juejin.im/post/59bb34ef5188257e8c54e030" target="_blank" rel="noopener">https://juejin.im/post/59bb34ef5188257e8c54e030</a><br>[参考链接]<a href="https://www.jianshu.com/p/6f6bb2f0ece9" target="_blank" rel="noopener">https://www.jianshu.com/p/6f6bb2f0ece9</a><br>[参考链接]<a href="https://github.com/biezhi/java-bible/blob/master/designpatterns/proxy.md" target="_blank" rel="noopener">https://github.com/biezhi/java-bible/blob/master/designpatterns/proxy.md</a></p>
 
       
 
@@ -233,7 +304,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux命令</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java、设计模式</a>
         		</li>
       		
 		</ul>
@@ -245,7 +316,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/java基础//" class="article-tag-list-link color2">java基础</a>
         		</li>
       		
 		</ul>
@@ -263,18 +334,18 @@
   
 <nav id="article-nav">
   
-    <a href="../../19/java多线程的生命周期/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../../12/02/bdmg部署/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          java多线程的生命周期
+          bdmg部署
         
       </div>
     </a>
   
   
-    <a href="../../13/计算机组成原理之基本概念/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">计算机组成原理之基本概念</div>
+    <a href="../../03/总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -400,19 +471,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -421,6 +488,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -436,19 +511,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,11 +523,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,7 +539,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,7 +547,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -488,15 +563,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,7 +571,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,7 +583,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,7 +599,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,10 +608,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,11 +623,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,7 +643,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,14 +660,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,6 +675,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
@@ -609,10 +688,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
