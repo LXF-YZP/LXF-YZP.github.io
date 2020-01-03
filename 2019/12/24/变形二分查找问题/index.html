@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>变形二分查找问题 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Binary Search 模板12345678910111213141516171819202122232425262728293031323334public int binarySearch(int[] arr, int key) &amp;#123;	int low = 0;	int high = arr.length - 1;	int mid = 0;	if (key &amp;lt; arr[low">
+  <meta name="description" content="二分查找依赖数组结构二分查找需要利用下标随机访问元素，如果我们想使用链表等其他数据结构则无法实现二分查找。 二分查找针对的是有序数据二分查找需要的数据必须是有序的。如果数据没有序，我们需要先排序，排序的时间复杂度最低是 O (nlogn)。所以，如果我们针对的是一组静态的数据，没有频繁地插入、删除，我们可以进行一次排序，多次二分查找。这样排序的成本可被均摊，二分查找的边际成本就会比较低。但是，如">
 <meta name="keywords" content="数据结构、算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="变形二分查找问题">
 <meta property="og:url" content="http://yoursite.com/2019/12/24/变形二分查找问题/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="Binary Search 模板12345678910111213141516171819202122232425262728293031323334public int binarySearch(int[] arr, int key) &amp;#123;	int low = 0;	int high = arr.length - 1;	int mid = 0;	if (key &amp;lt; arr[low">
+<meta property="og:description" content="二分查找依赖数组结构二分查找需要利用下标随机访问元素，如果我们想使用链表等其他数据结构则无法实现二分查找。 二分查找针对的是有序数据二分查找需要的数据必须是有序的。如果数据没有序，我们需要先排序，排序的时间复杂度最低是 O (nlogn)。所以，如果我们针对的是一组静态的数据，没有频繁地插入、删除，我们可以进行一次排序，多次二分查找。这样排序的成本可被均摊，二分查找的边际成本就会比较低。但是，如">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/12/24/变形二分查找问题/aaa.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/24/变形二分查找问题/bbb.png">
-<meta property="og:updated_time" content="2020-01-02T02:41:40.395Z">
+<meta property="og:updated_time" content="2020-01-03T07:46:05.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="变形二分查找问题">
-<meta name="twitter:description" content="Binary Search 模板12345678910111213141516171819202122232425262728293031323334public int binarySearch(int[] arr, int key) &amp;#123;	int low = 0;	int high = arr.length - 1;	int mid = 0;	if (key &amp;lt; arr[low">
+<meta name="twitter:description" content="二分查找依赖数组结构二分查找需要利用下标随机访问元素，如果我们想使用链表等其他数据结构则无法实现二分查找。 二分查找针对的是有序数据二分查找需要的数据必须是有序的。如果数据没有序，我们需要先排序，排序的时间复杂度最低是 O (nlogn)。所以，如果我们针对的是一组静态的数据，没有频繁地插入、删除，我们可以进行一次排序，多次二分查找。这样排序的成本可被均摊，二分查找的边际成本就会比较低。但是，如">
 <meta name="twitter:image" content="http://yoursite.com/2019/12/24/变形二分查找问题/aaa.png">
   
   
@@ -181,6 +181,13 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
+<li>二分查找依赖数组结构<br>二分查找需要利用下标随机访问元素，如果我们想使用链表等其他数据结构则无法实现二分查找。</li>
+<li>二分查找针对的是有序数据<br>二分查找需要的数据必须是有序的。如果数据没有序，我们需要先排序，排序的时间复杂度最低是 O (nlogn)。所以，如果我们针对的是一组静态的数据，没有频繁地插入、删除，我们可以进行一次排序，多次二分查找。这样排序的成本可被均摊，二分查找的边际成本就会比较低。<br>但是，如果我们的数据集合有频繁的插入和删除操作，要想用二分查找，要么每次插入、删除操作之后保证数据仍然有序，要么在每次二分查找之前都先进行排序。针对这种动态数据集合，无论哪种方法，维护有序的成本都是很高的。<br>所以，二分查找只能用在插入、删除操作不频繁，一次排序多次查找的场景中。针对动态变化的数据集合，二分查找将不再适用</li>
+<li>数据量太小不适合二分查找<br>如果要处理的数据量很小，完全没有必要用二分查找，顺序遍历就足够了。比如我们在一个大小为 10 的数组中查找一个元素，不管用二分查找还是顺序遍历，查找速度都差不多，只有数据量比较大的时候，二分查找的优势才会比较明显。</li>
+<li>数据量太大不适合二分查找<br>二分查找底层依赖的是数组，数组需要的是一段连续的存储空间，所以我们的数据比较大时，比如 1GB，这时候可能不太适合使用二分查找，因为我们的内存都是离散的，可能电脑没有这么多的内存。</li>
+</ul>
+<a id="more"></a>
+<ul>
 <li>Binary Search 模板<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public int binarySearch(int[] arr, int key) &#123;</span><br><span class="line">	int low = 0;</span><br><span class="line">	int high = arr.length - 1;</span><br><span class="line">	int mid = 0;</span><br><span class="line"></span><br><span class="line">	if (key &lt; arr[low] || key &gt; arr[high] || low &gt; high)</span><br><span class="line">		return -1;</span><br><span class="line">	while (low &lt;= high)&#123;</span><br><span class="line">		mid = (low + high) / 2;</span><br><span class="line">		if (arr[mid] &gt; key)</span><br><span class="line">			high = mid - 1;</span><br><span class="line">		else if (arr[mid] &lt; key)</span><br><span class="line">			low = mid + 1;</span><br><span class="line">		else</span><br><span class="line">			return mid;</span><br><span class="line">	&#125;</span><br><span class="line">	return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    int left = 0; </span><br><span class="line">    int right = nums.length - 1; // 注意</span><br><span class="line"></span><br><span class="line">    while(left &lt;= right) &#123;</span><br><span class="line">        int mid = (right + left) / 2;</span><br><span class="line">        if(nums[mid] == target)</span><br><span class="line">            return mid; </span><br><span class="line">        else if (nums[mid] &lt; target)</span><br><span class="line">            left = mid + 1; // 注意</span><br><span class="line">        else if (nums[mid] &gt; target)</span><br><span class="line">            right = mid - 1; // 注意</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
@@ -239,7 +246,7 @@
 
 <p>1.分析二分查找代码时，不要出现 else，全部展开成 else if 方便理解。</p>
 <p>2.注意「搜索区间」和 while 的终止条件，如果存在漏掉的元素，记得在最后检查。</p>
-<p>3.如需要搜索左右边界，只要在 nums [mid] == target 时做修改即可。搜索右侧时需要减一。<br>[参考链接]<a href="https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/</a></p>
+<p>3.如需要搜索左右边界，只要在 nums [mid] == target 时做修改即可。搜索右侧时需要减一。<br>[参考链接]<a href="https://juejin.im/post/5d510f76f265da039a287a30" target="_blank" rel="noopener">https://juejin.im/post/5d510f76f265da039a287a30</a><br>[参考链接]<a href="https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/</a></p>
 
       
 
@@ -454,6 +461,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
@@ -463,10 +474,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,15 +505,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,11 +517,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -526,7 +525,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,15 +549,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,19 +557,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +569,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,7 +597,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,11 +609,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,11 +629,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,7 +645,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -642,11 +653,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,23 +673,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
             
             <div class="clearfix"></div>
