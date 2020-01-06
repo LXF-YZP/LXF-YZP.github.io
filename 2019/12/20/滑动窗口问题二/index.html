@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="滑动窗口模板123456789101112131415161718192021222324252627282930313233343536373839404142public int slidingWindowTemplate(String[] a, ...) &amp;#123;    // 输入参数有效性判断    if (...) &amp;#123;        ...    &amp;#125;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-03T08:07:42.018Z">
+<meta property="og:updated_time" content="2020-01-06T10:01:47.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="滑动窗口问题二">
 <meta name="twitter:description" content="滑动窗口模板123456789101112131415161718192021222324252627282930313233343536373839404142public int slidingWindowTemplate(String[] a, ...) &amp;#123;    // 输入参数有效性判断    if (...) &amp;#123;        ...    &amp;#125;">
@@ -179,16 +179,26 @@
       
         <h3 id="滑动窗口模板"><a href="#滑动窗口模板" class="headerlink" title="滑动窗口模板"></a>滑动窗口模板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public int slidingWindowTemplate(String[] a, ...) &#123;</span><br><span class="line">    // 输入参数有效性判断</span><br><span class="line">    if (...) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 申请一个散列，用于记录窗口中具体元素的个数情况</span><br><span class="line">    // 这里用数组的形式呈现，也可以考虑其他数据结构</span><br><span class="line">    int[] hash = new int[...];</span><br><span class="line">    </span><br><span class="line">    // 预处理(可省), 一般情况是改变 hash</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    // l 表示左指针</span><br><span class="line">    // count 记录当前的条件，具体根据题目要求来定义</span><br><span class="line">    // result 用来存放结果</span><br><span class="line">    int l = 0, count = ..., result = ...;</span><br><span class="line">    for (int r = 0; r &lt; A.length; ++r) &#123;</span><br><span class="line">        // 更新新元素在散列中的数量</span><br><span class="line">        hash[A[r]]--;</span><br><span class="line">        </span><br><span class="line">        // 根据窗口的变更结果来改变条件值</span><br><span class="line">        if (hash[A[r]] == ...) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 如果当前条件不满足，移动左指针直至条件满足为止</span><br><span class="line">        while (count &gt; K || ...) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (...) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            hash[A[l]]++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 更新结果</span><br><span class="line">        results = ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="438-找到字符串中所有字母异位词"><a href="#438-找到字符串中所有字母异位词" class="headerlink" title="438. 找到字符串中所有字母异位词"></a><a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">438. 找到字符串中所有字母异位词</a></h4><p><strong><em>描述：</em></strong><br>给定一个字符串 s 和一个非空字符串 p，找到 s 中所有是 p 的字母异位词的子串，返回这些子串的起始索引。<br>字符串只包含小写英文字母，并且字符串 s 和 p 的长度都不超过 20100。<br><strong><em>说明：</em></strong></p>
-<ul>
-<li>字母异位词指字母相同，但排列不同的字符串。</li>
-<li>不考虑答案输出的顺序。</li>
-</ul>
-<p><strong><em>示例 1:</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">s: &quot;cbaebabacd&quot; p: &quot;abc&quot;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">[0, 6]</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">起始索引等于 0 的子串是 &quot;cba&quot;, 它是 &quot;abc&quot; 的字母异位词。</span><br><span class="line">起始索引等于 6 的子串是 &quot;bac&quot;, 它是 &quot;abc&quot; 的字母异位词。</span><br></pre></td></tr></table></figure>
+<h4 id="438-找到字符串中所有字母异位词"><a href="#438-找到字符串中所有字母异位词" class="headerlink" title="438. 找到字符串中所有字母异位词"></a><a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">438. 找到字符串中所有字母异位词</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;Integer&gt; findAnagrams(String s, String p) &#123;</span><br><span class="line"></span><br><span class="line">    //如果待匹配的子串比原始串长，直接返回空集合；</span><br><span class="line">    if (s.length() &lt; p.length()) &#123;</span><br><span class="line">        return new ArrayList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    //转换为字符数组</span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] pArr = p.toCharArray();</span><br><span class="line"></span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    //统计p字符串中每个字符出现的次数</span><br><span class="line">    for (int i = 0; i &lt; pArr.length; ++i) &#123;</span><br><span class="line">        hash[pArr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; results = new ArrayList&lt;&gt;();</span><br><span class="line">    int l = 0, count = 0, pLength = p.length();</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r] - &apos;a&apos;]--;</span><br><span class="line">        if (hash[sArr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (r &gt; pLength - 1) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;a&apos;]++;</span><br><span class="line">            if (hash[sArr[l] - &apos;a&apos;] &gt; 0) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (count == pLength) &#123;</span><br><span class="line">            results.add(l);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;Integer&gt; findAnagrams(String s, String p) &#123;</span><br><span class="line"></span><br><span class="line">    //如果待匹配的子串比原始串长，直接返回空集合；</span><br><span class="line">    if (s.length() &lt; p.length()) &#123;</span><br><span class="line">        return new ArrayList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    //转换为字符数组</span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] pArr = p.toCharArray();</span><br><span class="line"></span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    //统计p字符串中</span><br><span class="line">    for (int i = 0; i &lt; pArr.length; ++i) &#123;</span><br><span class="line">        hash[pArr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; results = new ArrayList&lt;&gt;();</span><br><span class="line">    int l = 0, count = 0, pLength = p.length();</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r] - &apos;a&apos;]--;</span><br><span class="line">        if (hash[sArr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (r &gt; pLength - 1) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;a&apos;]++;</span><br><span class="line">            if (hash[sArr[l] - &apos;a&apos;] &gt; 0) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (count == pLength) &#123;</span><br><span class="line">            results.add(l);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/" target="_blank" rel="noopener">76. 最小覆盖子串</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public String minWindow(String s, String t) &#123;</span><br><span class="line">    if (s.length() &lt; t.length()) &#123;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] tArr = t.toCharArray();</span><br><span class="line">        </span><br><span class="line">    int[] hash = new int[256];</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; tArr.length; ++i) &#123;</span><br><span class="line">        hash[tArr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int l = 0, count = tArr.length, max = s.length() + 1;</span><br><span class="line">    String result = &quot;&quot;;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r]]--;</span><br><span class="line">        </span><br><span class="line">        if (hash[sArr[r]] &gt;= 0) &#123;</span><br><span class="line">            count--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while (l &lt; r &amp;&amp; hash[sArr[l]] &lt; 0) &#123;</span><br><span class="line">            hash[sArr[l]]++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == 0 &amp;&amp; max &gt; r - l + 1) &#123;</span><br><span class="line">            max = r - l + 1;</span><br><span class="line">            result = s.substring(l, r + 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">    if (s == null || s.length() == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    int[] hash = new int[256];</span><br><span class="line">    </span><br><span class="line">    int l = 0, result = 1;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r]]++;</span><br><span class="line">        </span><br><span class="line">        while (hash[sArr[r]] != 1) &#123;</span><br><span class="line">            hash[sArr[l]]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result = Math.max(result, r - l + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="567-字符串的排列"><a href="#567-字符串的排列" class="headerlink" title="567. 字符串的排列"></a><a href="https://leetcode-cn.com/problems/permutation-in-string/" target="_blank" rel="noopener">567. 字符串的排列</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">if (s1.length() &gt; s2.length()) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] s1Arr = s1.toCharArray();</span><br><span class="line">    char[] s2Arr = s2.toCharArray();</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; s1Arr.length; ++i) &#123;</span><br><span class="line">        hash[s1Arr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int l = 0, count = 0;</span><br><span class="line">    for (int r = 0; r &lt; s2Arr.length; ++r) &#123;</span><br><span class="line">        hash[s2Arr[r] - &apos;a&apos;]--;</span><br><span class="line">        </span><br><span class="line">        if (hash[s2Arr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (r &gt;= s1Arr.length) &#123;</span><br><span class="line">            hash[s2Arr[l] - &apos;a&apos;]++;</span><br><span class="line">            </span><br><span class="line">            if (hash[s2Arr[l] - &apos;a&apos;] &gt;= 1) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == s1Arr.length) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return false;</span><br></pre></td></tr></table></figure>
+
+<h4 id="992-K-个不同整数的子数组"><a href="#992-K-个不同整数的子数组" class="headerlink" title="992. K 个不同整数的子数组"></a><a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/" target="_blank" rel="noopener">992. K 个不同整数的子数组</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public int subarraysWithKDistinct(int[] A, int K) &#123;</span><br><span class="line">    if (A == null || A.length &lt; K) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[A.length + 1];</span><br><span class="line">    </span><br><span class="line">    int l = 0, results = 0, count = 0, result = 1;</span><br><span class="line">    for (int r = 0; r &lt; A.length; ++r) &#123;</span><br><span class="line">        hash[A[r]]++;</span><br><span class="line">        </span><br><span class="line">        if (hash[A[r]] == 1) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while (hash[A[l]] &gt; 1 || count &gt; K) &#123;</span><br><span class="line">            if (count &gt; K) &#123;</span><br><span class="line">                result = 1;</span><br><span class="line">                count--;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                result++;</span><br><span class="line">            &#125;</span><br><span class="line">            hash[A[l]]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == K) &#123;</span><br><span class="line">            results += result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="424-替换后的最长重复字符"><a href="#424-替换后的最长重复字符" class="headerlink" title="424. 替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener">424. 替换后的最长重复字符</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public int characterReplacement(String s, int k) &#123;</span><br><span class="line">    if (s == null || s.length() == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    </span><br><span class="line">    int l = 0, maxCount = 0, result = 0;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r] - &apos;A&apos;]++;</span><br><span class="line">        </span><br><span class="line">        maxCount = Math.max(maxCount, hash[sArr[r] - &apos;A&apos;]);</span><br><span class="line">        </span><br><span class="line">        while (r - l + 1 - maxCount &gt; k) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;A&apos;]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result = Math.max(r - l + 1, result);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="480-滑动窗口中位数"><a href="#480-滑动窗口中位数" class="headerlink" title="480. 滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></h4><p><strong><em>题解</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public double[] medianSlidingWindow(int[] nums, int k) &#123;</span><br><span class="line">    if (nums == null || nums.length &lt; k ) &#123;</span><br><span class="line">        return new double[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    double[] results = new double[nums.length - k + 1];</span><br><span class="line">    </span><br><span class="line">    PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; nums.length; ++i) &#123;</span><br><span class="line">        // add current element into queue</span><br><span class="line">        maxHeap.offer(nums[i]);</span><br><span class="line">        minHeap.offer(maxHeap.poll());</span><br><span class="line">        </span><br><span class="line">        if (minHeap.size() &gt; maxHeap.size()) &#123;</span><br><span class="line">            maxHeap.offer(minHeap.poll());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // record answer</span><br><span class="line">        if (i &gt;= k - 1) &#123;</span><br><span class="line">            results[i - k + 1] = minHeap.size() &lt; maxHeap.size() </span><br><span class="line">                    ? maxHeap.peek() : ((long)maxHeap.peek() + minHeap.peek()) * 0.5;</span><br><span class="line"></span><br><span class="line">            if (maxHeap.contains(nums[i - k + 1])) &#123;</span><br><span class="line">                maxHeap.remove(nums[i - k + 1]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                minHeap.remove(nums[i - k + 1]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>[参考链接]<a href="https://juejin.im/post/5cccc9d1f265da0384129e5f" target="_blank" rel="noopener">https://juejin.im/post/5cccc9d1f265da0384129e5f</a><br>[参考链接]<a href="https://leetcode-cn.com/problems/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/</a></p>
 
@@ -393,10 +403,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
@@ -405,7 +411,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -413,15 +419,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -429,11 +435,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -441,7 +443,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,31 +463,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -485,7 +475,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,11 +507,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,7 +515,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,7 +531,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,15 +539,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,7 +547,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,15 +559,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -569,15 +575,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,19 +607,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,15 +623,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
