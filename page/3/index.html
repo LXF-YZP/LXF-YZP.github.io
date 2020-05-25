@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 114
+			总文章数 122
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -153,6 +153,709 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-设计模式之模板模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/19/设计模式之模板模式/">设计模式之模板模式</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/19/设计模式之模板模式/" class="archive-article-date">
+  	<time datetime="2020-03-19T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="模板模式优缺点"><a href="#模板模式优缺点" class="headerlink" title="模板模式优缺点"></a>模板模式优缺点</h3><p>优点:<br>使用模版方法模式，在定义算法骨架的同时，可以很灵活的实现具体的算法，满足用户灵活多变的需求，封装不变部分，扩展可变部分；例如你装饰房子的方法有很多种，每一种都可能给你带来不一样的体验；<br>提取公共代码，有利于后期的维护；例如每个房间功能明确；<br>行为由父类控制，子类实现；比如定义了厨房这个房间，具体厨房要怎么装修，要看你的做法；<br>缺点:<br>如果算法骨架有修改的话，则需要修改抽象类；(修改整体框架是很困难的)<br>每一个不同的实现都需要一个子类来实现，导致类的个数增加，使得系统更加庞大。(这里类似于房间的装修方案)</p>
+        
+          <a class="article-more-a" href="../../2020/03/19/设计模式之模板模式/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/19/设计模式之模板模式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-jdk1.7hashmap多线程下成环原因" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/18/jdk1.7hashmap多线程下成环原因/">jdk1.7hashmap多线程下成环原因</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/18/jdk1.7hashmap多线程下成环原因/" class="archive-article-date">
+  	<time datetime="2020-03-18T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>jdk1.7下hashmap的部分源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void transfer(Entry[] newTable)&#123;</span><br><span class="line">        Entry[] src=table;</span><br><span class="line">        int newCapacity=newTable.length;    </span><br><span class="line">        for(int j=0;j&lt;src.length;j++)&#123;</span><br><span class="line">            Entry&lt;K, V&gt; e=src[j];</span><br><span class="line">            if(e!=null)&#123;</span><br><span class="line">                src[j]=null;</span><br><span class="line">                do&#123;</span><br><span class="line">                    Entry&lt;K, V&gt; next=e.next;// 保存下一次循环的 Entry</span><br><span class="line">                    // 在新的 table 中求得适合插入的位置</span><br><span class="line">                    int i=indexFor(e.hash, newCapacity);</span><br><span class="line">                    e.next=newTable[i];//  如果 I 位置原来没有值，则直接插入；有值，采用链头插入法</span><br><span class="line">                    newTable[i]=e;</span><br><span class="line">                    // 轮替，下一次循环</span><br><span class="line">                    e=next;</span><br><span class="line">                &#125;while(e!=null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="../../2020/03/18/jdk1.7hashmap多线程下成环原因/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jdk</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/jdk源码//" class="article-tag-list-link color1">jdk源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/18/jdk1.7hashmap多线程下成环原因/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-jar包的执行方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/17/jar包的执行方式/">jar包的执行方式</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/17/jar包的执行方式/" class="archive-article-date">
+  	<time datetime="2020-03-17T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>System.getProperty(“user.home”);//当前登录用户目录<br>System.getProperty(“user.dir”);//jar包所在目录名</p>
+<p>java -cp执行jar包的时候，可以指定外部依赖<br>java -cp aaa.jar(要执行的jar包):/data/apps/ilb/*(要执行jar包所依赖的jar文件) com.chinacache.Main(jar包运行的主类)</p>
+        
+          <a class="article-more-a" href="../../2020/03/17/jar包的执行方式/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux命令</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/jar包//" class="article-tag-list-link color5">jar包</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/17/jar包的执行方式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-String源码学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/10/String源码学习/">String源码学习</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/10/String源码学习/" class="archive-article-date">
+  	<time datetime="2020-03-10T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>调用String stringValue = new String(“asdre”);时，才会调用构造方法执行 value 的赋值操作，值是来自于字符串字面量 “asdre” 这个 String 对象的。<br>比较好奇的是在调用构造之前 “asdre” 是怎么被初始化的，事实上这段字符串是写在 Java 代码里的，编译器遇到这段字符串后会将字符串字面量的内容编译到 class bytecode 二进制文件中。当虚拟机加载这个 class 文件时，这种字符串字面量会被 JVM 初始化成一个 String 对象，存储在字符串常量池中。</p>
+<p>也就是说这个 String 对象是虚拟机进行初始化产生的，而字符串内容的来源是二进制的 class 文件，而二进制文件中的来源就是您在 java 源码文本中写入的值。</p>
+<p>1.直接赋值（String str = “hello”）：只开辟一块堆内存空间，并且会自动入池，不会产生垃圾。</p>
+<p>2.构造方法（String str=  new String (“hello”);）: 会开辟两块堆内存空间，其中一块堆内存会变成垃圾被系统回收，而且不能够自动入池，需要通过 public  String intern (); 方法进行手工入池。</p>
+<p>ew String () 和 new String (“”) 都是申明一个新的空字符串，是空串不是 null；</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/jdk源码//" class="article-tag-list-link color1">jdk源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/10/String源码学习/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hashmap中的干扰函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/10/hashmap中的干扰函数/">hashmap中的干扰函数</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/10/hashmap中的干扰函数/" class="archive-article-date">
+  	<time datetime="2020-03-10T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HashMap 最多只允许一条记录的键为 Null；允许多条记录的值为 Null；<br>jdk1.8中hashmap的代码片段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="../../2020/03/10/hashmap中的干扰函数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/jdk源码//" class="article-tag-list-link color1">jdk源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/10/hashmap中的干扰函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Idea编译器使用技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/09/Idea编译器使用技巧/">hbase学习</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/09/Idea编译器使用技巧/" class="archive-article-date">
+  	<time datetime="2020-03-09T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>新版idea复制错误信息<br>windows：按着 alt 左键点击错误信息<br>mac：按着 option 左键点击错误信息</p>
+<p>返回上次代码跳转的方向：command+alt+左右方向键</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">编译器使用技巧</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编译器//" class="article-tag-list-link color4">编译器</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/09/Idea编译器使用技巧/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hbase学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/03/03/hbase学习/">hbase学习</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/03/03/hbase学习/" class="archive-article-date">
+  	<time datetime="2020-03-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查看某张表全部rowkey</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">count &apos;表名&apos;, INTETVAL=1&lt;表示rowkey之间的间隔&gt;</span><br><span class="line">count &apos;&lt;tablename&gt;&apos;, CACHE =&gt; 1000&lt;表示rowkey之间的间隔&gt;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="../../2020/03/03/hbase学习/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">大数据技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/大数据//" class="article-tag-list-link color4">大数据</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/03/03/hbase学习/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-二零一九年终总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/31/二零一九年终总结/">二零一九年终总结</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/31/二零一九年终总结/" class="archive-article-date">
+  	<time datetime="2019-12-31T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="过去"><a href="#过去" class="headerlink" title="过去"></a>过去</h3><blockquote>
+<p>2019年马上就要过去了，回顾这一年感觉时间过的是真快啊；这一年有收获也有遗憾，总结出来就是忙忙碌碌，碌碌无为；<br>这一年不知为何突然很怀念大学(虽然大学没怎么学习)，这感觉很莫名其妙，也许是大学学的不怎么好，现在想好好学吧；<br>年初的时候不知为何想起来重学数据结构和算法了，于是买了好几本数据结构和算法的书，但是一年下来看完的没几本，算是一个遗憾吧；但是学习了关于数据结构和算法的几个专栏，在十月份还报了一个算法班，这也算是一个收获吧；学下来感觉数据结构也没有那么难，古人总结的很到位，但手熟尔，要想熟悉必须要进行可以练习，关于刻意练习今年还是有点收获的。</p>
+</blockquote>
+        
+          <a class="article-more-a" href="../../2019/12/31/二零一九年终总结/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/31/二零一九年终总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-背包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -322,757 +1025,9 @@
 
 
   
-    <article id="post-变形二分查找问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/24/变形二分查找问题/">变形二分查找问题</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/24/变形二分查找问题/" class="archive-article-date">
-  	<time datetime="2019-12-24T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>二分查找依赖数组结构<br>二分查找需要利用下标随机访问元素，如果我们想使用链表等其他数据结构则无法实现二分查找。</li>
-<li>二分查找针对的是有序数据<br>二分查找需要的数据必须是有序的。如果数据没有序，我们需要先排序，排序的时间复杂度最低是 O (nlogn)。所以，如果我们针对的是一组静态的数据，没有频繁地插入、删除，我们可以进行一次排序，多次二分查找。这样排序的成本可被均摊，二分查找的边际成本就会比较低。<br>但是，如果我们的数据集合有频繁的插入和删除操作，要想用二分查找，要么每次插入、删除操作之后保证数据仍然有序，要么在每次二分查找之前都先进行排序。针对这种动态数据集合，无论哪种方法，维护有序的成本都是很高的。<br>所以，二分查找只能用在插入、删除操作不频繁，一次排序多次查找的场景中。针对动态变化的数据集合，二分查找将不再适用</li>
-<li>数据量太小不适合二分查找<br>如果要处理的数据量很小，完全没有必要用二分查找，顺序遍历就足够了。比如我们在一个大小为 10 的数组中查找一个元素，不管用二分查找还是顺序遍历，查找速度都差不多，只有数据量比较大的时候，二分查找的优势才会比较明显。</li>
-<li>数据量太大不适合二分查找<br>二分查找底层依赖的是数组，数组需要的是一段连续的存储空间，所以我们的数据比较大时，比如 1GB，这时候可能不太适合使用二分查找，因为我们的内存都是离散的，可能电脑没有这么多的内存。</li>
-</ul>
-        
-          <a class="article-more-a" href="../../2019/12/24/变形二分查找问题/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/二分查找//" class="article-tag-list-link color5">二分查找</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/24/变形二分查找问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-双指针问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/22/双指针问题/">双指针问题</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/22/双指针问题/" class="archive-article-date">
-  	<time datetime="2019-12-22T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>双指针一般可以分为两类，一类是快慢指针问题，一类是左右指针问题；</p>
-        
-          <a class="article-more-a" href="../../2019/12/22/双指针问题/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/双指针技巧//" class="article-tag-list-link color1">双指针技巧</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/22/双指针问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-滑动窗口问题二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/20/滑动窗口问题二/">滑动窗口问题二</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/20/滑动窗口问题二/" class="archive-article-date">
-  	<time datetime="2019-12-20T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="滑动窗口模板"><a href="#滑动窗口模板" class="headerlink" title="滑动窗口模板"></a>滑动窗口模板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public int slidingWindowTemplate(String[] a, ...) &#123;</span><br><span class="line">    // 输入参数有效性判断</span><br><span class="line">    if (...) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 申请一个散列，用于记录窗口中具体元素的个数情况</span><br><span class="line">    // 这里用数组的形式呈现，也可以考虑其他数据结构</span><br><span class="line">    int[] hash = new int[...];</span><br><span class="line">    </span><br><span class="line">    // 预处理(可省), 一般情况是改变 hash</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    // l 表示左指针</span><br><span class="line">    // count 记录当前的条件，具体根据题目要求来定义</span><br><span class="line">    // result 用来存放结果</span><br><span class="line">    int l = 0, count = ..., result = ...;</span><br><span class="line">    for (int r = 0; r &lt; A.length; ++r) &#123;</span><br><span class="line">        // 更新新元素在散列中的数量</span><br><span class="line">        hash[A[r]]--;</span><br><span class="line">        </span><br><span class="line">        // 根据窗口的变更结果来改变条件值</span><br><span class="line">        if (hash[A[r]] == ...) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 如果当前条件不满足，移动左指针直至条件满足为止</span><br><span class="line">        while (count &gt; K || ...) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (...) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            hash[A[l]]++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 更新结果</span><br><span class="line">        results = ...</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="438-找到字符串中所有字母异位词"><a href="#438-找到字符串中所有字母异位词" class="headerlink" title="438. 找到字符串中所有字母异位词"></a><a href="https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/" target="_blank" rel="noopener">438. 找到字符串中所有字母异位词</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;Integer&gt; findAnagrams(String s, String p) &#123;</span><br><span class="line"></span><br><span class="line">    //如果待匹配的子串比原始串长，直接返回空集合；</span><br><span class="line">    if (s.length() &lt; p.length()) &#123;</span><br><span class="line">        return new ArrayList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    //转换为字符数组</span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] pArr = p.toCharArray();</span><br><span class="line"></span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    //统计p字符串中每个字符出现的次数</span><br><span class="line">    for (int i = 0; i &lt; pArr.length; ++i) &#123;</span><br><span class="line">        hash[pArr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;Integer&gt; results = new ArrayList&lt;&gt;();</span><br><span class="line">    int l = 0, count = 0, pLength = p.length();</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r] - &apos;a&apos;]--;</span><br><span class="line">        if (hash[sArr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (r &gt; pLength - 1) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;a&apos;]++;</span><br><span class="line">            if (hash[sArr[l] - &apos;a&apos;] &gt; 0) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        if (count == pLength) &#123;</span><br><span class="line">            results.add(l);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a><a href="https://leetcode-cn.com/problems/minimum-window-substring/" target="_blank" rel="noopener">76. 最小覆盖子串</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public String minWindow(String s, String t) &#123;</span><br><span class="line">    if (s.length() &lt; t.length()) &#123;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    char[] tArr = t.toCharArray();</span><br><span class="line">        </span><br><span class="line">    int[] hash = new int[256];</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; tArr.length; ++i) &#123;</span><br><span class="line">        hash[tArr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int l = 0, count = tArr.length, max = s.length() + 1;</span><br><span class="line">    String result = &quot;&quot;;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r]]--;</span><br><span class="line">        </span><br><span class="line">        if (hash[sArr[r]] &gt;= 0) &#123;</span><br><span class="line">            count--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while (l &lt; r &amp;&amp; hash[sArr[l]] &lt; 0) &#123;</span><br><span class="line">            hash[sArr[l]]++;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == 0 &amp;&amp; max &gt; r - l + 1) &#123;</span><br><span class="line">            max = r - l + 1;</span><br><span class="line">            result = s.substring(l, r + 1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-无重复字符的最长子串"><a href="#3-无重复字符的最长子串" class="headerlink" title="3. 无重复字符的最长子串"></a><a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">    if (s == null || s.length() == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    int[] hash = new int[256];</span><br><span class="line">    </span><br><span class="line">    int l = 0, result = 1;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r]]++;</span><br><span class="line">        </span><br><span class="line">        while (hash[sArr[r]] != 1) &#123;</span><br><span class="line">            hash[sArr[l]]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result = Math.max(result, r - l + 1);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="567-字符串的排列"><a href="#567-字符串的排列" class="headerlink" title="567. 字符串的排列"></a><a href="https://leetcode-cn.com/problems/permutation-in-string/" target="_blank" rel="noopener">567. 字符串的排列</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">if (s1.length() &gt; s2.length()) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] s1Arr = s1.toCharArray();</span><br><span class="line">    char[] s2Arr = s2.toCharArray();</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; s1Arr.length; ++i) &#123;</span><br><span class="line">        hash[s1Arr[i] - &apos;a&apos;]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int l = 0, count = 0;</span><br><span class="line">    for (int r = 0; r &lt; s2Arr.length; ++r) &#123;</span><br><span class="line">        hash[s2Arr[r] - &apos;a&apos;]--;</span><br><span class="line">        </span><br><span class="line">        if (hash[s2Arr[r] - &apos;a&apos;] &gt;= 0) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (r &gt;= s1Arr.length) &#123;</span><br><span class="line">            hash[s2Arr[l] - &apos;a&apos;]++;</span><br><span class="line">            </span><br><span class="line">            if (hash[s2Arr[l] - &apos;a&apos;] &gt;= 1) &#123;</span><br><span class="line">                count--;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == s1Arr.length) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return false;</span><br></pre></td></tr></table></figure>
-
-<h4 id="992-K-个不同整数的子数组"><a href="#992-K-个不同整数的子数组" class="headerlink" title="992. K 个不同整数的子数组"></a><a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/" target="_blank" rel="noopener">992. K 个不同整数的子数组</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public int subarraysWithKDistinct(int[] A, int K) &#123;</span><br><span class="line">    if (A == null || A.length &lt; K) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[A.length + 1];</span><br><span class="line">    </span><br><span class="line">    int l = 0, results = 0, count = 0, result = 1;</span><br><span class="line">    for (int r = 0; r &lt; A.length; ++r) &#123;</span><br><span class="line">        hash[A[r]]++;</span><br><span class="line">        </span><br><span class="line">        if (hash[A[r]] == 1) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while (hash[A[l]] &gt; 1 || count &gt; K) &#123;</span><br><span class="line">            if (count &gt; K) &#123;</span><br><span class="line">                result = 1;</span><br><span class="line">                count--;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                result++;</span><br><span class="line">            &#125;</span><br><span class="line">            hash[A[l]]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if (count == K) &#123;</span><br><span class="line">            results += result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="424-替换后的最长重复字符"><a href="#424-替换后的最长重复字符" class="headerlink" title="424. 替换后的最长重复字符"></a><a href="https://leetcode-cn.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener">424. 替换后的最长重复字符</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public int characterReplacement(String s, int k) &#123;</span><br><span class="line">    if (s == null || s.length() == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    char[] sArr = s.toCharArray();</span><br><span class="line">    </span><br><span class="line">    int[] hash = new int[26];</span><br><span class="line">    </span><br><span class="line">    int l = 0, maxCount = 0, result = 0;</span><br><span class="line">    for (int r = 0; r &lt; sArr.length; ++r) &#123;</span><br><span class="line">        hash[sArr[r] - &apos;A&apos;]++;</span><br><span class="line">        </span><br><span class="line">        maxCount = Math.max(maxCount, hash[sArr[r] - &apos;A&apos;]);</span><br><span class="line">        </span><br><span class="line">        while (r - l + 1 - maxCount &gt; k) &#123;</span><br><span class="line">            hash[sArr[l] - &apos;A&apos;]--;</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result = Math.max(r - l + 1, result);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="480-滑动窗口中位数"><a href="#480-滑动窗口中位数" class="headerlink" title="480. 滑动窗口中位数"></a><a href="https://leetcode-cn.com/problems/sliding-window-median/" target="_blank" rel="noopener">480. 滑动窗口中位数</a></h4><p><strong><em>题解</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public double[] medianSlidingWindow(int[] nums, int k) &#123;</span><br><span class="line">    if (nums == null || nums.length &lt; k ) &#123;</span><br><span class="line">        return new double[0];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    double[] results = new double[nums.length - k + 1];</span><br><span class="line">    </span><br><span class="line">    PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());</span><br><span class="line">    </span><br><span class="line">    for (int i = 0; i &lt; nums.length; ++i) &#123;</span><br><span class="line">        // add current element into queue</span><br><span class="line">        maxHeap.offer(nums[i]);</span><br><span class="line">        minHeap.offer(maxHeap.poll());</span><br><span class="line">        </span><br><span class="line">        if (minHeap.size() &gt; maxHeap.size()) &#123;</span><br><span class="line">            maxHeap.offer(minHeap.poll());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // record answer</span><br><span class="line">        if (i &gt;= k - 1) &#123;</span><br><span class="line">            results[i - k + 1] = minHeap.size() &lt; maxHeap.size() </span><br><span class="line">                    ? maxHeap.peek() : ((long)maxHeap.peek() + minHeap.peek()) * 0.5;</span><br><span class="line"></span><br><span class="line">            if (maxHeap.contains(nums[i - k + 1])) &#123;</span><br><span class="line">                maxHeap.remove(nums[i - k + 1]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                minHeap.remove(nums[i - k + 1]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return results;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[参考链接]<a href="https://juejin.im/post/5cccc9d1f265da0384129e5f" target="_blank" rel="noopener">https://juejin.im/post/5cccc9d1f265da0384129e5f</a><br>[参考链接]<a href="https://leetcode-cn.com/problems/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">滑动窗口</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode算法//" class="article-tag-list-link color1">LeetCode算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/20/滑动窗口问题二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-滑动窗口问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/19/滑动窗口问题/">滑动窗口问题</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/19/滑动窗口问题/" class="archive-article-date">
-  	<time datetime="2019-12-19T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="LeetCode-239-滑动窗口最大值"><a href="#LeetCode-239-滑动窗口最大值" class="headerlink" title="LeetCode 239. 滑动窗口最大值"></a>LeetCode <a href="https://leetcode-cn.com/problems/sliding-window-maximum/" target="_blank" rel="noopener">239. 滑动窗口最大值</a></h4><blockquote>
-<p>给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。<br>返回滑动窗口中的最大值。</p>
-</blockquote>
-<ul>
-<li>题目解析<br>利用一个 双端队列，在队列中存储元素在数组中的位置， 并且维持队列的严格递减，，也就说维持队首元素是 <strong>最大的</strong>，当遍历到一个新元素时，如果队列里有比当前元素小的，就将其移除队列，以保证队列的递减。当队列元素位置之差大于 k，就将队首元素移除。</li>
-</ul>
-<p>Deque 继承自 Queue（队列）(详情见下方参考链接)，它的直接实现有 ArrayDeque、LinkedList 等。</p>
-        
-          <a class="article-more-a" href="../../2019/12/19/滑动窗口问题/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">滑动窗口</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode算法//" class="article-tag-list-link color1">LeetCode算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/19/滑动窗口问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-刷LeetCode常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/18/刷LeetCode常用函数/">刷LeetCode常用函数</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/18/刷LeetCode常用函数/" class="archive-article-date">
-  	<time datetime="2019-12-18T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>java.util.Arrays.fill () 方法只适合于把数组用同一个值初始化。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">float[] height = new float[20]；</span><br><span class="line">java.util.Arrays.fill( height, 175.5f );</span><br><span class="line">表示用 float 型的值 175.5f 初始化数组 height [20] ，即用此值填充所有数组项。</span><br><span class="line"></span><br><span class="line">Arrays.fill（）函数</span><br><span class="line"></span><br><span class="line">用法 1：接受 2 个参数</span><br><span class="line">Arrays.fill（ a1, value ）;</span><br><span class="line">注：a1 是一个数组变量，value 是一个 a1 中元素数据类型的值，作用：填充 a1 数组中的每个元素都是 value</span><br><span class="line">例如：</span><br><span class="line">boolean[] a1 = new boolean[5];</span><br><span class="line">Arrays.fill( a1,true );</span><br><span class="line">结果 a1 [] = &#123;true,true,true,true,true&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">用法 2：接受 4 个参数</span><br><span class="line">例如：</span><br><span class="line">String[] a9 = new String[6];</span><br><span class="line">Arrays.fill(a9, &quot;Hello&quot;);</span><br><span class="line">Arrays.fill(a9, 3, 5,&quot;World&quot;);</span><br><span class="line">结果是 a9 [] = &#123;Hello,Hello,Hello,World,World,Hello&#125;;</span><br><span class="line">第一个参数指操作的数组，第二个和第三个指在该数组的某个区域插入第四个参数，第二个参数指起始元素下标（包含该下标），第三个参数指结束下标（不包含该下标），注意：java 的数组下标从 0 开始</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Math求最大最小值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Math.max( , ) : 计算最大值</span><br><span class="line">Math.min( , ) : 计算最小值</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>求两个集合交集</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// HashSet&lt;Integer&gt; set1 = new HashSet&lt;Integer&gt;();</span><br><span class="line">// for (Integer n : nums1) set1.add(n);</span><br><span class="line">// HashSet&lt;Integer&gt; set2 = new HashSet&lt;Integer&gt;();</span><br><span class="line">// for (Integer n : nums2) set2.add(n);</span><br><span class="line">// set1.retainAll(set2);</span><br></pre></td></tr></table></figure>
-
-<p>当 Map 集合中有这个 key 时，就使用这个 key 值，如果没有就使用默认值 defaultValue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getOrDefault(Object key, V defaultValue)</span><br></pre></td></tr></table></figure>
-
-<p>判断整数是不是回文数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String reversedStr = (new StringBuilder(x + &quot;&quot;)).reverse().toString();</span><br><span class="line">return (x + &quot;&quot;).equals(reversedStr);</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java常用方法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/LeetCode算法//" class="article-tag-list-link color1">LeetCode算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/18/刷LeetCode常用函数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-完全二叉树叶子节点数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/17/完全二叉树叶子节点数/">完全二叉树叶子节点数</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/17/完全二叉树叶子节点数/" class="archive-article-date">
-  	<time datetime="2019-12-17T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>定义：若设二叉树的深度为 h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全二叉树;</p>
-</blockquote>
-        
-          <a class="article-more-a" href="../../2019/12/17/完全二叉树叶子节点数/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/二叉树//" class="article-tag-list-link color4">二叉树</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/17/完全二叉树叶子节点数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LeetCode之接雨水" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/16/LeetCode之接雨水/">LeetCode之接雨水</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/16/LeetCode之接雨水/" class="archive-article-date">
-  	<time datetime="2019-12-16T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>题目描述：给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
-</blockquote>
-        
-          <a class="article-more-a" href="../../2019/12/16/LeetCode之接雨水/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/栈、双指针、动态规划//" class="article-tag-list-link color1">栈、双指针、动态规划</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/16/LeetCode之接雨水/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-三次握手和四次挥手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/15/三次握手和四次挥手/">三次握手和四次挥手</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/15/三次握手和四次挥手/" class="archive-article-date">
-  	<time datetime="2019-12-15T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h3><p>TCP 是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的 “连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如 ip 地址、端口号等。</p>
-<p>TCP 可以看成是一种字节流，它会处理 IP 层或以下的层的丢包、重复以及错误问题。在连接的建立过程中，双方需要交换一些连接的参数。这些参数可以放在 TCP 头部。</p>
-<p>TCP 提供了一种可靠、面向连接、字节流、传输层的服务，采用三次握手建立一个连接。采用 4 次挥手来关闭一个连接。</p>
-        
-          <a class="article-more-a" href="../../2019/12/15/三次握手和四次挥手/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/tcp协议//" class="article-tag-list-link color1">tcp协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/15/三次握手和四次挥手/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="../2/">&laquo; Prev</a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="space">&hellip;</span><a class="page-number" href="../12/">12</a><a class="extend next" rel="next" href="../4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="../2/">&laquo; Prev</a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="space">&hellip;</span><a class="page-number" href="../13/">13</a><a class="extend next" rel="next" href="../4/">Next &raquo;</a>
     </nav>
   
 
@@ -1167,31 +1122,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1199,7 +1134,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1207,27 +1162,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,11 +1174,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1247,7 +1190,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1255,7 +1206,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1263,11 +1214,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1279,7 +1238,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1287,11 +1246,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1303,7 +1262,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1311,11 +1270,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1327,15 +1286,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1343,11 +1298,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,15 +1318,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1375,7 +1334,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1387,6 +1346,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
@@ -1395,19 +1358,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1419,27 +1374,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1447,11 +1390,43 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
             
             <div class="clearfix"></div>

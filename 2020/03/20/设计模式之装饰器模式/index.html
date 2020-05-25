@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>模板模式 | 观鱼入知命</title>
+  <title>设计模式之装饰器模式 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="模板模式优缺点优点:使用模版方法模式，在定义算法骨架的同时，可以很灵活的实现具体的算法，满足用户灵活多变的需求，封装不变部分，扩展可变部分；例如你装饰房子的方法有很多种，每一种都可能给你带来不一样的体验；提取公共代码，有利于后期的维护；例如每个房间功能明确；行为由父类控制，子类实现；比如定义了厨房这个房间，具体厨房要怎么装修，要看你的做法；缺点:如果算法骨架有修改的话，则需要修改抽象类；(修改整体">
-<meta name="keywords" content="设计模式">
+  <meta name="description" content="装饰器模式: 在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象。">
+<meta name="keywords" content="装饰器模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模板模式">
-<meta property="og:url" content="http://yoursite.com/2020/03/19/模板模式/index.html">
+<meta property="og:title" content="设计模式之装饰器模式">
+<meta property="og:url" content="http://yoursite.com/2020/03/20/设计模式之装饰器模式/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="模板模式优缺点优点:使用模版方法模式，在定义算法骨架的同时，可以很灵活的实现具体的算法，满足用户灵活多变的需求，封装不变部分，扩展可变部分；例如你装饰房子的方法有很多种，每一种都可能给你带来不一样的体验；提取公共代码，有利于后期的维护；例如每个房间功能明确；行为由父类控制，子类实现；比如定义了厨房这个房间，具体厨房要怎么装修，要看你的做法；缺点:如果算法骨架有修改的话，则需要修改抽象类；(修改整体">
+<meta property="og:description" content="装饰器模式: 在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-06T02:10:20.902Z">
+<meta property="og:updated_time" content="2020-05-22T03:41:30.874Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="模板模式">
-<meta name="twitter:description" content="模板模式优缺点优点:使用模版方法模式，在定义算法骨架的同时，可以很灵活的实现具体的算法，满足用户灵活多变的需求，封装不变部分，扩展可变部分；例如你装饰房子的方法有很多种，每一种都可能给你带来不一样的体验；提取公共代码，有利于后期的维护；例如每个房间功能明确；行为由父类控制，子类实现；比如定义了厨房这个房间，具体厨房要怎么装修，要看你的做法；缺点:如果算法骨架有修改的话，则需要修改抽象类；(修改整体">
+<meta name="twitter:title" content="设计模式之装饰器模式">
+<meta name="twitter:description" content="装饰器模式: 在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 114
+			总文章数 122
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -157,42 +157,46 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-模板模式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-设计模式之装饰器模式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      模板模式
+      设计模式之装饰器模式
     </h1>
   
 
         
         <a href="" class="archive-article-date">
-  	<time datetime="2020-03-19T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+  	<time datetime="2020-03-20T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="模板模式优缺点"><a href="#模板模式优缺点" class="headerlink" title="模板模式优缺点"></a>模板模式优缺点</h3><p>优点:<br>使用模版方法模式，在定义算法骨架的同时，可以很灵活的实现具体的算法，满足用户灵活多变的需求，封装不变部分，扩展可变部分；例如你装饰房子的方法有很多种，每一种都可能给你带来不一样的体验；<br>提取公共代码，有利于后期的维护；例如每个房间功能明确；<br>行为由父类控制，子类实现；比如定义了厨房这个房间，具体厨房要怎么装修，要看你的做法；<br>缺点:<br>如果算法骨架有修改的话，则需要修改抽象类；(修改整体框架是很困难的)<br>每一个不同的实现都需要一个子类来实现，导致类的个数增加，使得系统更加庞大。(这里类似于房间的装修方案)</p>
+        <blockquote>
+<p>装饰器模式: 在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象。</p>
+</blockquote>
 <a id="more"></a>
-<h3 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h3><p>设计模板类，也就是父类，由父类规定好框架，抽象方法以及父类的功能；<br>具体实现留给继承父类的子类进行实现；这样就实现了父类的重复使用，也就是模板；</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>首先定义一个模板类，它的非抽象方法需要定为 final, 因为它不希望被子类继承和改写，这个功能是父类特有的；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">abstract class House &#123;</span><br><span class="line">    // 子类要实现的方法;</span><br><span class="line">    public abstract void bathroom();</span><br><span class="line">    public abstract void bedroom();</span><br><span class="line">    public abstract void kitchen();</span><br><span class="line"></span><br><span class="line">    // 为了避免子类继承, 一般模板的方法都加上final;</span><br><span class="line">    public final void decorate() &#123;</span><br><span class="line">        // 装修浴室;</span><br><span class="line">        bathroom();</span><br><span class="line"></span><br><span class="line">        // 装修卧室;</span><br><span class="line">        bedroom();</span><br><span class="line"></span><br><span class="line">        // 装修厨房;</span><br><span class="line">        kitchen();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="装饰器模式组成"><a href="#装饰器模式组成" class="headerlink" title="装饰器模式组成"></a>装饰器模式组成</h3><ul>
+<li>抽象组件角色 (Component): 定义可以动态添加任务的对象的接口</li>
+<li>具体组件角色 (ConcreteComponent)：定义一个要被装饰器装饰的对象，即 Component 的具体实现</li>
+<li>抽象装饰器 (Decorator): 维护对组件对象和其子类组件的引用</li>
+<li>具体装饰器角色 (ConcreteDecorator)：向组件添加新的职责</li>
+</ul>
+<h4 id="抽象组件类和具体组件类"><a href="#抽象组件类和具体组件类" class="headerlink" title="抽象组件类和具体组件类"></a>抽象组件类和具体组件类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">abstract class Component &#123;</span><br><span class="line">    public abstract void operation();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ConcreteComponent extends Component &#123;</span><br><span class="line">    public void operation()&#123;</span><br><span class="line">        System.out.println(&quot;ConcreteComponent say&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>接下来是实现子类，这里我们实现两个装修方案:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class scheme1 extends House &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void bathroom() &#123;</span><br><span class="line">        System.out.println(&quot;bathroom scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void bedroom() &#123;</span><br><span class="line">        System.out.println(&quot;bedroom scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void kitchen() &#123;</span><br><span class="line">        System.out.println(&quot;kitchen scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class scheme1 extends House &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void bathroom() &#123;</span><br><span class="line">        System.out.println(&quot;bathroom scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void bedroom() &#123;</span><br><span class="line">        System.out.println(&quot;bedroom scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void kitchen() &#123;</span><br><span class="line">        System.out.println(&quot;kitchen scheme one!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="抽象装饰器类和具体装饰器类"><a href="#抽象装饰器类和具体装饰器类" class="headerlink" title="抽象装饰器类和具体装饰器类"></a>抽象装饰器类和具体装饰器类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">abstract class Decorator extends Component &#123;</span><br><span class="line">    protected Component component;</span><br><span class="line"></span><br><span class="line">    public Decorator(Component component) &#123;</span><br><span class="line">        this.component = component;</span><br><span class="line">    &#125;</span><br><span class="line">    public void operation()&#123;</span><br><span class="line">        component.operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ConcreteDecoratorA extends Decorator &#123;</span><br><span class="line">    public ConcreteDecoratorA(Component component)&#123;</span><br><span class="line">        super(component);</span><br><span class="line">    &#125;</span><br><span class="line">    private void operationFirst()&#123;</span><br><span class="line">        System.out.println(&quot;operationFirst say&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    private void operationLast()&#123;</span><br><span class="line">        System.out.println(&quot;operationLast say&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public void operation() &#123;</span><br><span class="line">        operationFirst();</span><br><span class="line">        super.operation();</span><br><span class="line">        operationLast();</span><br><span class="line">    &#125;</span><br><span class="line">    //新功能</span><br><span class="line">    public void anotherOperation() &#123;</span><br><span class="line">        System.out.println(&quot;another operation&quot;);</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上面是两个装修方案，接下来来看看测试:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class demo_house &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String [] args) &#123;</span><br><span class="line">        House house; // 父类引用;</span><br><span class="line">        // 方案1;</span><br><span class="line">        house = new scheme1();</span><br><span class="line">        house.decorate();</span><br><span class="line">        System.out.println(&quot;---------------------&quot;);</span><br><span class="line">        // 方案2;</span><br><span class="line">        house = new scheme2();</span><br><span class="line">        house.decorate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户端类"><a href="#客户端类" class="headerlink" title="客户端类"></a>客户端类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Client&#123;  </span><br><span class="line">    public static void main(String[] args)&#123;  </span><br><span class="line">        Component c1 = new ConcreteComponent ();   </span><br><span class="line">        Decorator decoratorA = new ConcreteDecoratorA(c1);   </span><br><span class="line">        decoratorA .operation();  </span><br><span class="line">        System.out.println(&quot;------------------------------------------------&quot;);</span><br><span class="line">        Decorator decoratorBandA = new ConcreteDecoratorA(decoratorA);</span><br><span class="line">        decoratorBandA.operation();  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>下面是结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bathroom scheme one!!!</span><br><span class="line">bedroom scheme one!!!</span><br><span class="line">kitchen scheme one!!!</span><br><span class="line">---------------------</span><br><span class="line">bathroom scheme two!!!</span><br><span class="line">bedroom scheme two!!!</span><br><span class="line">kitchen scheme two!!!</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">operationFirst say</span><br><span class="line">ConcreteComponent say</span><br><span class="line">operationLast say</span><br><span class="line">------------------------------------------------</span><br><span class="line">operationFirst say</span><br><span class="line">operationFirst say</span><br><span class="line">ConcreteComponent say</span><br><span class="line">operationLast say</span><br><span class="line">operationLast say</span><br></pre></td></tr></table></figure>
 
-<p>[转载]<a href="https://zhuanlan.zhihu.com/p/40770254" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/40770254</a></p>
+<p>[转载]<a href="https://zhuanlan.zhihu.com/p/25003369" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/25003369</a></p>
 
       
 
@@ -232,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">装饰器模式</a>
         		</li>
       		
 		</ul>
@@ -262,18 +266,18 @@
   
 <nav id="article-nav">
   
-    <a href="../../20/装饰器模式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../21/设计模式之策略模式/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          装饰器模式
+          设计模式之策略模式
         
       </div>
     </a>
   
   
-    <a href="../../18/jdk1.7hashmap多线程下成环原因/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jdk1.7hashmap多线程下成环原因</div>
+    <a href="../../19/设计模式之模板模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">设计模式之模板模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -399,31 +403,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -431,7 +415,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,27 +443,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -467,11 +455,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,7 +471,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,7 +487,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,11 +495,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -511,7 +519,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,11 +527,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,7 +543,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,11 +551,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,15 +567,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,11 +579,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,15 +599,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,7 +615,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,6 +627,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
@@ -627,19 +639,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,27 +655,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,11 +671,43 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
             
             <div class="clearfix"></div>
