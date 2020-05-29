@@ -50,17 +50,21 @@
     <link href="http://yoursite.com/2020/05/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     <id>http://yoursite.com/2020/05/25/设计模式之迭代器模式/</id>
     <published>2020-05-25T11:57:10.000Z</published>
-    <updated>2020-05-26T02:21:54.852Z</updated>
+    <updated>2020-05-27T02:22:59.056Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="迭代器模式定义"><a href="#迭代器模式定义" class="headerlink" title="迭代器模式定义"></a>迭代器模式定义</h4><blockquote><p>迭代器模式（Iterator），提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。</p></blockquote><h4 id="迭代器模式的优点有"><a href="#迭代器模式的优点有" class="headerlink" title="迭代器模式的优点有"></a>迭代器模式的优点有</h4><blockquote><p>简化了遍历方式，对于对象集合的遍历，还是比较麻烦的，对于数组或者有序列表，我们尚可以通过游标来取得，但用户需要在对集合了解很清楚的前提下，自行遍历对象，但是对于 hash 表来说，用户遍历起来就比较麻烦了。而引入了迭代器方法后，用户用起来就简单的多了。<br>可以提供多种遍历方式，比如说对有序列表，我们可以根据需要提供正序遍历，倒序遍历两种迭代器，用户用起来只需要得到我们实现好的迭代器，就可以方便的对集合进行遍历了。<br>封装性良好，用户只需要得到迭代器就可以遍历，而对于遍历算法则不用去关心。</p></blockquote><h4 id="迭代器模式的缺点"><a href="#迭代器模式的缺点" class="headerlink" title="迭代器模式的缺点"></a>迭代器模式的缺点</h4><blockquote><p>对于比较简单的遍历（像数组或者有序列表），使用迭代器方式遍历较为繁琐，大家可能都有感觉，像 ArrayList，我们宁可愿意使用 for 循环和 get 方法来遍历集合。</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<h4 id="迭代器模式定义"><a href="#迭代器模式定义" class="headerlink" title="迭代器模式定义"></a>迭代器模式定义</h4><blockquote><p>迭代器模式（Iterator），提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。</p></blockquote><h4 id="迭代器模式的优点有"><a href="#迭代器模式的优点有" class="headerlink" title="迭代器模式的优点有"></a>迭代器模式的优点有</h4><blockquote><p>简化了遍历方式，对于对象集合的遍历，还是比较麻烦的，对于数组或者有序列表，我们尚可以通过游标来取得，但用户需要在对集合了解很清楚的前提下，自行遍历对象，但是对于 hash 表来说，用户遍历起来就比较麻烦了。而引入了迭代器方法后，用户用起来就简单的多了。<br>可以提供多种遍历方式，比如说对有序列表，我们可以根据需要提供正序遍历，倒序遍历两种迭代器，用户用起来只需要得到我们实现好的迭代器，就可以方便的对集合进行遍历了。<br>封装性良好，用户只需要得到迭代器就可以遍历，而对于遍历算法则不用去关心。</p></blockquote><h4 id="迭代器模式的缺点"><a href="#迭代器模式的缺点" class="headerlink" title="迭代器模式的缺点"></a>迭代器模式的缺点</h4><blockquote><p>对于比较简单的遍历（像数组或者有序列表），使用迭代器方式遍历较为繁琐，大家可能都有感觉，像 ArrayList，我们宁可愿意使用 for 循环和 get 方法来遍历集合。</p></blockquote><a id="more"></a><h4 id="继承关系图"><a href="#继承关系图" class="headerlink" title="继承关系图"></a>继承关系图</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">此处以ArrayList为例</span><br><span class="line">public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">        implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br><span class="line">&#123;...&#125;</span><br><span class="line"></span><br><span class="line">public interface List&lt;E&gt; extends Collection&lt;E&gt; &#123;...&#125;</span><br><span class="line"></span><br><span class="line">public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterable&lt;T&gt; &#123;</span><br><span class="line">    /**</span><br><span class="line">     * Returns an iterator over elements of type &#123;@code T&#125;.</span><br><span class="line">     *</span><br><span class="line">     * @return an Iterator.</span><br><span class="line">     */</span><br><span class="line">    Iterator&lt;T&gt; iterator();</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">        implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    </span><br><span class="line">    public Iterator&lt;E&gt; iterator() &#123;</span><br><span class="line">        return new Itr();</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    private class Itr implements Iterator&lt;E&gt; &#123;</span><br><span class="line">        int cursor;       // index of next element to return</span><br><span class="line">        int lastRet = -1; // index of last element returned; -1 if no such</span><br><span class="line">        int expectedModCount = modCount;</span><br><span class="line"></span><br><span class="line">        Itr() &#123;&#125;</span><br><span class="line"></span><br><span class="line">        public boolean hasNext() &#123;</span><br><span class="line">            return cursor != size;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">        public E next() &#123;</span><br><span class="line">            checkForComodification();</span><br><span class="line">            int i = cursor;</span><br><span class="line">            if (i &gt;= size)</span><br><span class="line">                throw new NoSuchElementException();</span><br><span class="line">            Object[] elementData = ArrayList.this.elementData;</span><br><span class="line">            if (i &gt;= elementData.length)</span><br><span class="line">                throw new ConcurrentModificationException();</span><br><span class="line">            cursor = i + 1;</span><br><span class="line">            return (E) elementData[lastRet = i];</span><br><span class="line">        &#125;</span><br><span class="line">        ......</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h4 id=&quot;迭代器模式定义&quot;&gt;&lt;a href=&quot;#迭代器模式定义&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式定义&quot;&gt;&lt;/a&gt;迭代器模式定义&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;迭代器模式（Iterator），提供一种方法顺序访问一个聚合对象中的各种元
-      
+      &lt;h4 id=&quot;迭代器模式定义&quot;&gt;&lt;a href=&quot;#迭代器模式定义&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式定义&quot;&gt;&lt;/a&gt;迭代器模式定义&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;迭代器模式（Iterator），提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;迭代器模式的优点有&quot;&gt;&lt;a href=&quot;#迭代器模式的优点有&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式的优点有&quot;&gt;&lt;/a&gt;迭代器模式的优点有&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;简化了遍历方式，对于对象集合的遍历，还是比较麻烦的，对于数组或者有序列表，我们尚可以通过游标来取得，但用户需要在对集合了解很清楚的前提下，自行遍历对象，但是对于 hash 表来说，用户遍历起来就比较麻烦了。而引入了迭代器方法后，用户用起来就简单的多了。&lt;br&gt;可以提供多种遍历方式，比如说对有序列表，我们可以根据需要提供正序遍历，倒序遍历两种迭代器，用户用起来只需要得到我们实现好的迭代器，就可以方便的对集合进行遍历了。&lt;br&gt;封装性良好，用户只需要得到迭代器就可以遍历，而对于遍历算法则不用去关心。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;迭代器模式的缺点&quot;&gt;&lt;a href=&quot;#迭代器模式的缺点&quot; class=&quot;headerlink&quot; title=&quot;迭代器模式的缺点&quot;&gt;&lt;/a&gt;迭代器模式的缺点&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;对于比较简单的遍历（像数组或者有序列表），使用迭代器方式遍历较为繁琐，大家可能都有感觉，像 ArrayList，我们宁可愿意使用 for 循环和 get 方法来遍历集合。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -115,25 +119,6 @@
   </entry>
   
   <entry>
-    <title>设计模式之工厂模式</title>
-    <link href="http://yoursite.com/2020/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2020/05/21/设计模式之工厂模式/</id>
-    <published>2020-05-21T11:57:10.000Z</published>
-    <updated>2020-05-20T01:48:17.432Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="设计模式" scheme="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-      <category term="工厂模式" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>设计模式之组合模式</title>
     <link href="http://yoursite.com/2020/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
     <id>http://yoursite.com/2020/05/21/设计模式之组合模式/</id>
@@ -149,6 +134,25 @@
     
     
       <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之工厂模式</title>
+    <link href="http://yoursite.com/2020/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://yoursite.com/2020/05/21/设计模式之工厂模式/</id>
+    <published>2020-05-21T11:57:10.000Z</published>
+    <updated>2020-05-20T01:48:17.432Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="工厂模式" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -176,9 +180,17 @@
     <link href="http://yoursite.com/2020/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     <id>http://yoursite.com/2020/05/20/设计模式之适配器模式/</id>
     <published>2020-05-20T11:57:10.000Z</published>
-    <updated>2020-05-21T07:39:51.401Z</updated>
+    <updated>2020-05-27T03:49:01.798Z</updated>
+    
+    <content type="html"><![CDATA[<p>适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -433,6 +445,33 @@
   </entry>
   
   <entry>
+    <title>设置自动隐藏Dock的时间</title>
+    <link href="http://yoursite.com/2020/03/31/%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E9%9A%90%E8%97%8FDock%E7%9A%84%E6%97%B6%E9%97%B4/"/>
+    <id>http://yoursite.com/2020/03/31/设置自动隐藏Dock的时间/</id>
+    <published>2020-03-31T11:57:10.000Z</published>
+    <updated>2020-05-28T01:18:49.561Z</updated>
+    
+    <content type="html"><![CDATA[<p>出于美观或者最大化利用屏幕的原因，很多人在使用 Mac  时都习惯把 Dock 栏调成隐藏状态，但是当你需要打开或查看应用，用鼠标唤出 Dock 栏的时候，会发现 Dock 出现的速度较慢，不仅影响心情，多次操作下来，对效率的影响也很可观。</p><p>我们可以通过终端命令来调整 Dock 栏的出现速度。</p><h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>Dock 显示隐藏缓慢的原因，是因为 OS X 隐藏和显示 Dock 的动画持续时间被设置成了 1 秒，想要改变这一时间，只需要打开终端，选择以下代码的其中一项执行就可以实现：</p><ul><li>defaults write com.apple.dock autohide-delay -int 0（时间设为最短）</li><li>defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</li></ul><p>以上两个选项是比较推荐的设置，执行完上述命令后，你还需要再执行 killall Dock 这条命令才算完（注意大小写）。设置好之后，快看看效果吧。</p><p>[转载]<a href="https://sspai.com/post/33366" target="_blank" rel="noopener">https://sspai.com/post/33366</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;出于美观或者最大化利用屏幕的原因，很多人在使用 Mac  时都习惯把 Dock 栏调成隐藏状态，但是当你需要打开或查看应用，用鼠标唤出 Dock 栏的时候，会发现 Dock 出现的速度较慢，不仅影响心情，多次操作下来，对效率的影响也很可观。&lt;/p&gt;
+&lt;p&gt;我们可以通过终端命
+      
+    
+    </summary>
+    
+    
+      <category term="Mac" scheme="http://yoursite.com/categories/Mac/"/>
+    
+    
+      <category term="Mac软件" scheme="http://yoursite.com/tags/Mac%E8%BD%AF%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java反射详解</title>
     <link href="http://yoursite.com/2020/03/28/java%E5%8F%8D%E5%B0%84%E8%AF%A6%E8%A7%A3/"/>
     <id>http://yoursite.com/2020/03/28/java反射详解/</id>
@@ -453,33 +492,6 @@
     
     
       <category term="Java、反射" scheme="http://yoursite.com/tags/Java%E3%80%81%E5%8F%8D%E5%B0%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>注解详解</title>
-    <link href="http://yoursite.com/2020/03/27/%E6%B3%A8%E8%A7%A3%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://yoursite.com/2020/03/27/注解详解/</id>
-    <published>2020-03-27T11:57:10.000Z</published>
-    <updated>2020-04-28T07:34:23.046Z</updated>
-    
-    <content type="html"><![CDATA[<p>{“ozone.om.address”:”hbase-2:9862”}</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;{“ozone.om.address”:”hbase-2:9862”}&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="java基础" scheme="http://yoursite.com/categories/java%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java、注解" scheme="http://yoursite.com/tags/Java%E3%80%81%E6%B3%A8%E8%A7%A3/"/>
     
   </entry>
   
