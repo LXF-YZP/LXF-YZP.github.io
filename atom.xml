@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-29T08:18:47.889Z</updated>
+  <updated>2020-06-30T07:04:08.318Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java时间转换</title>
+    <link href="http://yoursite.com/2020/06/30/Java%E6%97%B6%E9%97%B4%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/2020/06/30/Java时间转换/</id>
+    <published>2020-06-30T11:57:10.000Z</published>
+    <updated>2020-06-30T07:04:08.318Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>时间字符串和时间转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 把时间转换为字符串</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">Date date = new Date(136464513123L);</span><br><span class="line">String string = dateFormat.format(date);</span><br><span class="line">System.out.println(string);</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------------------------</span><br><span class="line">// 把字符串转化为时间</span><br><span class="line">String string = &quot;2018-07-19&quot;;</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;);// 这里要与时间字符串的格式一样即可，否则报错</span><br><span class="line">Date date = dateFormat.parse(string);</span><br><span class="line">System.out.println(date);</span><br></pre></td></tr></table></figure></li></ul><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;时间字符串和时间转换&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 把时间转换为字符串&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DateFormat dateFormat = new SimpleDateFormat(&amp;quot;yyyy-MM-dd hh:mm:ss&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Date date = new Date(136464513123L);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String string = dateFormat.format(date);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(string);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--------------------------------------------------------------------------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 把字符串转化为时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String string = &amp;quot;2018-07-19&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DateFormat dateFormat = new SimpleDateFormat (&amp;quot;yyyy-MM-dd&amp;quot;);// 这里要与时间字符串的格式一样即可，否则报错&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Date date = dateFormat.parse(string);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(date);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2020/06/28/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2020/06/28/快捷键操作/</id>
+    <published>2020-06-28T02:56:13.587Z</published>
+    <updated>2020-06-28T02:56:13.587Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>tiny-spring笔记一</title>
     <link href="http://yoursite.com/2020/05/29/tiny-spring%E7%AC%94%E8%AE%B0%E4%B8%80/"/>
     <id>http://yoursite.com/2020/05/29/tiny-spring笔记一/</id>
     <published>2020-05-29T11:57:10.000Z</published>
-    <updated>2020-05-29T08:18:47.889Z</updated>
+    <updated>2020-06-01T01:33:33.985Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="1-step1-最基本的容器"><a href="#1-step1-最基本的容器" class="headerlink" title="1.step1 - 最基本的容器"></a>1.step1 - 最基本的容器</h4><p>使用如下命令在idea中查看最开始的版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-1-container-register-and-get</span><br></pre></td></tr></table></figure><p>代码结构如下图所示<br><img src="/2020/05/29/tiny-spring笔记一/aaa.png" alt><br>IoC 最基本的角色有两个：容器 (BeanFactory) 和 Bean 本身。这里使用 BeanDefinition 来封装了 bean 对象(当前之后bean属性)，这样可以保存一些额外的元信息。</p><a id="more"></a><h4 id="2-step2-将-bean-创建放入工厂"><a href="#2-step2-将-bean-创建放入工厂" class="headerlink" title="2.step2 - 将 bean 创建放入工厂"></a>2.step2 - 将 bean 创建放入工厂</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-2-abstract-beanfactory-and-do-bean-initilizing-in-it</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/bbb.png" alt><br>step1 中的 bean 是初始化好之后再 set 进去的，实际使用中，我们希望容器来管理 bean 的创建。于是我们将 bean 的初始化放入 BeanFactory 中。为了保证扩展性，我们使用 Extract Interface 的方法，将 BeanFactory 替换成接口，而使用 AbstractBeanFactory 和 AutowireCapableBeanFactory 作为其实现。”AutowireCapable” 的意思是 “可自动装配的”，为我们后面注入属性做准备。step2和step1创建bean的方式不同，step2的方式如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object bean = beanDefinition.getBeanClass().newInstance();</span><br><span class="line">注意newInstance和new的区别</span><br></pre></td></tr></table></figure><h4 id="3-step3-为-bean-注入属性"><a href="#3-step3-为-bean-注入属性" class="headerlink" title="3.step3 - 为 bean 注入属性"></a>3.step3 - 为 bean 注入属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-3-inject-bean-with-property</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/ccc.png" alt><br><img src="/2020/05/29/tiny-spring笔记一/ddd.png" alt><br>这一步，我们想要为 bean 注入属性。我们选择将属性注入信息保存成 PropertyValue 对象，并且保存到 BeanDefinition 中。这样在初始化 bean 的时候，我们就可以根据 PropertyValue 来进行 bean 属性的注入。Spring 本身使用了 setter 来进行注入，这里为了代码简洁，我们使用 Field 的形式来注入。</p><h4 id="4-step4-读取-xml-配置来初始化-bean"><a href="#4-step4-读取-xml-配置来初始化-bean" class="headerlink" title="4.step4 - 读取 xml 配置来初始化 bean"></a>4.step4 - 读取 xml 配置来初始化 bean</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-4-config-beanfactory-with-xml</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/eee.png" alt></p>]]></content>
+    <content type="html"><![CDATA[<h4 id="1-step1-最基本的容器"><a href="#1-step1-最基本的容器" class="headerlink" title="1.step1 - 最基本的容器"></a>1.step1 - 最基本的容器</h4><p>使用如下命令在idea中查看最开始的版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-1-container-register-and-get</span><br></pre></td></tr></table></figure><p>代码结构如下图所示<br><img src="/2020/05/29/tiny-spring笔记一/aaa.png" alt><br>IoC 最基本的角色有两个：容器 (BeanFactory) 和 Bean 本身。这里使用 BeanDefinition 来封装了 bean 对象(当前之后bean属性)，这样可以保存一些额外的元信息。</p><a id="more"></a><h4 id="2-step2-将-bean-创建放入工厂"><a href="#2-step2-将-bean-创建放入工厂" class="headerlink" title="2.step2 - 将 bean 创建放入工厂"></a>2.step2 - 将 bean 创建放入工厂</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-2-abstract-beanfactory-and-do-bean-initilizing-in-it</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/bbb.png" alt><br>step1 中的 bean 是初始化好之后再 set 进去的，实际使用中，我们希望容器来管理 bean 的创建。于是我们将 bean 的初始化放入 BeanFactory 中。为了保证扩展性，我们使用 Extract Interface 的方法，将 BeanFactory 替换成接口，而使用 AbstractBeanFactory 和 AutowireCapableBeanFactory 作为其实现。”AutowireCapable” 的意思是 “可自动装配的”，为我们后面注入属性做准备。step2和step1创建bean的方式不同，step2的方式如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object bean = beanDefinition.getBeanClass().newInstance();</span><br><span class="line">注意newInstance和new的区别</span><br></pre></td></tr></table></figure><h4 id="3-step3-为-bean-注入属性"><a href="#3-step3-为-bean-注入属性" class="headerlink" title="3.step3 - 为 bean 注入属性"></a>3.step3 - 为 bean 注入属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-3-inject-bean-with-property</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/ccc.png" alt><br><img src="/2020/05/29/tiny-spring笔记一/ddd.png" alt><br>这一步，我们想要为 bean 注入属性。我们选择将属性注入信息保存成 PropertyValue 对象，并且保存到 BeanDefinition 中。这样在初始化 bean 的时候，我们就可以根据 PropertyValue 来进行 bean 属性的注入。Spring 本身使用了 setter 来进行注入，这里为了代码简洁，我们使用 Field 的形式来注入。</p><h4 id="4-step4-读取-xml-配置来初始化-bean"><a href="#4-step4-读取-xml-配置来初始化-bean" class="headerlink" title="4.step4 - 读取 xml 配置来初始化 bean"></a>4.step4 - 读取 xml 配置来初始化 bean</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-4-config-beanfactory-with-xml</span><br></pre></td></tr></table></figure><p>代码结构如下<br><img src="/2020/05/29/tiny-spring笔记一/eee.png" alt></p><h4 id="5-step5-为-bean-注入-bean"><a href="#5-step5-为-bean-注入-bean" class="headerlink" title="5.step5 - 为 bean 注入 bean"></a>5.step5 - 为 bean 注入 bean</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-5-inject-bean-to-bean</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -440,60 +482,6 @@
     
     
       <category term="Java、新特性" scheme="http://yoursite.com/tags/Java%E3%80%81%E6%96%B0%E7%89%B9%E6%80%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>安装gradle</title>
-    <link href="http://yoursite.com/2020/04/14/%E5%AE%89%E8%A3%85gradle/"/>
-    <id>http://yoursite.com/2020/04/14/安装gradle/</id>
-    <published>2020-04-14T11:57:10.000Z</published>
-    <updated>2020-04-14T08:50:13.181Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Gradle-安装（Mac）"><a href="#Gradle-安装（Mac）" class="headerlink" title="Gradle 安装（Mac）"></a>Gradle 安装（Mac）</h3><ul><li>下载 Gradle<br>先检查 java 环境，是否安装了 jdk 或者 jre 8 或者以上版本：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">java version &quot;1.8.0_121&quot;</span><br></pre></td></tr></table></figure></li></ul><a id="more"></a><p>官网下载：<a href="https://gradle.org/releases" target="_blank" rel="noopener">https://gradle.org/releases</a><br>选择某一版本的 binary-only 进行下载，例如：<br><img src="/2020/04/14/安装gradle/aaa.png" alt><br>将下载的文件解压到某一目录下，例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip gradle-5.2.1-bin.zip</span><br></pre></td></tr></table></figure><ul><li>配置环境变量<br>编辑 bash_profile 文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure></li></ul><p>加入如下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#GRADLE</span><br><span class="line">GRADLE_HOME=/Users/luxiaofeng/gradle</span><br><span class="line">PATH=$PATH:$GRADLE_HOME/bin</span><br><span class="line">export GRADLE_HOME GRADLE_USER_HOME PATH</span><br></pre></td></tr></table></figure><p>执行下面命令使内容生效：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure><p>测试安装是否成功：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br></pre></td></tr></table></figure><p>出现下面内容表示安装成功：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">luxiaofeng@yuezhipingdeMacBook-Pro  ~  gradle -v</span><br><span class="line"></span><br><span class="line">Welcome to Gradle 5.2.1!</span><br><span class="line"></span><br><span class="line">Here are the highlights of this release:</span><br><span class="line"> - Define sets of dependencies that work together with Java Platform plugin</span><br><span class="line"> - New C++ plugins with dependency management built-in</span><br><span class="line"> - New C++ project types for gradle init</span><br><span class="line"> - Service injection into plugins and project extensions</span><br><span class="line"></span><br><span class="line">For more details see https://docs.gradle.org/5.2.1/release-notes.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle 5.2.1</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build time:   2019-02-08 19:00:10 UTC</span><br><span class="line">Revision:     f02764e074c32ee8851a4e1877dd1fea8ffb7183</span><br><span class="line"></span><br><span class="line">Kotlin DSL:   1.1.3</span><br><span class="line">Kotlin:       1.3.20</span><br><span class="line">Groovy:       2.5.4</span><br><span class="line">Ant:          Apache Ant(TM) version 1.9.13 compiled on July 10 2018</span><br><span class="line">JVM:          1.8.0_221 (Oracle Corporation 25.221-b11)</span><br><span class="line">OS:           Mac OS X 10.15.3 x86_64</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Gradle-安装（Mac）&quot;&gt;&lt;a href=&quot;#Gradle-安装（Mac）&quot; class=&quot;headerlink&quot; title=&quot;Gradle 安装（Mac）&quot;&gt;&lt;/a&gt;Gradle 安装（Mac）&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;下载 Gradle&lt;br&gt;先检查 java 环境，是否安装了 jdk 或者 jre 8 或者以上版本：&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;java version &amp;quot;1.8.0_121&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="包管理工具" scheme="http://yoursite.com/categories/%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="包管理工具" scheme="http://yoursite.com/tags/%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设置自动隐藏Dock的时间</title>
-    <link href="http://yoursite.com/2020/03/31/%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%8A%A8%E9%9A%90%E8%97%8FDock%E7%9A%84%E6%97%B6%E9%97%B4/"/>
-    <id>http://yoursite.com/2020/03/31/设置自动隐藏Dock的时间/</id>
-    <published>2020-03-31T11:57:10.000Z</published>
-    <updated>2020-05-28T01:18:49.561Z</updated>
-    
-    <content type="html"><![CDATA[<p>出于美观或者最大化利用屏幕的原因，很多人在使用 Mac  时都习惯把 Dock 栏调成隐藏状态，但是当你需要打开或查看应用，用鼠标唤出 Dock 栏的时候，会发现 Dock 出现的速度较慢，不仅影响心情，多次操作下来，对效率的影响也很可观。</p><p>我们可以通过终端命令来调整 Dock 栏的出现速度。</p><h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>Dock 显示隐藏缓慢的原因，是因为 OS X 隐藏和显示 Dock 的动画持续时间被设置成了 1 秒，想要改变这一时间，只需要打开终端，选择以下代码的其中一项执行就可以实现：</p><ul><li>defaults write com.apple.dock autohide-delay -int 0（时间设为最短）</li><li>defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</li></ul><p>以上两个选项是比较推荐的设置，执行完上述命令后，你还需要再执行 killall Dock 这条命令才算完（注意大小写）。设置好之后，快看看效果吧。</p><p>[转载]<a href="https://sspai.com/post/33366" target="_blank" rel="noopener">https://sspai.com/post/33366</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;出于美观或者最大化利用屏幕的原因，很多人在使用 Mac  时都习惯把 Dock 栏调成隐藏状态，但是当你需要打开或查看应用，用鼠标唤出 Dock 栏的时候，会发现 Dock 出现的速度较慢，不仅影响心情，多次操作下来，对效率的影响也很可观。&lt;/p&gt;
-&lt;p&gt;我们可以通过终端命
-      
-    
-    </summary>
-    
-    
-      <category term="Mac" scheme="http://yoursite.com/categories/Mac/"/>
-    
-    
-      <category term="Mac软件" scheme="http://yoursite.com/tags/Mac%E8%BD%AF%E4%BB%B6/"/>
     
   </entry>
   

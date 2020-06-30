@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="切换成bdc用户执行pwd命令；su - bdc -c “pwd” cat /etc/profile.d/java_home.shexport JAVA_HOME=/opt/beh/core/jdkexport PATH=$JAVA_HOME/bin:$PATH /opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER/opt/beh/su">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-25T03:13:47.143Z">
+<meta property="og:updated_time" content="2020-06-24T00:45:20.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="切换成bdc用户执行pwd命令；su - bdc -c “pwd” cat /etc/profile.d/java_home.shexport JAVA_HOME=/opt/beh/core/jdkexport PATH=$JAVA_HOME/bin:$PATH /opt/beh/supervisor/supervisorctl stop zookeeper-ZKSERVER/opt/beh/su">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 126
+			总文章数 128
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -207,6 +207,22 @@
 <p>java程序使用mvn clean package 打包之后，可以直接使用java -cp  oss-client-1.0-SNAPSHOT.jar(要运行的jar包，不需要把依赖也打进jar包中，也不需要指定主类):/opt/beh/core/hbase/lib/(jar包运行所需依赖):/opt/beh/core/hadoop/share/(jar包运行所需依赖)   com.bonc.beh.oss.Main(jar包运行的主类)</p>
 <p>查看文件编码方式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file ip.txt</span><br></pre></td></tr></table></figure>
+
+<p>查看本机ip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig或者hostname -i</span><br></pre></td></tr></table></figure>
+
+<p>向数据库中导入文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -u用户名 -p密码 -D数据库 &lt; SQL脚本路径</span><br><span class="line">或者</span><br><span class="line">①连接数据库mysql -uroot -p</span><br><span class="line">②输入数据库密码</span><br><span class="line">③指定数据库 use db;</span><br><span class="line">④执行脚本 source 脚本绝对路径</span><br></pre></td></tr></table></figure>
+
+<p>过滤空格和注释行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat elasticsearch.yml  | grep -v  ^#  |grep -v ^$</span><br></pre></td></tr></table></figure>
+
+<p>CentOS 7:firewalld 启动不了 提示 Active: failed (Result: timeout)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">查看 status 如下：</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl status firewalld.service -l</span><br><span class="line">[0m firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: failed (Result: timeout) since Wed 2017-07-26 10:12:43 CST; 54min ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line">  Process: 152761 ExecStart=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 152761 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Jul 26 10:11:12 localhost.localdomain systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">Jul 26 10:12:42 localhost.localdomain systemd[1]: firewalld.service start operation timed out. Terminating.</span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: Failed to start firewalld - dynamic firewall daemon.</span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: Unit firewalld.service entered failed state.</span><br><span class="line"></span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: firewalld.service failed.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令后，恢复 running：</span><br><span class="line"></span><br><span class="line">systemctl stop firewalld;pkill -f firewalld;systemctl start firewalld</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">该方法参考来源：</span><br><span class="line"></span><br><span class="line">http://centosfaq.org/centos/centos-7-firewalldservice-operation-time-out-systemctl-firewalld-issues/</span><br><span class="line"></span><br><span class="line">来自官方的 faq, 给了一些解释： systemd didn’t know about the process that it didn’t start in the first place of course</span><br></pre></td></tr></table></figure>
+
+<p>[原文链接]<a href="https://blog.csdn.net/crynono/java/article/details/76132611" target="_blank" rel="noopener">https://blog.csdn.net/crynono/java/article/details/76132611</a></p>
+<p>查看文件多少行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.txt|wc -l</span><br></pre></td></tr></table></figure>
 
 <p>[参考链接]<a href="https://blog.csdn.net/csdnzouqi/article/details/90169728" target="_blank" rel="noopener">https://blog.csdn.net/csdnzouqi/article/details/90169728</a></p>
 
@@ -419,11 +435,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -435,7 +455,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,7 +467,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,15 +475,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -471,15 +487,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,15 +499,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -503,11 +511,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -515,15 +519,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,11 +543,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,23 +567,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,11 +591,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,18 +619,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
@@ -615,11 +627,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,19 +643,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,15 +651,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,11 +663,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,14 +703,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
@@ -695,15 +711,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,7 +723,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">

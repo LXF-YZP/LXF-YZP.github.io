@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>注解详解 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="{“ozone.om.address”:”hbase-2:9862”}">
+  <meta name="description" content="注解的定义注解通过 @interface 关键字进行定义。 12public @interface TestAnnotation &amp;#123;&amp;#125;  它的形式跟接口很类似，不过前面多了一个 @ 符号。上面的代码就创建了一个名字为 TestAnnotaion 的注解。你可以简单理解为创建了一张名字为 TestAnnotation 的标签。 注解的应用上面创建了一个注解，那么注解的的使用方法是">
 <meta name="keywords" content="Java、注解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注解详解">
 <meta property="og:url" content="http://yoursite.com/2020/03/27/注解详解/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="{“ozone.om.address”:”hbase-2:9862”}">
+<meta property="og:description" content="注解的定义注解通过 @interface 关键字进行定义。 12public @interface TestAnnotation &amp;#123;&amp;#125;  它的形式跟接口很类似，不过前面多了一个 @ 符号。上面的代码就创建了一个名字为 TestAnnotaion 的注解。你可以简单理解为创建了一张名字为 TestAnnotation 的标签。 注解的应用上面创建了一个注解，那么注解的的使用方法是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-28T07:34:23.046Z">
+<meta property="og:updated_time" content="2020-06-09T01:13:12.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注解详解">
-<meta name="twitter:description" content="{“ozone.om.address”:”hbase-2:9862”}">
+<meta name="twitter:description" content="注解的定义注解通过 @interface 关键字进行定义。 12public @interface TestAnnotation &amp;#123;&amp;#125;  它的形式跟接口很类似，不过前面多了一个 @ 符号。上面的代码就创建了一个名字为 TestAnnotaion 的注解。你可以简单理解为创建了一张名字为 TestAnnotation 的标签。 注解的应用上面创建了一个注解，那么注解的的使用方法是">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +68,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 126
+			总文章数 128
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -177,7 +177,144 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>{“ozone.om.address”:”hbase-2:9862”}</p>
+        <h4 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h4><p>注解通过 @interface 关键字进行定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public @interface TestAnnotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它的形式跟接口很类似，不过前面多了一个 @ 符号。上面的代码就创建了一个名字为 TestAnnotaion 的注解。<br>你可以简单理解为创建了一张名字为 TestAnnotation 的标签。</p>
+<h4 id="注解的应用"><a href="#注解的应用" class="headerlink" title="注解的应用"></a>注解的应用</h4><p>上面创建了一个注解，那么注解的的使用方法是什么呢。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@TestAnnotation</span><br><span class="line">public class Test &#123;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个类 Test, 然后在类定义的地方加上 @TestAnnotation 就可以用 TestAnnotation 注解这个类了。<br>你可以简单理解为将 TestAnnotation 这张标签贴到 Test 这个类上面。<br>不过，要想注解能够正常工作，还需要介绍一下一个新的概念那就是元注解。</p>
+<a id="more"></a>
+<h4 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h4><p>元注解是可以注解到注解上的注解，或者说元注解是一种基本注解，但是它能够应用到其它的注解上面。<br>如果难于理解的话，你可以这样理解。元注解也是一张标签，但是它是一张特殊的标签，它的作用和目的就是给其他普通的标签进行解释说明的。<br>元标签有 @Retention、@Documented、@Target、@Inherited、@Repeatable 5 种。</p>
+<h5 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h5><p>Retention 的英文意为保留的意思。当 @Retention 应用到一个注解上的时候，它解释说明了这个注解的的存活时间。</p>
+<p>它的取值如下：</p>
+<ul>
+<li>RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视。</li>
+<li>RetentionPolicy.CLASS 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中。</li>
+<li>RetentionPolicy.RUNTIME 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们。<br>我们可以这样的方式来加深理解，@Retention 去给一张标签解释的时候，它指定了这张标签张贴的时间。@Retention 相当于给一张标签上面盖了一张时间戳，时间戳指明了标签张贴的时间周期。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface TestAnnotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>上面的代码中，我们指定 TestAnnotation 可以在程序运行周期被获取到，因此它的生命周期非常的长。</p>
+<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p>顾名思义，这个元注解肯定是和文档有关。它的作用是能够将注解中的元素包含到 Javadoc 中去。</p>
+<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4><p>Target 是目标的意思，@Target 指定了注解运用的地方。</p>
+<p>你可以这样理解，当一个注解被 @Target 注解时，这个注解就被限定了运用的场景。</p>
+<p>类比到标签，原本标签是你想张贴到哪个地方就到哪个地方，但是因为 @Target 的存在，它张贴的地方就非常具体了，比如只能张贴到方法上、类上、方法参数上等等。@Target 有下面的取值</p>
+<ul>
+<li>ElementType.ANNOTATION_TYPE 可以给一个注解进行注解</li>
+<li>ElementType.CONSTRUCTOR 可以给构造方法进行注解</li>
+<li>ElementType.FIELD 可以给属性进行注解</li>
+<li>ElementType.LOCAL_VARIABLE 可以给局部变量进行注解</li>
+<li>ElementType.METHOD 可以给方法进行注解</li>
+<li>ElementType.PACKAGE 可以给一个包进行注解</li>
+<li>ElementType.PARAMETER 可以给一个方法内的参数进行注解</li>
+<li>ElementType.TYPE 可以给一个类型进行注解，比如类、接口、枚举</li>
+</ul>
+<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p>Inherited 是继承的意思，但是它并不是说注解本身可以继承，而是说如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。<br>说的比较抽象。代码来解释。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Inherited</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@interface Test &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public class A &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class B extends A &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注解 Test 被 @Inherited 修饰，之后类 A 被 Test 注解，类 B 继承 A, 类 B 也拥有 Test 这个注解。</p>
+<h4 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable"></a>@Repeatable</h4><p>Repeatable 自然是可重复的意思。@Repeatable 是 Java 1.8 才加进来的，所以算是一个新的特性。</p>
+<p>什么样的注解会多次应用呢？通常是注解的值可以同时取多个。</p>
+<p>举个例子，一个人他既是程序员又是产品经理，同时他还是个画家。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@interface Persons &#123;</span><br><span class="line">	Person[]  value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Repeatable(Persons.class)</span><br><span class="line">@interface Person&#123;</span><br><span class="line">	String role() default &quot;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Person(role=&quot;artist&quot;)</span><br><span class="line">@Person(role=&quot;coder&quot;)</span><br><span class="line">@Person(role=&quot;PM&quot;)</span><br><span class="line">public class SuperMan&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的代码，@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解。</p>
+<p>什么是容器注解呢？就是用来存放其它注解的地方。它本身也是一个注解。</p>
+<p>我们再看看代码中的相关容器注解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface Persons &#123;</span><br><span class="line">	Person[]  value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照规定，它里面必须要有一个 value 的属性，属性类型是一个被 @Repeatable 注解过的注解数组，注意它是数组。</p>
+<p>如果不好理解的话，可以这样理解。Persons 是一张总的标签，上面贴满了 Person 这种同类型但内容不一样的标签。把 Persons 给一个 SuperMan 贴上，相当于同时给他贴了程序员、产品经理、画家的标签。</p>
+<p>我们可能对于 @Person (role=“PM”) 括号里面的内容感兴趣，它其实就是给 Person 这个注解的 role 属性赋值为 PM ，大家不明白正常，马上就讲到注解的属性这一块。</p>
+<h4 id="注解的属性"><a href="#注解的属性" class="headerlink" title="注解的属性"></a>注解的属性</h4><p>注解的属性也叫做成员变量。注解只有成员变量，没有方法。注解的成员变量在注解的定义中以 “无形参的方法” 形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface TestAnnotation &#123;</span><br><span class="line">	</span><br><span class="line">	int id();</span><br><span class="line">	</span><br><span class="line">	String msg();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码定义了 TestAnnotation 这个注解中拥有 id 和 msg 两个属性。在使用的时候，我们应该给它们进行赋值。</p>
+<p>赋值的方式是在注解的括号内以 value=”” 形式，多个属性之前用 ，隔开。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@TestAnnotation(id=3,msg=&quot;hello annotation&quot;)</span><br><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，在注解中定义属性时它的类型必须是 8 种基本数据类型外加 类、接口、注解及它们的数组。</p>
+<p>注解中属性可以有默认值，默认值需要用 default 关键值指定。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.TYPE)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface TestAnnotation &#123;</span><br><span class="line">	</span><br><span class="line">	public int id() default -1;</span><br><span class="line">	</span><br><span class="line">	public String msg() default &quot;Hi&quot;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TestAnnotation 中 id 属性默认值为 -1，msg 属性默认值为 Hi。<br>它可以这样应用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@TestAnnotation()</span><br><span class="line">public class Test &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为有默认值，所以无需要再在 @TestAnnotation 后面的括号里面进行赋值了，这一步可以省略。</p>
+<p>另外，还有一种情况。如果一个注解内仅仅只有一个名字为 value 的属性时，应用这个注解时可以直接接属性值填写到括号内。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public @interface Check &#123;</span><br><span class="line">	String value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，Check 这个注解只有 value 这个属性。所以可以这样应用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Check(&quot;hi&quot;)</span><br><span class="line">int a;</span><br></pre></td></tr></table></figure>
+
+<p>这和下面的效果是一样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Check(value=&quot;hi&quot;)</span><br><span class="line">int a;</span><br></pre></td></tr></table></figure>
+
+<p>最后，还需要注意的一种情况是一个注解没有任何属性。比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public @interface Perform &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么在应用这个注解的时候，括号都可以省略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Perform</span><br><span class="line">public void testMethod()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java 预置的注解<br>学习了上面相关的知识，我们已经可以自己定义一个注解了。其实 Java 语言本身已经提供了几个现成的注解。</p>
+<p>@Deprecated<br>这个元素是用来标记过时的元素，想必大家在日常开发中经常碰到。编译器在编译阶段遇到这个注解时会发出提醒警告，告诉开发者正在调用一个过时的元素比如过时的方法、过时的类、过时的成员变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Hero &#123;</span><br><span class="line">	</span><br><span class="line">	@Deprecated</span><br><span class="line">	public void say()&#123;</span><br><span class="line">		System.out.println(&quot;Noting has to say!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void speak()&#123;</span><br><span class="line">		System.out.println(&quot;I have a dream!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义了一个 Hero 类，它有两个方法 say () 和 speak () ，其中 say () 被 @Deprecated 注解。然后我们在 IDE 中分别调用它们。<br>可以看到，say () 方法上面被一条直线划了一条，这其实就是编译器识别后的提醒效果。</p>
+<h4 id="Override"><a href="#Override" class="headerlink" title="@Override"></a>@Override</h4><p>这个大家应该很熟悉了，提示子类要复写父类中被 @Override 修饰的方法</p>
+<h4 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h4><p>阻止警告的意思。之前说过调用被 @Deprecated 注解的方法后，编译器会警告提醒，而有时候开发者会忽略这种警告，他们可以在调用的地方通过 @SuppressWarnings 达到目的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(&quot;deprecation&quot;)</span><br><span class="line">public void test1()&#123;</span><br><span class="line">	Hero hero = new Hero();</span><br><span class="line">	hero.say();</span><br><span class="line">	hero.speak();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SafeVarargs"><a href="#SafeVarargs" class="headerlink" title="@SafeVarargs"></a>@SafeVarargs</h4><p>参数安全类型注解。它的目的是提醒开发者不要用参数做一些不安全的操作，它的存在会阻止编译器产生 unchecked 这样的警告。它是在 Java 1.7 的版本中加入的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SafeVarargs // Not actually safe!</span><br><span class="line">	static void m(List&lt;String&gt;... stringLists) &#123;</span><br><span class="line">	Object[] array = stringLists;</span><br><span class="line">	List&lt;Integer&gt; tmpList = Arrays.asList(42);</span><br><span class="line">	array[0] = tmpList; // Semantically invalid, but compiles without warnings</span><br><span class="line">	String s = stringLists[0].get(0); // Oh no, ClassCastException at runtime!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，编译阶段不会报错，但是运行时会抛出 ClassCastException 这个异常，所以它虽然告诉开发者要妥善处理，但是开发者自己还是搞砸了。</p>
+<p>Java 官方文档说，未来的版本会授权编译器对这种不安全的操作产生错误警告。</p>
+<h4 id="FunctionalInterface"><a href="#FunctionalInterface" class="headerlink" title="@FunctionalInterface"></a>@FunctionalInterface</h4><p>函数式接口注解，这个是 Java 1.8 版本引入的新特性。函数式编程很火，所以 Java 8 也及时添加了这个特性。<br>函数式接口 (Functional Interface) 就是一个具有一个方法的普通接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Runnable &#123;</span><br><span class="line">    /**</span><br><span class="line">     * When an object implementing interface &lt;code&gt;Runnable&lt;/code&gt; is used</span><br><span class="line">     * to create a thread, starting the thread causes the object&apos;s</span><br><span class="line">     * &lt;code&gt;run&lt;/code&gt; method to be called in that separately executing</span><br><span class="line">     * thread.</span><br><span class="line">     * &lt;p&gt;</span><br><span class="line">     * The general contract of the method &lt;code&gt;run&lt;/code&gt; is that it may</span><br><span class="line">     * take any action whatsoever.</span><br><span class="line">     *</span><br><span class="line">     * @see     java.lang.Thread#run()</span><br><span class="line">     */</span><br><span class="line">    public abstract void run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们进行线程开发中常用的 Runnable 就是一个典型的函数式接口，上面源码可以看到它就被 @FunctionalInterface 注解。</p>
+<h3 id="注解与反射。"><a href="#注解与反射。" class="headerlink" title="注解与反射。"></a>注解与反射。</h3><p>注解通过反射获取。首先可以通过 Class 对象的 isAnnotationPresent () 方法判断它是否应用了某个注解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public boolean isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass) &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序的运行结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id:-1</span><br><span class="line">msg:</span><br></pre></td></tr></table></figure>
+
+<p>这个正是 TestAnnotation 中 id 和 msg 的默认值。</p>
+<p>上面的例子中，只是检阅出了注解在类上的注解，其实属性、方法上的注解照样是可以的。同样还是要假手于反射。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">@TestAnnotation(msg=&quot;hello&quot;)</span><br><span class="line">public class Test &#123;</span><br><span class="line">	</span><br><span class="line">	@Check(value=&quot;hi&quot;)</span><br><span class="line">	int a;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	@Perform</span><br><span class="line">	public void testMethod()&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	@SuppressWarnings(&quot;deprecation&quot;)</span><br><span class="line">	public void test1()&#123;</span><br><span class="line">		Hero hero = new Hero();</span><br><span class="line">		hero.say();</span><br><span class="line">		hero.speak();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		boolean hasAnnotation = Test.class.isAnnotationPresent(TestAnnotation.class);</span><br><span class="line">		</span><br><span class="line">		if ( hasAnnotation ) &#123;</span><br><span class="line">			TestAnnotation testAnnotation = Test.class.getAnnotation(TestAnnotation.class);</span><br><span class="line">			//获取类的注解</span><br><span class="line">			System.out.println(&quot;id:&quot;+testAnnotation.id());</span><br><span class="line">			System.out.println(&quot;msg:&quot;+testAnnotation.msg());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		try &#123;</span><br><span class="line">			Field a = Test.class.getDeclaredField(&quot;a&quot;);</span><br><span class="line">			a.setAccessible(true);</span><br><span class="line">			//获取一个成员变量上的注解</span><br><span class="line">			Check check = a.getAnnotation(Check.class);</span><br><span class="line">			</span><br><span class="line">			if ( check != null ) &#123;</span><br><span class="line">				System.out.println(&quot;check value:&quot;+check.value());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			Method testMethod = Test.class.getDeclaredMethod(&quot;testMethod&quot;);</span><br><span class="line">			</span><br><span class="line">			if ( testMethod != null ) &#123;</span><br><span class="line">				// 获取方法中的注解</span><br><span class="line">				Annotation[] ans = testMethod.getAnnotations();</span><br><span class="line">				for( int i = 0;i &lt; ans.length;i++) &#123;</span><br><span class="line">					System.out.println(&quot;method testMethod annotation:&quot;+ans[i].annotationType().getSimpleName());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (NoSuchFieldException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">		&#125; catch (SecurityException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">		&#125; catch (NoSuchMethodException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			System.out.println(e.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它们的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id:-1</span><br><span class="line">msg:hello</span><br><span class="line">check value:hi</span><br><span class="line">method testMethod annotation:Perform</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，如果一个注解要在运行时被成功提取，那么 @Retention (RetentionPolicy.RUNTIME) 是必须的。</p>
+<h3 id="注解的使用场景"><a href="#注解的使用场景" class="headerlink" title="注解的使用场景"></a>注解的使用场景</h3><p>文章开始的时候，我用标签来类比注解。但标签比喻只是我的手段，而不是目的。为的是让大家在初次学习注解时能够不被那些抽象的新概念搞懵。既然现在，我们已经对注解有所了解，我们不妨再仔细阅读官方最严谨的文档。</p>
+<p>注解是一系列元数据，它提供数据用来解释程序代码，但是注解并非是所解释的代码本身的一部分。注解对于代码的运行效果没有直接影响。<br>注解有许多用处，主要如下：</p>
+<ul>
+<li>提供信息给编译器： 编译器可以利用注解来探测错误和警告信息</li>
+<li>编译阶段时的处理： 软件工具可以用来利用注解信息来生成代码、Html 文档或者做其它相应处理。</li>
+<li>运行时的处理： 某些注解可以在程序运行的时候接受代码的提取</li>
+<li>值得注意的是，注解不是代码本身的一部分。</li>
+</ul>
+<p>还是回到官方文档的解释上，注解主要针对的是编译器和其它工具软件 (SoftWare tool)。</p>
+<p>当开发者使用了 Annotation 修饰了类、方法、Field 等成员之后，这些 Annotation 不会自己生效，必须由开发者提供相应的代码来提取并处理 Annotation 信息。这些处理提取和处理 Annotation 的代码统称为 APT（Annotation Processing Tool)。</p>
+<h3 id="注解的本质"><a href="#注解的本质" class="headerlink" title="注解的本质"></a>注解的本质</h3><p>「java.lang.annotation.Annotation」接口中有这么一句话，用来描述『注解』。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The common interface extended by all annotation types</span><br><span class="line">所有的注解类型都继承自这个普通的接口（Annotation）</span><br></pre></td></tr></table></figure>
+
+<p>这句话有点抽象，但却说出了注解的本质。我们看一个 JDK 内置注解的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.METHOD)</span><br><span class="line">@Retention(RetentionPolicy.SOURCE)</span><br><span class="line">public @interface Override &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是注解 @Override 的定义，其实它本质上就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Override extends Annotation&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没错，注解的本质就是一个继承了 Annotation 接口的接口。有关这一点，你可以去反编译任意一个注解类，你会得到结果的。</p>
+<p>一个注解准确意义上来说，只不过是一种特殊的注释而已，如果没有解析它的代码，它可能连注释都不如。</p>
+<p>而解析一个类或者方法的注解往往有两种形式，一种是编译期直接的扫描，一种是运行期反射。反射的事情我们待会说，而编译器的扫描指的是编译器在对 java 代码编译字节码的过程中会检测到某个类或者方法被一些注解修饰，这时它就会对于这些注解进行某些处理。</p>
+<p>典型的就是注解 @Override，一旦编译器检测到某个方法被修饰了 @Override 注解，编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。</p>
+<p>这一种情况只适用于那些编译器已经熟知的注解类，比如 JDK 内置的几个注解，而你自定义的注解，编译器是不知道你这个注解的作用的，当然也不知道该如何处理，往往只是会根据该注解的作用范围来选择是否编译进字节码文件，仅此而已。</p>
+<p>[参考链接]<a href="https://blog.csdn.net/briblue/article/details/73824058" target="_blank" rel="noopener">https://blog.csdn.net/briblue/article/details/73824058</a></p>
 
       
 
@@ -388,11 +525,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -404,7 +545,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -416,7 +557,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -424,15 +565,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,15 +577,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,15 +589,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,11 +601,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,15 +609,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,11 +633,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,23 +657,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,11 +681,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,18 +709,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
@@ -584,11 +717,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,19 +733,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,15 +741,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,11 +753,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,14 +793,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
@@ -664,15 +801,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,7 +813,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
