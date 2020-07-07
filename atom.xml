@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-06T09:41:58.656Z</updated>
+  <updated>2020-07-07T06:36:45.678Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2020/07/06/quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
     <id>http://yoursite.com/2020/07/06/quartz定时任务/</id>
     <published>2020-07-06T11:57:10.000Z</published>
-    <updated>2020-07-06T09:41:58.656Z</updated>
+    <updated>2020-07-07T06:36:45.678Z</updated>
     
     <content type="html"><![CDATA[<h4 id="Quartz-API-的关键接口是："><a href="#Quartz-API-的关键接口是：" class="headerlink" title="Quartz API 的关键接口是："></a>Quartz API 的关键接口是：</h4><ul><li>Scheduler - 与调度程序交互的主要 API。</li><li>Job - 由希望由调度程序执行的组件实现的接口。</li><li>JobDetail - 用于定义作业的实例。</li><li>Trigger（即触发器） - 定义执行给定作业的计划的组件。</li><li>JobBuilder - 用于定义 / 构建 JobDetail 实例，用于定义作业的实例。</li><li>TriggerBuilder - 用于定义 / 构建触发器实例。</li></ul><a id="more"></a><ul><li><p>定时任务类</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class QuartzTest &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private JournalService journalService;</span><br><span class="line"></span><br><span class="line">    @PostConstruct</span><br><span class="line">    public void run() throws SchedulerException &#123;</span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        map.put(&quot;journal&quot;, journalService);//可以保存到JobExecutionContext中</span><br><span class="line">        SchedulerFactory schedFact = new StdSchedulerFactory();</span><br><span class="line">        Scheduler sched = schedFact.getScheduler();</span><br><span class="line">        sched.start();</span><br><span class="line"></span><br><span class="line">        JobDetail job = newJob(SimpleTestJob.class)</span><br><span class="line">                .withIdentity(&quot;myJob&quot;, &quot;group&quot;)</span><br><span class="line">                .usingJobData(new JobDataMap(map))</span><br><span class="line">                .build();</span><br><span class="line">        Trigger trigger = newTrigger()</span><br><span class="line">                .withIdentity(&quot;myTrigger&quot;, &quot;group&quot;)</span><br><span class="line">                .startNow()</span><br><span class="line">                .withSchedule(simpleSchedule()</span><br><span class="line">                .withIntervalInMinutes(5)//设置定时任务间隔时间</span><br><span class="line">                .repeatForever())</span><br><span class="line">                .build();</span><br><span class="line">        sched.scheduleJob(job, trigger);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>具体执行任务的类</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class SimpleTestJob implements Job &#123;</span><br><span class="line"></span><br><span class="line">    private JournalService journalService;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException &#123;</span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; jobParams = jobExecutionContext.getJobDetail().getJobDataMap();</span><br><span class="line">        for (String string : jobParams.keySet()) &#123;</span><br><span class="line">            Object obj = jobParams.get(string);</span><br><span class="line">            journalService = (JournalService) obj;</span><br><span class="line">        &#125;</span><br><span class="line">        DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">        String format = dateFormat.format(new Date());</span><br><span class="line">        System.out.println(&quot;----------------------- &quot; + format + &quot; -------------------------&quot;);</span><br><span class="line">        List&lt;Journal&gt; journalList = journalService.selectByOperateDate(format);</span><br><span class="line">        for (Journal journal : journalList) &#123;</span><br><span class="line">            String str = dateFormat.format(journal.getOperateDate());</span><br><span class="line">            System.out.println(str);</span><br><span class="line">            System.out.println(&quot;-----------------------------&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
     
@@ -139,6 +139,31 @@
 
 &lt;/li&gt;
 &lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java空字符串和null的区别</title>
+    <link href="http://yoursite.com/2020/06/11/Java%E7%A9%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8Cnull%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2020/06/11/Java空字符串和null的区别/</id>
+    <published>2020-06-11T11:57:10.000Z</published>
+    <updated>2020-07-07T06:42:16.786Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Java空字符串与null的区别："><a href="#Java空字符串与null的区别：" class="headerlink" title="Java空字符串与null的区别："></a>Java空字符串与null的区别：</h3><ul><li>类型<br>null表示的是一个对象的值，而并不是一个字符串。例如声明一个对象的引用，String a = null ;没有分配内存，调用null的字符串的方法会抛出空指针异常。（例如：str1.endsWith(str2); java.lang.NullPointerException）<br>“”表示的是一个空字符串，也就是说它的长度为0。例如声明一个字符串String str = “” ;占内存，在内存中分配一个空间，可以使用Object对象中的方法。（例如：“”.toString()等）</li><li>内存分配<br>String str = null ; 表示声明一个字符串对象的引用，但指向为null，也就是说还没有指向任何的内存空间；<br>String str = “”;    表示声明一个字符串类型的引用，其值为””空字符串，这个str引用指向的是空字符串的内存空间；<br>在java中变量和引用变量是存在栈中（stack），而对象（new产生的）都是存放在堆中（heap）：<br>就如下：<br>String str = new String(“abc”) ;<br>ps：=左边的是存放在栈中（stack），=右边是存放在堆中（heap）。<a id="more"></a></li><li>示例程序：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class String_Demo01 &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param args</span><br><span class="line">     */</span><br><span class="line">    public static void main(String[] args) &#123;        </span><br><span class="line">        String str1 = new String() ;</span><br><span class="line">        String str2 = null ;</span><br><span class="line">        String str3 = &quot;&quot; ;</span><br><span class="line">        System.out.println(str1==str2);                //内存地址的比较，返回false</span><br><span class="line">        System.out.println(str1.equals(str2));         //值的比较，返回false</span><br><span class="line">        System.out.println(str2==str3);                //内存地址的比较，返回false</span><br><span class="line">        System.out.println(str3.equals(str2));         //值的比较，返回false</span><br><span class="line">        System.out.println(str1==str3);                //内存地址的比较，返回false</span><br><span class="line">        System.out.println(str1.equals(str3));         //值的比较，返回true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str1 = &quot;&quot;; //str1对应一个空串，声明对象的引用</span><br><span class="line">String str2 = null; //str2引用为空</span><br><span class="line">String str3 = new String(); //str3将指向具体的String实例，默认值为“”</span><br><span class="line">注意：str1和str3被实例化，而str2没有实例化，但str1和str3所指的地址不同，但值一样，都为空。</span><br></pre></td></tr></table></figure><p>有时要检查一个字符串既不是 null 也不为空串，这种情况下就需要使用以下条件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (str != null &amp;&amp; str.length() != 0)</span><br></pre></td></tr></table></figure><p>注意：首先要检查 str 不为 null。如果在一个 null 值上调用方法，会出现错误。</p><p>通过如上的程序可以得出如下结论：<br>字符串对象与null的值不相等，且内存地址也不相等；<br>空字符串对象与null的值不相等，且内存地址也不相等；<br>new String()创建一个字符串对象的默认值为”” （String类型成员变量的初始值为null）</p><p>以下是java 判断字符串是否为空的四种方法:<br>方法一: 最多人使用的一个方法, 直观, 方便, 但效率很低:<br>                     if(s == null || s.equals(“”));<br>方法二: 比较字符串长度, 效率高, 是我知道的最好一个方法:<br>                     if(s == null || s.length() == 0);<br>方法三: Java SE 6.0 才开始提供的方法, 效率和方法二几乎相等, 但出于兼容性考虑, 推荐使用方法二.<br>                     if(s == null || s.isEmpty());<br>方法四: 这是一种比较直观,简便的方法,而且效率也非常的高,与方法二、三的效率差不多:<br>                     if (s == null || s == “”);</p><p>注意:s == null 是有必要存在的.<br>　　“如果 String 类型为null, 而去进行 equals(String) 或 length() 等操作会抛出java.lang.NullPointerException.<br>　　并且s==null 的顺序必须出现在前面，不然同样会抛出java.lang.NullPointerException.”<br>　　如下Java代码:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　　String str = null;</span><br><span class="line">　　if(str.equals(&quot;&quot;) || str == null)&#123;//会抛出异常</span><br><span class="line">　　          System.out.println(&quot;success&quot;);</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure><p>[参考链接]<a href="https://www.cnblogs.com/qiuting/p/5373571.html" target="_blank" rel="noopener">https://www.cnblogs.com/qiuting/p/5373571.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Java空字符串与null的区别：&quot;&gt;&lt;a href=&quot;#Java空字符串与null的区别：&quot; class=&quot;headerlink&quot; title=&quot;Java空字符串与null的区别：&quot;&gt;&lt;/a&gt;Java空字符串与null的区别：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;类型&lt;br&gt;null表示的是一个对象的值，而并不是一个字符串。例如声明一个对象的引用，String a = null ;没有分配内存，调用null的字符串的方法会抛出空指针异常。（例如：str1.endsWith(str2); java.lang.NullPointerException）&lt;br&gt;“”表示的是一个空字符串，也就是说它的长度为0。例如声明一个字符串String str = “” ;占内存，在内存中分配一个空间，可以使用Object对象中的方法。（例如：“”.toString()等）&lt;/li&gt;
+&lt;li&gt;内存分配&lt;br&gt;String str = null ; 表示声明一个字符串对象的引用，但指向为null，也就是说还没有指向任何的内存空间；&lt;br&gt;String str = “”;    表示声明一个字符串类型的引用，其值为””空字符串，这个str引用指向的是空字符串的内存空间；&lt;br&gt;在java中变量和引用变量是存在栈中（stack），而对象（new产生的）都是存放在堆中（heap）：&lt;br&gt;就如下：&lt;br&gt;String str = new String(“abc”) ;&lt;br&gt;ps：=左边的是存放在栈中（stack），=右边是存放在堆中（heap）。&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
@@ -508,25 +533,6 @@ public Employee(String n){
     
     
       <category term="工厂模式" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之组合模式</title>
-    <link href="http://yoursite.com/2020/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2020/05/21/设计模式之组合模式/</id>
-    <published>2020-05-21T11:57:10.000Z</published>
-    <updated>2020-05-21T07:42:00.180Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="设计模式" scheme="http://yoursite.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-      <category term="设计模式" scheme="http://yoursite.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
