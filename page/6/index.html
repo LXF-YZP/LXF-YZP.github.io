@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 130
+			总文章数 138
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,6 +155,733 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-刷LeetCode常用函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/18/刷LeetCode常用函数/">刷LeetCode常用函数</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/18/刷LeetCode常用函数/" class="archive-article-date">
+  	<time datetime="2019-12-18T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>java.util.Arrays.fill () 方法只适合于把数组用同一个值初始化。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">float[] height = new float[20]；</span><br><span class="line">java.util.Arrays.fill( height, 175.5f );</span><br><span class="line">表示用 float 型的值 175.5f 初始化数组 height [20] ，即用此值填充所有数组项。</span><br><span class="line"></span><br><span class="line">Arrays.fill（）函数</span><br><span class="line"></span><br><span class="line">用法 1：接受 2 个参数</span><br><span class="line">Arrays.fill（ a1, value ）;</span><br><span class="line">注：a1 是一个数组变量，value 是一个 a1 中元素数据类型的值，作用：填充 a1 数组中的每个元素都是 value</span><br><span class="line">例如：</span><br><span class="line">boolean[] a1 = new boolean[5];</span><br><span class="line">Arrays.fill( a1,true );</span><br><span class="line">结果 a1 [] = &#123;true,true,true,true,true&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">用法 2：接受 4 个参数</span><br><span class="line">例如：</span><br><span class="line">String[] a9 = new String[6];</span><br><span class="line">Arrays.fill(a9, &quot;Hello&quot;);</span><br><span class="line">Arrays.fill(a9, 3, 5,&quot;World&quot;);</span><br><span class="line">结果是 a9 [] = &#123;Hello,Hello,Hello,World,World,Hello&#125;;</span><br><span class="line">第一个参数指操作的数组，第二个和第三个指在该数组的某个区域插入第四个参数，第二个参数指起始元素下标（包含该下标），第三个参数指结束下标（不包含该下标），注意：java 的数组下标从 0 开始</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Math求最大最小值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Math.max( , ) : 计算最大值</span><br><span class="line">Math.min( , ) : 计算最小值</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>求两个集合交集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// HashSet&lt;Integer&gt; set1 = new HashSet&lt;Integer&gt;();</span><br><span class="line">// for (Integer n : nums1) set1.add(n);</span><br><span class="line">// HashSet&lt;Integer&gt; set2 = new HashSet&lt;Integer&gt;();</span><br><span class="line">// for (Integer n : nums2) set2.add(n);</span><br><span class="line">// set1.retainAll(set2);</span><br></pre></td></tr></table></figure>
+
+<p>当 Map 集合中有这个 key 时，就使用这个 key 值，如果没有就使用默认值 defaultValue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getOrDefault(Object key, V defaultValue)</span><br></pre></td></tr></table></figure>
+
+<p>判断整数是不是回文数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String reversedStr = (new StringBuilder(x + &quot;&quot;)).reverse().toString();</span><br><span class="line">return (x + &quot;&quot;).equals(reversedStr);</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java常用方法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/LeetCode算法//" class="article-tag-list-link color1">LeetCode算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/18/刷LeetCode常用函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-完全二叉树叶子节点数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/17/完全二叉树叶子节点数/">完全二叉树叶子节点数</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/17/完全二叉树叶子节点数/" class="archive-article-date">
+  	<time datetime="2019-12-17T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>定义：若设二叉树的深度为 h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第 h 层所有的结点都连续集中在最左边，这就是完全二叉树;</p>
+</blockquote>
+        
+          <a class="article-more-a" href="../../2019/12/17/完全二叉树叶子节点数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/二叉树//" class="article-tag-list-link color4">二叉树</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/17/完全二叉树叶子节点数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LeetCode之接雨水" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/16/LeetCode之接雨水/">LeetCode之接雨水</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/16/LeetCode之接雨水/" class="archive-article-date">
+  	<time datetime="2019-12-16T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>题目描述：给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+</blockquote>
+        
+          <a class="article-more-a" href="../../2019/12/16/LeetCode之接雨水/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/栈、双指针、动态规划//" class="article-tag-list-link color1">栈、双指针、动态规划</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/16/LeetCode之接雨水/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-三次握手和四次挥手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/15/三次握手和四次挥手/">三次握手和四次挥手</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/15/三次握手和四次挥手/" class="archive-article-date">
+  	<time datetime="2019-12-15T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h3><p>TCP 是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的 “连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如 ip 地址、端口号等。</p>
+<p>TCP 可以看成是一种字节流，它会处理 IP 层或以下的层的丢包、重复以及错误问题。在连接的建立过程中，双方需要交换一些连接的参数。这些参数可以放在 TCP 头部。</p>
+<p>TCP 提供了一种可靠、面向连接、字节流、传输层的服务，采用三次握手建立一个连接。采用 4 次挥手来关闭一个连接。</p>
+        
+          <a class="article-more-a" href="../../2019/12/15/三次握手和四次挥手/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tcp协议//" class="article-tag-list-link color1">tcp协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/15/三次握手和四次挥手/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-学习两个月算法之后的总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/14/学习两个月算法之后的总结/">学习两个月算法之后的总结</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/14/学习两个月算法之后的总结/" class="archive-article-date">
+  	<time datetime="2019-12-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>克服焦虑，不再心急<br>首先要承认自己这两个月学算法学的有点焦虑，所有视频只过了一遍；焦虑是由于自己处理不好学习算法和项目的时间转换，也是有点心急，但是后来一想算法是个持久战，不能心急，慢慢的；越是心急越是陷入了死循环；</li>
+<li>馒头要一口一口吃<br>尽管学的有点焦虑，也还是学到了很多东西，画递归图虽然有点傻，但是也不失为理解递归的好方法，馒头总要一口一口吃；我愿再花上两个月的时间跨过算法这道坎；</li>
+<li>观念转变<br>通过两个月的时间学习算法，发现很多题都是有模板，也就是按照一定的套路就可以做出来，这个思想的转变很重要，使得不再恐惧算法；</li>
+<li>承认自己不是天才<br>承认自己不是天才这点非常重要，有时候我们就是太自信了，学什么都是按照自己想象的有效的方法进行学习（本来就是高手的除外），自己的方法无效，何不去试试别人有效的方法呢，它山之石可以攻玉；</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法总结//" class="article-tag-list-link color5">算法总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/14/学习两个月算法之后的总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/13/动态规划/">动态规划</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/13/动态规划/" class="archive-article-date">
+  	<time datetime="2019-12-13T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="动态规划的三大步骤"><a href="#动态规划的三大步骤" class="headerlink" title="动态规划的三大步骤"></a>动态规划的三大步骤</h2><blockquote>
+<p>动态规划，无非就是利用历史记录，来避免我们的重复计算。而这些历史记录，我们得需要一些变量来保存，一般是用一维数组或者二维数组来保存。下面我们先来讲下做动态规划题很重要的三个步骤，</p>
+</blockquote>
+        
+          <a class="article-more-a" href="../../2019/12/13/动态规划/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/递归、栈//" class="article-tag-list-link color5">递归、栈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/13/动态规划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-递归详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/12/递归详解/">递归详解</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/12/递归详解/" class="archive-article-date">
+  	<time datetime="2019-12-12T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<blockquote>
+<p>题目描述：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。</p>
+</blockquote>
+</blockquote>
+        
+          <a class="article-more-a" href="../../2019/12/12/递归详解/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数据结构、算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/递归、栈//" class="article-tag-list-link color5">递归、栈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/12/递归详解/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Jackson中注解使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/11/Jackson中注解使用/">Jackson注解</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/11/Jackson中注解使用/" class="archive-article-date">
+  	<time datetime="2019-12-11T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>使Jackson 序列化和反序列化字段不一致</li>
+</ul>
+        
+          <a class="article-more-a" href="../../2019/12/11/Jackson中注解使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">序列化与反序列化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/序列化与反序列化//" class="article-tag-list-link color4">序列化与反序列化</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/11/Jackson中注解使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-定时任务实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -341,826 +1068,9 @@
 
 
   
-    <article id="post-GitHub搜索小技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/03/GitHub搜索小技巧/">GitHub搜索小技巧</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/03/GitHub搜索小技巧/" class="archive-article-date">
-  	<time datetime="2019-12-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="搜索技巧"><a href="#搜索技巧" class="headerlink" title="搜索技巧"></a>搜索技巧</h3><p>传统的搜索就是直接使用关键词，但是 GitHub 的搜索功能远远不止如此，还可以：</p>
-        
-          <a class="article-more-a" href="../../2019/12/03/GitHub搜索小技巧/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/GitHub//" class="article-tag-list-link color2">GitHub</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/03/GitHub搜索小技巧/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-bdmg部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/12/02/bdmg部署/">bdmg部署</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/12/02/bdmg部署/" class="archive-article-date">
-  	<time datetime="2019-12-02T09:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>从git上下载bdmg代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone ssh://git@code.bonc.com.cn:10022/bdev/bdm.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下载下来注释掉App.java中部分代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">//		if(isAuthorized())&#123;</span><br><span class="line">			SpringApplication.run(App.class, args);</span><br><span class="line">//		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-        
-          <a class="article-more-a" href="../../2019/12/02/bdmg部署/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/项目日记//" class="article-tag-list-link color5">项目日记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/12/02/bdmg部署/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-springMVC中controller接收list类型参数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/11/06/springMVC中controller接收list类型参数/">springMVC中controller接收list类型参数</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/11/06/springMVC中controller接收list类型参数/" class="archive-article-date">
-  	<time datetime="2019-11-06T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、客户端使用 post或patch方式提交；</p>
-<p>2、客户端请求 header 设置：Content-Type：application/json;charset=utf-8；</p>
-<p>3、客户端请求参数为 json 格式：[“abc”,”cba”]；</p>
-<p>4、controller 参数增加声明：@RequestBody；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@PatchMapping(&quot;/all/deployment/status&quot;)</span><br><span class="line">public void delFileInfo(@RequestBody List&lt;String&gt; bacthAgent) throws IOException &#123;</span><br><span class="line"> </span><br><span class="line">    for(String agentId :bacthAgent)&#123;</span><br><span class="line">        System.out.println(agentId);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/springMVC//" class="article-tag-list-link color5">springMVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/11/06/springMVC中controller接收list类型参数/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java代理模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/11/05/Java代理模式/">Java代理模式</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/11/05/Java代理模式/" class="archive-article-date">
-  	<time datetime="2019-11-05T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-代理模式的定义"><a href="#1-代理模式的定义" class="headerlink" title="1.代理模式的定义"></a>1.代理模式的定义</h4><p>代理 (Proxy) 是一种设计模式，提供了对目标对象另外的访问方式；即通过代理对象访问目标对象。这样做的好处是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。这种类型的设计模式属于结构型模式。</p>
-        
-          <a class="article-more-a" href="../../2019/11/05/Java代理模式/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java、设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/java基础//" class="article-tag-list-link color2">java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/11/05/Java代理模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们清楚，二分查找是实现有序数组查找的高效算法：<br>那么，咱们可以基于二分查找算法，需要考虑一个问题，即若 list [midpoint] != item, 如何缩小查找范围呢？这可以分为两种情形讨论：</p>
-<p>情形 1： 二分查找中，对于数组 [4, 5, 7, 8, 9, 1, 2, 3]，list [low] &lt; list [midpoint] ，说明 low 至 midpoint 这一段是升序的，在这种情况下，若 item &lt; list [low] 且 item &gt; list [midpoint]，那么说明要查找的元素并非在此段，此种情况下，需要在 midpoint+1 到 high 这一段来查找；其余情况，说明 item 就在此段，那么需要在 low 至 midpoint-1 这一段查找即可。</p>
-<p>情形 2： 二分查找中，对于数组 [7, 8, 9, 1, 2, 3, 4, 5]，list [low] &gt; list [midpoint] ，说明 midpoint 至 high 这一段是升序的，在这种情况下，若 item &lt; list [low] 且 item &gt; list [midpoint]，那么说明要查找的元素就在此段，此种情况下，需要在 midpoint+1 到 high 这一段来查找；其余情况，说明 item 不在此段，那么需要在 low 至 midpoint-1 这一段查找即可。</p>
-<p>一、广度优先搜索和深度优先搜索<br>1、广度优先搜索（breadth-first-search）是一种 “地毯式” 层层推进的搜索策略，即先查找离起始顶点最近的，然后是次近的，<br>依次往外搜索，属于盲目搜索。<br>2、﻿深度优先搜索（depth-first-search）沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 v 的所在边都己被探寻过，<br>搜索将回溯到发现节点 v 的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发现的节点，<br>则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。属于盲目搜索。<br>3、时间复杂度和空间复杂度<br>﻿广度优先的时间复杂度是 O (V+E), 空间复杂度 O (V+E)，V 表示顶点的个数，E 表示边的个数。<br>﻿深度优先搜索算法的时间复杂度是 O (E)，E 表示边的个数，空间复杂度是 O (V)，V 是顶点个数。</p>
-<p>二、贪心算法<br>1、定义：贪心算法是指，在对问题求解时，总是做出在当前看来是最好的选择。 也就是说，不从整体最优上加以考虑，<br>他所做出的是在某种意义上的局部最优解。<br>2、使用贪心算法的情况：<br>1）针对一组数据，我们定义了限制值和期望值，希望从中选出几个数据，在满足限制的情况下，期望值最大。<br>2）每次选择当前情况下，在对限制值同等贡献量的情况下，对期望值贡献最大的数据。<br>3）大部分情况下，举几个例子验证一下就可以了。严格的证明贪心算法的正确性是非常复杂的，需要涉及较多的数学推理。<br>而且，从实践角度来说，大部分能用贪心算法解决的问题，贪心算法的正确性都是显而易见的，也不需要严格的数学推导证明。<br>实际上，用贪心算法解决问题的思路，并不总能给出最优解。</p>
-<p>三、二分查找<br>1、什么是二分查找？<br>二分查找是针对一个有序的数据集合，每次通过跟区间中间的元素对比，将待查找的区间缩小为之前的一般，<br>直到找到要查找的元素，或者区间缩小为 0。<br>2、实现二分查找注意事项：<br>1）循环退出的条件是：low &lt;= high，不是 low &lt; high。<br>2）mid 的取值，使用 mid=low+(high-low)/2，而不是 mid=(low+high)/2，因为如果 low 和 high 比较大的话，求和可能会发生 int 类型的值超出最大范围。<br>3）low 和 high 的更新：low = mid +1，high = mid + 1，若直接写成 low = mid，high = mid 就肯能发生死循环。<br>3、使用条件<br>1）二分查找依赖的是顺序表结构，即数组。<br>2）二分查找针对的是有序数据，因此只能用在插入、删除操作不频繁，一次排序多次查找的过程中。<br>3）数据量太小不适合二分查找，与直接遍历数组相比效率不明显。但是有一个例外，就是数据之间的比较操作非常耗时，<br>比如数组中存储的都是长度超过 300 的字符串，那这还是尽量减少比较 操作使用二分查找。<br>4）数据量太大也不适合二分查找，因为数组需要连续的空间，若数据量太大，往往找不到存储如此大规模数据的连续内存空间。</p>
-<p>二分查找<br>使用时机</p>
-<p>单调性<br>有上下界<br>可 index 索引</p>
-<p>每一步都选择当前最优解，以至全局结果是最优解</p>
-<p>使用时机</p>
-<p>子问题最优解，得到全局最优解<br>贪心、回溯、动态规划的区别</p>
-<p>贪心：局部最优解<br>回溯：回退<br>动态规划：最优判断 + 回退</p>
-<p>DFS 模板<br>Stack<treenode> nodes = new Stack&lt;&gt;();<br>Stack<integer> value = new Stack&lt;&gt;();<br>        nodes.push(root);<br>        value.push(1);<br>        int max=0;<br>        while(!nodes.isEmpty()) {<br>            TreeNode node = nodes.pop();<br>            int val= value.pop();<br>            if(node==null)<br>                continue;<br>            if(max&lt;val)<br>                max=val;<br>            nodes.push(node.left);<br>            value.push(val+1);<br>            nodes.push(node.right);<br>            value.push(val+1);<br>        }</integer></treenode></p>
-<pre><code>return max;</code></pre><p>BFS 模板<br>class Solution {<br>    public List&lt;List<integer>&gt; levelOrder(TreeNode root) {<br>        List&lt;List<integer>&gt; result = new ArrayList&lt;&gt;();<br>        process(result, root, 0);<br>        return result;<br>    }</integer></integer></p>
-<pre><code>private void process(List&lt;List&lt;Integer&gt;&gt; result, TreeNode root, int depth) {
-    if (root == null) {
-        return;
-    }
-    List&lt;Integer&gt; tempList = new ArrayList&lt;&gt;();
-    if (result.size() - 1 &lt; depth) {
-        tempList.add(root.val);
-        result.add(tempList);
-    } else {
-        tempList = result.get(depth);
-        tempList.add(root.val);
-    }
-
-    process(result, root.left, depth + 1);
-    process(result, root.right, depth + 1);
-}</code></pre><p>}<br>Binary Search 模板<br>public int binarySearch(int[] arr, int key) {<br>    int low = 0;<br>    int high = arr.length - 1;<br>    int mid = 0;</p>
-<pre><code>if (key &lt; arr[low] || key &gt; arr[high] || low &gt; high)
-    return -1;
-while (low &lt;= high){
-    mid = (low + high) / 2;
-    if (arr[mid] &gt; key)
-        high = mid - 1;
-    else if (arr[mid] &lt; key)
-        low = mid + 1;
-    else
-        return mid;
-}
-return -1;</code></pre><p>}</p>
-<p>与普通的二分查找相似，该算法唯一的区别是在对每个节点判断时还要判断首尾结点的大小，从而决定查找区域收缩方向：</p>
-<p> while (left &lt;= right) {<br>      int mid = (left + right) / 2;<br>      if (nums[mid] &gt; nums[pivot + 1])<br>        return mid + 1;<br>      else {<br>        if (nums[mid] &lt; nums[left])<br>          right = mid - 1;<br>        else<br>          left = mid + 1;<br>      }<br>    }</p>
-<pre><code>深度优先</code></pre><p>深度优先的思想类似于走迷宫，遇到死胡同时就走另一条路。它的代码模板为：</p>
-<p>boolean Dfs(V){<br>  if(V为终点)<br>      return true;<br>  if(V为旧点)<br>      return false;<br>  将V标记为旧点<br>  对和V相邻的每个节点U:<br>  if(Dfs(U)==true)<br>          return true;<br>  return fasle;<br>}<br>广度优先<br>广度优先是一种 “地毯式” 搜索思想，即层层推进的策略，其内部可以考虑使用队列来实现。它的代码模板为:</p>
-<p>void BFS(Node s){<br>    queue<int> q;<br>    q.push(s);<br>    while(!q.empty()){<br>        取出队首元素top;<br>        访问队首元素top;<br>        将队首元素出队;<br>        将top的下一层结点中未曾入队的结点全部入队，并设置为已入队;<br>    }<br>}</int></p>
-<p>这个题我们可以从后往前分析，首先判断倒数第二个元素能否到达最后一个元素，如果可以，我们将不再考虑最后一个元素，<br>因为根据刚才的分析如果可以到达倒数第二个，那么也可以到达最后一个元素。</p>
-<p>然后依次往前递推，如果都能跳到的话，我们最后应该分析的就是第一个元素能否跳到第二个元素上。</p>
-<p>这个比较符合动态规划的思想，我们先用动态规划解下这道题。</p>
-<p>class Solution {<br>    public boolean canJump(int[] nums) {</p>
-<pre><code>    if (nums == null) {
-        return false;
-    }
-    boolean[] dp = new boolean[nums.length];
-    dp[0] = true;
-    for (int i = 1; i &lt; nums.length; i++) {
-        for (int j = 0; j &lt; i; j++) {
-            // 如果之前的j节点可达，并且从此节点可以到跳到i
-            if (dp[j] &amp;&amp; nums[j] + j &gt;= i) {
-                dp[i] = true;
-                break;
-            }
-        }
-    }
-    return dp[nums.length - 1];
-}</code></pre><p>}</p>
-<p>分析上面的代码，可以看出使用动态规划的时间复杂度是 O (n^2)，空间复杂度是 O (n)。</p>
-<p>下面我们使用贪心的思路看下这个问题，我们记录一个的坐标代表当前可达的最后节点，这个坐标初始等于 nums.length-1，<br>然后我们每判断完是否可达，都向前移动这个坐标，直到遍历结束。</p>
-<p>如果这个坐标等于 0，那么认为可达，否则不可达。</p>
-<p>class Solution {<br>    public boolean canJump(int[] nums) {</p>
-<pre><code>    if (nums == null) {
-        return false;
-    }
-    int lastPosition = nums.length - 1;
-    for (int i = nums.length - 1; i &gt;= 0; i--) {
-        // 逐步向前递推
-        if (nums[i] + i &gt;= lastPosition) {
-            lastPosition = i;
-        }
-    }
-    return lastPosition == 0;
-
-
-
-    int lastPos = nums.length - 1;
-    for (int i = nums.length - 1; i &gt;= 0; i--) {
-        if (i + nums[i] &gt;= lastPos) {
-            lastPos = i;
-        }
-    }
-    return lastPos == 0;
-
-
-}</code></pre><p>}</p>
-<p>这段代码的时间复杂度是 O (n)，空间复杂度是 O (1)，可以看出比动态规划解法有了明显的性能提升。</p>
-<p>关于复杂度<br>1.1 时间复杂度为 O (n)<br>1.2 空间负责度为 O (1)<br>我的解题思路<br>2.1 定义一个整数存储起点<br>2.2 倒序遍历数组，有两种情况<br>2.2.1 当前索引加上索引上的值大于缓存值，这表示在当前索引上有可能到达终点，移动缓存值<br>2.2.2 当前索引加上索引上的值小于缓存值，表示无法从当前点到达终点，跳出循环<br>2.3 对比 2.1 定义的整数是否等于 0，如果等于 0，表示在索引 0 上有可能到达终点</p>
-<p>跳跃游戏2<br>主要思路就是 cur_max_idx 记录当前位置能跳到的最远位置，然后 i 从 0 遍历到 cur_max_idx + 1, 过程中使用 pre_max_idx 记录能到达的最远位置的最大值，然后直接跳跃到 pre_max_idx 位置，然后重复上述过程。</p>
-<p>class Solution {</p>
-<pre><code>public int jump(vector&lt;int&gt;&amp; nums) {
-    int n = nums.size();
-    if(n &lt; 2){
-        return 0;
-    }
-
-    int pre_max_idx = nums[0];
-    int cur_max_idx = nums[0];
-    int jump_min = 1;
-    for(int i = 0; i &lt; n; i++){
-        if(i &gt; cur_max_idx){
-            jump_min++;
-            cur_max_idx = pre_max_idx;
-        }
-        if(pre_max_idx &lt; nums[i] + i){
-            pre_max_idx = nums[i] + i;
-        }
-    }
-    return jump_min;
-}</code></pre><p>}</p>
-<p>跳跃游戏 II</p>
-<pre><code>给定一个非负整数数组，你最初位于数组的第一个位置。
-数组中的每个元素代表你在该位置可以跳跃的最大长度。
-你的目标是使用最少的跳跃次数到达数组的最后一个位置。
-
-示例:
-输入: [2,3,1,1,4]
-输出: 2
-解释：跳到最后一个位置的最小跳跃数是 2。
-从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
-来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/jump-game-ii</code></pre><p>思路分析：基于「贪心算法」，每次选择所能跳跃最远的点作为下一跳跃点</p>
-<p>跳跃距离 = 当前坐标 + 所能跳跃最大值</p>
-<p>public int jump(int[] nums) {<br>        int index = 0, count =0; // 记录当前索引以及跳跃次数<br>        while (index+nums[index] &lt; nums.length-1) { // 若当前已在终点或下一次能够到达终点则结束跳跃<br>            int max = 1; // 默认下一跳跃点为最大点<br>            for (int i = 2; i &lt;= nums[index]; i++) {<br>                if (nums[index + i]+ i&gt;= nums[index+max]+max) { // 选取最大跳跃<br>                    max = i;<br>                }<br>            }<br>            index+=max; // 跳跃<br>            count++; // 计数<br>        }<br>        return index==nums.length-1?count:count+1; // 若下一次跳跃才能达到终点，则次数+1<br>    }</p>
-<p>输入: coins = [1, 2, 5], amount = 11<br>输出: 3<br>解释: 11 = 5 + 5 + 1</p>
-<p>输入: coins = [2], amount = 3<br>输出: -1</p>
-<pre><code>public int coinChange(int[] coins, int amount) {
-
-    int count = 0;
-    for(int i = coins.length - 1; i &gt;= 0 ; i++){
-
-        if(coins &gt; amount){
-            continue;
-        }
-        count += amount / coins;
-        if(amount % coins == 0){
-            return count;
-        }
-    }
-    return count;
-
-}</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/11/03/总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LeetCode算法之" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="学习总结："><a href="#学习总结：" class="headerlink" title="学习总结："></a>学习总结：</h3><ul>
-<li>熟悉五毒大法，第一遍刷LeetCode题不能死磕一道题，要从总体进行把握，之后再在细节上面打磨；</li>
-<li>数组方面学习了双指针思想，老师讲了一道使用双指针解决数组问题的算法之后，我们又刷了几道双指针方面的算法，对双指针这种思想有个熟悉感；</li>
-<li>链表方面其实没有什么特别的技巧，链表就是对指针的操作，仔细做了一道链表反转的题，对链表算法有了重新认识；</li>
-<li>栈和队列方面，老师讲了一道栈的应用，技巧性还是很强的，对于栈这种结构有了重新认识。队列在多线程里面应用的还是挺多的，需要熟练掌握队列的应用；</li>
-</ul>
-<h3 id="不足之处"><a href="#不足之处" class="headerlink" title="不足之处"></a>不足之处</h3><ul>
-<li>这周的时间安排不是很合理，下周要更合理的安排时间进行学习；</li>
-</ul>
-<p> public void merge(int[] nums1, int m, int[] nums2, int n) {</p>
-<pre><code>   if (n == 0){
-        return;
-    }
-    if(m == 0){
-        for(int i = 0; i &lt; n ; i++){
-            nums1[i] = nums2[i];
-        }
-        return;
-    }
-    int k = 0;
-    for (int i = m - 1, j = n - 1; i &gt;= 0 || j &gt;= 0;){
-
-        if (nums1[i] &lt;= nums2[j]){
-            nums1[i + j + 1] = nums2[j];
-            j--;
-            if(j == -1){
-                break;
-            }
-        }else {
-
-            nums1[i + j + 1] = nums1[i];
-            i--;
-            if(i == -1){
-                k = j;
-                System.arraycopy(nums2, 0, nums1, 0, k + 1);
-                break;
-            }
-        }
-    }
-
-    // System.arraycopy(nums2, 0, nums1, 0, k + 1);
-}</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/10/20/LeetCode算法之/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-如何在互联网上虚度人生" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/10/08/如何在互联网上虚度人生/">如何在互联网上虚度人生</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/10/08/如何在互联网上虚度人生/" class="archive-article-date">
-  	<time datetime="2019-10-08T10:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>详情请阅读全文</p>
-        
-          <a class="article-more-a" href="../../2019/10/08/如何在互联网上虚度人生/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">虚度人生</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/10/08/如何在互联网上虚度人生/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java并发之多线程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/09/30/Java并发之多线程间通信/">Java并发之多线程间通信</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/09/30/Java并发之多线程间通信/" class="archive-article-date">
-  	<time datetime="2019-09-30T10:28:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Java 中线程通信协作的最常见的两种方式：<br>一.syncrhoized 加锁的线程的 Object 类的 wait ()/notify ()/notifyAll ()<br>二.ReentrantLock 类加锁的线程的 Condition 类的 await()/signal()/signalAll()</p>
-        
-          <a class="article-more-a" href="../../2019/09/30/Java并发之多线程间通信/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">多线程通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java并发//" class="article-tag-list-link color2">Java并发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/09/30/Java并发之多线程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="../5/">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="page-number current">6</span><a class="page-number" href="../7/">7</a><a class="page-number" href="../8/">8</a><span class="space">&hellip;</span><a class="page-number" href="../13/">13</a><a class="extend next" rel="next" href="../7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="../5/">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="page-number current">6</span><a class="page-number" href="../7/">7</a><a class="page-number" href="../8/">8</a><span class="space">&hellip;</span><a class="page-number" href="../14/">14</a><a class="extend next" rel="next" href="../7/">Next &raquo;</a>
     </nav>
   
 
@@ -1255,15 +1165,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1279,7 +1189,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1287,11 +1197,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1299,11 +1205,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1323,11 +1229,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1335,7 +1241,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1343,11 +1249,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,19 +1269,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1391,11 +1297,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1407,7 +1313,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1415,11 +1329,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,19 +1341,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1459,15 +1373,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1475,15 +1389,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1495,15 +1405,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1511,7 +1417,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1519,11 +1425,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1535,35 +1441,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1571,7 +1449,43 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">

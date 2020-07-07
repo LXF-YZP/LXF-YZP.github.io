@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 130
+			总文章数 138
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -341,6 +341,93 @@
 
 
   
+    <article id="post-java中变量初始化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/07/04/java中变量初始化/">java中变量初始化</a>
+    </h1>
+  
+
+        
+        <a href="2020/07/04/java中变量初始化/" class="archive-article-date">
+  	<time datetime="2020-07-04T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很久之前的笔记，今天放到自己的博客中；</p>
+        
+          <a class="article-more-a" href="2020/07/04/java中变量初始化/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2020/07/04/java中变量初始化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java是按值传递还是按引用传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -523,126 +610,129 @@
 
 
   
-    <article id="post-tiny-spring笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-枚举使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/05/29/tiny-spring笔记一/">tiny-spring笔记一</a>
+      <a class="article-title" href="2020/06/09/枚举使用/">枚举使用</a>
     </h1>
   
 
         
-        <a href="2020/05/29/tiny-spring笔记一/" class="archive-article-date">
-  	<time datetime="2020-05-29T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
+        <a href="2020/06/09/枚举使用/" class="archive-article-date">
+  	<time datetime="2020-06-09T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="1-step1-最基本的容器"><a href="#1-step1-最基本的容器" class="headerlink" title="1.step1 - 最基本的容器"></a>1.step1 - 最基本的容器</h4><p>使用如下命令在idea中查看最开始的版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout step-1-container-register-and-get</span><br></pre></td></tr></table></figure>
+        <p>枚举例子如下 ：<br>普通java类定义常量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Operation &#123;  </span><br><span class="line">    private String operType;</span><br><span class="line">    </span><br><span class="line">    private Operation(String operType)&#123; </span><br><span class="line">	this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static final Operation ADD = new Operation(&quot;add&quot;);</span><br><span class="line">    public static final Operation DELETE = new Operation(&quot;delete&quot;);</span><br><span class="line">    public static final Operation MODIFY= new Operation(&quot;modify&quot;);</span><br><span class="line">    public static final Operation SELECT = new Operation(&quot;select&quot;);</span><br><span class="line"></span><br><span class="line">    public String getOperType() &#123;</span><br><span class="line">        return operType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>代码结构如下图所示<br><img src="/2020/05/29/tiny-spring笔记一/aaa.png" alt><br>IoC 最基本的角色有两个：容器 (BeanFactory) 和 Bean 本身。这里使用 BeanDefinition 来封装了 bean 对象(当前之后bean属性)，这样可以保存一些额外的元信息。</p>
-        
-          <a class="article-more-a" href="2020/05/29/tiny-spring笔记一/#more">more >></a>
-        
-      
+<p>枚举定义常量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public enum OperationByEnum&#123;</span><br><span class="line">    ADD(&quot;add&quot;), DELETE(&quot;delete&quot;), MODIFY(&quot;modify&quot;), SELECT(&quot;select&quot;);</span><br><span class="line">    </span><br><span class="line">    private String operType;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public String getOperType()&#123;</span><br><span class="line">	return operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private OperationByEnum(String operType)&#123;</span><br><span class="line">	this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring、Java、Ioc</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p>查看上述两个类的 class 文件可以看出两种方式可以认为是等价的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">D:\java\workspace\EnumDemo\bin&gt;javap OperationByEnum.class</span><br><span class="line">Compiled from &quot;OperationByEnum.java&quot;</span><br><span class="line">public final class OperationByEnum extends java.lang.Enum&lt;OperationByEnum&gt; &#123;</span><br><span class="line">  public static final OperationByEnum ADD;</span><br><span class="line">  public static final OperationByEnum DELETE;</span><br><span class="line">  public static final OperationByEnum MODIFY;</span><br><span class="line">  public static final OperationByEnum SELECT;</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">  public java.lang.String getOperType();</span><br><span class="line">  public static OperationByEnum[] values();</span><br><span class="line">  public static OperationByEnum valueOf(java.lang.String);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">D:\java\workspace\EnumDemo\bin&gt;javap Operation.class</span><br><span class="line">Compiled from &quot;Operation.java&quot;</span><br><span class="line">public class Operation &#123;</span><br><span class="line">  public static final Operation ADD;</span><br><span class="line">  public static final Operation DELETE;</span><br><span class="line">  public static final Operation MODIFY;</span><br><span class="line">  public static final Operation SELECT;</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">  public java.lang.String getOperType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Spring、Java//" class="article-tag-list-link color2">Spring、Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p>测试例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> */</span><br><span class="line">public enum  ClusterType &#123;</span><br><span class="line"></span><br><span class="line">    kafka,</span><br><span class="line">    storm,</span><br><span class="line"></span><br><span class="line">    hdfs (&quot;hello&quot;,&quot;world&quot;),</span><br><span class="line"></span><br><span class="line">    yarn (&quot;nihao&quot;, &quot;haode&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private String key;</span><br><span class="line">    private String value;</span><br><span class="line"></span><br><span class="line">    ClusterType() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ClusterType(String key, String value) &#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getKey() &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setKey(String key) &#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getValue() &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setValue(String value) &#123;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;ClusterType&#123;&quot; +</span><br><span class="line">                &quot;key=&apos;&quot; + key + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, value=&apos;&quot; + value + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;&#125; &quot; + super.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;111 = &quot; + ClusterType.kafka);</span><br><span class="line">        ClusterType.kafka.setKey(&quot;hello&quot;);</span><br><span class="line">        String key = ClusterType.kafka.getKey();</span><br><span class="line">        System.out.println(&quot;222 = &quot; + key);</span><br><span class="line"></span><br><span class="line">        ClusterType.kafka.setValue(&quot;world&quot;);</span><br><span class="line">        String value = ClusterType.kafka.getValue();</span><br><span class="line">        System.out.println(&quot;333 = &quot; + value);</span><br><span class="line"></span><br><span class="line">        ClusterType hdfs = ClusterType.hdfs;</span><br><span class="line">        System.out.println(&quot;444 = &quot; + hdfs);</span><br><span class="line">        String s = ClusterType.hdfs.getKey();</span><br><span class="line">        System.out.println(&quot;555 = &quot; + s);</span><br><span class="line">        String value1 = ClusterType.hdfs.getValue();</span><br><span class="line">        System.out.println(&quot;666 = &quot; + value1);</span><br><span class="line">        ClusterType[] values = ClusterType.values();</span><br><span class="line">        for (ClusterType clusterType : values) &#123;</span><br><span class="line">            System.out.println(clusterType);</span><br><span class="line">        &#125;</span><br><span class="line">        ClusterType hdfs1 = ClusterType.valueOf(&quot;hdfs&quot;);</span><br><span class="line">        System.out.println(hdfs1);</span><br><span class="line">        String s1 = ClusterType.class.toString();</span><br><span class="line">        System.out.println(s1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>枚举中valueof用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   String str = &quot;ADD&quot;;</span><br><span class="line">OperationByEnum ob = OperationByEnum.valueOf(str);	</span><br><span class="line">System.out.println(ob == OperationByEnum.ADD);//TRUE</span><br><span class="line"></span><br><span class="line">String str2=&quot;add&quot;;</span><br><span class="line">OperationByEnum ob1 = OperationByEnum.valueOf(str2);</span><br></pre></td></tr></table></figure>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/29/tiny-spring笔记一/">展开全文 >></a>
-        </p>
-      
+<p>枚举类是一种特殊的 JAVA 类，枚举类中每声明一个枚举值就代表枚举类的一个实例对象。<br>与 JAVA 普通类一样，声明枚举类时也可以声明类的属性、方法、构造函数，但构造函数必须为私有。<br>枚举类也可以实现接口，继承抽象类。可以作为 switch 语句的参数。<br>若枚举类只有一个枚举值，则可以当做单例设计模式使用。<br>注意：为什么要对weekend 构造函数进行私有化， 答：保证外界无法通过调用构造函数再实例化出一个非法的枚举<br>同理 string 也要进行私有化，防止外界的非法更改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> * 带抽象方法的枚举</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public enum OperationByEnum &#123;</span><br><span class="line">    ADD(&quot;add&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;增&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    DELETE(&quot;delete&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;删&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    MODIFY(&quot;modify&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;改&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    SELECT(&quot;select&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;查&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">    private String operType;</span><br><span class="line"></span><br><span class="line">    public String getOperType()&#123;</span><br><span class="line">        return operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private OperationByEnum(String operType)&#123;</span><br><span class="line">        this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public abstract String getChineseName();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        print(OperationByEnum.ADD);</span><br><span class="line">        String chineseName = OperationByEnum.ADD.getChineseName();</span><br><span class="line">        System.out.println(chineseName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void print(OperationByEnum arg)&#123;</span><br><span class="line">        System.out.println(arg.getOperType());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+<p>链接：<a href="http://www.cnblogs.com/hemingwang0902/archive/2011/12/29/2306263.html#title-6" target="_blank" rel="noopener">http://www.cnblogs.com/hemingwang0902/archive/2011/12/29/2306263.html#title-6</a></p>
+<p>常量的理解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> */</span><br><span class="line">public class ResultCode &#123;</span><br><span class="line"></span><br><span class="line">    public String code;</span><br><span class="line">    public String message;</span><br><span class="line"></span><br><span class="line">    public String getCode() &#123;</span><br><span class="line">        return code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCode(String code) &#123;</span><br><span class="line">        this.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ResultCode getSystemError() &#123;</span><br><span class="line">        return SYSTEM_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMessage() &#123;</span><br><span class="line">        return message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMessage(String message) &#123;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ResultCode getSUCCESS() &#123;</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ResultCode() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ResultCode(String code, String message)&#123;</span><br><span class="line">        this.code = code;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final ResultCode SUCCESS// 编译错误，常量需要初始化</span><br><span class="line">    public static final ResultCode SUCCESS = new ResultCode();</span><br><span class="line">    public static final ResultCode SYSTEM_ERROR = new ResultCode(&quot;E00001&quot;,&quot;系统错误&quot;);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;ResultCode&#123;&quot; +</span><br><span class="line">                &quot;code=&apos;&quot; + code + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, message=&apos;&quot; + message + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(ResultCode.SUCCESS.toString());</span><br><span class="line">        ResultCode.SUCCESS = new ResultCode(&quot;123&quot;, &quot;234&quot;);//报编译错误因为SUCCESS是常量</span><br><span class="line">        SUCCESS.setCode(&quot;nihao&quot;);//但是可以给常量赋值属性   &lt;--------------------</span><br><span class="line">        System.out.println(SUCCESS.getCode()); // 输出nihao                   -</span><br><span class="line">        System.out.println(ResultCode.SYSTEM_ERROR.toString());               -</span><br><span class="line">    &#125;                                                                         -</span><br><span class="line">                                                                              -</span><br><span class="line">                                                                              -</span><br><span class="line">&#125;                                                                             -</span><br><span class="line">```                                                                           -</span><br><span class="line">final修饰的变量一般用于常量的定义上，因为一旦定义就无法改变了                      -</span><br><span class="line">（基础数据类型的话，无法改变的是值；引用数据类型的话，无法改变的是引用              -</span><br><span class="line">&lt;引用不能改变即存在变量中的地址无法改变，但是引用的值是可以通过方法来改变的&gt;）。-----&gt;</span><br><span class="line">PS：本质上基础数据类型跟引用数据类型在内存中的都是值，</span><br><span class="line">只不过这个值对于用户的含义不同，一个存储的就是值本身，一个存储的值是引用地址。</span><br><span class="line">常量可以在定义时不初始化，但是必须在静态代码块中初始化。如下例子：</span><br></pre></td></tr></table></figure>
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-接口 Iterator 和接口 Iterable 的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2020/05/26/接口 Iterator 和接口 Iterable 的区别/">接口Iterator和接口Iterable的区别</a>
-    </h1>
-  
-
-        
-        <a href="2020/05/26/接口 Iterator 和接口 Iterable 的区别/" class="archive-article-date">
-  	<time datetime="2020-05-26T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Iterable-接口"><a href="#Iterable-接口" class="headerlink" title="Iterable 接口"></a>Iterable 接口</h4><ul>
-<li>内置了 iterator 方法顺序遍历数据源返回值 Iterator 接口</li>
-<li>jdk8 增加了 forEach 方法返回 void</li>
-<li>Set、List 都要实现 Iterable 接口，基本上使用迭代器都要实现该接口</li>
+<p>package bonc.cn.com;</p>
+<p>/**</p>
+<ul>
+<li><p>Created by yzp on 2017/11/6.</p>
+</li>
+<li><p>/<br>public class StringStudy {</p>
+<p>  public static final String STR;<br>  public static final A a;<br>  static {</p>
+<pre><code>STR = &quot;INIT&quot;;
+a = new A();
+a.a = &quot;abc&quot;;//常量可以在静态代码块中初始化，但是不允许修改引用，不过引用的对象中的属性是可以随意修改的。</code></pre><p>  }</p>
+</li>
 </ul>
-<p>Iterable 的定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterable&lt;T&gt; &#123;</span><br><span class="line">    Iterator&lt;T&gt; iterator();</span><br><span class="line"></span><br><span class="line">    default void forEach(Consumer&lt;? super T&gt; action) &#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        for (T t : this) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    default Spliterator&lt;T&gt; spliterator() &#123;</span><br><span class="line">        return Spliterators.spliteratorUnknownSize(iterator(), 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="2020/05/26/接口 Iterator 和接口 Iterable 的区别/#more">more >></a>
-        
+<p>}</p>
+<p>class A {<br>    String a;<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">常量的三种动态初始化：</span><br></pre></td></tr></table></figure>
+
+<p>public class Configuration {</p>
+<p>public static final String CONFIG = “你想要指定的一些配置项”;</p>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">当我们需要给Configuration类中的CONFIG常量第一次使用时动态指定一个值时，而此时我们又不想去修改源代码，那我们有三种方法去实现这种需求。</span><br><span class="line"></span><br><span class="line">第一种：使用一个static静态代码块来指定，然后在静态代码块中，我们去动态读取外部的一个Properties文件的值。（最推荐）</span><br></pre></td></tr></table></figure>
+
+<p>import java.util.Properties;</p>
+<p>/**</p>
+<ul>
+<li><p>第一种实现方法</p>
+</li>
+<li><p>@author William</p>
+</li>
+<li></li>
+<li><p>/<br>public class Configuration {</p>
+<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
+<p>  static {</p>
+<pre><code>Properties properties = new Properties();
+//把一个properties读进来
+CONFIG = &quot;properties.getConfig&quot;;//通过properties的配置项config来初始化我们的常量config</code></pre><p>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第二种：我们可以配置Java的运行时配置，来指定一个-Dname=value的参数，这样也可以在类内部动态的接受到运行时指定的一个参数。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li><p>第二种实现方法</p>
+</li>
+<li><p>@author William</p>
+</li>
+<li></li>
+<li><p>/<br>public class Configuration {</p>
+<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
+<p>  static {</p>
+<pre><code>CONFIG = System.getProperty(&quot;CONFIG&quot;);//通过系统的-D配置参数name=value形式来拿到这个配置值
+//如果是eclipse，右键-&gt;RUN AS-&gt;Run Configurations-&gt;arguments-&gt;VMarguments 里输入（-DCONFIG=我们想要加入的配置）</code></pre><p>  }</p>
+<p>  public static void main(String[] args) {</p>
+<pre><code>System.out.println(Configuration.CONFIG);</code></pre><p>  }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第三种：我们还可以读的到系统配置的PATH或者CLASSPATH里面的值，同理，我们也可以配置自己的环境变量，然后在程序中一样也能读到这些配置的环境变量。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li><p>第三种实现方法</p>
+</li>
+<li><p>@author William</p>
+</li>
+<li></li>
+<li><p>/<br>public class Configuration {</p>
+<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
+<p>  static {</p>
+<pre><code>CONFIG = System.getenv(&quot;PATH&quot;);//通过System.getenv()方法可以拿到系统环境变量，但我自己指定的环境变量没有取得成功，如果有知道原因的给我留言哈谢谢</code></pre><p>  }</p>
+<p>  public static void main(String[] args) {</p>
+<pre><code>System.out.println(Configuration.CONFIG);</code></pre><p>  }<br>}</p>
+</li>
+</ul>
+<p>final double PI=3.1415926</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原先很多书上说常量的初始化只有在定义的时候才可以，</span><br><span class="line">像上边的代码一样。其实常量的初始化也可以在构造函数中定义，但要注意必须要在所有重载的构造函数中都要定义一遍。</span><br><span class="line">常量在JAVA中经常定义成静态的static，这是为了节省内存，也是因为他是不能改变的。</span><br><span class="line">于是变成了：</span><br></pre></td></tr></table></figure>
+
+<p>statis final double PI=3.1415926</p>
+<pre><code>当定义静态常量的时候，就不能使用构造函数初始化常量了，
+这是因为我们经常直接使用类名调用静态成员，
+而构造函数的第一次运行，是在第一次new这个类的对象的时候。
+我们如果不去new，那么常量就永远不能初始化。所以，这个时候必须用上边的代码直接初始化。
+</code></pre>
       
 
       
@@ -655,7 +745,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		
 		</ul>
@@ -667,7 +757,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -676,7 +766,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/26/接口 Iterator 和接口 Iterable 的区别/">展开全文 >></a>
+          <a class="article-more-a" href="2020/06/09/枚举使用/">展开全文 >></a>
         </p>
       
 
@@ -706,38 +796,75 @@
 
 
   
-    <article id="post-设计模式之迭代器模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java泛型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/05/25/设计模式之迭代器模式/">设计模式之迭代器模式</a>
+      <a class="article-title" href="2020/06/06/Java泛型/">Java泛型</a>
     </h1>
   
 
         
-        <a href="2020/05/25/设计模式之迭代器模式/" class="archive-article-date">
-  	<time datetime="2020-05-25T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+        <a href="2020/06/06/Java泛型/" class="archive-article-date">
+  	<time datetime="2020-06-06T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="迭代器模式定义"><a href="#迭代器模式定义" class="headerlink" title="迭代器模式定义"></a>迭代器模式定义</h4><blockquote>
-<p>迭代器模式（Iterator），提供一种方法顺序访问一个聚合对象中的各种元素，而又不暴露该对象的内部表示。</p>
-</blockquote>
-<h4 id="迭代器模式的优点有"><a href="#迭代器模式的优点有" class="headerlink" title="迭代器模式的优点有"></a>迭代器模式的优点有</h4><blockquote>
-<p>简化了遍历方式，对于对象集合的遍历，还是比较麻烦的，对于数组或者有序列表，我们尚可以通过游标来取得，但用户需要在对集合了解很清楚的前提下，自行遍历对象，但是对于 hash 表来说，用户遍历起来就比较麻烦了。而引入了迭代器方法后，用户用起来就简单的多了。<br>可以提供多种遍历方式，比如说对有序列表，我们可以根据需要提供正序遍历，倒序遍历两种迭代器，用户用起来只需要得到我们实现好的迭代器，就可以方便的对集合进行遍历了。<br>封装性良好，用户只需要得到迭代器就可以遍历，而对于遍历算法则不用去关心。</p>
-</blockquote>
-<h4 id="迭代器模式的缺点"><a href="#迭代器模式的缺点" class="headerlink" title="迭代器模式的缺点"></a>迭代器模式的缺点</h4><blockquote>
-<p>对于比较简单的遍历（像数组或者有序列表），使用迭代器方式遍历较为繁琐，大家可能都有感觉，像 ArrayList，我们宁可愿意使用 for 循环和 get 方法来遍历集合。</p>
-</blockquote>
-        
-          <a class="article-more-a" href="2020/05/25/设计模式之迭代器模式/#more">more >></a>
-        
+        <h4 id="lt-extends-T-gt-和-lt-super-T-gt-的区别"><a href="#lt-extends-T-gt-和-lt-super-T-gt-的区别" class="headerlink" title="&lt;? extends T&gt; 和 &lt;? super T &gt; 的区别"></a>&lt;? extends T&gt; 和 &lt;? super T &gt; 的区别</h4><ul>
+<li>&lt;? extends T&gt; 表示该通配符所代表的类型是 T 类型的子类。</li>
+<li>&lt;? super T&gt; 表示该通配符所代表的类型是 T 类型的父类。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public &lt;T&gt; T fun():</span><br><span class="line">&lt;T&gt;是用来规范T的，例如&lt;T extends Object&gt;就规定了边界，</span><br><span class="line">即规定了所有出现T的地方，T类型必须是Object的子类。</span><br><span class="line"></span><br><span class="line">Box 类定义为一个泛型类:</span><br><span class="line">public class Box&lt;T&gt; &#123;</span><br><span class="line">    private T object;</span><br><span class="line"></span><br><span class="line">    public void set(T object) &#123; this.object = object; &#125;</span><br><span class="line">    public T get() &#123; return object; &#125;</span><br><span class="line">&#125;</span><br><span class="line">创建一个 Box 对象，不带泛型参数，发现获取对象的时候需要强制转换</span><br><span class="line"></span><br><span class="line">Box box2 = new Box();</span><br><span class="line">box2.set(new Apple());</span><br><span class="line">Apple apple = (Apple) box2.get();</span><br><span class="line">创建一个 Box 对象，带泛型参数，获取对象的时候就不需要强制转换</span><br><span class="line"></span><br><span class="line">Box&lt;Apple&gt; box = new Box&lt;Apple&gt;();</span><br><span class="line">box.set(new Apple());</span><br><span class="line">Apple apple = box.get();</span><br><span class="line">总结下泛型的好处就是</span><br><span class="line">省去了强制转换，可以在编译时候检查类型安全，可以用在类，方法，接口上;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>？ 表示不确定的 java 类型</li>
+<li>T (type) 表示具体的一个 java 类型</li>
+<li>K V (key value) 分别代表 java 键值中的 Key Value</li>
+<li>E (element) 代表 element(即元素)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Test&lt;T&gt; &#123;    </span><br><span class="line">    public List&lt;T&gt; list = new ArrayList&lt;T&gt;();   </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Test&lt;String&gt; test = new Test&lt;String&gt;();</span><br><span class="line">        test.list.add(&quot;hello&quot;);</span><br><span class="line">        System.out.println(test.list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">和</span><br><span class="line">public class Test&lt;A&gt; &#123;    </span><br><span class="line">    public List&lt;A&gt; list = new ArrayList&lt;A&gt;();   </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Test&lt;String&gt; test = new Test&lt;String&gt;();</span><br><span class="line">        test.list.add(&quot;hello&quot;);</span><br><span class="line">        System.out.println(test.list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将 T 换成了 A，在执行效果上是没有任何区别的，只不过我们约定好了 T 代表 type，<br>所以还是按照约定规范来比较好，增加了代码的可读性；</p>
+<p>如果要定义多个泛型参数，比如说两个泛型参数<br>很典型的一个栗子是 Map 的 key,value 泛型，我们也可以定义一个这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public interface Mymap&lt;K, V&gt; &#123;</span><br><span class="line">    public K getKey();</span><br><span class="line">    public V getValue();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MymapImpl&lt;K, V&gt; implements Mymap&lt;K, V&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private K key;</span><br><span class="line">    private V value;</span><br><span class="line"></span><br><span class="line">    public MymapImpl(K key, V value) &#123;</span><br><span class="line">       this.key = key;</span><br><span class="line">       this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public K getKey()    &#123; return key; &#125;</span><br><span class="line">    public V getValue() &#123; return value; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下来就可以传入任意类型，创建实例了，不用转化类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mymap&lt;String, Integer&gt; mp1= new MymapImpl&lt;String, Integer&gt;(&quot;Even&quot;, 8);</span><br><span class="line">Mymap&lt;String, String&gt;  mp2= new MymapImpl&lt;String, String&gt;(&quot;hello&quot;, &quot;world&quot;);</span><br><span class="line">Mymap&lt;Integer, Integer&gt; mp3= new MymapImpl&lt;Integer, Integer&gt;(888, 888);</span><br></pre></td></tr></table></figure>
+
+<h4 id="List，List，List-lt-gt-区别"><a href="#List，List，List-lt-gt-区别" class="headerlink" title="List，List，List&lt;?&gt; 区别"></a>List<t>，List<object>，List&lt;?&gt; 区别</object></t></h4><ul>
+<li>ArrayList<t> al=new ArrayList<t>(); 指定集合元素只能是 T 类型</t></t></li>
+<li>ArrayList<?> al=new ArrayList<?>(); 集合元素可以是任意类型，这种没有意义，一般是方法中，只是为了说明用法</li>
+<li>ArrayList&lt;? extends E&gt; al=new ArrayList&lt;? extends E&gt;();<br>泛型的限定：<br>? extends E: 接收 E 类型或者 E 的子类型。<br>? super E: 接收 E 类型或者 E 的父类型<br>? 和 T 区别是？是一个不确定类，？和 T 都表示不确定的类型 ，<br>但如果是 T 的话，函数里面可以对 T 进行操作，比方 T car = getCar()，而不能用？ car = getCar()。</li>
+</ul>
+<p>[参考链接]<a href="http://www.jianshu.com/p/95f349258afb" target="_blank" rel="noopener">http://www.jianshu.com/p/95f349258afb</a><br>[参考链接]<a href="http://frankco.iteye.com/blog/1668466" target="_blank" rel="noopener">http://frankco.iteye.com/blog/1668466</a></p>
+<h4 id="最后来说说-T，Class，Class-lt-gt-区别："><a href="#最后来说说-T，Class，Class-lt-gt-区别：" class="headerlink" title="最后来说说 T，Class，Class&lt;?&gt; 区别："></a>最后来说说 T，Class<t>，Class&lt;?&gt; 区别：</t></h4><p>T 是一种具体的类，例如 String,List,Map…… 等等，这些都是属于具体的类，这个比较好理解<br>Class 是什么呢，Class 也是一个类，但 Class 是存放上面 String,List,Map…… 类信息的一个类，有点抽象，我们一步一步来看 。</p>
+<p>如何获取到 Class 类呢，有三种方式：</p>
+<ol>
+<li>调用 Object 类的 getClass() 方法来得到 Class 对象，这也是最常见的产生 Class 对象的方法。<br>例如：</li>
+</ol>
+<p>List list = null;<br>Class clazz = list.getClass();</p>
+<ol start="2">
+<li>使用 Class 类的中静态 forName() 方法获得与字符串对应的 Class 对象。<br>例如：Class clazz = Class.forName(“com.lyang.demo.fanxing.People”);</li>
+<li>获取 Class 类型对象的第三个方法非常简单。如果 T 是一个 Java 类型，那么 T.class 就代表了匹配的类对象。<br>Class clazz = List.class;<br>那么问题来了，Class 类是创建出来了，但是 Class<t> 和 Class&lt;?&gt; 适用于什么时候呢？</t></li>
+</ol>
+<p>使用 Class<t> 和 Class&lt;?&gt; 多发生在反射场景下，先看看如果我们不使用泛型，反射创建一个类是什么样的。<br>People people = (People) Class.forName(“com.lyang.demo.fanxing.People”).newInstance();<br>看到了么，需要强转，如果反射的类型不是 People 类，就会报<br>java.lang.ClassCastException 错误。</t></p>
+<p>使用 Class<t> 泛型后，不用强转了</t></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public static &lt;T&gt; T createInstance(Class&lt;T&gt; clazz) throws IllegalAccessException, InstantiationException &#123;</span><br><span class="line">        return clazz.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)  throws IllegalAccessException, InstantiationException  &#123;</span><br><span class="line">            Fruit fruit= createInstance(Fruit .class);</span><br><span class="line">            People people= createInstance(People.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那 Class<t> 和 Class<?> 有什么区别呢？
+Class<t> 在实例化的时候，T 要替换成具体类
+Class<?> 它是个通配泛型，? 可以代表任何类型，主要用于声明时的限制情况<br>例如可以声明一个<br>public Class<?> clazz;
+但是你不能声明一个
+public Class<t> clazz;
+因为 T 需要指定类型
+所以当不知道定声明什么类型的 Class 的时候可以定义一个 Class<?>,Class&lt;?&gt; 可以用于参数类型定义，方法返回值定义等。</t></t></t></p>
+
       
 
       
@@ -750,7 +877,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">迭代器模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		
 		</ul>
@@ -762,7 +889,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -771,7 +898,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/25/设计模式之迭代器模式/">展开全文 >></a>
+          <a class="article-more-a" href="2020/06/06/Java泛型/">展开全文 >></a>
         </p>
       
 
@@ -801,30 +928,46 @@
 
 
   
-    <article id="post-程序员英语" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-方法中参数前有final修饰" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/05/24/程序员英语/">程序员英语</a>
+      <a class="article-title" href="2020/06/05/方法中参数前有final修饰/">方法中参数前有final修饰</a>
     </h1>
   
 
         
-        <a href="2020/05/24/程序员英语/" class="archive-article-date">
-  	<time datetime="2020-05-24T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-24</time>
+        <a href="2020/06/05/方法中参数前有final修饰/" class="archive-article-date">
+  	<time datetime="2020-06-05T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>contents<br>prevVolume<br>Sub<br>Invalid<br>calculate<br>Failed<br>claas<br>Prefix<br>Index<br>lite</p>
-        
-          <a class="article-more-a" href="2020/05/24/程序员英语/#more">more >></a>
-        
+        <p>一般情况下final修饰的参数是在方法中不能够被修改的，但是这样的定义又不是最准确的，首先如果形参类型是基本的数据类型的话参数的值是不能够被改变的，但是如果参数类型是引用数据类型的话引用是不能够变得，但是引用的值是可以改变的；</p>
+<p>如下基本数据类型的代码例子：</p>
+<pre><code>/**
+ * final修饰的基本数据类型的值是不能够改变的
+ * @param i
+ */
+public static void setValue(final int i) {
+    //编译通不过，基本数据类型不能够改变
+    i = 10;
+}</code></pre><p>如下引用数据类型的代码例子：</p>
+<pre><code>/**
+ * 对应final修饰的基本数据类型方法内部是不可以变得，但是引用数据类型是引用不可以变，但是值可以变
+ * @param user
+ */
+public static void setUser(final User user) {
+    //引用的数据类型的值是可以改变的，但是指向的引用是不能够变的
+    user.setPassword(&quot;sdf&quot;);
+    //引用的数据类型引用是不可以变得，否则编译是不能够通过的
+    user = new User();
+}</code></pre>
       
 
       
@@ -837,7 +980,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">英语</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		
 		</ul>
@@ -849,7 +992,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/程序员英语//" class="article-tag-list-link color1">程序员英语</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -858,7 +1001,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/24/程序员英语/">展开全文 >></a>
+          <a class="article-more-a" href="2020/06/05/方法中参数前有final修饰/">展开全文 >></a>
         </p>
       
 
@@ -888,27 +1031,38 @@
 
 
   
-    <article id="post-设计模式之职责链模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Java异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/05/22/设计模式之职责链模式/">设计模式之职责链模式</a>
+      <a class="article-title" href="2020/06/04/Java异常处理/">Java异常处理</a>
     </h1>
   
 
         
-        <a href="2020/05/22/设计模式之职责链模式/" class="archive-article-date">
-  	<time datetime="2020-05-22T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+        <a href="2020/06/04/Java异常处理/" class="archive-article-date">
+  	<time datetime="2020-06-04T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>在 Java 中异常被当做对象来处理，根类是 java.lang.Throwable 类，<br>在 Java 中定义了很多异常类（如 OutOfMemoryError、NullPointerException、<br>IndexOutOfBoundsException 等），这些异常类分为两大类：Error 和 Exception。</p>
+<p>Error 是无法处理的异常，比如 OutOfMemoryError，一般发生这种异常，<br>JVM 会选择终止程序。因此我们编写程序时不需要关心这类异常。<br>Exception，也就是我们经常见到的一些异常情况，<br>比如 NullPointerException、IndexOutOfBoundsException，这些异常是我们可以处理的异常。</p>
+<p>Exception 类的异常包括 checked exception 和 unchecked exception<br>（unchecked exception 也称运行时异常 RuntimeException，<br>当然这里的运行时异常并不是前面我所说的运行期间的异常，<br>只是 Java 中用运行时异常这个术语来表示，Exception 类的异常都是在运行期间发生的）。</p>
+<p>unchecked exception（非检查异常），也称运行时异常（RuntimeException），<br>比如常见的 NullPointerException、IndexOutOfBoundsException。对于运行时异常，<br>java 编译器不要求必须进行异常捕获处理或者抛出声明，由程序员自行决定。<br>　　<br>checked exception（检查异常），也称非运行时异常（运行时异常以外的异常就是非运行时异常），<br>java 编译器强制程序员必须进行捕获处理，比如常见的 IOExeption 和 SQLException。<br>对于非运行时异常如果不进行捕获或者抛出声明处理，编译都不会通过。</p>
+<p>在 Java 中，所有异常类的父类是 Throwable 类，Error 类是 error 类型异常的父类，<br>Exception 类是 exception 类型异常的父类，RuntimeException 类是所有运行时异常的父类，<br>RuntimeException 以外的并且继承 Exception 的类是非运行时异常。<br>　　<br>典型的 RuntimeException 包括 NullPointerException、IndexOutOfBoundsException、<br>IllegalArgumentException 等。<br>　　<br>典型的非 RuntimeException 包括 IOException、SQLException 等。</p>
+<p>在Java中什么是内存不足错误？<br>答：在Java中，OutOfMemoryError是 java.lang.VirtualMachineError的一个子类，<br>当堆内存耗尽时会被JVM抛出。我们能通过设置Java选项来提供更大的内存供应用使用来达到修复的目的。<br>$&gt;java MyProgram -Xms1024m -Xmx1024m -XX:PermSize=64M -XX:MaxPermSize=256m</p>
+<p>引发Exception in thread main的各种不同情形？<br>答：通常的一些主线程异常情形主要有以下几种：<br>Exception in thread main java.lang.UnsupportedClassVersionError:当编译和运行Java类的JDK版本不同的时出现这种异常。<br>Exception in thread main java.lang.NoClassDefFoundError:这种异常出现的原因有两种：第一种是提供类全名时附带有.class；第二种是指定类未找到。<br>Exception in thread main java.lang.NoSuchMethodError: main:当试图运行一个没main方法的类时会出现这种异常。<br>Exception in thread main java.lang.NoSuchMethodError: main:无论何时main方法任何异常，它打印异常到控制台。其第一部分是陈述main方法抛出的异常，第二部分打印异常类名，后接异常类信息。</p>
+<p>Java中final,finally,finalize的区别？<br>答：final和finally在Java中是关键字，而finalize则是一个方法。<br>final关键字使得类变量不可变，避免类被其它类继承或方法被重写。finally跟try-catch块一起使用，即使是出现了异常，其子句总会被执行，通常，finally子句用来关闭相关资源。finally方法中的对象被销毁之前会被垃圾回收。<br>综上三者，只有finally用于异常处理。</p>
+<p>在main方法抛出异常时发生了什么？<br>答：当main方法抛出异常时，Java运行时间终止并在控制台打印异常信息和栈轨迹。</p>
+<p>catch子句能为空吗？<br>答：可以有空的catch子句，但那是最糟糕的编程，因为那样的话，异常即使被捕获，我们也得不到任何的有用信息，对于调试来说会是个噩梦，因此，编程时永远不要有空的catch子句。Catch子句中至少要包含一个日志语句输出到控制台或保存到日志文件中。</p>
+<p>链接：<a href="http://www.jianshu.com/p/f6865c97cd52" target="_blank" rel="noopener">http://www.jianshu.com/p/f6865c97cd52</a></p>
+
       
 
       
@@ -921,7 +1075,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		
 		</ul>
@@ -933,7 +1087,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -942,7 +1096,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/22/设计模式之职责链模式/">展开全文 >></a>
+          <a class="article-more-a" href="2020/06/04/Java异常处理/">展开全文 >></a>
         </p>
       
 
@@ -972,27 +1126,67 @@
 
 
   
-    <article id="post-设计模式之工厂模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-值传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/05/21/设计模式之工厂模式/">设计模式之工厂模式</a>
+      <a class="article-title" href="2020/06/03/值传递/">值传递</a>
     </h1>
   
 
         
-        <a href="2020/05/21/设计模式之工厂模式/" class="archive-article-date">
-  	<time datetime="2020-05-21T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
+        <a href="2020/06/03/值传递/" class="archive-article-date">
+  	<time datetime="2020-06-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>首先举例如下：<br>public class Employee {  </p>
+<pre><code>public String name=null;  
+
+public Employee(String n){  
+    this.name=n;  
+}  
+//将两个Employee对象交换  
+public static void swap(Employee e1,Employee e2){  
+    Employee temp=e1;  
+    e1=e2;  
+    e2=temp;  
+            System.out.println(e1.name+&quot; &quot;+e2.name); //打印结果：李四 张三  
+}  
+//主函数  
+public static void main(String[] args) {  
+    Employee worker=new Employee(&quot;张三&quot;);  
+    Employee manager=new Employee(&quot;李四&quot;);  
+    swap(worker,manager);  
+    System.out.println(worker.name+&quot; &quot;+manager.name); //打印结果仍然是： 张三 李四  
+}  </code></pre><p>}<br>上面的结果让人很失望，虽然形参对象 e1,e2 的内容交换了，<br>但实参对象 worker,manager 并没有互换内容。<br>这里面最重要的原因就在于形参 e1,e2 是实参 worker,manager 的地址拷贝。</p>
+<p>传值：<br>传递的是值的副本。方法中对副本的修改，不会影响到调用方法<br>传引用：<br>传递的是引用的副本，共用一个内存，会影响到调用方法。<br>此时，形参和实参指向同一个内存地址。<br>对引用副本本身（对象地址）的修改，如设置为 null，重新指向其他对象，不会影响到调用方法。</p>
+<p>链接：<a href="http://6924918.blog.51cto.com/6914918/1283761" target="_blank" rel="noopener">http://6924918.blog.51cto.com/6914918/1283761</a></p>
+<p>String简单介绍：<br>两种方式是有区别的，这和 java 的内存管理有关，前面已经说过，string 创建之后是不可变的，<br>所以按照第一种方式创建的字符串会放在栈里，更确切的是常量池中，<br>常量池就是用来保存在编译阶段确定好了大小的数据，<br>一般我们定义的 int 等基本数据类型就保存在这里。<br>其具体的一个流程就是，编译器首先检查常量池，看看有没有一个 “string”，如果没有则创建。<br>如果有的话，则则直接把 str1 指向那个位置。<br>第二种创建字符串的方法是通过 new 关键字，还是 java 的内存分配，<br>java 会将 new 的对象放在堆中，这一部分对象是在运行时创建的对象。<br>所以我们每一次 new 的时候，都会创建不同的对象，即便是堆中已经有了一个一模一样的。<br>写一个小例子</p>
+<pre><code>String str1 = &quot;string&quot;;
+String str4 = &quot;string&quot;;
+String str2 = new String(&quot;string&quot;);
+String str3 = new String(&quot;string&quot;);
+
+/*用于测试两种创建字符串方式的区别*/
+System.out.println(str1 == str4);
+System.out.println(str2 == str3);
+System.out.println(str3 == str1);
+
+str3 = str3.intern(); //一个不常见的方法
+System.out.println(str3 == str1);</code></pre><p>这个的运行结果是<br>true // 解释：两个字符串的内容完全相同，因而指向常量池中的同一个区域<br>false // 解释：每一次 new 都会创建一个新的对象<br>false // 解释： 注意 == 比较的是地址，不仅仅是内容<br>true // 介绍一下 intern 方法，这个方法会返回一个字符串在常量池中的一个地址，<br>如果常量池中有与 str3 内容相同的 string 则返回那个地址，如果没有，<br>则在常量池中创建一个 string 后再返回。实际上，str3 现在指向了 str1 的地址。</p>
+<p>string 是不变的，那么为什么 str1 + “some” 是合法的，<br>其实，每次对 string 进行修改，都会创建一个新的对象。<br>所以如果需要对一个字符串不断的修改的话，效率是非常的低的，<br>因为堆的好处是可以动态的增加空间，劣势就是分配新的空间消耗是很大的</p>
+<p>String 字符串常量：<br>所谓常量，即该对象的值已经被赋予了，不能再更改。若非要更改，<br>则只能再重新创建另一个对象，在这个新创建的对象上再进行赋值。<br>因此，每次在对 String 类型的对象进行改变的时候其实都等同于<br>生成了一个新的 String 对象，然后将指针指向新的 String 对象，<br>所以经常改变内容的字符串最好不要用 String，因为每次生成对象<br>都会对系统性能产生影响。</p>
+<p>StringBuffer 字符串变量 (线程安全）：<br>所谓变量，即是可以随时变化的量。如果对 StringBuffer 对象进<br>行改变，每次结果都会对 StringBuffer 对象进行操作，而不是生<br>成新的对象。所以一般字符串要经常变化的话使用 StringBuffer。</p>
+<p>StringBuilder 字符串变量（非线程安全）：<br>StringBuilder 和 StringBuffer 类功能基本相似，方法也差不多，<br>主要区别在于 StringBuffer 类的方法是多线程安全的，<br>而 StringBuilder 不是线程安全的，相比而言 StringBuilder 类会略微快一点。</p>
+<p>在方法中声明的变量可以是基本类型的变量，也可以是引用类型的变量。<br>    （1）当声明是基本类型的变量的时，其变量名及值（变量名及值是两个概念）是放在JAVA虚拟机栈中<br>    （2）当声明的是引用变量时，所声明的变量（该变量实际上是在方法中存储的是内存地址值）是放在JAVA虚拟机的栈中，该变量所指向的对象是放在堆类存中的。<br>同样在类中声明的变量即可是基本类型的变量 也可是引用类型的变量<br>    （1）当声明的是基本类型的变量其变量名及其值放在堆内存中的<br>    （2）引用类型时，其声明的变量仍然会存储一个内存地址值，该内存地址值指向所引用的对象。<br>         引用变量名和对应的对象仍然存储在相应的堆中。</p>
+
       
 
       
@@ -1005,7 +1199,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">工厂模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
         		</li>
       		
 		</ul>
@@ -1017,7 +1211,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -1026,7 +1220,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/05/21/设计模式之工厂模式/">展开全文 >></a>
+          <a class="article-more-a" href="2020/06/03/值传递/">展开全文 >></a>
         </p>
       
 
@@ -1058,7 +1252,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/13/">13</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/14/">14</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1153,15 +1347,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,7 +1371,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1185,11 +1379,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1197,11 +1387,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,11 +1411,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1233,7 +1423,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1241,11 +1431,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1257,19 +1451,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1289,11 +1479,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1305,7 +1495,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1313,11 +1511,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1329,19 +1523,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1357,15 +1555,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1373,15 +1571,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1393,15 +1587,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1409,7 +1599,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1417,11 +1607,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1433,35 +1623,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1469,7 +1631,43 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
