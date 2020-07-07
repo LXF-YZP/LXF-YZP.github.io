@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 138
+			总文章数 139
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -610,6 +610,96 @@
 
 
   
+    <article id="post-properties转yml配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/06/10/properties转yml配置文件/">properties转yml配置文件</a>
+    </h1>
+  
+
+        
+        <a href="2020/06/10/properties转yml配置文件/" class="archive-article-date">
+  	<time datetime="2020-06-10T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>使用在线问答转换 将各自properties文件转成yml文件类型<a href="https://www.toyaml.com/index.html" target="_blank" rel="noopener">https://www.toyaml.com/index.html</a></li>
+<li>因为@PropertySource 这个注解不支持 yml，所以需要自定义一下 source工厂。把这个类引入 :</li>
+</ul>
+        
+          <a class="article-more-a" href="2020/06/10/properties转yml配置文件/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2020/06/10/properties转yml配置文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-枚举使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -632,107 +722,9 @@
       
         <p>枚举例子如下 ：<br>普通java类定义常量</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class Operation &#123;  </span><br><span class="line">    private String operType;</span><br><span class="line">    </span><br><span class="line">    private Operation(String operType)&#123; </span><br><span class="line">	this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static final Operation ADD = new Operation(&quot;add&quot;);</span><br><span class="line">    public static final Operation DELETE = new Operation(&quot;delete&quot;);</span><br><span class="line">    public static final Operation MODIFY= new Operation(&quot;modify&quot;);</span><br><span class="line">    public static final Operation SELECT = new Operation(&quot;select&quot;);</span><br><span class="line"></span><br><span class="line">    public String getOperType() &#123;</span><br><span class="line">        return operType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>枚举定义常量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public enum OperationByEnum&#123;</span><br><span class="line">    ADD(&quot;add&quot;), DELETE(&quot;delete&quot;), MODIFY(&quot;modify&quot;), SELECT(&quot;select&quot;);</span><br><span class="line">    </span><br><span class="line">    private String operType;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public String getOperType()&#123;</span><br><span class="line">	return operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private OperationByEnum(String operType)&#123;</span><br><span class="line">	this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>查看上述两个类的 class 文件可以看出两种方式可以认为是等价的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">D:\java\workspace\EnumDemo\bin&gt;javap OperationByEnum.class</span><br><span class="line">Compiled from &quot;OperationByEnum.java&quot;</span><br><span class="line">public final class OperationByEnum extends java.lang.Enum&lt;OperationByEnum&gt; &#123;</span><br><span class="line">  public static final OperationByEnum ADD;</span><br><span class="line">  public static final OperationByEnum DELETE;</span><br><span class="line">  public static final OperationByEnum MODIFY;</span><br><span class="line">  public static final OperationByEnum SELECT;</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">  public java.lang.String getOperType();</span><br><span class="line">  public static OperationByEnum[] values();</span><br><span class="line">  public static OperationByEnum valueOf(java.lang.String);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">D:\java\workspace\EnumDemo\bin&gt;javap Operation.class</span><br><span class="line">Compiled from &quot;Operation.java&quot;</span><br><span class="line">public class Operation &#123;</span><br><span class="line">  public static final Operation ADD;</span><br><span class="line">  public static final Operation DELETE;</span><br><span class="line">  public static final Operation MODIFY;</span><br><span class="line">  public static final Operation SELECT;</span><br><span class="line">  static &#123;&#125;;</span><br><span class="line">  public java.lang.String getOperType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> */</span><br><span class="line">public enum  ClusterType &#123;</span><br><span class="line"></span><br><span class="line">    kafka,</span><br><span class="line">    storm,</span><br><span class="line"></span><br><span class="line">    hdfs (&quot;hello&quot;,&quot;world&quot;),</span><br><span class="line"></span><br><span class="line">    yarn (&quot;nihao&quot;, &quot;haode&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private String key;</span><br><span class="line">    private String value;</span><br><span class="line"></span><br><span class="line">    ClusterType() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ClusterType(String key, String value) &#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getKey() &#123;</span><br><span class="line">        return key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setKey(String key) &#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getValue() &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setValue(String value) &#123;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;ClusterType&#123;&quot; +</span><br><span class="line">                &quot;key=&apos;&quot; + key + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, value=&apos;&quot; + value + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;&#125; &quot; + super.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;111 = &quot; + ClusterType.kafka);</span><br><span class="line">        ClusterType.kafka.setKey(&quot;hello&quot;);</span><br><span class="line">        String key = ClusterType.kafka.getKey();</span><br><span class="line">        System.out.println(&quot;222 = &quot; + key);</span><br><span class="line"></span><br><span class="line">        ClusterType.kafka.setValue(&quot;world&quot;);</span><br><span class="line">        String value = ClusterType.kafka.getValue();</span><br><span class="line">        System.out.println(&quot;333 = &quot; + value);</span><br><span class="line"></span><br><span class="line">        ClusterType hdfs = ClusterType.hdfs;</span><br><span class="line">        System.out.println(&quot;444 = &quot; + hdfs);</span><br><span class="line">        String s = ClusterType.hdfs.getKey();</span><br><span class="line">        System.out.println(&quot;555 = &quot; + s);</span><br><span class="line">        String value1 = ClusterType.hdfs.getValue();</span><br><span class="line">        System.out.println(&quot;666 = &quot; + value1);</span><br><span class="line">        ClusterType[] values = ClusterType.values();</span><br><span class="line">        for (ClusterType clusterType : values) &#123;</span><br><span class="line">            System.out.println(clusterType);</span><br><span class="line">        &#125;</span><br><span class="line">        ClusterType hdfs1 = ClusterType.valueOf(&quot;hdfs&quot;);</span><br><span class="line">        System.out.println(hdfs1);</span><br><span class="line">        String s1 = ClusterType.class.toString();</span><br><span class="line">        System.out.println(s1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>枚举中valueof用法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   String str = &quot;ADD&quot;;</span><br><span class="line">OperationByEnum ob = OperationByEnum.valueOf(str);	</span><br><span class="line">System.out.println(ob == OperationByEnum.ADD);//TRUE</span><br><span class="line"></span><br><span class="line">String str2=&quot;add&quot;;</span><br><span class="line">OperationByEnum ob1 = OperationByEnum.valueOf(str2);</span><br></pre></td></tr></table></figure>
-
-<p>枚举类是一种特殊的 JAVA 类，枚举类中每声明一个枚举值就代表枚举类的一个实例对象。<br>与 JAVA 普通类一样，声明枚举类时也可以声明类的属性、方法、构造函数，但构造函数必须为私有。<br>枚举类也可以实现接口，继承抽象类。可以作为 switch 语句的参数。<br>若枚举类只有一个枚举值，则可以当做单例设计模式使用。<br>注意：为什么要对weekend 构造函数进行私有化， 答：保证外界无法通过调用构造函数再实例化出一个非法的枚举<br>同理 string 也要进行私有化，防止外界的非法更改。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> * 带抽象方法的枚举</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">public enum OperationByEnum &#123;</span><br><span class="line">    ADD(&quot;add&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;增&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    DELETE(&quot;delete&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;删&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    MODIFY(&quot;modify&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;改&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">    SELECT(&quot;select&quot;) &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public String getChineseName()</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;查&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">    private String operType;</span><br><span class="line"></span><br><span class="line">    public String getOperType()&#123;</span><br><span class="line">        return operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private OperationByEnum(String operType)&#123;</span><br><span class="line">        this.operType = operType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public abstract String getChineseName();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        print(OperationByEnum.ADD);</span><br><span class="line">        String chineseName = OperationByEnum.ADD.getChineseName();</span><br><span class="line">        System.out.println(chineseName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void print(OperationByEnum arg)&#123;</span><br><span class="line">        System.out.println(arg.getOperType());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>链接：<a href="http://www.cnblogs.com/hemingwang0902/archive/2011/12/29/2306263.html#title-6" target="_blank" rel="noopener">http://www.cnblogs.com/hemingwang0902/archive/2011/12/29/2306263.html#title-6</a></p>
-<p>常量的理解：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package bonc.cn.com;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by yzp on 2017/11/6.</span><br><span class="line"> */</span><br><span class="line">public class ResultCode &#123;</span><br><span class="line"></span><br><span class="line">    public String code;</span><br><span class="line">    public String message;</span><br><span class="line"></span><br><span class="line">    public String getCode() &#123;</span><br><span class="line">        return code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCode(String code) &#123;</span><br><span class="line">        this.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ResultCode getSystemError() &#123;</span><br><span class="line">        return SYSTEM_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMessage() &#123;</span><br><span class="line">        return message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMessage(String message) &#123;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ResultCode getSUCCESS() &#123;</span><br><span class="line">        return SUCCESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ResultCode() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ResultCode(String code, String message)&#123;</span><br><span class="line">        this.code = code;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final ResultCode SUCCESS// 编译错误，常量需要初始化</span><br><span class="line">    public static final ResultCode SUCCESS = new ResultCode();</span><br><span class="line">    public static final ResultCode SYSTEM_ERROR = new ResultCode(&quot;E00001&quot;,&quot;系统错误&quot;);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;ResultCode&#123;&quot; +</span><br><span class="line">                &quot;code=&apos;&quot; + code + &apos;\&apos;&apos; +</span><br><span class="line">                &quot;, message=&apos;&quot; + message + &apos;\&apos;&apos; +</span><br><span class="line">                &apos;&#125;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(ResultCode.SUCCESS.toString());</span><br><span class="line">        ResultCode.SUCCESS = new ResultCode(&quot;123&quot;, &quot;234&quot;);//报编译错误因为SUCCESS是常量</span><br><span class="line">        SUCCESS.setCode(&quot;nihao&quot;);//但是可以给常量赋值属性   &lt;--------------------</span><br><span class="line">        System.out.println(SUCCESS.getCode()); // 输出nihao                   -</span><br><span class="line">        System.out.println(ResultCode.SYSTEM_ERROR.toString());               -</span><br><span class="line">    &#125;                                                                         -</span><br><span class="line">                                                                              -</span><br><span class="line">                                                                              -</span><br><span class="line">&#125;                                                                             -</span><br><span class="line">```                                                                           -</span><br><span class="line">final修饰的变量一般用于常量的定义上，因为一旦定义就无法改变了                      -</span><br><span class="line">（基础数据类型的话，无法改变的是值；引用数据类型的话，无法改变的是引用              -</span><br><span class="line">&lt;引用不能改变即存在变量中的地址无法改变，但是引用的值是可以通过方法来改变的&gt;）。-----&gt;</span><br><span class="line">PS：本质上基础数据类型跟引用数据类型在内存中的都是值，</span><br><span class="line">只不过这个值对于用户的含义不同，一个存储的就是值本身，一个存储的值是引用地址。</span><br><span class="line">常量可以在定义时不初始化，但是必须在静态代码块中初始化。如下例子：</span><br></pre></td></tr></table></figure>
-
-<p>package bonc.cn.com;</p>
-<p>/**</p>
-<ul>
-<li><p>Created by yzp on 2017/11/6.</p>
-</li>
-<li><p>/<br>public class StringStudy {</p>
-<p>  public static final String STR;<br>  public static final A a;<br>  static {</p>
-<pre><code>STR = &quot;INIT&quot;;
-a = new A();
-a.a = &quot;abc&quot;;//常量可以在静态代码块中初始化，但是不允许修改引用，不过引用的对象中的属性是可以随意修改的。</code></pre><p>  }</p>
-</li>
-</ul>
-<p>}</p>
-<p>class A {<br>    String a;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">常量的三种动态初始化：</span><br></pre></td></tr></table></figure>
-
-<p>public class Configuration {</p>
-<p>public static final String CONFIG = “你想要指定的一些配置项”;</p>
-<p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">当我们需要给Configuration类中的CONFIG常量第一次使用时动态指定一个值时，而此时我们又不想去修改源代码，那我们有三种方法去实现这种需求。</span><br><span class="line"></span><br><span class="line">第一种：使用一个static静态代码块来指定，然后在静态代码块中，我们去动态读取外部的一个Properties文件的值。（最推荐）</span><br></pre></td></tr></table></figure>
-
-<p>import java.util.Properties;</p>
-<p>/**</p>
-<ul>
-<li><p>第一种实现方法</p>
-</li>
-<li><p>@author William</p>
-</li>
-<li></li>
-<li><p>/<br>public class Configuration {</p>
-<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
-<p>  static {</p>
-<pre><code>Properties properties = new Properties();
-//把一个properties读进来
-CONFIG = &quot;properties.getConfig&quot;;//通过properties的配置项config来初始化我们的常量config</code></pre><p>  }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第二种：我们可以配置Java的运行时配置，来指定一个-Dname=value的参数，这样也可以在类内部动态的接受到运行时指定的一个参数。</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>/**</p>
-<ul>
-<li><p>第二种实现方法</p>
-</li>
-<li><p>@author William</p>
-</li>
-<li></li>
-<li><p>/<br>public class Configuration {</p>
-<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
-<p>  static {</p>
-<pre><code>CONFIG = System.getProperty(&quot;CONFIG&quot;);//通过系统的-D配置参数name=value形式来拿到这个配置值
-//如果是eclipse，右键-&gt;RUN AS-&gt;Run Configurations-&gt;arguments-&gt;VMarguments 里输入（-DCONFIG=我们想要加入的配置）</code></pre><p>  }</p>
-<p>  public static void main(String[] args) {</p>
-<pre><code>System.out.println(Configuration.CONFIG);</code></pre><p>  }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第三种：我们还可以读的到系统配置的PATH或者CLASSPATH里面的值，同理，我们也可以配置自己的环境变量，然后在程序中一样也能读到这些配置的环境变量。</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>/**</p>
-<ul>
-<li><p>第三种实现方法</p>
-</li>
-<li><p>@author William</p>
-</li>
-<li></li>
-<li><p>/<br>public class Configuration {</p>
-<p>  public static final String CONFIG;//常量声明时不马上初始化</p>
-<p>  static {</p>
-<pre><code>CONFIG = System.getenv(&quot;PATH&quot;);//通过System.getenv()方法可以拿到系统环境变量，但我自己指定的环境变量没有取得成功，如果有知道原因的给我留言哈谢谢</code></pre><p>  }</p>
-<p>  public static void main(String[] args) {</p>
-<pre><code>System.out.println(Configuration.CONFIG);</code></pre><p>  }<br>}</p>
-</li>
-</ul>
-<p>final double PI=3.1415926</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原先很多书上说常量的初始化只有在定义的时候才可以，</span><br><span class="line">像上边的代码一样。其实常量的初始化也可以在构造函数中定义，但要注意必须要在所有重载的构造函数中都要定义一遍。</span><br><span class="line">常量在JAVA中经常定义成静态的static，这是为了节省内存，也是因为他是不能改变的。</span><br><span class="line">于是变成了：</span><br></pre></td></tr></table></figure>
-
-<p>statis final double PI=3.1415926</p>
-<pre><code>当定义静态常量的时候，就不能使用构造函数初始化常量了，
-这是因为我们经常直接使用类名调用静态成员，
-而构造函数的第一次运行，是在第一次new这个类的对象的时候。
-我们如果不去new，那么常量就永远不能初始化。所以，这个时候必须用上边的代码直接初始化。
-</code></pre>
+        
+          <a class="article-more-a" href="2020/06/09/枚举使用/#more">more >></a>
+        
       
 
       
@@ -1126,130 +1118,6 @@ public static void setUser(final User user) {
 
 
   
-    <article id="post-值传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2020/06/03/值传递/">值传递</a>
-    </h1>
-  
-
-        
-        <a href="2020/06/03/值传递/" class="archive-article-date">
-  	<time datetime="2020-06-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先举例如下：<br>public class Employee {  </p>
-<pre><code>public String name=null;  
-
-public Employee(String n){  
-    this.name=n;  
-}  
-//将两个Employee对象交换  
-public static void swap(Employee e1,Employee e2){  
-    Employee temp=e1;  
-    e1=e2;  
-    e2=temp;  
-            System.out.println(e1.name+&quot; &quot;+e2.name); //打印结果：李四 张三  
-}  
-//主函数  
-public static void main(String[] args) {  
-    Employee worker=new Employee(&quot;张三&quot;);  
-    Employee manager=new Employee(&quot;李四&quot;);  
-    swap(worker,manager);  
-    System.out.println(worker.name+&quot; &quot;+manager.name); //打印结果仍然是： 张三 李四  
-}  </code></pre><p>}<br>上面的结果让人很失望，虽然形参对象 e1,e2 的内容交换了，<br>但实参对象 worker,manager 并没有互换内容。<br>这里面最重要的原因就在于形参 e1,e2 是实参 worker,manager 的地址拷贝。</p>
-<p>传值：<br>传递的是值的副本。方法中对副本的修改，不会影响到调用方法<br>传引用：<br>传递的是引用的副本，共用一个内存，会影响到调用方法。<br>此时，形参和实参指向同一个内存地址。<br>对引用副本本身（对象地址）的修改，如设置为 null，重新指向其他对象，不会影响到调用方法。</p>
-<p>链接：<a href="http://6924918.blog.51cto.com/6914918/1283761" target="_blank" rel="noopener">http://6924918.blog.51cto.com/6914918/1283761</a></p>
-<p>String简单介绍：<br>两种方式是有区别的，这和 java 的内存管理有关，前面已经说过，string 创建之后是不可变的，<br>所以按照第一种方式创建的字符串会放在栈里，更确切的是常量池中，<br>常量池就是用来保存在编译阶段确定好了大小的数据，<br>一般我们定义的 int 等基本数据类型就保存在这里。<br>其具体的一个流程就是，编译器首先检查常量池，看看有没有一个 “string”，如果没有则创建。<br>如果有的话，则则直接把 str1 指向那个位置。<br>第二种创建字符串的方法是通过 new 关键字，还是 java 的内存分配，<br>java 会将 new 的对象放在堆中，这一部分对象是在运行时创建的对象。<br>所以我们每一次 new 的时候，都会创建不同的对象，即便是堆中已经有了一个一模一样的。<br>写一个小例子</p>
-<pre><code>String str1 = &quot;string&quot;;
-String str4 = &quot;string&quot;;
-String str2 = new String(&quot;string&quot;);
-String str3 = new String(&quot;string&quot;);
-
-/*用于测试两种创建字符串方式的区别*/
-System.out.println(str1 == str4);
-System.out.println(str2 == str3);
-System.out.println(str3 == str1);
-
-str3 = str3.intern(); //一个不常见的方法
-System.out.println(str3 == str1);</code></pre><p>这个的运行结果是<br>true // 解释：两个字符串的内容完全相同，因而指向常量池中的同一个区域<br>false // 解释：每一次 new 都会创建一个新的对象<br>false // 解释： 注意 == 比较的是地址，不仅仅是内容<br>true // 介绍一下 intern 方法，这个方法会返回一个字符串在常量池中的一个地址，<br>如果常量池中有与 str3 内容相同的 string 则返回那个地址，如果没有，<br>则在常量池中创建一个 string 后再返回。实际上，str3 现在指向了 str1 的地址。</p>
-<p>string 是不变的，那么为什么 str1 + “some” 是合法的，<br>其实，每次对 string 进行修改，都会创建一个新的对象。<br>所以如果需要对一个字符串不断的修改的话，效率是非常的低的，<br>因为堆的好处是可以动态的增加空间，劣势就是分配新的空间消耗是很大的</p>
-<p>String 字符串常量：<br>所谓常量，即该对象的值已经被赋予了，不能再更改。若非要更改，<br>则只能再重新创建另一个对象，在这个新创建的对象上再进行赋值。<br>因此，每次在对 String 类型的对象进行改变的时候其实都等同于<br>生成了一个新的 String 对象，然后将指针指向新的 String 对象，<br>所以经常改变内容的字符串最好不要用 String，因为每次生成对象<br>都会对系统性能产生影响。</p>
-<p>StringBuffer 字符串变量 (线程安全）：<br>所谓变量，即是可以随时变化的量。如果对 StringBuffer 对象进<br>行改变，每次结果都会对 StringBuffer 对象进行操作，而不是生<br>成新的对象。所以一般字符串要经常变化的话使用 StringBuffer。</p>
-<p>StringBuilder 字符串变量（非线程安全）：<br>StringBuilder 和 StringBuffer 类功能基本相似，方法也差不多，<br>主要区别在于 StringBuffer 类的方法是多线程安全的，<br>而 StringBuilder 不是线程安全的，相比而言 StringBuilder 类会略微快一点。</p>
-<p>在方法中声明的变量可以是基本类型的变量，也可以是引用类型的变量。<br>    （1）当声明是基本类型的变量的时，其变量名及值（变量名及值是两个概念）是放在JAVA虚拟机栈中<br>    （2）当声明的是引用变量时，所声明的变量（该变量实际上是在方法中存储的是内存地址值）是放在JAVA虚拟机的栈中，该变量所指向的对象是放在堆类存中的。<br>同样在类中声明的变量即可是基本类型的变量 也可是引用类型的变量<br>    （1）当声明的是基本类型的变量其变量名及其值放在堆内存中的<br>    （2）引用类型时，其声明的变量仍然会存储一个内存地址值，该内存地址值指向所引用的对象。<br>         引用变量名和对应的对象仍然存储在相应的堆中。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2020/06/03/值传递/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/14/">14</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
@@ -1347,15 +1215,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1371,10 +1239,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
@@ -1383,11 +1247,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1415,7 +1287,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,19 +1303,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1455,7 +1323,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1463,7 +1331,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1471,7 +1339,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1479,7 +1347,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1487,11 +1355,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1503,11 +1379,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1519,23 +1399,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1547,7 +1411,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1555,15 +1423,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1579,11 +1447,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1599,11 +1479,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1611,11 +1491,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1627,23 +1507,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1655,19 +1523,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1679,11 +1547,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
             
             <div class="clearfix"></div>
