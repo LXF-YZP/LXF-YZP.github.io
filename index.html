@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 141
+			总文章数 142
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -156,39 +156,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-ConcurrentHashMap详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ThreadLocal详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="2020/07/07/ConcurrentHashMap详解/">ConcurrentHashMap详解</a>
+      <a class="article-title" href="2020/07/09/ThreadLocal详解/">ThreadLocal详解</a>
     </h1>
   
 
         
-        <a href="2020/07/07/ConcurrentHashMap详解/" class="archive-article-date">
-  	<time datetime="2020-07-07T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-07</time>
+        <a href="2020/07/09/ThreadLocal详解/" class="archive-article-date">
+  	<time datetime="2020-07-09T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><ul>
-<li>ConcurrentHashMap 是 HashMap 的线程安全版本；</li>
-<li>不允许 [key,value] 为 null;</li>
-<li>比 Hashtable 锁粒度更细；</li>
-<li>采用 CAS 和 synchronized 来保证并发安全。数据结构跟 HashMap1.8 的结构一样，数组 + 链表 / 红黑二叉树；</li>
-<li>负载因子 0.75;</li>
-<li>默认初始化容量 16;</li>
-<li>put 时当前 bucket 为空时，使用 CAS 操作，将 Node 放入对应的 bucket 中；</li>
-<li>put 时出现 hash 冲突，则采用 synchronized;</li>
-<li>查询操作不加锁，因此 ConcurrentHashMap 不是强一致性；</li>
-<li>ConcurrentHashMap 内部采用的锁有 synchronized、CAS、自旋锁、分段锁、volatile;</li>
-</ul>
-
+        
       
 
       
@@ -201,7 +189,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">多线程安全、Java集合、并发容器</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
         		</li>
       		
 		</ul>
@@ -213,7 +201,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/多线程安全、Java集合、并发容器//" class="article-tag-list-link color3">多线程安全、Java集合、并发容器</a>
+        			<a href="/categories/多线程//" class="article-tag-list-link color4">多线程</a>
         		</li>
       		
 		</ul>
@@ -222,7 +210,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="2020/07/07/ConcurrentHashMap详解/">展开全文 >></a>
+          <a class="article-more-a" href="2020/07/09/ThreadLocal详解/">展开全文 >></a>
         </p>
       
 
@@ -636,7 +624,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li>时间字符串和时间转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 把时间转换为字符串</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">Date date = new Date(136464513123L);</span><br><span class="line">String string = dateFormat.format(date);</span><br><span class="line">System.out.println(string);</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------------------</span><br><span class="line">// 把字符串转化为时间</span><br><span class="line">String string = &quot;2018-07-19&quot;;</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;);// 这里要与时间字符串的格式一样即可，否则报错</span><br><span class="line">Date date = dateFormat.parse(string);</span><br><span class="line">System.out.println(date);</span><br></pre></td></tr></table></figure>
+<li>时间字符串和时间转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 把时间转换为字符串</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">Date date = new Date(136464513123L);</span><br><span class="line">String string = dateFormat.format(date);</span><br><span class="line">System.out.println(string);</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------------------</span><br><span class="line">// 把字符串转化为时间</span><br><span class="line">String string = &quot;2018-07-19&quot;;</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;);// 这里要与时间字符串的格式一样即可，否则报错</span><br><span class="line">Date date = dateFormat.parse(string);</span><br><span class="line">System.out.println(date);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//转换成时间格式12小时制</span><br><span class="line">SimpleDateFormat 12 = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">//转换成时间格式24小时制</span><br><span class="line">SimpleDateFormat 24 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">12小时制与24小时制制需要把HH变换大小写就可以了</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -677,6 +665,125 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="2020/06/30/Java时间转换/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-HashMap详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/06/12/HashMap详解/">HashMap详解</a>
+    </h1>
+  
+
+        
+        <a href="2020/06/12/HashMap详解/" class="archive-article-date">
+  	<time datetime="2020-06-12T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="hash-计算原理"><a href="#hash-计算原理" class="headerlink" title="hash()计算原理"></a>hash()计算原理</h4><p>前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，会先判断 key 是否为空，若为空则返回 0。这也说明了 hashMap 是支持 key 传 null 的。若非空，则先计算 key 的 hashCode 值，赋值给 h，然后把 h 右移 16 位，并与原来的 h 进行异或处理。为什么要这样做，这样做有什么好处呢？</p>
+<p>我们知道，hashCode () 方法继承自父类 Object，它返回的是一个 int 类型的数值，可以保证同一个应用单次执行的每次调用，返回结果都是相同的（这个说明可以在 hashCode 源码上找到），这就保证了 hash 的确定性。在此基础上，再进行某些固定的运算，肯定结果也是可以确定的。</p>
+<p>我随便运行一段程序，把它的 hashCode 的二进制打印出来，如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Object o = new Object();</span><br><span class="line">    int hash = o.hashCode();</span><br><span class="line">    System.out.println(hash);</span><br><span class="line">    System.out.println(Integer.toBinaryString(hash));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//1836019240</span><br><span class="line">//1101101011011110110111000101000</span><br></pre></td></tr></table></figure>
+
+<p>然后，进行 (h = key.hashCode ()) ^ (h &gt;&gt;&gt; 16) 这一段运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//h原来的值</span><br><span class="line">0110 1101 0110 1111 0110 1110 0010 1000</span><br><span class="line">//无符号右移16位，其实相当于把低位16位舍去，只保留高16位</span><br><span class="line">0000 0000 0000 0000 0110 1101 0110 1111</span><br><span class="line">//然后高16位和原 h进行异或运算</span><br><span class="line">0110 1101 0110 1111 0110 1110 0010 1000</span><br><span class="line">^</span><br><span class="line">0000 0000 0000 0000 0110 1101 0110 1111</span><br><span class="line">=</span><br><span class="line">0110 1101 0110 1111 0000 0011 0100 0111</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，其实相当于，我们把高 16 位值和当前 h 的低 16 位进行了混合，这样可以尽量保留高 16 位的特征，从而降低哈希碰撞的概率。</p>
+<p>思考一下，为什么这样做，就可以降低哈希碰撞的概率呢？先别着急，我们需要结合 i = (n - 1) &amp; hash 这一段运算来理解。</p>
+<p><strong>(n-1) &amp; hash 作用</strong><br>//②<br>//这是 put 方法中用来根据hash()值寻找在数组中的下标的逻辑，<br>//n为数组长度， hash为调用 hash()方法混合处理之后的hash值。<br>i = (n - 1) &amp; hash<br>我们知道，如果给定某个数值，去找它在某个数组中的下标位置时，直接用模运算就可以了（假设数组值从 0 开始递增）。如，我找 14 在数组长度为 16 的数组中的下标，即为 14 % 16，等于 14 。 18 的位置即为 18%16，等于 2。</p>
+<p>而②中，就是取模运算的位运算形式。以 18%16 为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//18的二进制</span><br><span class="line">0001 0010</span><br><span class="line">//16 -1 即 15的二进制</span><br><span class="line">0000 1111</span><br><span class="line">//与运算之后的结果为</span><br><span class="line">0000 0010</span><br><span class="line">// 可以看到，上边的结果转化为十进制就是 2 。</span><br><span class="line">//其实我们会发现一个规律，因为n是2的n次幂，因此它的二进制表现形式肯定是类似于</span><br><span class="line">0001 0000</span><br><span class="line">//这样的形式，只有一个位是1，其他位都是0。而它减 1 之后的形式就是类似于</span><br><span class="line">0000 1111 </span><br><span class="line">//这样的形式，高位都是0，低位都是1，因此它和任意值进行与运算，结果值肯定在这个区间内</span><br><span class="line">0000 0000  ~  0000 1111</span><br><span class="line">//也就是0到15之间，（以n为16为例）</span><br><span class="line">//因此，这个运算就可以实现取模运算，而且位运算还有个好处，就是速度比较快。</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么高低位异或运算可以减少哈希碰撞</strong></p>
+<p>我们想象一下，假如用 key 原来的 hashCode 值，直接和 (n-1) 进行与运算来求数组下标，而不进行高低位混合运算，会产生什么样的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//例如我有另外一个h2，和原来的 h相比较，高16位有很大的不同，但是低16位相似度很高，甚至相同的话。</span><br><span class="line">//原h值</span><br><span class="line">0110 1101 0110 1111 0110 1110 0010 1000</span><br><span class="line">//另外一个h2值</span><br><span class="line">0100 0101 1110 1011 0110 0110 0010 1000</span><br><span class="line">// n -1 ,即 15 的二进制</span><br><span class="line">0000 0000 0000 0000 0000 0000 0000 1111</span><br><span class="line">//可以发现 h2 和 h 的高位不相同，但是低位相似度非常高。</span><br><span class="line">//他们分别和 n -1 进行与运算时，得到的结果却是相同的。（此处n假设为16）</span><br><span class="line">//因为 n-1 的高16位都是0，不管 h 的高 16 位是什么，与运算之后，都不影响最终结果，高位一定全是 0</span><br><span class="line">//因此，哈希碰撞的概率就大大增加了，并且 h 的高16 位特征全都丢失了。</span><br></pre></td></tr></table></figure>
+
+<p>有同学可能就会有疑问了，我进行高低 16 位混合运算，是可以的，这样可以保证尽量减少高区位的特征。那么，为什么选择用异或运算呢，我用与、或、非运算不行吗？</p>
+<p>这是有一定的道理的。我们看一个表格，就能明白了。</p>
+<ul>
+<li><p>与运算，0和1的比例3：1<br>0 1 0 1<br>&amp; 1 0 1 0<br>0 0 0 1</p>
+</li>
+<li><p>或运算，0和1的比例1：3<br>0 1 0 1<br>| 1 0 1 0<br>1 1 0 1</p>
+</li>
+<li><p>异或运算，0和1的比例1：1<br>0 1 0 1<br>^ 1 0 0 1<br>1 1 0 0</p>
+</li>
+</ul>
+<p>可以看到两个值进行与运算，结果会趋向于 0；或运算，结果会趋向于 1；而只有异或运算，0 和 1 的比例可以达到 1:1 的平衡状态。（非呢？别扯犊子了，两个值怎么做非运算。。。）</p>
+<p>所以，异或运算之后，可以让结果的随机性更大，而随机性大了之后，哈希碰撞的概率当然就更小了。</p>
+<p>以上，就是为什么要对一个 hash 值进行高低位混合，并且选择异或运算来混合的原因。</p>
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/129724004" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/129724004</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java集合、容器</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java集合、容器//" class="article-tag-list-link color5">Java集合、容器</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2020/06/12/HashMap详解/">展开全文 >></a>
         </p>
       
 
@@ -973,96 +1080,6 @@
 
 
   
-    <article id="post-Java泛型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2020/06/06/Java泛型/">Java泛型</a>
-    </h1>
-  
-
-        
-        <a href="2020/06/06/Java泛型/" class="archive-article-date">
-  	<time datetime="2020-06-06T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="lt-extends-T-gt-和-lt-super-T-gt-的区别"><a href="#lt-extends-T-gt-和-lt-super-T-gt-的区别" class="headerlink" title="&lt;? extends T&gt; 和 &lt;? super T &gt; 的区别"></a>&lt;? extends T&gt; 和 &lt;? super T &gt; 的区别</h4><ul>
-<li>&lt;? extends T&gt; 表示该通配符所代表的类型是 T 类型的子类。</li>
-<li>&lt;? super T&gt; 表示该通配符所代表的类型是 T 类型的父类。</li>
-</ul>
-        
-          <a class="article-more-a" href="2020/06/06/Java泛型/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2020/06/06/Java泛型/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/15/">15</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
@@ -1156,10 +1173,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
@@ -1176,15 +1189,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1208,15 +1225,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1224,7 +1237,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1232,11 +1245,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1244,11 +1257,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1256,11 +1265,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1272,11 +1293,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1284,15 +1301,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1300,11 +1317,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1312,15 +1325,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1332,23 +1349,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1356,7 +1357,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1364,15 +1377,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1384,7 +1401,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1392,27 +1409,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1420,11 +1417,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1432,7 +1445,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1440,15 +1457,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1456,7 +1469,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1476,15 +1493,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1492,15 +1501,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
             
             <div class="clearfix"></div>
