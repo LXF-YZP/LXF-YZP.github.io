@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="观鱼入知命">
 <meta property="og:description" content="hash()计算原理前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。 1234static final int hash(Object key) &amp;#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;  这里，会先判断">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-09T09:20:31.293Z">
+<meta property="og:image" content="http://yoursite.com/2020/06/12/HashMap详解/aaa.png">
+<meta property="og:updated_time" content="2020-07-13T03:48:23.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap详解">
 <meta name="twitter:description" content="hash()计算原理前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。 1234static final int hash(Object key) &amp;#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;  这里，会先判断">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/12/HashMap详解/aaa.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -68,7 +70,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 142
+			总文章数 145
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -213,7 +215,33 @@
 <p>可以看到两个值进行与运算，结果会趋向于 0；或运算，结果会趋向于 1；而只有异或运算，0 和 1 的比例可以达到 1:1 的平衡状态。（非呢？别扯犊子了，两个值怎么做非运算。。。）</p>
 <p>所以，异或运算之后，可以让结果的随机性更大，而随机性大了之后，哈希碰撞的概率当然就更小了。</p>
 <p>以上，就是为什么要对一个 hash 值进行高低位混合，并且选择异或运算来混合的原因。</p>
-<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/129724004" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/129724004</a></p>
+<h4 id="tableSizeFor-源码："><a href="#tableSizeFor-源码：" class="headerlink" title="tableSizeFor()源码："></a>tableSizeFor()源码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">/**</span><br><span class="line"> * Returns a power of two size for the given target capacity.</span><br><span class="line"> */</span><br><span class="line">static final int tableSizeFor(int cap) &#123;</span><br><span class="line">    int n = cap - 1;</span><br><span class="line">    n |= n &gt;&gt;&gt; 1;</span><br><span class="line">    n |= n &gt;&gt;&gt; 2;</span><br><span class="line">    n |= n &gt;&gt;&gt; 4;</span><br><span class="line">    n |= n &gt;&gt;&gt; 8;</span><br><span class="line">    n |= n &gt;&gt;&gt; 16;</span><br><span class="line">    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法被调用的地方：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public HashMap(int initialCapacity, float loadFactor) &#123;</span><br><span class="line">    if (initialCapacity &lt; 0)</span><br><span class="line">        throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +</span><br><span class="line">                                            initialCapacity);</span><br><span class="line">    if (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))</span><br><span class="line">        throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +</span><br><span class="line">                                            loadFactor);</span><br><span class="line">   </span><br><span class="line">    this.loadFactor = loadFactor;</span><br><span class="line">    this.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可以看到，当在实例化 HashMap 实例时，如果给定了 initialCapacity，由于 HashMap 的 capacity 都是 2 的幂，因此这个方法用于找到大于等于 initialCapacity 的最小的 2 的幂（initialCapacity 如果就是 2 的幂，则返回的还是这个数）。</p>
+<h5 id="下面分析这个算法："><a href="#下面分析这个算法：" class="headerlink" title="下面分析这个算法："></a>下面分析这个算法：</h5><p>首先，为什么要对 cap 做减 1 操作。int n = cap - 1;<br>这是为了防止，cap 已经是 2 的幂。如果 cap 已经是 2 的幂， 又没有执行这个减 1 操作，则执行完后面的几条无符号右移操作之后，返回的 capacity 将是这个 cap 的 2 倍。如果不懂，要看完后面的几个无符号右移之后再回来看看。</p>
+<h5 id="下面看看这几个无符号右移操作："><a href="#下面看看这几个无符号右移操作：" class="headerlink" title="下面看看这几个无符号右移操作："></a>下面看看这几个无符号右移操作：</h5><p>如果 n 这时为 0 了（经过了 cap-1 之后），则经过后面的几次无符号右移依然是 0，最后返回的 capacity 是 1（最后有个 n+1 的操作）。<br>这里只讨论 n 不等于 0 的情况。</p>
+<h6 id="第一次右移"><a href="#第一次右移" class="headerlink" title="第一次右移"></a>第一次右移</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; 1;</span><br></pre></td></tr></table></figure>
+
+<p>由于 n 不等于 0，则 n 的二进制表示中总会有一 bit 为 1，这时考虑最高位的 1。通过无符号右移 1 位，则将最高位的 1 右移了 1 位，再做或操作，使得 n 的二进制表示中与最高位的 1 紧邻的右边一位也为 1，如 000011xxxxxx。</p>
+<h6 id="第二次右移"><a href="#第二次右移" class="headerlink" title="第二次右移"></a>第二次右移</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; 2;</span><br></pre></td></tr></table></figure>
+
+<p>注意，这个 n 已经经过了 n |= n &gt;&gt;&gt; 1; 操作。假设此时 n 为 000011xxxxxx ，则 n 无符号右移两位，会将最高位两个连续的 1 右移两位，然后再与原来的 n 做或操作，这样 n 的二进制表示的高位中会有 4 个连续的 1。如 00001111xxxxxx 。</p>
+<h6 id="第三次右移"><a href="#第三次右移" class="headerlink" title="第三次右移"></a>第三次右移</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n |= n &gt;&gt;&gt; 4;</span><br></pre></td></tr></table></figure>
+
+<p>这次把已经有的高位中的连续的 4 个 1，右移 4 位，再做或操作，这样 n 的二进制表示的高位中会有 8 个连续的 1。如 00001111 1111xxxxxx 。</p>
+<h6 id="以此类推"><a href="#以此类推" class="headerlink" title="以此类推"></a>以此类推</h6><p>注意，容量最大也就是 32bit 的正数，因此最后 n |= n &gt;&gt;&gt; 16; ，最多也就 32 个 1（但是这已经是负数了。在执行 tableSizeFor 之前，对 initialCapacity 做了判断，如果大于 MAXIMUM_CAPACITY (2 ^ 30)，则取 MAXIMUM_CAPACITY。如果等于 MAXIMUM_CAPACITY (2 ^ 30)，会执行移位操作。所以这里面的移位操作之后，最大 30 个 1，不会大于等于 MAXIMUM_CAPACITY。30 个 1，加 1 之后得 2 ^ 30） 。</p>
+<h5 id="举一个例子说明下吧。"><a href="#举一个例子说明下吧。" class="headerlink" title="举一个例子说明下吧。"></a>举一个例子说明下吧。</h5><p><img src="/2020/06/12/HashMap详解/aaa.png" alt></p>
+<p>注意，得到的这个 capacity 却被赋值给了 threshold。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.threshold = tableSizeFor(initialCapacity);</span><br></pre></td></tr></table></figure>
+
+<p>开始以为这个是个 Bug，感觉应该这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.threshold = tableSizeFor(initialCapacity) * this.loadFactor;</span><br></pre></td></tr></table></figure>
+
+<p>这样才符合 threshold 的意思（当 HashMap 的 size 到达 threshold 这个阈值时会扩容）。<br>但是，请注意，在构造方法中，并没有对 table 这个成员变量进行初始化，table 的初始化被推迟到了 put 方法中，在 put 方法中会对 threshold 重新计算.</p>
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/129724004" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/129724004</a><br><a href="https://blog.csdn.net/fan2012huan/article/details/51097331" target="_blank" rel="noopener">https://blog.csdn.net/fan2012huan/article/details/51097331</a></p>
 
       
 
@@ -412,11 +440,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -432,19 +468,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,7 +476,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,15 +492,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -480,10 +516,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
@@ -492,15 +524,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,19 +552,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -536,19 +560,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,7 +576,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java集合、Java基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,23 +608,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,31 +620,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,19 +632,39 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,11 +676,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,15 +712,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,19 +728,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,7 +752,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,15 +760,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -736,7 +768,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +776,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
