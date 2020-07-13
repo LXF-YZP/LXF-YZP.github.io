@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>HashMap详解 | 观鱼入知命</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hash()计算原理前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。 1234static final int hash(Object key) &amp;#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;  这里，会先判断">
+  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960//默认的初始化容量为16，必须是2的n次幂static final int DEFAULT_INITIAL_CAPACITY = 1 &amp;lt;&amp;lt; 4; // aka 16">
 <meta name="keywords" content="Java集合、容器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap详解">
 <meta property="og:url" content="http://yoursite.com/2020/06/12/HashMap详解/index.html">
 <meta property="og:site_name" content="观鱼入知命">
-<meta property="og:description" content="hash()计算原理前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。 1234static final int hash(Object key) &amp;#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;  这里，会先判断">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960//默认的初始化容量为16，必须是2的n次幂static final int DEFAULT_INITIAL_CAPACITY = 1 &amp;lt;&amp;lt; 4; // aka 16">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2020/06/12/HashMap详解/aaa.png">
-<meta property="og:updated_time" content="2020-07-13T03:48:23.636Z">
+<meta property="og:updated_time" content="2020-07-13T08:56:22.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap详解">
-<meta name="twitter:description" content="hash()计算原理前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。 1234static final int hash(Object key) &amp;#123;    int h;    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);&amp;#125;  这里，会先判断">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960//默认的初始化容量为16，必须是2的n次幂static final int DEFAULT_INITIAL_CAPACITY = 1 &amp;lt;&amp;lt; 4; // aka 16">
 <meta name="twitter:image" content="http://yoursite.com/2020/06/12/HashMap详解/aaa.png">
   
   
@@ -70,7 +70,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 145
+			总文章数 146
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -181,7 +181,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="hash-计算原理"><a href="#hash-计算原理" class="headerlink" title="hash()计算原理"></a>hash()计算原理</h4><p>前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。</p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">//默认的初始化容量为16，必须是2的n次幂</span><br><span class="line">static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4; // aka 16</span><br><span class="line">//最大容量为 2^30</span><br><span class="line">static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</span><br><span class="line">//默认的加载因子0.75，乘以数组容量得到的值，用来表示元素个数达到多少时，需要扩容。</span><br><span class="line">//为什么设置 0.75 这个值呢，简单来说就是时间和空间的权衡。</span><br><span class="line">//若小于0.75如0.5，则数组长度达到一半大小就需要扩容，空间使用率大大降低，</span><br><span class="line">//若大于0.75如0.8，则会增大hash冲突的概率，影响查询效率。</span><br><span class="line">static final float DEFAULT_LOAD_FACTOR = 0.75f;</span><br><span class="line">//刚才提到了当链表长度过长时，会有一个阈值，超过这个阈值8就会转化为红黑树</span><br><span class="line">static final int TREEIFY_THRESHOLD = 8;</span><br><span class="line">//当红黑树上的元素个数，减少到6个时，就退化为链表</span><br><span class="line">static final int UNTREEIFY_THRESHOLD = 6;</span><br><span class="line">//链表转化为红黑树，除了有阈值的限制，还有另外一个限制，需要数组容量至少达到64，才会树化。</span><br><span class="line">//这是为了避免，数组扩容和树化阈值之间的冲突。</span><br><span class="line">static final int MIN_TREEIFY_CAPACITY = 64;</span><br><span class="line">//存放所有Node节点的数组</span><br><span class="line">transient Node&lt;K,V&gt;[] table;</span><br><span class="line">//存放所有的键值对</span><br><span class="line">transient Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;</span><br><span class="line">//map中的实际键值对个数，即数组中元素个数</span><br><span class="line">transient int size;</span><br><span class="line">//每次结构改变时，都会自增，fail-fast机制，这是一种错误检测机制。</span><br><span class="line">//当迭代集合的时候，如果结构发生改变，则会发生 fail-fast，抛出异常。</span><br><span class="line">transient int modCount;</span><br><span class="line">//数组扩容阈值</span><br><span class="line">int threshold;</span><br><span class="line">//加载因子</span><br><span class="line">final float loadFactor;					</span><br><span class="line">//普通单向链表节点类</span><br><span class="line">static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</span><br><span class="line">	//key的hash值，put和get的时候都需要用到它来确定元素在数组中的位置</span><br><span class="line">	final int hash;</span><br><span class="line">	final K key;</span><br><span class="line">	V value;</span><br><span class="line">	//指向单链表的下一个节点</span><br><span class="line">	Node&lt;K,V&gt; next;</span><br><span class="line">	Node(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">		this.hash = hash;</span><br><span class="line">		this.key = key;</span><br><span class="line">		this.value = value;</span><br><span class="line">		this.next = next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//转化为红黑树的节点类</span><br><span class="line">static final class TreeNode&lt;K,V&gt; extends LinkedHashMap.Entry&lt;K,V&gt; &#123;</span><br><span class="line">	//当前节点的父节点</span><br><span class="line">	TreeNode&lt;K,V&gt; parent;  </span><br><span class="line">	//左孩子节点</span><br><span class="line">	TreeNode&lt;K,V&gt; left;</span><br><span class="line">	//右孩子节点</span><br><span class="line">	TreeNode&lt;K,V&gt; right;</span><br><span class="line">	//指向前一个节点</span><br><span class="line">	TreeNode&lt;K,V&gt; prev;    // needed to unlink next upon deletion</span><br><span class="line">	//当前节点是红色或者黑色的标识</span><br><span class="line">	boolean red;</span><br><span class="line">	TreeNode(int hash, K key, V val, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">		super(hash, key, val, next);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h4 id="hash-计算原理"><a href="#hash-计算原理" class="headerlink" title="hash()计算原理"></a>hash()计算原理</h4><p>前面 put 方法中说到，需要先把当前 key 进行哈希处理，我们看下这个方法是怎么实现的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里，会先判断 key 是否为空，若为空则返回 0。这也说明了 hashMap 是支持 key 传 null 的。若非空，则先计算 key 的 hashCode 值，赋值给 h，然后把 h 右移 16 位，并与原来的 h 进行异或处理。为什么要这样做，这样做有什么好处呢？</p>
@@ -241,7 +244,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.threshold = tableSizeFor(initialCapacity) * this.loadFactor;</span><br></pre></td></tr></table></figure>
 
 <p>这样才符合 threshold 的意思（当 HashMap 的 size 到达 threshold 这个阈值时会扩容）。<br>但是，请注意，在构造方法中，并没有对 table 这个成员变量进行初始化，table 的初始化被推迟到了 put 方法中，在 put 方法中会对 threshold 重新计算.</p>
-<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/129724004" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/129724004</a><br><a href="https://blog.csdn.net/fan2012huan/article/details/51097331" target="_blank" rel="noopener">https://blog.csdn.net/fan2012huan/article/details/51097331</a></p>
+<h4 id="resize-扩容机制"><a href="#resize-扩容机制" class="headerlink" title="resize() 扩容机制"></a>resize() 扩容机制</h4><p>在上边 put 方法中，我们会发现，当数组为空的时候，会调用 resize 方法，当数组的 size 大于阈值的时候，也会调用 resize方法。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">final Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">	//旧数组</span><br><span class="line">	Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">	//旧数组的容量</span><br><span class="line">	int oldCap = (oldTab == null) ? 0 : oldTab.length;</span><br><span class="line">	//旧数组的扩容阈值，注意看，这里取的是当前对象的 threshold 值，下边的第2种情况会用到。</span><br><span class="line">	int oldThr = threshold;</span><br><span class="line">	//初始化新数组的容量和阈值，分三种情况讨论。</span><br><span class="line">	int newCap, newThr = 0;</span><br><span class="line">	//1.当旧数组的容量大于0时，说明在这之前肯定调用过 resize扩容过一次，才会导致旧容量不为0。</span><br><span class="line">	//为什么这样说呢，之前我在 tableSizeFor 卖了个关子，需要注意的是，它返回的值是赋给了 threshold 而不是 capacity。</span><br><span class="line">	//我们在这之前，压根就没有在任何地方看到过，它给 capacity 赋初始值。</span><br><span class="line">	if (oldCap &gt; 0) &#123;</span><br><span class="line">		//容量达到了最大值</span><br><span class="line">		if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">			threshold = Integer.MAX_VALUE;</span><br><span class="line">			return oldTab;</span><br><span class="line">		&#125;</span><br><span class="line">		//新数组的容量和阈值都扩大原来的2倍</span><br><span class="line">		else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">				 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">			newThr = oldThr &lt;&lt; 1; // double threshold</span><br><span class="line">	&#125;</span><br><span class="line">	//2.到这里，说明 oldCap &lt;= 0，并且 oldThr(threshold) &gt; 0，这就是 map 初始化的时候，第一次调用 resize的情况</span><br><span class="line">	//而 oldThr的值等于 threshold，此时的 threshold 是通过 tableSizeFor 方法得到的一个2的n次幂的值(我们以16为例)。</span><br><span class="line">	//因此，需要把 oldThr 的值，也就是 threshold ，赋值给新数组的容量 newCap，以保证数组的容量是2的n次幂。</span><br><span class="line">	//所以我们可以得出结论，当map第一次 put 元素的时候，就会走到这个分支，把数组的容量设置为正确的值（2的n次幂)</span><br><span class="line">	//但是，此时 threshold 的值也是2的n次幂，这不对啊，它应该是数组的容量乘以加载因子才对。别着急，这个会在③处理。</span><br><span class="line">	else if (oldThr &gt; 0) // initial capacity was placed in threshold</span><br><span class="line">		newCap = oldThr;</span><br><span class="line">	//3.到这里，说明 oldCap 和 oldThr 都是小于等于0的。也说明我们的map是通过默认无参构造来创建的，</span><br><span class="line">	//于是，数组的容量和阈值都取默认值就可以了，即 16 和 12。</span><br><span class="line">	else &#123;               // zero initial threshold signifies using defaults</span><br><span class="line">		newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">		newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">	&#125;</span><br><span class="line">	//③ 这里就是处理第2种情况，因为只有这种情况 newThr 才为0，</span><br><span class="line">	//因此计算 newThr（用 newCap即16 乘以加载因子 0.75，得到 12） ，并把它赋值给 threshold</span><br><span class="line">	if (newThr == 0) &#123;</span><br><span class="line">		float ft = (float)newCap * loadFactor;</span><br><span class="line">		newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?</span><br><span class="line">				  (int)ft : Integer.MAX_VALUE);</span><br><span class="line">	&#125;</span><br><span class="line">	//赋予 threshold 正确的值，表示数组下次需要扩容的阈值（此时就把原来的 16 修正为了 12）。</span><br><span class="line">	threshold = newThr;</span><br><span class="line">	@SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)</span><br><span class="line">		Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];</span><br><span class="line">	table = newTab;</span><br><span class="line">	//如果原来的数组不为空，那么我们就需要把原来数组中的元素重新分配到新的数组中</span><br><span class="line">	//如果是第2种情况，由于是第一次调用resize，此时数组肯定是空的，因此也就不需要重新分配元素。</span><br><span class="line">	if (oldTab != null) &#123;</span><br><span class="line">		//遍历旧数组</span><br><span class="line">		for (int j = 0; j &lt; oldCap; ++j) &#123;</span><br><span class="line">			Node&lt;K,V&gt; e;</span><br><span class="line">			//取到当前下标的第一个元素，如果存在，则分三种情况重新分配位置</span><br><span class="line">			if ((e = oldTab[j]) != null) &#123;</span><br><span class="line">				oldTab[j] = null;</span><br><span class="line">				//1.如果当前元素的下一个元素为空，则说明此处只有一个元素</span><br><span class="line">				//则直接用它的hash()值和新数组的容量取模就可以了，得到新的下标位置。</span><br><span class="line">				if (e.next == null)</span><br><span class="line">					newTab[e.hash &amp; (newCap - 1)] = e;</span><br><span class="line">				//2.如果是红黑树结构，则拆分红黑树，必要时有可能退化为链表</span><br><span class="line">				else if (e instanceof TreeNode)</span><br><span class="line">					((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);</span><br><span class="line">				//3.到这里说明，这是一个长度大于 1 的普通链表，则需要计算并</span><br><span class="line">				//判断当前位置的链表是否需要移动到新的位置</span><br><span class="line">				else &#123; // preserve order</span><br><span class="line">					// loHead 和 loTail 分别代表链表旧位置的头尾节点</span><br><span class="line">					Node&lt;K,V&gt; loHead = null, loTail = null;</span><br><span class="line">					// hiHead 和 hiTail 分别代表链表移动到新位置的头尾节点</span><br><span class="line">					Node&lt;K,V&gt; hiHead = null, hiTail = null;</span><br><span class="line">					Node&lt;K,V&gt; next;</span><br><span class="line">					do &#123;</span><br><span class="line">						next = e.next;</span><br><span class="line">						//如果当前元素的hash值和oldCap做与运算为0，则原位置不变</span><br><span class="line">						if ((e.hash &amp; oldCap) == 0) &#123;</span><br><span class="line">							if (loTail == null)</span><br><span class="line">								loHead = e;</span><br><span class="line">							else</span><br><span class="line">								loTail.next = e;</span><br><span class="line">							loTail = e;</span><br><span class="line">						&#125;</span><br><span class="line">						//否则，需要移动到新的位置</span><br><span class="line">						else &#123;</span><br><span class="line">							if (hiTail == null)</span><br><span class="line">								hiHead = e;</span><br><span class="line">							else</span><br><span class="line">								hiTail.next = e;</span><br><span class="line">							hiTail = e;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125; while ((e = next) != null);</span><br><span class="line">					//原位置不变的一条链表，数组下标不变</span><br><span class="line">					if (loTail != null) &#123;</span><br><span class="line">						loTail.next = null;</span><br><span class="line">						newTab[j] = loHead;</span><br><span class="line">					&#125;</span><br><span class="line">					//移动到新位置的一条链表，数组下标为原下标加上旧数组的容量</span><br><span class="line">					if (hiTail != null) &#123;</span><br><span class="line">						hiTail.next = null;</span><br><span class="line">						newTab[j + oldCap] = hiHead;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="你一般用什么作为HashMap的key"><a href="#你一般用什么作为HashMap的key" class="headerlink" title="你一般用什么作为HashMap的key?"></a>你一般用什么作为HashMap的key?</h5><p>一般用Integer、String这种不可变类当HashMap当key，而且String最为常用。</p>
+<p>(1)因为字符串是不可变的，所以在它创建的时候hashcode就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。<br>(2)因为获取对象的时候要用到equals()和hashCode()方法，那么键对象正确的重写这两个方法是非常重要的,这些类已经很规范的覆写了hashCode()以及equals()方法。</p>
+<h5 id="我用可变类当HashMap的key有什么问题"><a href="#我用可变类当HashMap的key有什么问题" class="headerlink" title="我用可变类当HashMap的key有什么问题?"></a>我用可变类当HashMap的key有什么问题?</h5><p>hashcode可能发生改变，导致put进去的值，无法get出，如下所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;List&lt;String&gt;, Object&gt; changeMap = new HashMap&lt;&gt;();</span><br><span class="line">List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">list.add(&quot;hello&quot;);</span><br><span class="line">Object objectValue = new Object();</span><br><span class="line">changeMap.put(list, objectValue);</span><br><span class="line">System.out.println(changeMap.get(list));</span><br><span class="line">list.add(&quot;hello world&quot;);//hashcode发生了改变</span><br><span class="line">System.out.println(changeMap.get(list));</span><br></pre></td></tr></table></figure>
+
+<p>输出值如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@74a14482</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="https://zhuanlan.zhihu.com/p/129724004" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/129724004</a><br>[参考链接]<a href="https://blog.csdn.net/fan2012huan/article/details/51097331" target="_blank" rel="noopener">https://blog.csdn.net/fan2012huan/article/details/51097331</a><br>[参考链接]<a href="https://www.lizenghai.com/archives/65376.html" target="_blank" rel="noopener">https://www.lizenghai.com/archives/65376.html</a><br><a href="https://my.oschina.net/u/2307589/blog/1800587" target="_blank" rel="noopener">https://my.oschina.net/u/2307589/blog/1800587</a></p>
 
       
 
@@ -448,11 +462,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,7 +482,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,19 +494,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,11 +522,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,27 +538,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,11 +550,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,11 +570,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,7 +582,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -584,11 +590,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,7 +602,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,7 +610,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,15 +626,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,19 +658,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,7 +674,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,14 +694,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
@@ -688,23 +702,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,11 +722,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color5">接口设计</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,6 +742,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
@@ -740,11 +758,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,7 +766,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,11 +774,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +786,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -792,11 +806,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
             
             <div class="clearfix"></div>
