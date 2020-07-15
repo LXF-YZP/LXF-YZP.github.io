@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 146
+			总文章数 147
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,6 +155,117 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/07/13/jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别/">jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别</a>
+    </h1>
+  
+
+        
+        <a href="2020/07/13/jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别/" class="archive-article-date">
+  	<time datetime="2020-07-13T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="HashMap-在-JDK8-与-JDK7-中的区别"><a href="#HashMap-在-JDK8-与-JDK7-中的区别" class="headerlink" title="HashMap 在 JDK8 与 JDK7 中的区别"></a>HashMap 在 JDK8 与 JDK7 中的区别</h3><ul>
+<li><p>插入数据时，hash 冲突，jdk7 总是把数据插入到链表的头部，jdk8 要先判断 node 是红黑树，还是链表，如果是链表，长度超过 8 也要转换成红黑树，链表的话，插入到链表尾部，如果是 remove 数据，红黑树长度小于 6 也会转换成链表。</p>
+</li>
+<li><p>JDK7 中链表的插入使用的头插法（扩容转移元素的时候也是使用的头插法，头插法速度更快，无需遍历链表，但是在多线程扩容的情况下使用头插法会出现循环链表的问题，导致 CPU 飙升），JDK8 中链表使用的尾插法（JDK8 中反正要去计算链表当前结点的个数，反正要遍历的链表的，所以直接使用尾插法）</p>
+</li>
+<li><p>扩容 resize 时，jdk7 的扩容，按旧链表正序遍历，在新链表的头部依次插入，在多线程的情况下，有一定概率会出现链表环，出现死锁。jdk8 扩容，按旧链表正序遍历，在新链表尾部依次插入，不会出现 jdk7 中的链表环，但在多线程的情况下有一定概率出现脏数据，数据丢失问题。</p>
+</li>
+<li><p>JDK7 和 JDK8 扩容过程中转移元素的逻辑不一样，JDK7 是每次转移一个元素，JDK8 是先算出来当前位置上哪些元素在新数组的低位上，哪些在新数组的高位上，然后在一次性转移</p>
+<h3 id="ConcurrentHashMap-在-JDK7-与-JDK8-中的区别"><a href="#ConcurrentHashMap-在-JDK7-与-JDK8-中的区别" class="headerlink" title="ConcurrentHashMap 在 JDK7 与 JDK8 中的区别"></a>ConcurrentHashMap 在 JDK7 与 JDK8 中的区别</h3></li>
+<li><p>ConcurrentHashMap 在 jdk8 中初始化采用了延迟初始化策略，他会在第一次执行 put 的时候初始化 table。</p>
+</li>
+<li><p>JDK7 采用 segment 的分段锁机制实现线程安全，其中 segment 继承自 ReentrantLock。JDK8 采用 CAS (读)+Synchronized (写) 保证线程安全。</p>
+</li>
+<li><p>锁的粒度：原来是对需要进行数据操作的 Segment 加锁，JDK8 调整为对每个数组元素加锁（Node）。</p>
+</li>
+<li><p>链表转化为红黑树：定位结点的 hash 算法简化会带来弊端，Hash 冲突加剧，因此在链表节点数量大于 8 时，会将链表转化为红黑树进行存储。</p>
+</li>
+<li><p>查询时间复杂度：从原来的遍历链表 O (n)，变成遍历红黑树 O (logN)。</p>
+</li>
+<li><p>JDK8 推荐使用 mappingCount 方法而不是 size 方法获取当前 map 表的大小，因为这个方法的返回值是 long 类型，size 方法是返回值类型是 int</p>
+</li>
+</ul>
+<h3 id="ConcurrentHashMap-与-HashMap-相比，有以下不同点"><a href="#ConcurrentHashMap-与-HashMap-相比，有以下不同点" class="headerlink" title="ConcurrentHashMap 与 HashMap 相比，有以下不同点"></a>ConcurrentHashMap 与 HashMap 相比，有以下不同点</h3><ul>
+<li>ConcurrentHashMap 线程安全，而 HashMap 非线程安全;</li>
+<li>HashMap 允许 Key 和 Value 为 null，而 ConcurrentHashMap 不允许;</li>
+<li>HashMap 迭代器是强一致性，ConcurrentHashMap 迭代器是弱一致性，HashMap 不允许通过 Iterator 遍历的同时通过 HashMap 修改，而 ConcurrentHashMap 允许该行为，并且该更新对后续的遍历可见。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java集合、Java基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2020/07/13/jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-hashmap扩容浅谈" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -613,7 +724,11 @@
 </ul>
 <p>这里说下，为啥要加 3 处的那个判断。</p>
 <p>现在，假设线程 A，在初始化完成后，走到了 5 处，修改了 sizeCtl 为正数；而线程 B，刚好执行 1 处代码：</p>
-<p>// 1<br>if ((sc = sizeCtl) &lt; 0)<br>那肯定，1 处就不满足了；然后就会进到 2 处，cas 修改成功，进行初始化。没有 3 处判断的话，就会重复初始化。<br>[参考链接]<a href="http://iambigboss.top/post/73849_1_1.html" target="_blank" rel="noopener">http://iambigboss.top/post/73849_1_1.html</a></p>
+<p>// 1<br>if ((sc = sizeCtl) &lt; 0)<br>那肯定，1 处就不满足了；然后就会进到 2 处，cas 修改成功，进行初始化。没有 3 处判断的话，就会重复初始化。</p>
+<h3 id="put-方法"><a href="#put-方法" class="headerlink" title="put 方法"></a>put 方法</h3><p>1.判断键值是否为 null，为 null 抛出异常。<br>2.调用 spread() 方法计算 key 的 hashCode () 获得哈希地址，这个 HashMap 相似。<br>3.如果当前 table 为空，则初始化 table，需要注意的是这里并没有加 synchronized，也就是允许多个线程去尝试初始化 table，但是在初始化函数里面使用了 CAS 保证只有一个线程去执行初始化过程。<br>4.使用 容量大小 - 1 &amp; 哈希地址 计算出待插入键值的下标，如果该下标上的 bucket 为 null，则直接调用实现 CAS 原子性操作的 casTabAt() 方法将节点插入到 table 中，如果插入成功则完成 put 操作，结束返回。插入失败 (被别的线程抢先插入了) 则继续往下执行。<br>5.如果该下标上的节点 (头节点) 的哈希地址为 - 1，代表需要扩容，该线程执行 helpTransfer() 方法协助扩容。<br>6.如果该下标上的 bucket 不为空，且又不需要扩容，则进入到 bucket 中，同时锁住这个 bucket，注意只是锁住该下标上的 bucket 而已，其他的 bucket 并未加锁，其他线程仍然可以操作其他未上锁的 bucket，这个就是 ConcurrentHashMap 为什么高效的原因之一。<br>7.进入到 bucket 里面，首先判断这个 bucket 存储的是红黑树 (哈希地址小于 0，原因后面分析) 还是链表。<br>8.如果是链表，则遍历链表看看是否有哈希地址和键 key 相同的节点，有的话则根据传入的参数进行覆盖或者不覆盖，没有找到相同的节点的话则将新增的节点插入到链表尾部。如果是红黑树，则将节点插入。到这里结束加锁。<br>9.最后判断该 bucket 上的链表长度是否大于链表转红黑树的阈值 (8)，大于则调用 treeifyBin() 方法将链表转成红黑树，以免链表过长影响效率。<br>10.调用 addCount() 方法，作用是将 ConcurrentHashMap 的键值对数量 + 1，还有另一个作用是检查 ConcurrentHashMap 是否需要扩容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">public V put(K key, V value) &#123;</span><br><span class="line">    return putVal(key, value, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">final V putVal(K key, V value, boolean onlyIfAbsent) &#123;</span><br><span class="line">    //不允许键值为null，这点与线程安全的Hashtable保持一致，和HashMap不同。</span><br><span class="line">    if (key == null || value == null) throw new NullPointerException();</span><br><span class="line">    //取键key的hashCode()和HashMap、Hashtable都一样，然后再执行spread()方法计算得到哈希地</span><br><span class="line">    //址，这个spread()方法和HashMap的hash()方法一样，都是将hashCode()做无符号右移16位，只不</span><br><span class="line">    //过spread()加多了 &amp;0x7fffffff，让结果为正数。</span><br><span class="line">    int hash = spread(key.hashCode());</span><br><span class="line">    int binCount = 0;</span><br><span class="line">    for (Node&lt;K,V&gt;[] tab = table;;) &#123;</span><br><span class="line">        Node&lt;K,V&gt; f; int n, i, fh;</span><br><span class="line">        //如果table数组为空或者长度为0(未初始化)，则调用initTable()初始化table，初始化函数</span><br><span class="line">        //下面介绍。</span><br><span class="line">        if (tab == null || (n = tab.length) == 0)</span><br><span class="line">            tab = initTable();</span><br><span class="line">        //调用实现了CAS原子性操作的tabAt方法</span><br><span class="line">        //tabAt方法的第一个参数是Node数组的引用，第二个参数在Node数组的下标，实现的是在Nod</span><br><span class="line">        //e数组中查找指定下标的Node，如果找到则返回该Node节点(链表头节点)，否则返回null，</span><br><span class="line">        //这里的i = (n - 1)&amp;hash即是计算待插入的节点在table的下标，即table容量-1的结果和哈</span><br><span class="line">        //希地址做与运算，和HashMap的算法一样。</span><br><span class="line">        else if ((f = tabAt(tab, i = (n - 1) &amp; hash)) == null) &#123;</span><br><span class="line">            //如果该下标上并没有节点(即链表为空)，则直接调用实现了CAS原子性操作的</span><br><span class="line">            //casTable()方法，</span><br><span class="line">            //casTable()方法的第一个参数是Node数组的引用，第二个参数是待操作的下标，第三</span><br><span class="line">            //个参数是期望值，第四个参数是待操作的Node节点，实现的是将Node数组下标为参数二</span><br><span class="line">            //的节点替换成参数四的节点，如果期望值和实际值不符返回false，否则参数四的节点成</span><br><span class="line">            //功替换上去，返回ture，即插入成功。注意这里：如果插入成功了则跳出for循环，插入</span><br><span class="line">            //失败的话(其他线程抢先插入了)，那么会执行到下面的代码。</span><br><span class="line">            if (casTabAt(tab, i, null,</span><br><span class="line">                         new Node&lt;K,V&gt;(hash, key, value, null)))</span><br><span class="line">                break;                   // no lock when adding to empty bin</span><br><span class="line">        &#125;</span><br><span class="line">        //如果该下标上的节点的哈希地址为-1(即链表的头节点为ForwardingNode节点)，则表示</span><br><span class="line">        //table需要扩容，值得注意的是ConcurrentHashMap初始化和扩容不是用同一个方法，而</span><br><span class="line">        //HashMap和Hashtable都是用同一个方法，当前线程会去协助扩容，扩容过程后面介绍。</span><br><span class="line">        else if ((fh = f.hash) == MOVED)</span><br><span class="line">            tab = helpTransfer(tab, f);</span><br><span class="line">        //如果该下标上的节点既不是空也不是需要扩容，则表示这个链表可以插入值，将进入到链表</span><br><span class="line">        //中，将新节点插入或者覆盖旧值。</span><br><span class="line">        else &#123;</span><br><span class="line">            V oldVal = null;</span><br><span class="line">            //通过关键字synchroized对该下标上的节点加锁(相当于锁住锁住</span><br><span class="line">            //该下标上的链表)，其他下标上的节点并没有加锁，所以其他线程</span><br><span class="line">            //可以安全的获得其他下标上的链表进行操作，也正是因为这个所</span><br><span class="line">            //以提高了ConcurrentHashMap的效率，提高了并发度。</span><br><span class="line">            synchronized (f) &#123;</span><br><span class="line">                if (tabAt(tab, i) == f) &#123;</span><br><span class="line">                    //如果该下标上的节点的哈希地址大于等于0，则表示这是</span><br><span class="line">                    //个链表。</span><br><span class="line">                    if (fh &gt;= 0) &#123;</span><br><span class="line">                        binCount = 1;</span><br><span class="line">                        //遍历链表。</span><br><span class="line">                        for (Node&lt;K,V&gt; e = f;; ++binCount) &#123;</span><br><span class="line">                            K ek;</span><br><span class="line">                            //如果哈希地址、键key相同 或者 键key不为空</span><br><span class="line">                            //且键key相同，则表示存在键key和待插入的键</span><br><span class="line">                            //key相同，则执行更新值value的操作。</span><br><span class="line">                            if (e.hash == hash &amp;&amp;</span><br><span class="line">                                ((ek = e.key) == key ||</span><br><span class="line">                                 (ek != null &amp;&amp; key.equals(ek)))) &#123;</span><br><span class="line">                                oldVal = e.val;</span><br><span class="line">                                if (!onlyIfAbsent)</span><br><span class="line">                                    e.val = value;</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                            Node&lt;K,V&gt; pred = e;</span><br><span class="line">                            //如果找到了链表的最后一个节点都没有找到相</span><br><span class="line">                            //同键Key的，则是插入操作，将插入的键值新建</span><br><span class="line">                            //个节点并且添加到链表尾部，这个和HashMap一</span><br><span class="line">                            //样都是插入到尾部。</span><br><span class="line">                            if ((e = e.next) == null) &#123;</span><br><span class="line">                                pred.next = new Node&lt;K,V&gt;(hash, key,</span><br><span class="line">                                                          value, null);</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    //如果该下标上的节点的哈希地址小于0 且为树节点</span><br><span class="line">                    //则将带插入键值新增到红黑树</span><br><span class="line">                    else if (f instanceof TreeBin) &#123;</span><br><span class="line">                        Node&lt;K,V&gt; p;</span><br><span class="line">                        binCount = 2;</span><br><span class="line">                        //如果插入的结果不为null，则表示为替换</span><br><span class="line">                        if ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash,</span><br><span class="line">                        key,value)) != null)&#123;</span><br><span class="line">                            oldVal = p.val;</span><br><span class="line">                            if (!onlyIfAbsent)</span><br><span class="line">                                p.val = value;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //判断链表的长度是否大于等于链表的阈值(8)，大于则将链表转成</span><br><span class="line">            //红黑树，提高效率。这点和HashMap一样。</span><br><span class="line">            if (binCount != 0) &#123;</span><br><span class="line">                if (binCount &gt;= TREEIFY_THRESHOLD)</span><br><span class="line">                    treeifyBin(tab, i);</span><br><span class="line">                if (oldVal != null)</span><br><span class="line">                    return oldVal;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    addCount(1L, binCount);</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[参考链接]<a href="http://iambigboss.top/post/73849_1_1.html" target="_blank" rel="noopener">http://iambigboss.top/post/73849_1_1.html</a></p>
 
       
 
@@ -1041,97 +1156,6 @@
 
 
   
-    <article id="post-Java时间转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2020/06/30/Java时间转换/">Java时间转换</a>
-    </h1>
-  
-
-        
-        <a href="2020/06/30/Java时间转换/" class="archive-article-date">
-  	<time datetime="2020-06-30T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>时间字符串和时间转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 把时间转换为字符串</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">Date date = new Date(136464513123L);</span><br><span class="line">String string = dateFormat.format(date);</span><br><span class="line">System.out.println(string);</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------------------</span><br><span class="line">// 把字符串转化为时间</span><br><span class="line">String string = &quot;2018-07-19&quot;;</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;);// 这里要与时间字符串的格式一样即可，否则报错</span><br><span class="line">Date date = dateFormat.parse(string);</span><br><span class="line">System.out.println(date);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//转换成时间格式12小时制</span><br><span class="line">SimpleDateFormat 12 = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">//转换成时间格式24小时制</span><br><span class="line">SimpleDateFormat 24 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">12小时制与24小时制制需要把HH变换大小写就可以了</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-        
-          <a class="article-more-a" href="2020/06/30/Java时间转换/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2020/06/30/Java时间转换/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/15/">15</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
@@ -1221,19 +1245,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1241,11 +1257,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
+                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1257,11 +1281,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1281,15 +1305,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1297,11 +1313,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1313,19 +1337,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1341,11 +1361,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1353,7 +1369,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1362,10 +1390,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java集合、Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1381,6 +1405,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
@@ -1389,7 +1417,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1397,11 +1425,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1425,11 +1449,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1445,11 +1469,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1485,6 +1509,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
@@ -1501,19 +1529,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1525,7 +1553,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1533,15 +1561,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1549,11 +1569,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1561,15 +1581,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
