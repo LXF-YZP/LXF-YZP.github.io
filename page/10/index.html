@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 147
+			总文章数 146
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,146 +155,6 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-Linux常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2019/09/03/Linux常用命令/">Linux常用命令</a>
-    </h1>
-  
-
-        
-        <a href="../../2019/09/03/Linux常用命令/" class="archive-article-date">
-  	<time datetime="2019-09-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>切换成bdc用户执行pwd命令；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - bdc -c &quot;pwd&quot;</span><br></pre></td></tr></table></figure>
-
-<p>清空文件，不是删除文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 文件名； 例如 : &gt; test.log</span><br></pre></td></tr></table></figure>
-
-<p>部署HDFS集群HA模式的时候启动DataNode报错：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Alicechen</span><br><span class="line">17 年 3 月</span><br><span class="line">FATAL org.apache.hadoop.hdfs.server.datanode.DataNode</span><br><span class="line">Exception in secureMain</span><br><span class="line">java.io.IOException: the path component: ‘/’ is world-writable. Its permissions are 0777. Please fix this or select a different socket path.</span><br><span class="line">at org.apache.hadoop.net.unix.DomainSocket.validateSocketPathSecurity0(Native Method)</span><br><span class="line">at org.apache.hadoop.net.unix.DomainSocket.bindAndListen(DomainSocket.java:191)</span><br><span class="line">at org.apache.hadoop.hdfs.net.DomainPeerServer.(DomainPeerServer.java:42)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.getDomainPeerServer(DataNode.java:603)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.initDataXceiver(DataNode.java:570)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.startDataNode(DataNode.java:741)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.(DataNode.java:344)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.makeInstance(DataNode.java:1795)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.instantiateDataNode(DataNode.java:1728)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.createDataNode(DataNode.java:1751)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.secureMain(DataNode.java:1904)</span><br><span class="line">at org.apache.hadoop.hdfs.server.datanode.DataNode.main(DataNode.java:1925)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">根目录权限设置太大，不能够是 777，需要改小一些</span><br><span class="line">查看根目录权限的指令为：ls -Ald /</span><br><span class="line">示例：修改根目录的权限指令为：chmod 755 /</span><br></pre></td></tr></table></figure>
-
-<p>Linux 创建用户的同时设置密码:<br>useradd 用户名;echo “密码” | passwd  –stdin 用户名<br>useradd 用户名;echo 密码 | passwd  –stdin 用户名</p>
-<p>useradd 用户名 -p 密码；这个命令中的密码最后在切换用户的时候实际是密码的MD5值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、*.tar 用 tar –xvf 解压</span><br><span class="line">2、*.gz 用 gzip -d 或者 gunzip 解压</span><br><span class="line">3、*.tar.gz 和 *.tgz 用 tar –xzf 解压</span><br><span class="line">4、*.bz2 用 bzip2 -d 或者用 bunzip2 解压</span><br><span class="line">5、*.tar.bz2 用 tar –xjf 解压</span><br><span class="line">6、*.Z 用 uncompress 解压</span><br><span class="line">7、*.tar.Z 用 tar –xZf 解压</span><br><span class="line">8、*.rar 用 unrar e 解压</span><br><span class="line">9、*.zip 用 unzip 解压</span><br></pre></td></tr></table></figure>
-
-<h3 id="vim命令修改jar包中配置文件"><a href="#vim命令修改jar包中配置文件" class="headerlink" title="vim命令修改jar包中配置文件"></a>vim命令修改jar包中配置文件</h3><p>使用 vim 命令打开 jar 包文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入命令 vim rcs-server-v8.jar</span><br></pre></td></tr></table></figure>
-
-<p>搜索配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/RCSConfig.xml</span><br></pre></td></tr></table></figure>
-
-<p>修改配置文件中的数值，然后:wq退出，然后再:q退出即可</p>
-<p>导入SQL文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p -B 数据库名 &lt; SQL文件名.sql</span><br></pre></td></tr></table></figure>
-
-<p>java程序使用mvn clean package 打包之后，可以直接使用java -cp  oss-client-1.0-SNAPSHOT.jar(要运行的jar包，不需要把依赖也打进jar包中，也不需要指定主类):/opt/beh/core/hbase/lib/(jar包运行所需依赖):/opt/beh/core/hadoop/share/(jar包运行所需依赖)   com.bonc.beh.oss.Main(jar包运行的主类)</p>
-<p>查看文件编码方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file ip.txt</span><br></pre></td></tr></table></figure>
-
-<p>查看本机ip</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig或者hostname -i</span><br></pre></td></tr></table></figure>
-
-<p>向数据库中导入文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -u用户名 -p密码 -D数据库 &lt; SQL脚本路径</span><br><span class="line">或者</span><br><span class="line">①连接数据库mysql -uroot -p</span><br><span class="line">②输入数据库密码</span><br><span class="line">③指定数据库 use db;</span><br><span class="line">④执行脚本 source 脚本绝对路径</span><br></pre></td></tr></table></figure>
-
-<p>过滤空格和注释行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat elasticsearch.yml  | grep -v  ^#  |grep -v ^$</span><br></pre></td></tr></table></figure>
-
-<p>CentOS 7:firewalld 启动不了 提示 Active: failed (Result: timeout)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">查看 status 如下：</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl status firewalld.service -l</span><br><span class="line">[0m firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: failed (Result: timeout) since Wed 2017-07-26 10:12:43 CST; 54min ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line">  Process: 152761 ExecStart=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 152761 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Jul 26 10:11:12 localhost.localdomain systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">Jul 26 10:12:42 localhost.localdomain systemd[1]: firewalld.service start operation timed out. Terminating.</span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: Failed to start firewalld - dynamic firewall daemon.</span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: Unit firewalld.service entered failed state.</span><br><span class="line"></span><br><span class="line">Jul 26 10:12:43 localhost.localdomain systemd[1]: firewalld.service failed.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行以下命令后，恢复 running：</span><br><span class="line"></span><br><span class="line">systemctl stop firewalld;pkill -f firewalld;systemctl start firewalld</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">该方法参考来源：</span><br><span class="line"></span><br><span class="line">http://centosfaq.org/centos/centos-7-firewalldservice-operation-time-out-systemctl-firewalld-issues/</span><br><span class="line"></span><br><span class="line">来自官方的 faq, 给了一些解释： systemd didn’t know about the process that it didn’t start in the first place of course</span><br></pre></td></tr></table></figure>
-
-<p>[原文链接]<a href="https://blog.csdn.net/crynono/java/article/details/76132611" target="_blank" rel="noopener">https://blog.csdn.net/crynono/java/article/details/76132611</a></p>
-<p>查看文件多少行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat test.txt|wc -l</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jps -q:只显示pid，不显示class名称，jar文件名和传递给main方法的参数</span><br><span class="line">jps -m:输出传递给main方法的参数，在嵌入式jvm上可能是null</span><br><span class="line">jps -l：输出应用程序main class的完整package名或者应用程序的jar文件完整路径名</span><br><span class="line">jps -v：输出传递给jvm的参数</span><br><span class="line"></span><br><span class="line">cat /etc/passwd:查看用户密码</span><br><span class="line">cat /etc/group:查看用户组</span><br></pre></td></tr></table></figure>
-
-<p>Linux中权限（r、w、x）对于目录与文件的意义：<br>一。权限对于目录的意义:</p>
-<ol>
-<li>首先要明白的是目录主要的内容是记录文件名列表和子目录列表，而不是实际存放数据的地方</li>
-<li>r权限：拥有此权限表示可以读取目录结构列表，也就是说可以查看目录下的文件名和子目录名，注意：仅仅是名字</li>
-<li>w权限：拥有此权限表示具有更改此目录结构列表的权限，<br>总之，目录的w权限与该目录下的文件名或子目录名的变动有关，<br>注意：指的是名字。具体如下：<br>1）在该目录下新建新的文件或子目录。<br>2）删除该目录下已经存在的文件或子目录（不论该文件或子目录的权限如何），<br>注意：这点很重要，用户能否删除一个文件或目录，看的是该用户是否具有该文件或目录所在的目录的w权限。<br>3）将该目录下已经存在的文件或子目录进行重命名。<br>4）转移该目录内的文件或子目录的位置。</li>
-<li>x权限：拥有目录的x权限表示用户可以进入该目录成为工作目录，能不能进入一个目录，<br>只与该目录的x权限有关，如果用户对于某个目录不具有x权限，则无法切换到该目录下，<br>也就无法执行该目录下的任何命令，即使具有该目录的r权限。且如果用户对于某目录不具有x权限，<br>则该用户不能查询该目录下的文件的内容，注意：指的是内容，<br>如果有r 权限是可以查看该目录下的文件名列表或子目录列表的。所以要开放目录给任何人浏览时，应该至少要给与r及x权限。</li>
-</ol>
-<p>二。权限对于文件的意义:<br>1、也应该明白的是文件是实际含有数据的地方，所以r、w、x权限对文件来说是与其内容有关的。<br>2、r权限：用于此权限表示可以读取此文件的实际内容。<br>3、w权限：拥有此权限表示可以编辑、添加或者是修改该文件的内容。<br>但是不包含删除该文件，因为由上面权限对于目录的意义得知删除文件或目录的条件是什么。<br>4、x权限：表示该文件具有可以被系统执行的权限。文件是否能被执行就是由该权限来决定的，跟文件名没有绝对的关系</p>
-<p>[参考链接]<a href="https://blog.csdn.net/csdnzouqi/article/details/90169728" target="_blank" rel="noopener">https://blog.csdn.net/csdnzouqi/article/details/90169728</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux命令</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/09/03/Linux常用命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
     <article id="post-Java隐式类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1086,6 +946,94 @@
 
 
   
+    <article id="post-Java容器源码分析之LinkedList" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/08/24/Java容器源码分析之LinkedList/">Java容器源码分析之LinkedList</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/08/24/Java容器源码分析之LinkedList/" class="archive-article-date">
+  	<time datetime="2019-08-24T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>同 ArrayList 一样，LinkedList 也是对 List 接口的一种具体实现。不同的是，ArrayList 是基于数组来实现的，而 LinkedList 是基于双向链表实现的。LinkedList 类的声明如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedList&lt;E&gt;</span><br><span class="line">    extends AbstractSequentialList&lt;E&gt;</span><br><span class="line">    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="../../2019/08/24/Java容器源码分析之LinkedList/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">java集合</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/集合//" class="article-tag-list-link color3">集合</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/08/24/Java容器源码分析之LinkedList/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="../9/">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../8/">8</a><a class="page-number" href="../9/">9</a><span class="page-number current">10</span><a class="page-number" href="../11/">11</a><a class="page-number" href="../12/">12</a><span class="space">&hellip;</span><a class="page-number" href="../15/">15</a><a class="extend next" rel="next" href="../11/">Next &raquo;</a>
@@ -1175,23 +1123,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1203,15 +1139,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1223,11 +1167,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,11 +1179,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1247,7 +1187,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1255,7 +1207,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1267,23 +1219,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring、动态代理</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1295,11 +1243,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1307,7 +1251,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1315,7 +1267,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1327,15 +1279,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1347,15 +1291,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1363,11 +1307,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1395,7 +1343,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1403,11 +1351,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1415,15 +1359,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,7 +1371,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1439,19 +1387,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1483,6 +1431,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
               </li>
              
@@ -1491,15 +1443,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1519,19 +1467,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">协议</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
             
             <div class="clearfix"></div>
