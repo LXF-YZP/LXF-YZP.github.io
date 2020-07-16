@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-15T02:55:50.136Z</updated>
+  <updated>2020-07-16T07:32:47.213Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ConcurrentHashMap详解</title>
+    <link href="http://yoursite.com/2020/07/16/jdk%E6%BA%90%E7%A0%81%E5%8C%85/"/>
+    <id>http://yoursite.com/2020/07/16/jdk源码包/</id>
+    <published>2020-07-16T11:57:10.000Z</published>
+    <updated>2020-07-16T07:32:47.213Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="需要阅读的源码包"><a href="#需要阅读的源码包" class="headerlink" title="需要阅读的源码包"></a>需要阅读的源码包</h5><ul><li>1、java.lang<br>这里面其实就是Java的基本语法，比如各种基本包装类型（Integer、Long、Double等）、基本类（Object，Class，Enum，Exception，Thread）等等…</li><li>2、java.lang.annotation<br>包含Java注解基本元素相关的源码</li><li>3、java.lang.reflect<br>包含Java反射基本元素相关的代码</li><li>4、java.util<br>这里面放的都是Java的基本工具，最典型和常用的就是各种容器和集合（List、Map、Set）</li><li>5、java.util.concurrent<br>大名鼎鼎的JUC包，里面包含了Java并发和多线程编程相关的代码</li><li>6、java.util.function +java.util.stream<br>包含Java函数式编程的常见接口和代码</li><li>7、java.io<br>包含Java传统I/O相关的源码，主要是面向字节和流的I/O</li><li>8、java.nio<br>包含Java非阻塞I/O相关的源码，主要是面向缓冲、通道以及选择器的I/O</li><li>9、java.time<br>包含Java新日期和期间相关的代码，最典型的当属LocalDateTime、DateTimeFormatter等</li><li>10、java.math<br>主要包含一些高精度运算的支持数据类</li><li>11、java.math<br>主要包含一些高精度运算的支持数据类</li><li>12、java.net<br>主要包含Java网络通信（典型的如：Socket通信）相关的源代码。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;需要阅读的源码包&quot;&gt;&lt;a href=&quot;#需要阅读的源码包&quot; class=&quot;headerlink&quot; title=&quot;需要阅读的源码包&quot;&gt;&lt;/a&gt;需要阅读的源码包&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;1、java.lang&lt;br&gt;这里面其实就是Java的基本语法，比如各种基本包装
+      
+    
+    </summary>
+    
+    
+      <category term="jdk源码" scheme="http://yoursite.com/categories/jdk%E6%BA%90%E7%A0%81/"/>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>jdk1.7和1.8中ConcurrentHashMap和HashMap的一些区别</title>
@@ -512,29 +539,6 @@ public Employee(String n){
     
     
       <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>kafka基础笔记</title>
-    <link href="http://yoursite.com/2020/06/02/kafka%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2020/06/02/kafka基础笔记/</id>
-    <published>2020-06-02T11:57:10.000Z</published>
-    <updated>2020-07-06T09:59:10.073Z</updated>
-    
-    <content type="html"><![CDATA[<p>consumer的两种订阅模式，subscribe()和assign()模式，一种是topic粒度的（使用group管理）<br>一种是topic-partition粒度（用户自己去管理）；</p><a id="more"></a><p>// 订阅指定的 topic 列表,并且会自动进行动态 partition 订阅<br>// 当发生以下情况时,会进行 rebalance: 1.订阅的 topic 列表改变; 2.topic 被创建或删除; 3.consumer 线程 die; 4. 加一个新的 consumer 线程<br>// 当发生 rebalance 时，会唤醒 ConsumerRebalanceListener 线程<br>public void subscribe(Collection topics, ConsumerRebalanceListener listener){}<br>// 同上，但是这里没有设置 listener<br>public void subscribe(Collection topics){}<br>//note: 订阅那些满足一定规则(pattern)的 topic<br>public void subscribe(Pattern pattern, ConsumerRebalanceListener listener){}</p><p>以上三种 API 都是按照 topic 级别去订阅，可以动态地获取其分配的 topic-partition，这是使用 Group 动态管理 ，它不能与手动 partition 管理一起使用。当监控到发生下面的事件时，Group 将会触发 rebalance 操作：</p><ul><li>订阅的 topic 列表变化；</li><li>topic 被创建或删除；</li><li>consumer group 的某个 consumer 实例挂掉；</li><li>一个新的 consumer 实例通过 join 方法加入到一个 group 中。</li></ul><p>consumer的两种commit实现，commitAsync()和commitSync()，即同步commit和异步commit；</p><p>kafka常用命令：<br>列出所有topic：kafka-topics.sh –zookeeper localhost:2181 –list<br>创建topic：kafka-topics.sh –zookeeper localhost:2181<br>                            –create<br>                            –topic earth<br>                            –partitions 1<br>                            –replication-factor 1</p><p>生产数据：kafka-console-producer.sh<br>                    –broker-list localhost:9092<br>                    –topic earth</p><p>消费数据：kafka-console-consumer.sh –zookeeper localhost:2181<br>                                      –topic earth<br>                                      –from-beginning</p><p>获取offset的最大最小值：kafka-run-class.sh kafka.tools.GetOffsetShell<br>                                 –broker-list localhost:9092<br>                                 –topic earth<br>                                 –time -1</p><p>最后的参数-1表示显示获取最大值，-2表示获取最小值；</p><p>查看具体某个partition数据内容：kafka-simple-consumer-shell.sh –broker-list localhost:9092<br>                                       –topic earth<br>                                       –partition 1<br>                                       –print-offsets<br>                                       –offset 18<br>                                       –clientId test<br>                                       –property print.key=true</p><p>1).System.exit(0)是将你的整个虚拟机里的内容都停掉了 ，而dispose()只是关闭这个窗口，但是并没有停止整个application exit() 。无论如何，内存都释放了！也就是说连JVM都关闭了，内存里根本不可能还有什么东西<br>2).System.exit(0)是正常退出程序，而System.exit(1)或者说非0表示非正常退出程序<br>3).System.exit(status)不管status为何值都会退出程序。和return 相比有以下不同点：return是回到上一层，而System.exit(status)是回到最上层<br>示例:<br>在一个if-else判断中，如果我们程序是按照我们预想的执行，到最后我们需要停止程序，那么我们使用System.exit(0)，而System.exit(1)一般放在catch块中，当捕获到异常，需要停止程序，我们使用System.exit(1)。这个status=1是用来表示这个程序是非正常退出。</p><p>自动关机命令：<br>表示600秒后自动关机：shutdown -s -t 600<br>取消定时关机：shutdown -a<br>表示600秒后自动重启：shutdown -r -t 600<br>rononce -p：15秒关机</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;consumer的两种订阅模式，subscribe()和assign()模式，一种是topic粒度的（使用group管理）&lt;br&gt;一种是topic-partition粒度（用户自己去管理）；&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="kafka" scheme="http://yoursite.com/categories/kafka/"/>
-    
-    
-      <category term="kafka、大数据" scheme="http://yoursite.com/tags/kafka%E3%80%81%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
   </entry>
   
