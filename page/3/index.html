@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 148
+			总文章数 150
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,6 +155,225 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Java异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/06/04/Java异常处理/">Java异常处理</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/06/04/Java异常处理/" class="archive-article-date">
+  	<time datetime="2020-06-04T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 Java 中异常被当做对象来处理，根类是 java.lang.Throwable 类，<br>在 Java 中定义了很多异常类（如 OutOfMemoryError、NullPointerException、<br>IndexOutOfBoundsException 等），这些异常类分为两大类：Error 和 Exception。</p>
+<p>Error 是无法处理的异常，比如 OutOfMemoryError，一般发生这种异常，<br>JVM 会选择终止程序。因此我们编写程序时不需要关心这类异常。<br>Exception，也就是我们经常见到的一些异常情况，<br>比如 NullPointerException、IndexOutOfBoundsException，这些异常是我们可以处理的异常。</p>
+<p>Exception 类的异常包括 checked exception 和 unchecked exception<br>（unchecked exception 也称运行时异常 RuntimeException，<br>当然这里的运行时异常并不是前面我所说的运行期间的异常，<br>只是 Java 中用运行时异常这个术语来表示，Exception 类的异常都是在运行期间发生的）。</p>
+<p>unchecked exception（非检查异常），也称运行时异常（RuntimeException），<br>比如常见的 NullPointerException、IndexOutOfBoundsException。对于运行时异常，<br>java 编译器不要求必须进行异常捕获处理或者抛出声明，由程序员自行决定。<br>　　<br>checked exception（检查异常），也称非运行时异常（运行时异常以外的异常就是非运行时异常），<br>java 编译器强制程序员必须进行捕获处理，比如常见的 IOExeption 和 SQLException。<br>对于非运行时异常如果不进行捕获或者抛出声明处理，编译都不会通过。</p>
+<p>在 Java 中，所有异常类的父类是 Throwable 类，Error 类是 error 类型异常的父类，<br>Exception 类是 exception 类型异常的父类，RuntimeException 类是所有运行时异常的父类，<br>RuntimeException 以外的并且继承 Exception 的类是非运行时异常。<br>　　<br>典型的 RuntimeException 包括 NullPointerException、IndexOutOfBoundsException、<br>IllegalArgumentException 等。<br>　　<br>典型的非 RuntimeException 包括 IOException、SQLException 等。</p>
+<p>在Java中什么是内存不足错误？<br>答：在Java中，OutOfMemoryError是 java.lang.VirtualMachineError的一个子类，<br>当堆内存耗尽时会被JVM抛出。我们能通过设置Java选项来提供更大的内存供应用使用来达到修复的目的。<br>$&gt;java MyProgram -Xms1024m -Xmx1024m -XX:PermSize=64M -XX:MaxPermSize=256m</p>
+<p>引发Exception in thread main的各种不同情形？<br>答：通常的一些主线程异常情形主要有以下几种：<br>Exception in thread main java.lang.UnsupportedClassVersionError:当编译和运行Java类的JDK版本不同的时出现这种异常。<br>Exception in thread main java.lang.NoClassDefFoundError:这种异常出现的原因有两种：第一种是提供类全名时附带有.class；第二种是指定类未找到。<br>Exception in thread main java.lang.NoSuchMethodError: main:当试图运行一个没main方法的类时会出现这种异常。<br>Exception in thread main java.lang.NoSuchMethodError: main:无论何时main方法任何异常，它打印异常到控制台。其第一部分是陈述main方法抛出的异常，第二部分打印异常类名，后接异常类信息。</p>
+<p>Java中final,finally,finalize的区别？<br>答：final和finally在Java中是关键字，而finalize则是一个方法。<br>final关键字使得类变量不可变，避免类被其它类继承或方法被重写。finally跟try-catch块一起使用，即使是出现了异常，其子句总会被执行，通常，finally子句用来关闭相关资源。finally方法中的对象被销毁之前会被垃圾回收。<br>综上三者，只有finally用于异常处理。</p>
+<p>在main方法抛出异常时发生了什么？<br>答：当main方法抛出异常时，Java运行时间终止并在控制台打印异常信息和栈轨迹。</p>
+<p>catch子句能为空吗？<br>答：可以有空的catch子句，但那是最糟糕的编程，因为那样的话，异常即使被捕获，我们也得不到任何的有用信息，对于调试来说会是个噩梦，因此，编程时永远不要有空的catch子句。Catch子句中至少要包含一个日志语句输出到控制台或保存到日志文件中。</p>
+<p>链接：<a href="http://www.jianshu.com/p/f6865c97cd52" target="_blank" rel="noopener">http://www.jianshu.com/p/f6865c97cd52</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/06/04/Java异常处理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-值传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2020/06/03/值传递/">值传递</a>
+    </h1>
+  
+
+        
+        <a href="../../2020/06/03/值传递/" class="archive-article-date">
+  	<time datetime="2020-06-03T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先举例如下：<br>public class Employee {  </p>
+<pre><code>public String name=null;  
+
+public Employee(String n){  
+    this.name=n;  
+}  
+//将两个Employee对象交换  
+public static void swap(Employee e1,Employee e2){  
+    Employee temp=e1;  
+    e1=e2;  
+    e2=temp;  
+            System.out.println(e1.name+&quot; &quot;+e2.name); //打印结果：李四 张三  
+}  
+//主函数  
+public static void main(String[] args) {  
+    Employee worker=new Employee(&quot;张三&quot;);  
+    Employee manager=new Employee(&quot;李四&quot;);  
+    swap(worker,manager);  
+    System.out.println(worker.name+&quot; &quot;+manager.name); //打印结果仍然是： 张三 李四  
+}  </code></pre><p>}<br>上面的结果让人很失望，虽然形参对象 e1,e2 的内容交换了，<br>但实参对象 worker,manager 并没有互换内容。<br>这里面最重要的原因就在于形参 e1,e2 是实参 worker,manager 的地址拷贝。</p>
+<p>传值：<br>传递的是值的副本。方法中对副本的修改，不会影响到调用方法<br>传引用：<br>传递的是引用的副本，共用一个内存，会影响到调用方法。<br>此时，形参和实参指向同一个内存地址。<br>对引用副本本身（对象地址）的修改，如设置为 null，重新指向其他对象，不会影响到调用方法。</p>
+<p>链接：<a href="http://6924918.blog.51cto.com/6914918/1283761" target="_blank" rel="noopener">http://6924918.blog.51cto.com/6914918/1283761</a></p>
+<p>String简单介绍：<br>两种方式是有区别的，这和 java 的内存管理有关，前面已经说过，string 创建之后是不可变的，<br>所以按照第一种方式创建的字符串会放在栈里，更确切的是常量池中，<br>常量池就是用来保存在编译阶段确定好了大小的数据，<br>一般我们定义的 int 等基本数据类型就保存在这里。<br>其具体的一个流程就是，编译器首先检查常量池，看看有没有一个 “string”，如果没有则创建。<br>如果有的话，则则直接把 str1 指向那个位置。<br>第二种创建字符串的方法是通过 new 关键字，还是 java 的内存分配，<br>java 会将 new 的对象放在堆中，这一部分对象是在运行时创建的对象。<br>所以我们每一次 new 的时候，都会创建不同的对象，即便是堆中已经有了一个一模一样的。<br>写一个小例子</p>
+<pre><code>String str1 = &quot;string&quot;;
+String str4 = &quot;string&quot;;
+String str2 = new String(&quot;string&quot;);
+String str3 = new String(&quot;string&quot;);
+
+/*用于测试两种创建字符串方式的区别*/
+System.out.println(str1 == str4);
+System.out.println(str2 == str3);
+System.out.println(str3 == str1);
+
+str3 = str3.intern(); //一个不常见的方法
+System.out.println(str3 == str1);</code></pre><p>这个的运行结果是<br>true // 解释：两个字符串的内容完全相同，因而指向常量池中的同一个区域<br>false // 解释：每一次 new 都会创建一个新的对象<br>false // 解释： 注意 == 比较的是地址，不仅仅是内容<br>true // 介绍一下 intern 方法，这个方法会返回一个字符串在常量池中的一个地址，<br>如果常量池中有与 str3 内容相同的 string 则返回那个地址，如果没有，<br>则在常量池中创建一个 string 后再返回。实际上，str3 现在指向了 str1 的地址。</p>
+<p>string 是不变的，那么为什么 str1 + “some” 是合法的，<br>其实，每次对 string 进行修改，都会创建一个新的对象。<br>所以如果需要对一个字符串不断的修改的话，效率是非常的低的，<br>因为堆的好处是可以动态的增加空间，劣势就是分配新的空间消耗是很大的</p>
+<p>String 字符串常量：<br>所谓常量，即该对象的值已经被赋予了，不能再更改。若非要更改，<br>则只能再重新创建另一个对象，在这个新创建的对象上再进行赋值。<br>因此，每次在对 String 类型的对象进行改变的时候其实都等同于<br>生成了一个新的 String 对象，然后将指针指向新的 String 对象，<br>所以经常改变内容的字符串最好不要用 String，因为每次生成对象<br>都会对系统性能产生影响。</p>
+<p>StringBuffer 字符串变量 (线程安全）：<br>所谓变量，即是可以随时变化的量。如果对 StringBuffer 对象进<br>行改变，每次结果都会对 StringBuffer 对象进行操作，而不是生<br>成新的对象。所以一般字符串要经常变化的话使用 StringBuffer。</p>
+<p>StringBuilder 字符串变量（非线程安全）：<br>StringBuilder 和 StringBuffer 类功能基本相似，方法也差不多，<br>主要区别在于 StringBuffer 类的方法是多线程安全的，<br>而 StringBuilder 不是线程安全的，相比而言 StringBuilder 类会略微快一点。</p>
+<p>在方法中声明的变量可以是基本类型的变量，也可以是引用类型的变量。<br>    （1）当声明是基本类型的变量的时，其变量名及值（变量名及值是两个概念）是放在JAVA虚拟机栈中<br>    （2）当声明的是引用变量时，所声明的变量（该变量实际上是在方法中存储的是内存地址值）是放在JAVA虚拟机的栈中，该变量所指向的对象是放在堆类存中的。<br>同样在类中声明的变量即可是基本类型的变量 也可是引用类型的变量<br>    （1）当声明的是基本类型的变量其变量名及其值放在堆内存中的<br>    （2）引用类型时，其声明的变量仍然会存储一个内存地址值，该内存地址值指向所引用的对象。<br>         引用变量名和对应的对象仍然存储在相应的堆中。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2020/06/03/值传递/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-kafka基础笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -870,174 +1089,6 @@
 
 
   
-    <article id="post-设计模式之组合模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2020/05/21/设计模式之组合模式/">设计模式之组合模式</a>
-    </h1>
-  
-
-        
-        <a href="../../2020/05/21/设计模式之组合模式/" class="archive-article-date">
-  	<time datetime="2020-05-21T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2020/05/21/设计模式之组合模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-设计模式之观察者模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="../../2020/05/20/设计模式之观察者模式/">设计模式之观察者模式</a>
-    </h1>
-  
-
-        
-        <a href="../../2020/05/20/设计模式之观察者模式/" class="archive-article-date">
-  	<time datetime="2020-05-20T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">观察者模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式//" class="article-tag-list-link color5">设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2020/05/20/设计模式之观察者模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="../2/">&laquo; Prev</a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="space">&hellip;</span><a class="page-number" href="../15/">15</a><a class="extend next" rel="next" href="../4/">Next &raquo;</a>
@@ -1127,15 +1178,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1147,11 +1202,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1163,7 +1218,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,7 +1226,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+                <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1179,7 +1234,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1191,23 +1254,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1219,7 +1270,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,6 +1286,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
@@ -1243,11 +1298,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1259,15 +1314,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1275,19 +1330,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1295,15 +1338,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java类加载机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">集合</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1312,6 +1355,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">集合</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1331,6 +1378,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
@@ -1339,23 +1394,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1375,7 +1418,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1383,19 +1430,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1403,7 +1442,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-堆</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">虚度人生</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1419,11 +1470,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,11 +1482,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color5">Git使用、GitHub使用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1444,6 +1499,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1459,7 +1518,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1467,7 +1526,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1475,19 +1534,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
             
             <div class="clearfix"></div>
