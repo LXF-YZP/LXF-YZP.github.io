@@ -43,6 +43,33 @@
   </entry>
   
   <entry>
+    <title>使用VIM打开文件报错”******^M“</title>
+    <link href="http://yoursite.com/2020/07/18/%E4%BD%BF%E7%94%A8VIM%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99%E2%80%9D******%5EM%E2%80%9C/"/>
+    <id>http://yoursite.com/2020/07/18/使用VIM打开文件报错”******^M“/</id>
+    <published>2020-07-18T11:57:10.000Z</published>
+    <updated>2020-07-21T07:17:26.656Z</updated>
+    
+    <content type="html"><![CDATA[<p>下载完vim的主题之后打开文件报错</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /Users/luxiaofeng/.vim/colors/molokai.vim</span><br><span class="line">Error detected while processing /Users/luxiaofeng/.vim/colors/molokai.vim:</span><br><span class="line">line   10:</span><br><span class="line">E411: highlight group not found: clear^M</span><br><span class="line">line   11:</span><br><span class="line">E15: Invalid expression: version &gt; 580^M</span><br><span class="line">line  275:</span><br><span class="line">E171: Missing :endif</span><br><span class="line">Press ENTER or type command to continue</span><br></pre></td></tr></table></figure><p>解决方法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">打开那个文件后：</span><br><span class="line">:set ff=unix</span><br><span class="line">:wq!</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;下载完vim的主题之后打开文件报错&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line
+      
+    
+    </summary>
+    
+    
+      <category term="vim" scheme="http://yoursite.com/categories/vim/"/>
+    
+    
+      <category term="linux、vim" scheme="http://yoursite.com/tags/linux%E3%80%81vim/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ConcurrentHashMap详解</title>
     <link href="http://yoursite.com/2020/07/16/jdk%E6%BA%90%E7%A0%81%E5%8C%85/"/>
     <id>http://yoursite.com/2020/07/16/jdk源码包/</id>
@@ -506,33 +533,6 @@
 &lt;li&gt;&amp;lt;? extends T&amp;gt; 表示该通配符所代表的类型是 T 类型的子类。&lt;/li&gt;
 &lt;li&gt;&amp;lt;? super T&amp;gt; 表示该通配符所代表的类型是 T 类型的父类。&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
-    
-    
-      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>方法中参数前有final修饰</title>
-    <link href="http://yoursite.com/2020/06/05/%E6%96%B9%E6%B3%95%E4%B8%AD%E5%8F%82%E6%95%B0%E5%89%8D%E6%9C%89final%E4%BF%AE%E9%A5%B0/"/>
-    <id>http://yoursite.com/2020/06/05/方法中参数前有final修饰/</id>
-    <published>2020-06-05T11:57:10.000Z</published>
-    <updated>2020-07-07T01:05:31.892Z</updated>
-    
-    <content type="html"><![CDATA[<p>一般情况下final修饰的参数是在方法中不能够被修改的，但是这样的定义又不是最准确的，首先如果形参类型是基本的数据类型的话参数的值是不能够被改变的，但是如果参数类型是引用数据类型的话引用是不能够变得，但是引用的值是可以改变的；</p><p>如下基本数据类型的代码例子：</p><pre><code>/** * final修饰的基本数据类型的值是不能够改变的 * @param i */public static void setValue(final int i) {    //编译通不过，基本数据类型不能够改变    i = 10;}</code></pre><p>如下引用数据类型的代码例子：</p><pre><code>/** * 对应final修饰的基本数据类型方法内部是不可以变得，但是引用数据类型是引用不可以变，但是值可以变 * @param user */public static void setUser(final User user) {    //引用的数据类型的值是可以改变的，但是指向的引用是不能够变的    user.setPassword(&quot;sdf&quot;);    //引用的数据类型引用是不可以变得，否则编译是不能够通过的    user = new User();}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;一般情况下final修饰的参数是在方法中不能够被修改的，但是这样的定义又不是最准确的，首先如果形参类型是基本的数据类型的话参数的值是不能够被改变的，但是如果参数类型是引用数据类型的话引用是不能够变得，但是引用的值是可以改变的；&lt;/p&gt;
-&lt;p&gt;如下基本数据类型的代码例子：&lt;/
-      
     
     </summary>
     
