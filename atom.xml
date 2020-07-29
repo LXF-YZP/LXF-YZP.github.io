@@ -108,7 +108,7 @@
     <link href="http://yoursite.com/2020/07/20/vim%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%E4%B9%8B%E5%90%8E%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/"/>
     <id>http://yoursite.com/2020/07/20/vim安装插件之后的各种报错/</id>
     <published>2020-07-20T11:57:10.000Z</published>
-    <updated>2020-07-23T02:34:03.547Z</updated>
+    <updated>2020-07-28T09:13:11.164Z</updated>
     
     <content type="html"><![CDATA[<h2 id="安装插件nerdtree"><a href="#安装插件nerdtree" class="headerlink" title="安装插件nerdtree"></a>安装插件nerdtree</h2><p>启动MacVim报错<code>Error detected while processing function &lt;SNR&gt;2_lod_cmd</code>或者<code>Error detected while processing function &lt;SNR&gt;3_lod_cmd</code></p><p>原因是在<code>.vimrc</code>中配置的插件为<code>Plug &#39;scrooloose/nerdtree&#39;, { &#39;on&#39;: &#39;NERDTreeToggle&#39; }</code>. 改为 <code>Plug &#39;scrooloose/nerdtree&#39;</code>之后报错消失；</p>]]></content>
     
