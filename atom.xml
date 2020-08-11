@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-06T06:52:25.767Z</updated>
+  <updated>2020-08-11T07:06:29.091Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>kill掉多个进程</title>
+    <link href="http://yoursite.com/2020/08/11/kill%E6%8E%89%E5%A4%9A%E4%B8%AA%E8%BF%9B%E7%A8%8B/"/>
+    <id>http://yoursite.com/2020/08/11/kill掉多个进程/</id>
+    <published>2020-08-11T11:57:10.000Z</published>
+    <updated>2020-08-11T07:06:29.091Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux |grep beh-oss-minio-test-1.0-SNAPSHOT.jar | grep -v grep| awk &apos;&#123;print $2&#125;&apos; | xargs kill -9</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux、进程" scheme="http://yoursite.com/tags/Linux%E3%80%81%E8%BF%9B%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>grep命令使用</title>
+    <link href="http://yoursite.com/2020/08/09/grep%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/08/09/grep命令使用/</id>
+    <published>2020-08-09T11:57:10.000Z</published>
+    <updated>2020-08-11T08:30:15.162Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Linux、grep" scheme="http://yoursite.com/categories/Linux%E3%80%81grep/"/>
+    
+    
+      <category term="Linux命令" scheme="http://yoursite.com/tags/Linux%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sed命令使用</title>
+    <link href="http://yoursite.com/2020/08/08/sed%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/08/08/sed命令使用/</id>
+    <published>2020-08-08T11:57:10.000Z</published>
+    <updated>2020-08-11T08:28:58.506Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Linux、sed" scheme="http://yoursite.com/categories/Linux%E3%80%81sed/"/>
+    
+    
+      <category term="Linux命令" scheme="http://yoursite.com/tags/Linux%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>awk命令使用</title>
+    <link href="http://yoursite.com/2020/08/07/awk%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2020/08/07/awk命令使用/</id>
+    <published>2020-08-07T11:57:10.000Z</published>
+    <updated>2020-08-11T08:28:06.143Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Linux、awk" scheme="http://yoursite.com/categories/Linux%E3%80%81awk/"/>
+    
+    
+      <category term="Linux命令" scheme="http://yoursite.com/tags/Linux%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
     <title>linux上CPU内存使用查看</title>
     <link href="http://yoursite.com/2020/08/06/linux%E4%B8%8ACPU%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E6%9F%A5%E7%9C%8B/"/>
     <id>http://yoursite.com/2020/08/06/linux上CPU内存使用查看/</id>
     <published>2020-08-06T11:57:10.000Z</published>
-    <updated>2020-08-06T06:52:25.767Z</updated>
+    <updated>2020-08-07T01:16:16.453Z</updated>
     
     <content type="html"><![CDATA[<h3 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">top 命令的显示结果如下所示：</span><br><span class="line"></span><br><span class="line">top - 01:06:48 up 1:22, 1 user, load average: 0.06, 0.60, 0.48 </span><br><span class="line">Tasks: 29 total, 1 running, 28 sleeping, 0 stopped, 0 zombie </span><br><span class="line">Cpu(s): 0.3% us, 1.0% sy, 0.0% ni, 98.7% id, 0.0% wa, 0.0% hi, 0.0% si </span><br><span class="line">Mem: 191272k total, 173656k used, 17616k free, 22052k buffers </span><br><span class="line">Swap: 192772k total, 0k used, 192772k free, 123988k cached </span><br><span class="line"></span><br><span class="line">PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND </span><br><span class="line">1379 root 16 0 7976 2456 1980 S 0.7 1.3 0:11.03 sshd </span><br><span class="line">14704 root 16 0 2128 980 796 R 0.7 0.5 0:02.72 top </span><br><span class="line">1 root 16 0 1992 632 544 S 0.0 0.3 0:00.90 init </span><br><span class="line">2 root 34 19 0 0 0 S 0.0 0.0 0:00.00 ksoftirqd/0 </span><br><span class="line">3 root RT 0 0 0 0 S 0.0 0.0 0:00.00 watchdog/0</span><br></pre></td></tr></table></figure><a id="more"></a><p><strong>统计信息区</strong></p><p>前五行是系统整体的统计信息。第一行是任务队列信息，同 uptime 命令的执行结果。其内容如下：</p><table><thead><tr><th>01:06:48</th><th>当前时间</th></tr></thead><tbody><tr><td>up 1:22</td><td>系统运行时间，格式为时：分</td></tr><tr><td>1 user</td><td>当前登录用户数</td></tr><tr><td>load average: 0.06, 0.60, 0.48</td><td>系统负载，即任务队列的平均长度。 三个数值分别为 1 分钟、5 分钟、15 分钟前到现在的平均值。</td></tr></tbody></table><p>第二、三行为进程和 CPU 的信息。当有多个 CPU 时，这些内容可能会超过两行。内容如下：</p><table><thead><tr><th>Tasks: 29 total</th><th>进程总数</th></tr></thead><tbody><tr><td>1 running</td><td>正在运行的进程数</td></tr><tr><td>28 sleeping</td><td>睡眠的进程数</td></tr><tr><td>0 stopped</td><td>停止的进程数</td></tr><tr><td>0 zombie</td><td>僵尸进程数</td></tr><tr><td>Cpu(s): 0.3% us</td><td>用户空间占用 CPU 百分比</td></tr><tr><td>1.0% sy</td><td>内核空间占用 CPU 百分比</td></tr><tr><td>0.0% ni</td><td>用户进程空间内改变过优先级的进程占用 CPU 百分比</td></tr><tr><td>98.7% id</td><td>空闲 CPU 百分比</td></tr><tr><td>0.0% wa</td><td>等待输入输出的 CPU 时间百分比</td></tr><tr><td>0.0% hi</td><td></td></tr><tr><td>0.0% si</td><td></td></tr></tbody></table><p>最后两行为内存信息。内容如下：</p><table><thead><tr><th>Mem: 191272k total</th><th>物理内存总量</th></tr></thead><tbody><tr><td>173656k used</td><td>使用的物理内存总量</td></tr><tr><td>17616k free</td><td>空闲内存总量</td></tr><tr><td>22052k buffers</td><td>用作内核缓存的内存量</td></tr><tr><td>Swap: 192772k total</td><td>交换区总量</td></tr><tr><td>0k used</td><td>使用的交换区总量</td></tr><tr><td>192772k free</td><td>空闲交换区总量</td></tr><tr><td>123988k cached</td><td>缓冲的交换区总量。 内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖， 该数值即为这些<strong>内容已存在于内存中</strong>的交换区的大小。 相应的内存再次被换出时可不必再对交换区写入。</td></tr></tbody></table><h3 id="free命令"><a href="#free命令" class="headerlink" title="free命令"></a>free命令</h3><p><strong><em>free [选项]</em></strong></p><p><strong>默认情况下，即在没有选项的情况下，\</strong>“*<em>free”命令显示内存的使用信息。默认按照k（b）的计数单位统计。*</em></p><ul><li>total：表示 总计物理内存的大小。</li><li>used：表示 已使用多少。</li><li>free：表示 可用内存多少。</li><li>Shared：表示多个进程共享的内存总额。</li><li>Buffers/cached：表示 磁盘缓存的大小。</li></ul><p><strong>注意：free命令的选项区分大小写，请认真对照上图中是大写还是小写</strong></p><ol><li>free -b：以bytes为单位来显示内存的信息。</li><li>free -k：以kb为单位来显示内存的信息。</li><li>free -m：以m为单位来显示内存的信息。</li><li>free -g：以G为单位来显示内存的信息。</li><li>free -h：以适于人类可读方式显示内存信息。-h与其他命令最大不同是<strong>-h</strong>选项会在数字后面加上适于人类可读的单位</li></ol>]]></content>
     
@@ -444,117 +527,6 @@
     
     
       <category term="HTTP" scheme="http://yoursite.com/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java中变量初始化</title>
-    <link href="http://yoursite.com/2020/07/04/java%E4%B8%AD%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
-    <id>http://yoursite.com/2020/07/04/java中变量初始化/</id>
-    <published>2020-07-04T11:57:10.000Z</published>
-    <updated>2020-07-06T09:48:55.654Z</updated>
-    
-    <content type="html"><![CDATA[<p>很久之前的笔记，今天放到自己的博客中；</p><a id="more"></a><p>1.对于类的成员变量，不管程序有没有显式的进行初始化，Java虚拟机都会先自动给它初始化为默认值；<br>默认值如下：<br>boolean  false<br>char     ‘\u0000’<br>byte     0<br>short    0<br>int      0<br>long     0<br>float    0.0f<br>double   0.0d</p><p>2.局部变量声明之后，Java虚拟机就不会自动给他初始化为默认值，因此局部变量使用之前必须进行显示的初始化。<br>但是需要声明的是：对于只负责接收一个表达式的值的局部变量可以不初始化，参与运算和直接输出等其他的情况的局部变量需要进行初始化</p><p>通过下面这个测试可以看到JVM对哪些数据初始化，哪写数据不初始化：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class TestStatic &#123;</span><br><span class="line">    static int x; //类的成员变量，JVM负责初始化</span><br><span class="line">    static int method() &#123;</span><br><span class="line">        int y=0;  //此处必须自己初始化，它不属于类成员变量，是个method的局部变量，JVM不负责初始化</span><br><span class="line">        return y;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        TestStatic as=new TestStatic();</span><br><span class="line">        int z=0;  //此处必须自己初始化，它不属于类成员变量，是个主函数里的局部变量，JVM不负责初始化</span><br><span class="line">        int aa=3; //此处aa参与了运算，所以必须初始化</span><br><span class="line">        aa=aa+2;</span><br><span class="line">        int a=1,b=2,max; //max只是负责接收表达式的值，不需要初始化</span><br><span class="line">        max=a&gt;b?2:1; </span><br><span class="line">        System.out.println(max); //1</span><br><span class="line">        System.out.println(aa); //5</span><br><span class="line">        System.out.println(&quot;z=&quot;+z); //z=0</span><br><span class="line">        System.out.println(&quot;x=&quot;+as.x); //x=0  </span><br><span class="line">        System.out.println(&quot;y=&quot;+as.method()); //y=0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>总结为一句话便是：类里定义的数据成员称为属性，属性可不赋初值，若不赋初值则JAVA会按上表为其添加默认值；方法里定义的数据成员称为变量，变量在参与运算之前必须赋初值。</p></blockquote><p>[参考链接]<a href="http://www.jb51.net/article/90743.htm" target="_blank" rel="noopener">http://www.jb51.net/article/90743.htm</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;很久之前的笔记，今天放到自己的博客中；&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
-    
-    
-      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java是按值传递还是按引用传递</title>
-    <link href="http://yoursite.com/2020/07/03/Java%E6%98%AF%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92%E8%BF%98%E6%98%AF%E6%8C%89%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92/"/>
-    <id>http://yoursite.com/2020/07/03/Java是按值传递还是按引用传递/</id>
-    <published>2020-07-03T11:57:10.000Z</published>
-    <updated>2020-07-03T08:16:15.263Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>在开始之前，我们先理解按值传递、按引用传递的概念。</li></ul><p>1、什么是值传递？<br>指的是在方法调用时，传递的参数是按值的拷贝传递。按值传递重要特点：传递的是值的拷贝，也就是说传递后就互不相关了，每个值都对应到一个地址空间。</p><p>2、什么是引用传递<br>指的是在方法调用时，传递的参数是按引用进行传递，其实传递的引用的地址，也就是变量所对应的内存空间的地址。传递的是值的引用，也就是说传递前和传递后都指向同一个引用（也就是同一个内存空间）。</p><a id="more"></a><p>明确地说，java都是按值传递的！java的世界里，都是按值传递。其实按值、按引用都只是个概念，关键是我们如何去理解java传参的本质。</p><p>下面就结合一个例子来说，有些情况下，所传参数的值，是个“引用”，这一点容易让人产生困惑。</p><p>请看下面的例子<br>首先有如下代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dog myDog = new Dog(&quot;Rover&quot;);</span><br><span class="line">foo(myDog);</span><br></pre></td></tr></table></figure><p>这时，你传给了foo函数一个参数，这个参数值，是个引用，也就是Rover这只dog的内存地址（这只是粗略的说明，因为在java中，这个地址并非是真正的地址）<br>假设这时候Rover的地址是42，那么，我们就是传了42这个地址给foo方法</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void foo(Dog someDog) &#123;</span><br><span class="line">    someDog.setName(&quot;Max&quot;);     // AAA</span><br><span class="line">    someDog = new Dog(&quot;Fifi&quot;);  // BBB</span><br><span class="line">    someDog.setName(&quot;Rowlf&quot;);   // CCC</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>让我们逐步解析foo方法</p><p>1.参数 someDog的值是一个地址（42）</p><p>2.在AAA这一行：<br>someDog，也就是函数外声明的myDog，name从Rover被改成了Max</p><p>3.在BBB这一行：<br>这就是关键的地方了，又new了一只dog，new 意味着又在新的地址空间放上了一只Dog，我们假设其地址是74。这时，someDog的值，会从42变成了74</p><p>4.在CCC这一行：<br>这时候的修改，是对内存地址为74的那只狗的修改，而非原先的42</p><p>从这个例子，我们可以看到，foo方法的参数someDog，它是一个值，而非引用。如果它是引用，那么在foo方法内部的修改（包括BBB、CCC这两行），都应该会对42地址空间的dog产生影响，也就是方法外的参数，mydog也会指向新的地址空间。</p><p>不细究概念了，再总结下Java初学者容易犯错的地方：<br>假如你想像例子一样，传递一个对象到一个方法中，并由该方法修改对象。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object a = new Object();</span><br><span class="line">foo(a);//在方法内部修改a的属性值</span><br><span class="line">return a;//希望此时的a已经是修改后的值</span><br></pre></td></tr></table></figure><p>要切记，这个Objct一定要在调用方法前，就初始化好（new一个），然后再作为参数传进去，并且在方法中不能再初始化这个参数。这样，在方法中对该参数的修改，才会有效。</p><p>[stackoverflow链接]<br><a href="http://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value" target="_blank" rel="noopener">http://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;在开始之前，我们先理解按值传递、按引用传递的概念。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;1、什么是值传递？&lt;br&gt;指的是在方法调用时，传递的参数是按值的拷贝传递。按值传递重要特点：传递的是值的拷贝，也就是说传递后就互不相关了，每个值都对应到一个地址空间。&lt;/p&gt;
-&lt;p&gt;2、什么是引用传递&lt;br&gt;指的是在方法调用时，传递的参数是按引用进行传递，其实传递的引用的地址，也就是变量所对应的内存空间的地址。传递的是值的引用，也就是说传递前和传递后都指向同一个引用（也就是同一个内存空间）。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
-    
-    
-      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java时间转换</title>
-    <link href="http://yoursite.com/2020/06/30/Java%E6%97%B6%E9%97%B4%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/2020/06/30/Java时间转换/</id>
-    <published>2020-06-30T11:57:10.000Z</published>
-    <updated>2020-07-09T06:47:12.987Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>时间字符串和时间转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 把时间转换为字符串</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line">Date date = new Date(136464513123L);</span><br><span class="line">String string = dateFormat.format(date);</span><br><span class="line">System.out.println(string);</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------------------------------------</span><br><span class="line">// 把字符串转化为时间</span><br><span class="line">String string = &quot;2018-07-19&quot;;</span><br><span class="line">DateFormat dateFormat = new SimpleDateFormat (&quot;yyyy-MM-dd&quot;);// 这里要与时间字符串的格式一样即可，否则报错</span><br><span class="line">Date date = dateFormat.parse(string);</span><br><span class="line">System.out.println(date);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//转换成时间格式12小时制</span><br><span class="line">SimpleDateFormat 12 = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">//转换成时间格式24小时制</span><br><span class="line">SimpleDateFormat 24 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">12小时制与24小时制制需要把HH变换大小写就可以了</span><br></pre></td></tr></table></figure></li></ul><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//默认输出格式</span><br><span class="line">Date date=new Date();</span><br><span class="line">System.out.println(date);//Fri Oct 27 16:56:37 CST 2017</span><br><span class="line">//日期格式化显示，首先定义格式</span><br><span class="line">SimpleDateFormat sdf1=new SimpleDateFormat(&quot;yyyyMMdd&quot;);//显示20171027格式</span><br><span class="line">SimpleDateFormat sdf2=new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);//显示2017-10-27格式</span><br><span class="line">SimpleDateFormat sdf3=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);//显示2017-10-27 10:00:00格式</span><br><span class="line">SimpleDateFormat sdf4=new SimpleDateFormat(&quot;yyyy年MM月dd日HH时mm分ss秒&quot;);//显示2017年10月27日10时00分00秒格式</span><br><span class="line">//将格式应用于日期</span><br><span class="line">System.out.println(sdf1.format(date));//20171027</span><br><span class="line">System.out.println(sdf2.format(date));//2017-10-27</span><br><span class="line">System.out.println(sdf3.format(date));//2017-10-27 17:11:13</span><br><span class="line">System.out.println(sdf4.format(date));//2017年10月27日17时11分13秒</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;时间字符串和时间转换&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// 把时间转换为字符串&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DateFormat dateFormat = new SimpleDateFormat(&amp;quot;yyyy-MM-dd hh:mm:ss&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Date date = new Date(136464513123L);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String string = dateFormat.format(date);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(string);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--------------------------------------------------------------------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 把字符串转化为时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String string = &amp;quot;2018-07-19&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DateFormat dateFormat = new SimpleDateFormat (&amp;quot;yyyy-MM-dd&amp;quot;);// 这里要与时间字符串的格式一样即可，否则报错&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Date date = dateFormat.parse(string);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;System.out.println(date);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//转换成时间格式12小时制&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SimpleDateFormat 12 = new SimpleDateFormat(&amp;quot;yyyy-MM-dd hh:mm:ss&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//转换成时间格式24小时制&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SimpleDateFormat 24 = new SimpleDateFormat(&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12小时制与24小时制制需要把HH变换大小写就可以了&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
-    
-    
-      <category term="Java基础" scheme="http://yoursite.com/tags/Java%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>新建本地项目上传到GitHub</title>
-    <link href="http://yoursite.com/2020/06/16/%E6%96%B0%E5%BB%BA%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0GitHub/"/>
-    <id>http://yoursite.com/2020/06/16/新建本地项目上传到GitHub/</id>
-    <published>2020-06-16T11:57:10.000Z</published>
-    <updated>2020-07-17T01:42:09.983Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p>首先进入项目的根目录,执行命令将项目变成git可以管理的项目</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd learning_JDK</span><br><span class="line">git init</span><br></pre></td></tr></table></figure></li><li><p>将项目文件添加到git中</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .(注意这个&quot;.&quot;，是有空格的)</span><br></pre></td></tr></table></figure></li><li><p>将项目提交到本地仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;这里面写你的注释&quot;</span><br></pre></td></tr></table></figure></li></ul><a id="more"></a><ul><li><p>在Github上创建好Git仓库之后,就可以和本地仓库进行关联了，根据创建好的Git仓库页面的提示，可以在本地仓库的命令行输入命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:LXF-YZP/learning_JDK.git</span><br></pre></td></tr></table></figure></li><li><p>关联好之后我们就可以把本地库的所有内容推送到远程仓库（也就是Github）上了，通过：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li></ul><p>由于新建的远程仓库是空的，所以要加上-u这个参数。然后进去GitHub仓库刷新下就会有已经上传的文件夹了。<br>如果新建远程仓库不是空的，例如你勾选了 Initialize this repository with a README。那么你通过命令 $ git push -u origin master是会报错的;</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: failed to push some refs to &apos;git@github.com</span><br><span class="line">not have locally. This is usually caused by another repository pushing</span><br></pre></td></tr></table></figure><p>这时候需要先执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure><p>再执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;首先进入项目的根目录,执行命令将项目变成git可以管理的项目&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd learning_JDK&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git init&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将项目文件添加到git中&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git add .(注意这个&amp;quot;.&amp;quot;，是有空格的)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将项目提交到本地仓库&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git commit -m &amp;quot;这里面写你的注释&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Git、GitHub" scheme="http://yoursite.com/categories/Git%E3%80%81GitHub/"/>
-    
-    
-      <category term="Git使用、GitHub使用" scheme="http://yoursite.com/tags/Git%E4%BD%BF%E7%94%A8%E3%80%81GitHub%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
