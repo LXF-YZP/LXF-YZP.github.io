@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 163
+			总文章数 164
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,6 +155,96 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-学习两个月算法之后的总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../2019/12/14/学习两个月算法之后的总结/">学习两个月算法之后的总结</a>
+    </h1>
+  
+
+        
+        <a href="../../2019/12/14/学习两个月算法之后的总结/" class="archive-article-date">
+  	<time datetime="2019-12-14T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>克服焦虑，不再心急<br>首先要承认自己这两个月学算法学的有点焦虑，所有视频只过了一遍；焦虑是由于自己处理不好学习算法和项目的时间转换，也是有点心急，但是后来一想算法是个持久战，不能心急，慢慢的；越是心急越是陷入了死循环；</li>
+<li>馒头要一口一口吃<br>尽管学的有点焦虑，也还是学到了很多东西，画递归图虽然有点傻，但是也不失为理解递归的好方法，馒头总要一口一口吃；我愿再花上两个月的时间跨过算法这道坎；</li>
+<li>观念转变<br>通过两个月的时间学习算法，发现很多题都是有模板，也就是按照一定的套路就可以做出来，这个思想的转变很重要，使得不再恐惧算法；</li>
+<li>承认自己不是天才<br>承认自己不是天才这点非常重要，有时候我们就是太自信了，学什么都是按照自己想象的有效的方法进行学习（本来就是高手的除外），自己的方法无效，何不去试试别人有效的方法呢，它山之石可以攻玉；</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">算法总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法总结//" class="article-tag-list-link color5">算法总结</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="../../2019/12/14/学习两个月算法之后的总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -969,202 +1059,6 @@
 
 
   
-    <article id="post-总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们清楚，二分查找是实现有序数组查找的高效算法：<br>那么，咱们可以基于二分查找算法，需要考虑一个问题，即若 list [midpoint] != item, 如何缩小查找范围呢？这可以分为两种情形讨论：</p>
-<p>情形 1： 二分查找中，对于数组 [4, 5, 7, 8, 9, 1, 2, 3]，list [low] &lt; list [midpoint] ，说明 low 至 midpoint 这一段是升序的，在这种情况下，若 item &lt; list [low] 且 item &gt; list [midpoint]，那么说明要查找的元素并非在此段，此种情况下，需要在 midpoint+1 到 high 这一段来查找；其余情况，说明 item 就在此段，那么需要在 low 至 midpoint-1 这一段查找即可。</p>
-<p>情形 2： 二分查找中，对于数组 [7, 8, 9, 1, 2, 3, 4, 5]，list [low] &gt; list [midpoint] ，说明 midpoint 至 high 这一段是升序的，在这种情况下，若 item &lt; list [low] 且 item &gt; list [midpoint]，那么说明要查找的元素就在此段，此种情况下，需要在 midpoint+1 到 high 这一段来查找；其余情况，说明 item 不在此段，那么需要在 low 至 midpoint-1 这一段查找即可。</p>
-<p>一、广度优先搜索和深度优先搜索<br>1、广度优先搜索（breadth-first-search）是一种 “地毯式” 层层推进的搜索策略，即先查找离起始顶点最近的，然后是次近的，<br>依次往外搜索，属于盲目搜索。<br>2、﻿深度优先搜索（depth-first-search）沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点 v 的所在边都己被探寻过，<br>搜索将回溯到发现节点 v 的那条边的起始节点。这一过程一直进行到已发现从源节点可达的所有节点为止。如果还存在未被发现的节点，<br>则选择其中一个作为源节点并重复以上过程，整个进程反复进行直到所有节点都被访问为止。属于盲目搜索。<br>3、时间复杂度和空间复杂度<br>﻿广度优先的时间复杂度是 O (V+E), 空间复杂度 O (V+E)，V 表示顶点的个数，E 表示边的个数。<br>﻿深度优先搜索算法的时间复杂度是 O (E)，E 表示边的个数，空间复杂度是 O (V)，V 是顶点个数。</p>
-<p>二、贪心算法<br>1、定义：贪心算法是指，在对问题求解时，总是做出在当前看来是最好的选择。 也就是说，不从整体最优上加以考虑，<br>他所做出的是在某种意义上的局部最优解。<br>2、使用贪心算法的情况：<br>1）针对一组数据，我们定义了限制值和期望值，希望从中选出几个数据，在满足限制的情况下，期望值最大。<br>2）每次选择当前情况下，在对限制值同等贡献量的情况下，对期望值贡献最大的数据。<br>3）大部分情况下，举几个例子验证一下就可以了。严格的证明贪心算法的正确性是非常复杂的，需要涉及较多的数学推理。<br>而且，从实践角度来说，大部分能用贪心算法解决的问题，贪心算法的正确性都是显而易见的，也不需要严格的数学推导证明。<br>实际上，用贪心算法解决问题的思路，并不总能给出最优解。</p>
-<p>三、二分查找<br>1、什么是二分查找？<br>二分查找是针对一个有序的数据集合，每次通过跟区间中间的元素对比，将待查找的区间缩小为之前的一般，<br>直到找到要查找的元素，或者区间缩小为 0。<br>2、实现二分查找注意事项：<br>1）循环退出的条件是：low &lt;= high，不是 low &lt; high。<br>2）mid 的取值，使用 mid=low+(high-low)/2，而不是 mid=(low+high)/2，因为如果 low 和 high 比较大的话，求和可能会发生 int 类型的值超出最大范围。<br>3）low 和 high 的更新：low = mid +1，high = mid + 1，若直接写成 low = mid，high = mid 就肯能发生死循环。<br>3、使用条件<br>1）二分查找依赖的是顺序表结构，即数组。<br>2）二分查找针对的是有序数据，因此只能用在插入、删除操作不频繁，一次排序多次查找的过程中。<br>3）数据量太小不适合二分查找，与直接遍历数组相比效率不明显。但是有一个例外，就是数据之间的比较操作非常耗时，<br>比如数组中存储的都是长度超过 300 的字符串，那这还是尽量减少比较 操作使用二分查找。<br>4）数据量太大也不适合二分查找，因为数组需要连续的空间，若数据量太大，往往找不到存储如此大规模数据的连续内存空间。</p>
-<p>二分查找<br>使用时机</p>
-<p>单调性<br>有上下界<br>可 index 索引</p>
-<p>每一步都选择当前最优解，以至全局结果是最优解</p>
-<p>使用时机</p>
-<p>子问题最优解，得到全局最优解<br>贪心、回溯、动态规划的区别</p>
-<p>贪心：局部最优解<br>回溯：回退<br>动态规划：最优判断 + 回退</p>
-<p>DFS 模板<br>Stack<treenode> nodes = new Stack&lt;&gt;();<br>Stack<integer> value = new Stack&lt;&gt;();<br>        nodes.push(root);<br>        value.push(1);<br>        int max=0;<br>        while(!nodes.isEmpty()) {<br>            TreeNode node = nodes.pop();<br>            int val= value.pop();<br>            if(node==null)<br>                continue;<br>            if(max&lt;val)<br>                max=val;<br>            nodes.push(node.left);<br>            value.push(val+1);<br>            nodes.push(node.right);<br>            value.push(val+1);<br>        }</integer></treenode></p>
-<pre><code>return max;</code></pre><p>BFS 模板<br>class Solution {<br>    public List&lt;List<integer>&gt; levelOrder(TreeNode root) {<br>        List&lt;List<integer>&gt; result = new ArrayList&lt;&gt;();<br>        process(result, root, 0);<br>        return result;<br>    }</integer></integer></p>
-<pre><code>private void process(List&lt;List&lt;Integer&gt;&gt; result, TreeNode root, int depth) {
-    if (root == null) {
-        return;
-    }
-    List&lt;Integer&gt; tempList = new ArrayList&lt;&gt;();
-    if (result.size() - 1 &lt; depth) {
-        tempList.add(root.val);
-        result.add(tempList);
-    } else {
-        tempList = result.get(depth);
-        tempList.add(root.val);
-    }
-
-    process(result, root.left, depth + 1);
-    process(result, root.right, depth + 1);
-}</code></pre><p>}<br>Binary Search 模板<br>public int binarySearch(int[] arr, int key) {<br>    int low = 0;<br>    int high = arr.length - 1;<br>    int mid = 0;</p>
-<pre><code>if (key &lt; arr[low] || key &gt; arr[high] || low &gt; high)
-    return -1;
-while (low &lt;= high){
-    mid = (low + high) / 2;
-    if (arr[mid] &gt; key)
-        high = mid - 1;
-    else if (arr[mid] &lt; key)
-        low = mid + 1;
-    else
-        return mid;
-}
-return -1;</code></pre><p>}</p>
-<p>与普通的二分查找相似，该算法唯一的区别是在对每个节点判断时还要判断首尾结点的大小，从而决定查找区域收缩方向：</p>
-<p> while (left &lt;= right) {<br>      int mid = (left + right) / 2;<br>      if (nums[mid] &gt; nums[pivot + 1])<br>        return mid + 1;<br>      else {<br>        if (nums[mid] &lt; nums[left])<br>          right = mid - 1;<br>        else<br>          left = mid + 1;<br>      }<br>    }</p>
-<pre><code>深度优先</code></pre><p>深度优先的思想类似于走迷宫，遇到死胡同时就走另一条路。它的代码模板为：</p>
-<p>boolean Dfs(V){<br>  if(V为终点)<br>      return true;<br>  if(V为旧点)<br>      return false;<br>  将V标记为旧点<br>  对和V相邻的每个节点U:<br>  if(Dfs(U)==true)<br>          return true;<br>  return fasle;<br>}<br>广度优先<br>广度优先是一种 “地毯式” 搜索思想，即层层推进的策略，其内部可以考虑使用队列来实现。它的代码模板为:</p>
-<p>void BFS(Node s){<br>    queue<int> q;<br>    q.push(s);<br>    while(!q.empty()){<br>        取出队首元素top;<br>        访问队首元素top;<br>        将队首元素出队;<br>        将top的下一层结点中未曾入队的结点全部入队，并设置为已入队;<br>    }<br>}</int></p>
-<p>这个题我们可以从后往前分析，首先判断倒数第二个元素能否到达最后一个元素，如果可以，我们将不再考虑最后一个元素，<br>因为根据刚才的分析如果可以到达倒数第二个，那么也可以到达最后一个元素。</p>
-<p>然后依次往前递推，如果都能跳到的话，我们最后应该分析的就是第一个元素能否跳到第二个元素上。</p>
-<p>这个比较符合动态规划的思想，我们先用动态规划解下这道题。</p>
-<p>class Solution {<br>    public boolean canJump(int[] nums) {</p>
-<pre><code>    if (nums == null) {
-        return false;
-    }
-    boolean[] dp = new boolean[nums.length];
-    dp[0] = true;
-    for (int i = 1; i &lt; nums.length; i++) {
-        for (int j = 0; j &lt; i; j++) {
-            // 如果之前的j节点可达，并且从此节点可以到跳到i
-            if (dp[j] &amp;&amp; nums[j] + j &gt;= i) {
-                dp[i] = true;
-                break;
-            }
-        }
-    }
-    return dp[nums.length - 1];
-}</code></pre><p>}</p>
-<p>分析上面的代码，可以看出使用动态规划的时间复杂度是 O (n^2)，空间复杂度是 O (n)。</p>
-<p>下面我们使用贪心的思路看下这个问题，我们记录一个的坐标代表当前可达的最后节点，这个坐标初始等于 nums.length-1，<br>然后我们每判断完是否可达，都向前移动这个坐标，直到遍历结束。</p>
-<p>如果这个坐标等于 0，那么认为可达，否则不可达。</p>
-<p>class Solution {<br>    public boolean canJump(int[] nums) {</p>
-<pre><code>    if (nums == null) {
-        return false;
-    }
-    int lastPosition = nums.length - 1;
-    for (int i = nums.length - 1; i &gt;= 0; i--) {
-        // 逐步向前递推
-        if (nums[i] + i &gt;= lastPosition) {
-            lastPosition = i;
-        }
-    }
-    return lastPosition == 0;
-
-
-
-    int lastPos = nums.length - 1;
-    for (int i = nums.length - 1; i &gt;= 0; i--) {
-        if (i + nums[i] &gt;= lastPos) {
-            lastPos = i;
-        }
-    }
-    return lastPos == 0;
-
-
-}</code></pre><p>}</p>
-<p>这段代码的时间复杂度是 O (n)，空间复杂度是 O (1)，可以看出比动态规划解法有了明显的性能提升。</p>
-<p>关于复杂度<br>1.1 时间复杂度为 O (n)<br>1.2 空间负责度为 O (1)<br>我的解题思路<br>2.1 定义一个整数存储起点<br>2.2 倒序遍历数组，有两种情况<br>2.2.1 当前索引加上索引上的值大于缓存值，这表示在当前索引上有可能到达终点，移动缓存值<br>2.2.2 当前索引加上索引上的值小于缓存值，表示无法从当前点到达终点，跳出循环<br>2.3 对比 2.1 定义的整数是否等于 0，如果等于 0，表示在索引 0 上有可能到达终点</p>
-<p>跳跃游戏2<br>主要思路就是 cur_max_idx 记录当前位置能跳到的最远位置，然后 i 从 0 遍历到 cur_max_idx + 1, 过程中使用 pre_max_idx 记录能到达的最远位置的最大值，然后直接跳跃到 pre_max_idx 位置，然后重复上述过程。</p>
-<p>class Solution {</p>
-<pre><code>public int jump(vector&lt;int&gt;&amp; nums) {
-    int n = nums.size();
-    if(n &lt; 2){
-        return 0;
-    }
-
-    int pre_max_idx = nums[0];
-    int cur_max_idx = nums[0];
-    int jump_min = 1;
-    for(int i = 0; i &lt; n; i++){
-        if(i &gt; cur_max_idx){
-            jump_min++;
-            cur_max_idx = pre_max_idx;
-        }
-        if(pre_max_idx &lt; nums[i] + i){
-            pre_max_idx = nums[i] + i;
-        }
-    }
-    return jump_min;
-}</code></pre><p>}</p>
-<p>跳跃游戏 II</p>
-<pre><code>给定一个非负整数数组，你最初位于数组的第一个位置。
-数组中的每个元素代表你在该位置可以跳跃的最大长度。
-你的目标是使用最少的跳跃次数到达数组的最后一个位置。
-
-示例:
-输入: [2,3,1,1,4]
-输出: 2
-解释：跳到最后一个位置的最小跳跃数是 2。
-从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
-来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/jump-game-ii</code></pre><p>思路分析：基于「贪心算法」，每次选择所能跳跃最远的点作为下一跳跃点</p>
-<p>跳跃距离 = 当前坐标 + 所能跳跃最大值</p>
-<p>public int jump(int[] nums) {<br>        int index = 0, count =0; // 记录当前索引以及跳跃次数<br>        while (index+nums[index] &lt; nums.length-1) { // 若当前已在终点或下一次能够到达终点则结束跳跃<br>            int max = 1; // 默认下一跳跃点为最大点<br>            for (int i = 2; i &lt;= nums[index]; i++) {<br>                if (nums[index + i]+ i&gt;= nums[index+max]+max) { // 选取最大跳跃<br>                    max = i;<br>                }<br>            }<br>            index+=max; // 跳跃<br>            count++; // 计数<br>        }<br>        return index==nums.length-1?count:count+1; // 若下一次跳跃才能达到终点，则次数+1<br>    }</p>
-<p>输入: coins = [1, 2, 5], amount = 11<br>输出: 3<br>解释: 11 = 5 + 5 + 1</p>
-<p>输入: coins = [2], amount = 3<br>输出: -1</p>
-<pre><code>public int coinChange(int[] coins, int amount) {
-
-    int count = 0;
-    for(int i = coins.length - 1; i &gt;= 0 ; i++){
-
-        if(coins &gt; amount){
-            continue;
-        }
-        count += amount / coins;
-        if(amount % coins == 0){
-            return count;
-        }
-    }
-    return count;
-
-}</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="../../2019/11/03/总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="../8/">&laquo; Prev</a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../7/">7</a><a class="page-number" href="../8/">8</a><span class="page-number current">9</span><a class="page-number" href="../10/">10</a><a class="page-number" href="../11/">11</a><span class="space">&hellip;</span><a class="page-number" href="../17/">17</a><a class="extend next" rel="next" href="../10/">Next &raquo;</a>
@@ -1254,15 +1148,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java基础用法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1278,7 +1168,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1286,15 +1176,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">编译器使用技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1302,11 +1192,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java、新特性</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1314,11 +1204,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java集合</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1326,11 +1216,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1338,11 +1232,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">Linux、Vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1362,23 +1260,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Linux、Vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1394,15 +1280,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java基础、基本类型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1410,7 +1296,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java集合、Java基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1418,15 +1312,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1438,11 +1328,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java多线程-CAS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+                <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1454,7 +1344,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1462,15 +1352,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Linux、进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1490,6 +1380,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
@@ -1498,15 +1392,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1514,7 +1400,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">linux、vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1522,7 +1416,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1530,15 +1424,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">算法总结</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1546,11 +1436,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1562,11 +1456,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构-栈</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1574,11 +1468,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1586,11 +1480,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1598,15 +1492,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">英语</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1614,11 +1500,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mac软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1630,11 +1520,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">协议</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">迭代器模式</a>
               </li>
             
             <div class="clearfix"></div>

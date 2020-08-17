@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-08-14T08:41:30.599Z</updated>
+  <updated>2020-08-17T01:10:16.555Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2020/08/17/go%E8%AF%AD%E8%A8%80defer%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://yoursite.com/2020/08/17/go语言defer详解/</id>
+    <published>2020-08-17T01:07:02.195Z</published>
+    <updated>2020-08-17T01:10:16.555Z</updated>
+    
+    <content type="html"><![CDATA[<p>title: go语言defer详解<br>date: 2020-08-17 19:57:10<br>categories:</p><ul><li>go语言<br>tags: </li><li>go语言</li></ul><p>在golang当中，defer代码块会在函数调用链表中增加一个函数调用。这个函数调用不是普通的函数调用，而是会在函数正常返回，也就是return之后添加一个函数调用。因此，defer通常用来释放函数内部变量。</p><p>为了更好的学习defer的行为，我们首先来看下面一段代码:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func CopyFile(dstName, srcName string) (written int64, err error) &#123;</span><br><span class="line">src, err := os.Open(srcName)</span><br><span class="line">if err != nil &#123;</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dst, err := os.Create(dstName)</span><br><span class="line">if err != nil &#123;</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">written, err = io.Copy(dst, src)</span><br><span class="line">dst.Close()</span><br><span class="line">src.Close()</span><br><span class="line">return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这段代码可以运行，但存在’安全隐患’。如果调用dst, err := os.Create(dstName)失败，则函数会执行return退出运行。但之前创建的src(文件句柄)没有被释放。 上面这段代码很简单，所以我们可以一眼看出存在文件未被释放的问题。 如果我们的逻辑复杂或者代码调用过多时，这样的错误未必会被及时发现。 而使用defer则可以避免这种情况的发生，下面是使用defer的代码:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func CopyFile(dstName, srcName string) (written int64, err error) &#123;</span><br><span class="line">src, err := os.Open(srcName)</span><br><span class="line">if err != nil &#123;</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line">defer src.Close()</span><br><span class="line"></span><br><span class="line">dst, err := os.Create(dstName)</span><br><span class="line">if err != nil &#123;</span><br><span class="line">return</span><br><span class="line">&#125;</span><br><span class="line">defer dst.Close()</span><br><span class="line"></span><br><span class="line">return io.Copy(dst, src)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过defer，我们可以在代码中优雅的关闭/清理代码中所使用的变量。defer作为golang清理变量的特性，有其独有且明确的行为。以下是defer三条使用规则。</p><h2 id="规则一-当defer被声明时，其参数就会被实时解析"><a href="#规则一-当defer被声明时，其参数就会被实时解析" class="headerlink" title="规则一 当defer被声明时，其参数就会被实时解析"></a>规则一 当defer被声明时，其参数就会被实时解析</h2><p>我们通过以下代码来解释这条规则:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func a() &#123;</span><br><span class="line">i := 0</span><br><span class="line">defer fmt.Println(i)</span><br><span class="line">i++</span><br><span class="line">return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面我们说过，defer函数会在return之后被调用。那么这段函数执行完之后，是不用应该输出1呢？</p><p>读者自行编译看一下，结果输出的是0. why？</p><p>这是因为虽然我们在defer后面定义的是一个带变量的函数: fmt.Println(i). 但这个变量(i)在defer被声明的时候，就已经确定其确定的值了。 换言之，上面的代码等同于下面的代码:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func a() &#123;</span><br><span class="line">i := 0</span><br><span class="line">defer fmt.Println(0) //因为i=0，所以此时就明确告诉golang在程序退出时，执行输出0的操作</span><br><span class="line">i++</span><br><span class="line">return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为了更为明确的说明这个问题，我们继续定义一个defer:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func a() &#123;</span><br><span class="line">i := 0</span><br><span class="line">defer fmt.Println(i) //输出0，因为i此时就是0</span><br><span class="line">i++</span><br><span class="line">defer fmt.Println(i) //输出1，因为i此时就是1</span><br><span class="line">return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过运行结果，可以看到defer输出的值，就是定义时的值。<strong>而不是defer真正执行时的变量值(很重要，搞不清楚的话就会产生于预期不一致的结果)</strong></p><p>但为什么是先输出1，在输出0呢？ 看下面的规则二。</p><h2 id="规则二-defer执行顺序为先进后出"><a href="#规则二-defer执行顺序为先进后出" class="headerlink" title="规则二 defer执行顺序为先进后出"></a>规则二 defer执行顺序为先进后出</h2><p>当同时定义了多个defer代码块时，golang安装<strong>先定义后执行</strong>的顺序依次调用defer。不要为什么，golang就是这么定义的。我们用下面的代码加深记忆和理解:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func b() &#123;</span><br><span class="line">for i := 0; i &lt; 4; i++ &#123;</span><br><span class="line">defer fmt.Print(i)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在循环中，依次定义了四个defer代码块。结合规则一，我们可以明确得知每个defer代码块应该输出什么值。 安装先进后出的原则，我们可以看到依次输出了3210.</p><h2 id="规则三-defer可以读取有名返回值"><a href="#规则三-defer可以读取有名返回值" class="headerlink" title="规则三 defer可以读取有名返回值"></a>规则三 defer可以读取有名返回值</h2><p>先看下面的代码:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func c() (i int) &#123;</span><br><span class="line">defer func() &#123; i++ &#125;()</span><br><span class="line">return 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>输出结果是2. 在开头的时候，我们说过defer是在return调用之后才执行的。 这里需要明确的是defer代码块的作用域仍然在函数之内，结合上面的函数也就是说，defer的作用域仍然在c函数之内。因此defer仍然可以读取c函数内的变量(如果无法读取函数内变量，那又如何进行变量清除呢….)。</p><p>当执行return 1 之后，i的值就是1. 此时此刻，defer代码块开始执行，对i进行自增操作。 因此输出2.</p><p>掌握了defer以上三条使用规则，那么当我们遇到defer代码块时，就可以明确得知defer的预期结果。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;title: go语言defer详解&lt;br&gt;date: 2020-08-17 19:57:10&lt;br&gt;categories:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;go语言&lt;br&gt;tags: &lt;/li&gt;
+&lt;li&gt;go语言&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在golang当中，defer代码块
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>go中new和make区别</title>
@@ -505,25 +532,6 @@
     
     
       <category term="Java集合、容器" scheme="http://yoursite.com/tags/Java%E9%9B%86%E5%90%88%E3%80%81%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ThreadLocal详解</title>
-    <link href="http://yoursite.com/2020/07/09/ThreadLocal%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://yoursite.com/2020/07/09/ThreadLocal详解/</id>
-    <published>2020-07-09T11:57:10.000Z</published>
-    <updated>2020-07-09T11:14:41.873Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="多线程" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
