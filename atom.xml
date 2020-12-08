@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-17T02:09:41.445Z</updated>
+  <updated>2020-12-08T07:53:55.116Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,26 +17,21 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="http://yoursite.com/2020/08/25/go%E8%AF%AD%E8%A8%80%E5%91%BD%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC/"/>
-    <id>http://yoursite.com/2020/08/25/go语言命名返回值/</id>
-    <published>2020-08-25T03:45:02.118Z</published>
-    <updated>2020-09-17T02:09:41.445Z</updated>
-    
-    <content type="html"><![CDATA[<p>查看全部索引：curl -XGET ‘172.16.48.1:9200/_cat/indices?v’</p><p>查看索引数据：curl -XGET ‘172.16.48.1:9200/posts/_search?pretty’</p><p>删除索引：curl -XDELETE ‘172.16.48.1:9200/posts’</p><p>​    iostat -x 3</p><p>​    sar -n DEV 3</p><p>Ip addr show 查看本机ip</p><p>curl -X PUT 172.16.48.1:9200/posts  -H ‘Content-Type: application/json’ -d ‘{“settings”: {“number_of_shards”: 3,”number_of_replicas”: “0”}}’</p>]]></content>
+    <title>go语言命名返回值</title>
+    <link href="http://yoursite.com/2020/08/20/go%E8%AF%AD%E8%A8%80%E5%91%BD%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC/"/>
+    <id>http://yoursite.com/2020/08/20/go语言命名返回值/</id>
+    <published>2020-08-20T11:57:10.000Z</published>
+    <updated>2020-12-08T07:53:55.116Z</updated>
     
     <summary type="html">
-    
-      
-      
-        &lt;p&gt;查看全部索引：curl -XGET ‘172.16.48.1:9200/_cat/indices?v’&lt;/p&gt;
-&lt;p&gt;查看索引数据：curl -XGET ‘172.16.48.1:9200/posts/_search?pretty’&lt;/p&gt;
-&lt;p&gt;删除索引：curl -XD
-      
     
     </summary>
     
     
+      <category term="go语言" scheme="http://yoursite.com/categories/go%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="go语言" scheme="http://yoursite.com/tags/go%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
