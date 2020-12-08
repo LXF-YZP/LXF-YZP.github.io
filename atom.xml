@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-12-08T07:53:55.116Z</updated>
+  <updated>2020-12-08T07:57:50.696Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gitignore文件</title>
+    <link href="http://yoursite.com/2020/12/08/gitignore%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2020/12/08/gitignore文件/</id>
+    <published>2020-12-08T11:57:10.000Z</published>
+    <updated>2020-12-08T07:57:50.696Z</updated>
+    
+    <content type="html"><![CDATA[<p>在git项目中想忽略一些文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则。</p><p>例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 此为注释 – 将被 Git 忽略</span><br><span class="line">*.a   # 忽略所有 .a 结尾的文件</span><br><span class="line">!lib.a# 但 lib.a 除外</span><br><span class="line">/TODO # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">build/# 忽略 build/ 目录下的所有文件</span><br><span class="line">doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br></pre></td></tr></table></figure><p>有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;update .gitignore&apos;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在git项目中想忽略一些文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如无，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain
+      
+    
+    </summary>
+    
+    
+      <category term="git命令" scheme="http://yoursite.com/categories/git%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="git用法" scheme="http://yoursite.com/tags/git%E7%94%A8%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>go语言命名返回值</title>
@@ -510,33 +538,6 @@
     
     
       <category term="多线程安全、Java集合、并发容器" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%81Java%E9%9B%86%E5%90%88%E3%80%81%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ConcurrentHashMap详解</title>
-    <link href="http://yoursite.com/2020/07/16/jdk%E6%BA%90%E7%A0%81%E5%8C%85/"/>
-    <id>http://yoursite.com/2020/07/16/jdk源码包/</id>
-    <published>2020-07-16T11:57:10.000Z</published>
-    <updated>2020-07-17T01:42:22.411Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="需要阅读的源码包"><a href="#需要阅读的源码包" class="headerlink" title="需要阅读的源码包"></a>需要阅读的源码包</h5><ul><li>1、java.lang<br>这里面其实就是Java的基本语法，比如各种基本包装类型（Integer、Long、Double等）、基本类（Object，Class，Enum，Exception，Thread）等等…</li><li>2、java.lang.annotation<br>包含Java注解基本元素相关的源码</li><li>3、java.lang.reflect<br>包含Java反射基本元素相关的代码</li><li>4、java.util<br>这里面放的都是Java的基本工具，最典型和常用的就是各种容器和集合（List、Map、Set）</li><li>5、java.util.concurrent<br>大名鼎鼎的JUC包，里面包含了Java并发和多线程编程相关的代码</li><li>6、java.util.function +java.util.stream<br>包含Java函数式编程的常见接口和代码</li><li>7、java.io<br>包含Java传统I/O相关的源码，主要是面向字节和流的I/O</li><li>8、java.nio<br>包含Java非阻塞I/O相关的源码，主要是面向缓冲、通道以及选择器的I/O</li><li>9、java.time<br>包含Java新日期和期间相关的代码，最典型的当属LocalDateTime、DateTimeFormatter等</li><li>10、java.math<br>主要包含一些高精度运算的支持数据类</li><li>11、java.math<br>主要包含一些高精度运算的支持数据类</li><li>12、java.net<br>主要包含Java网络通信（典型的如：Socket通信）相关的源代码。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h5 id=&quot;需要阅读的源码包&quot;&gt;&lt;a href=&quot;#需要阅读的源码包&quot; class=&quot;headerlink&quot; title=&quot;需要阅读的源码包&quot;&gt;&lt;/a&gt;需要阅读的源码包&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;1、java.lang&lt;br&gt;这里面其实就是Java的基本语法，比如各种基本包装
-      
-    
-    </summary>
-    
-    
-      <category term="jdk源码" scheme="http://yoursite.com/categories/jdk%E6%BA%90%E7%A0%81/"/>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
   </entry>
   
