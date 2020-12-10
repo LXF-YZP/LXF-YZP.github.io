@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/12/10/绕过安全验证/ccc.png">
 <meta property="og:image" content="http://yoursite.com/2020/12/10/绕过安全验证/bbb.png">
 <meta property="og:image" content="http://yoursite.com/2020/12/10/绕过安全验证/aaa.png">
-<meta property="og:updated_time" content="2020-12-10T03:40:57.207Z">
+<meta property="og:updated_time" content="2020-12-10T08:11:13.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="绕过安全验证">
 <meta name="twitter:description" content="在postman中请求方式如下：">
@@ -189,8 +189,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">private static final TrustManager[] trustAllCerts = new TrustManager[]&#123;</span><br><span class="line">			new X509TrustManager() &#123;</span><br><span class="line">		@Override</span><br><span class="line">		public X509Certificate[] getAcceptedIssuers() &#123;</span><br><span class="line">			return new X509Certificate[]&#123;&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">		@Override</span><br><span class="line">		public void checkClientTrusted(X509Certificate[] chain, String authType)</span><br><span class="line">				throws CertificateException &#123;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public void checkServerTrusted(X509Certificate[] chain, String authType)</span><br><span class="line">				throws CertificateException &#123;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;&#125;;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * 设置不验证主机</span><br><span class="line">	 */</span><br><span class="line">	private static final HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() &#123;</span><br><span class="line">		@Override</span><br><span class="line">		public boolean verify(String hostname, SSLSession session) &#123;</span><br><span class="line">			return true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * 信任所有</span><br><span class="line">	 * @param connection</span><br><span class="line">	 * @return</span><br><span class="line">	 */</span><br><span class="line">	private static SSLSocketFactory trustAllHosts(HttpsURLConnection connection) &#123;</span><br><span class="line">		SSLSocketFactory oldFactory = connection.getSSLSocketFactory();</span><br><span class="line">		try &#123;</span><br><span class="line">			SSLContext sc = SSLContext.getInstance(&quot;TLS&quot;);</span><br><span class="line">			sc.init(null, trustAllCerts, new java.security.SecureRandom());</span><br><span class="line">			SSLSocketFactory newFactory = sc.getSocketFactory();</span><br><span class="line">			connection.setSSLSocketFactory(newFactory);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return oldFactory;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public static String doPost(String url, Map&lt;String, Object&gt; params,Map&lt;String, String&gt; headers) &#123;</span><br><span class="line">		URL u = null;</span><br><span class="line">		HttpURLConnection con = null;</span><br><span class="line">		HttpsURLConnection cons;</span><br><span class="line">		//构建请求参数</span><br><span class="line">		StringBuffer sb = new StringBuffer();</span><br><span class="line">		if(params!=null)&#123;</span><br><span class="line">			for (Entry&lt;String, Object&gt; e : params.entrySet()) &#123;</span><br><span class="line">				sb.append(e.getKey());</span><br><span class="line">				sb.append(&quot;=&quot;);</span><br><span class="line">				sb.append(e.getValue());</span><br><span class="line">				sb.append(&quot;&amp;&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			sb.substring(0, sb.length() - 2);</span><br><span class="line">		&#125;</span><br><span class="line">		//尝试发送请求</span><br><span class="line">		try &#123;</span><br><span class="line"></span><br><span class="line">			u = new URL(url);</span><br><span class="line">			if ((&quot;https&quot;).equals(u.getProtocol().toLowerCase())) &#123;</span><br><span class="line">				cons = (HttpsURLConnection) u.openConnection();</span><br><span class="line">				trustAllHosts(cons);</span><br><span class="line">				cons.setHostnameVerifier(DO_NOT_VERIFY);</span><br><span class="line">				con = cons;</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				con = (HttpURLConnection) u.openConnection();</span><br><span class="line">			&#125;</span><br><span class="line">			con.setRequestMethod(&quot;POST&quot;);</span><br><span class="line">			con.setDoOutput(true);</span><br><span class="line">			con.setDoInput(true);</span><br><span class="line">			con.setUseCaches(false);</span><br><span class="line">			con.setConnectTimeout(CON_TIME_OUT); </span><br><span class="line">			con.setReadTimeout(READ_TIME_OUT);</span><br><span class="line">			if(headers != null)&#123;</span><br><span class="line">				for (Entry&lt;String, String&gt; entry : headers.entrySet()) &#123;</span><br><span class="line">					con.setRequestProperty(entry.getKey(), entry.getValue());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			con.setRequestProperty(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">			OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream(), &quot;UTF-8&quot;);</span><br><span class="line">			if(params != null) &#123;</span><br><span class="line">				String cont = sb.substring(0, sb.length() - 1).toString();</span><br><span class="line">				osw.write(cont);</span><br><span class="line">			&#125;</span><br><span class="line">			osw.flush();</span><br><span class="line">			osw.close();</span><br><span class="line">		&#125; catch (Exception e)&#123;</span><br><span class="line">			logger.error(&quot;API对接异常！&quot;+url+&quot;参数——》&quot;+sb);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; finally &#123;</span><br><span class="line">		  if (con != null) &#123;</span><br><span class="line">		       con.disconnect();</span><br><span class="line">		     &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		//读取返回内容</span><br><span class="line">		StringBuffer buffer = new StringBuffer();</span><br><span class="line">		try &#123;</span><br><span class="line">			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), &quot;UTF-8&quot;));</span><br><span class="line">			String temp;</span><br><span class="line">			while ((temp = br.readLine()) != null)&#123;</span><br><span class="line">				buffer.append(temp);</span><br><span class="line">				buffer.append(&quot;\n&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;catch (Exception e)&#123;</span><br><span class="line">			logger.error(&quot;API数据读取异常！&quot;+url+&quot;参数——》&quot;+sb);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return buffer.toString();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="在postman中请求方式如下：-1"><a href="#在postman中请求方式如下：-1" class="headerlink" title="在postman中请求方式如下："></a>在postman中请求方式如下：</h3><p><img src="/2020/12/10/绕过安全验证/bbb.png" alt><br><img src="/2020/12/10/绕过安全验证/aaa.png" alt></p>
-<p>后台代码如下：</p>
+<p>后台代码如下：<br>方式一：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">public static String sendPost(String url, JSONObject jsonObject, String token) &#123;</span><br><span class="line"></span><br><span class="line">		String body = &quot;&quot;;</span><br><span class="line">		//创建自定义的httpclient对象</span><br><span class="line">		CloseableHttpClient client = createSSLClientDefault();</span><br><span class="line">		//CloseableHttpClient client = HttpClients.createDefault();</span><br><span class="line">		//执行请求操作，并拿到结果（同步阻塞）</span><br><span class="line">		CloseableHttpResponse response = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			//创建post方式请求对象</span><br><span class="line">			HttpPost httpPost = new HttpPost(url);</span><br><span class="line">			//装填参数</span><br><span class="line">			StringEntity s = new StringEntity(jsonObject.toString(), &quot;utf-8&quot;);</span><br><span class="line">			s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,</span><br><span class="line">					&quot;application/json&quot;));</span><br><span class="line">			//设置参数到请求对象中</span><br><span class="line">			httpPost.setEntity(s);</span><br><span class="line"></span><br><span class="line">			//设置header信息</span><br><span class="line">			//指定报文头【Content-type】、【User-Agent】</span><br><span class="line">			httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span><br><span class="line">			httpPost.setHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + token);</span><br><span class="line">			httpPost.setHeader(&quot;User-Agent&quot;, &quot;Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)&quot;);</span><br><span class="line">			response = client.execute(httpPost);</span><br><span class="line">			//获取结果实体</span><br><span class="line">			HttpEntity entity = response.getEntity();</span><br><span class="line">			if (entity != null) &#123;</span><br><span class="line">				//按指定编码转换结果实体为String类型</span><br><span class="line">				body = EntityUtils.toString(entity, &quot;UTF-8&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			EntityUtils.consume(entity);</span><br><span class="line">			//释放链接</span><br><span class="line">			response.close();</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				client.close();</span><br><span class="line">			&#125; catch (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return body;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	private static CloseableHttpClient createSSLClientDefault() &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() &#123;</span><br><span class="line">				// 信任所有</span><br><span class="line">				@Override</span><br><span class="line">				public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException &#123;</span><br><span class="line">					return true;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;).build();</span><br><span class="line">			SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() &#123;</span><br><span class="line">				@Override</span><br><span class="line">				public boolean verify(String s, SSLSession sslSession) &#123;</span><br><span class="line">					return true;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			return HttpClients.custom().setSSLSocketFactory(sslsf).build();</span><br><span class="line">		&#125; catch (KeyManagementException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; catch (NoSuchAlgorithmException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; catch (KeyStoreException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		return HttpClients.createDefault();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方式二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public static String sendPost(String url, JSONObject jsonObject, String token) &#123;</span><br><span class="line"></span><br><span class="line">		String body = &quot;&quot;;</span><br><span class="line">		//创建自定义的httpclient对象</span><br><span class="line">		CloseableHttpClient client = createSSLClientDefault();</span><br><span class="line">		//CloseableHttpClient client = HttpClients.createDefault();</span><br><span class="line">		//执行请求操作，并拿到结果（同步阻塞）</span><br><span class="line">		CloseableHttpResponse response = null;</span><br><span class="line">		try&#123;</span><br><span class="line">			SSLContextBuilder builder = new SSLContextBuilder();</span><br><span class="line">			builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());</span><br><span class="line">			SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(builder.build(), NoopHostnameVerifier.INSTANCE);</span><br><span class="line">			Registry&lt;ConnectionSocketFactory&gt; registry = RegistryBuilder.&lt;ConnectionSocketFactory&gt;create()</span><br><span class="line">					.register(&quot;http&quot;, new PlainConnectionSocketFactory())</span><br><span class="line">					.register(&quot;https&quot;, sslConnectionSocketFactory)</span><br><span class="line">					.build();</span><br><span class="line"></span><br><span class="line">			PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(registry);</span><br><span class="line">			cm.setMaxTotal(100);</span><br><span class="line">			CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">					.setSSLSocketFactory(sslConnectionSocketFactory)</span><br><span class="line">					.setConnectionManager(cm)</span><br><span class="line">					.build();</span><br><span class="line">			//创建post方式请求对象</span><br><span class="line">			HttpPost httpPost = new HttpPost(url);</span><br><span class="line">			//装填参数</span><br><span class="line">			StringEntity s = new StringEntity(jsonObject.toString(), &quot;utf-8&quot;);</span><br><span class="line">			s.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,</span><br><span class="line">					&quot;application/json&quot;));</span><br><span class="line">			//设置参数到请求对象中</span><br><span class="line">			httpPost.setEntity(s);</span><br><span class="line">			//设置header信息</span><br><span class="line">			//指定报文头【Content-type】、【User-Agent】</span><br><span class="line">			httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span><br><span class="line">			httpPost.setHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + token);</span><br><span class="line">			httpPost.setHeader(&quot;User-Agent&quot;, &quot;Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)&quot;);</span><br><span class="line">			httpPost.expectContinue();</span><br><span class="line">			response = httpclient.execute(httpPost);</span><br><span class="line">			//获取结果实体</span><br><span class="line">			HttpEntity entity = response.getEntity();</span><br><span class="line">			if (entity != null) &#123;</span><br><span class="line">				//按指定编码转换结果实体为String类型</span><br><span class="line">				body = EntityUtils.toString(entity, &quot;UTF-8&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			EntityUtils.consume(entity);</span><br><span class="line">			//释放链接</span><br><span class="line">			response.close();</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				client.close();</span><br><span class="line">			&#125; catch (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return body;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -385,10 +388,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
               </li>
              
@@ -405,7 +404,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -413,11 +412,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
+                <a href="javascript:void(0)" class="js-tag color2">hexo博客</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -426,6 +421,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java基础用法、多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,19 +452,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-锁概念</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+                <a href="javascript:void(0)" class="js-tag color2">Java基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,11 +464,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
+                <a href="javascript:void(0)" class="js-tag color2">数据结构系列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Linux、Vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,11 +500,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+                <a href="javascript:void(0)" class="js-tag color1">多线程Synchronized</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,7 +516,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、ioc</a>
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,7 +528,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,11 +536,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">go语言</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">go语言</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +548,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">hadoop原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,19 +564,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java多线程实现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,6 +588,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-生命周期</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -597,19 +600,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux、进程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">软件安装</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">包安装</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,7 +620,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
+                <a href="javascript:void(0)" class="js-tag color4">Linux、进程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,11 +628,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">Spring、Java、Ioc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +644,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">linux、vim</a>
+                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">linux、vim</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,7 +668,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,11 +676,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-二叉树</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,11 +692,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,19 +708,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Git使用、GitHub使用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构-链表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Git使用、GitHub使用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,7 +732,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -741,7 +740,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -749,7 +748,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,10 +765,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">观察者模式</a>
               </li>
              
               <li class="article-tag-list-item">
