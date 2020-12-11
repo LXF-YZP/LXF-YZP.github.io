@@ -63,7 +63,7 @@
 		</nav>
 		
 		<nav>
-			总文章数 170
+			总文章数 171
 		</nav>
 
 		<nav class="header-smart-menu">
@@ -155,6 +155,135 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-sql注入问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2020/12/11/sql注入问题/">sql注入问题</a>
+    </h1>
+  
+
+        
+        <a href="2020/12/11/sql注入问题/" class="archive-article-date">
+  	<time datetime="2020-12-11T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="什么是sql预编译"><a href="#什么是sql预编译" class="headerlink" title="什么是sql预编译"></a>什么是sql预编译</h4><p>1.1：预编译语句是什么　<br>通常我们的一条sql在db接收到最终执行完毕返回可以分为下面三个过程：</p>
+<ul>
+<li>词法和语义解析</li>
+<li>优化sql语句，制定执行计划</li>
+<li>执行并返回结果</li>
+</ul>
+<p>我们把这种普通语句称作Immediate Statements。　　<br>但是很多情况，我们的一条sql语句可能会反复执行，或者每次执行的时候只有个别的值不同（比如query的where子句值不同，update的set子句值不同,insert的values值不同）。<br>如果每次都需要经过上面的词法语义解析、语句优化、制定执行计划等，则效率就明显不行了。<br>所谓预编译语句就是将这类语句中的值用占位符替代，可以视为将sql语句模板化或者说参数化，一般称这类语句叫Prepared Statements或者Parameterized Statements<br>预编译语句的优势在于归纳为：一次编译、多次运行，省去了解析优化等过程；此外预编译语句能防止sql注入。<br>当然就优化来说，很多时候最优的执行计划不是光靠知道sql语句的模板就能决定了，往往就是需要通过具体值来预估出成本代价。</p>
+<p>1.2：MySQL的预编译功能<br>注意MySQL的老版本（4.1之前）是不支持服务端预编译的，但基于目前业界生产环境普遍情况，基本可以认为MySQL支持服务端预编译。<br>下面我们来看一下MySQL中预编译语句的使用。</p>
+<p>1）建表 </p>
+<p>首先我们有一张测试表t，结构如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show create table t\G</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">       Table: t</span><br><span class="line">Create Table: CREATE TABLE `t` (</span><br><span class="line">  `a` int(11) DEFAULT NULL,</span><br><span class="line">  `b` varchar(20) DEFAULT NULL,</span><br><span class="line">  UNIQUE KEY `ab` (`a`,`b`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8</span><br></pre></td></tr></table></figure>
+
+<p>2）编译</p>
+<p>我们接下来通过 PREPARE stmt_name FROM preparable_stm的语法来预编译一条sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; prepare ins from &apos;insert into t select ?,?&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">Statement prepared</span><br></pre></td></tr></table></figure>
+
+<p>3）执行</p>
+<p>我们通过EXECUTE stmt_name [USING @var_name [, @var_name] …]的语法来执行预编译语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set @a=999,@b=&apos;hello&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"> </span><br><span class="line">mysql&gt; execute ins using @a,@b;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line">Records: 1  Duplicates: 0  Warnings: 0</span><br><span class="line"> </span><br><span class="line">mysql&gt; select * from t;</span><br><span class="line">+------+-------+</span><br><span class="line">| a    | b     |</span><br><span class="line">+------+-------+</span><br><span class="line">|  999 | hello |</span><br><span class="line">+------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，数据已经被成功插入表中。<br>MySQL中的预编译语句作用域是session级，但我们可以通过max_prepared_stmt_count变量来控制全局最大的存储的预编译语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set @@global.max_prepared_stmt_count=1;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"> </span><br><span class="line">mysql&gt; prepare sel from &apos;select * from t&apos;;</span><br><span class="line">ERROR 1461 (42000): Can&apos;t create more than max_prepared_stmt_count statements (current value: 1)</span><br></pre></td></tr></table></figure>
+
+<p>当预编译条数已经达到阈值时可以看到MySQL会报如上所示的错误。<br>4）释放<br>如果我们想要释放一条预编译语句，则可以使用{DEALLOCATE | DROP} PREPARE stmt_name的语法进行操作:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; deallocate prepare ins;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="为什么PrepareStatement可以防止sql注入"><a href="#为什么PrepareStatement可以防止sql注入" class="headerlink" title="为什么PrepareStatement可以防止sql注入"></a>为什么PrepareStatement可以防止sql注入</h4><p>　　原理是采用了预编译的方法，先将SQL语句中可被客户端控制的参数集进行编译，生成对应的临时变量集，再使用对应的设置方法，为临时变量集里面的元素进行赋值，赋值函数setString()，会对传入的参数进行强制类型检查和安全检查，所以就避免了SQL注入的产生。下面具体分析</p>
+<p>1）：为什么Statement会被sql注入<br>因为Statement之所以会被sql注入是因为SQL语句结构发生了变化。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;select*from tablename where username=&apos;&quot;+uesrname+  </span><br><span class="line">&quot;&apos;and password=&apos;&quot;+password+&quot;&apos;&quot;</span><br><span class="line">　　在用户输入&apos;or true or&apos;之后sql语句结构改变。</span><br><span class="line"></span><br><span class="line">select*from tablename where username=&apos;&apos;or true or&apos;&apos; and password=&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>这样本来是判断用户名和密码都匹配时才会计数，但是经过改变后变成了或的逻辑关系，不管用户名和密码是否匹配该式的返回值永远为true;<br>2）为什么Preparement可以防止SQL注入。<br>因为Preparement样式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select*from tablename where username=? and password=?</span><br></pre></td></tr></table></figure>
+
+<p>该SQL语句会在得到用户的输入之前先用数据库进行预编译，这样的话不管用户输入什么用户名和密码的判断始终都是并的逻辑关系，防止了SQL注入<br>简单总结，参数化能防注入的原因在于，语句是语句，参数是参数，参数的值并不是语句的一部分，数据库只按语句的语义跑，至于跑的时候是带一个普通背包还是一个怪物，不会影响行进路线，无非跑的快点与慢点的区别。</p>
+<h4 id="mybatis是如何防止SQL注入的"><a href="#mybatis是如何防止SQL注入的" class="headerlink" title="mybatis是如何防止SQL注入的　　"></a>mybatis是如何防止SQL注入的　　</h4><p>1、首先看一下下面两个sql语句的区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectByNameAndPassword&quot; parameterType=&quot;java.util.Map&quot; resultMap=&quot;BaseResultMap&quot;&gt;</span><br><span class="line">select id, username, password, role</span><br><span class="line">from user</span><br><span class="line">where username = #&#123;username,jdbcType=VARCHAR&#125;</span><br><span class="line">and password = #&#123;password,jdbcType=VARCHAR&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectByNameAndPassword&quot; parameterType=&quot;java.util.Map&quot; resultMap=&quot;BaseResultMap&quot;&gt;</span><br><span class="line">select id, username, password, role</span><br><span class="line">from user</span><br><span class="line">where username = $&#123;username,jdbcType=VARCHAR&#125;</span><br><span class="line">and password = $&#123;password,jdbcType=VARCHAR&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>mybatis中的#和$的区别：</em></strong></p>
+<p>　　1、#将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号。<br>如：where username=#{username}，如果传入的值是111,那么解析成sql时的值为where username=”111”, 如果传入的值是id，则解析成的sql为where username=”id”.　<br>　　2、$将传入的数据直接显示生成在sql中。<br>如：where username=${username}，如果传入的值是111,那么解析成sql时的值为where username=111；<br>如果传入的值是;drop table user;，则解析成的sql为：select id, username, password, role from user where username=;drop table user;<br>　　3、#方式能够很大程度防止sql注入，$方式无法防止Sql注入。<br>　　4、$方式一般用于传入数据库对象，例如传入表名.<br>　　5、一般能用#的就别用$，若不得不使用“${xxx}”这样的参数，要手工地做好过滤工作，来防止sql注入攻击。<br>　　6、在MyBatis中，“${xxx}”这样格式的参数会直接参与SQL编译，从而不能避免注入攻击。但涉及到动态表名和列名时，只能使用“${xxx}”这样的参数格式。所以，这样的参数需要我们在代码中手工进行处理来防止注入。<br>【结论】在编写MyBatis的映射语句时，尽量采用“#{xxx}”这样的格式。若不得不使用“${xxx}”这样的参数，要手工地做好过滤工作，来防止SQL注入攻击。</p>
+<p><strong><em>mybatis是如何做到防止sql注入的</em></strong></p>
+<p>　　MyBatis框架作为一款半自动化的持久层框架，其SQL语句都要我们自己手动编写，这个时候当然需要防止SQL注入。其实，MyBatis的SQL是一个具有“输入+输出”的功能，类似于函数的结构，参考上面的两个例子。其中，parameterType表示了输入的参数类型，resultType表示了输出的参数类型。回应上文，如果我们想防止SQL注入，理所当然地要在输入参数上下功夫。上面代码中使用#的即输入参数在SQL中拼接的部分，传入参数后，打印出执行的SQL语句，会看到SQL是这样的：</p>
+<p>select id, username, password, role from user where username=? and password=?<br>　　不管输入什么参数，打印出的SQL都是这样的。这是因为MyBatis启用了预编译功能，在SQL执行前，会先将上面的SQL发送给数据库进行编译；执行时，直接使用编译好的SQL，替换占位符“?”就可以了。因为SQL注入只能对编译过程起作用，所以这样的方式就很好地避免了SQL注入的问题。</p>
+<p>　　【底层实现原理】MyBatis是如何做到SQL预编译的呢？其实在框架底层，是JDBC中的PreparedStatement类在起作用，PreparedStatement是我们很熟悉的Statement的子类，它的对象包含了编译好的SQL语句。这种“准备好”的方式不仅能提高安全性，而且在多次执行同一个SQL时，能够提高效率。原因是SQL已编译好，再次执行时无需再编译.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SQL、注入</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SQL、注入//" class="article-tag-list-link color2">SQL、注入</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="2020/12/11/sql注入问题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-绕过安全验证" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -961,93 +1090,9 @@
 
 
   
-    <article id="post-kill掉多个进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="2020/08/11/kill掉多个进程/">kill掉多个进程</a>
-    </h1>
-  
-
-        
-        <a href="2020/08/11/kill掉多个进程/" class="archive-article-date">
-  	<time datetime="2020-08-11T11:57:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux |grep beh-oss-minio-test-1.0-SNAPSHOT.jar | grep -v grep| awk &apos;&#123;print $2&#125;&apos; | xargs kill -9</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Linux、进程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux//" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="2020/08/11/kill掉多个进程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/17/">17</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/18/">18</a><a class="extend next" rel="next" href="page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1138,15 +1183,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">多线程安全、Java集合、并发容器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1154,7 +1195,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HTTP、状态码</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,11 +1211,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java集合、容器</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">序列化与反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java、JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1182,19 +1231,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java基础用法、内存模型</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java、设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Java多线程-AQS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java多线程-lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1210,6 +1259,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数据结构、算法</a>
               </li>
              
@@ -1218,15 +1271,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">多线程通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Linux、Vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1234,7 +1279,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">Linux命令</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1242,11 +1287,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
+                <a href="javascript:void(0)" class="js-tag color5">博客随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring、aop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1262,7 +1307,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
+                <a href="javascript:void(0)" class="js-tag color1">Java基础用法、Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1270,19 +1315,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java注解</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Java基础、基本类型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">git用法</a>
+                <a href="javascript:void(0)" class="js-tag color4">RPC，远程调用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1290,7 +1323,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Java基础、基本类型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">go语言</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">git用法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1302,10 +1347,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">java内存机制原理</a>
               </li>
              
@@ -1314,11 +1355,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
+                <a href="javascript:void(0)" class="js-tag color1">大数据技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java多线程-内存模型、happens-before规则</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1334,7 +1375,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java、反射</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1342,11 +1387,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">jdk</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">kafka、大数据</a>
+                <a href="javascript:void(0)" class="js-tag color4">Linux、进程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1362,7 +1411,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
+                <a href="javascript:void(0)" class="js-tag color2">SQL、注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1370,19 +1419,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux、进程</a>
+                <a href="javascript:void(0)" class="js-tag color5">定时任务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java多线程-volatile关键字</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1394,15 +1435,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">java、equals、hashcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">排序算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">linux、vim</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java常用方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">linux、vim</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1418,6 +1467,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据结构-Trie树</a>
               </li>
              
@@ -1430,10 +1483,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">数据结构-图</a>
               </li>
              
@@ -1442,11 +1491,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据结构-散列表</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-跳表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1454,7 +1503,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-队列</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1462,15 +1511,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">包管理工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Git使用、GitHub使用</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+                <a href="javascript:void(0)" class="js-tag color3">数据结构-数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1478,11 +1519,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">英语</a>
+                <a href="javascript:void(0)" class="js-tag color5">滑动窗口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Git使用、GitHub使用</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java、注解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">英语</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1498,10 +1551,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机组成原理-概念</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
@@ -1510,11 +1559,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰器模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
               </li>
              
               <li class="article-tag-list-item">
